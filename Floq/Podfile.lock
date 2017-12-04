@@ -11,6 +11,11 @@ PODS:
   - BoringSSL/Implementation (9.1):
     - BoringSSL/Interface (= 9.1)
   - BoringSSL/Interface (9.1)
+  - DKImagePickerController (3.8.1):
+    - DKImagePickerController/Camera (= 3.8.1)
+    - DKImagePickerController/ImageManager (= 3.8.1)
+  - DKImagePickerController/Camera (3.8.1)
+  - DKImagePickerController/ImageManager (3.8.1)
   - FacebookCore (0.3.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.27)
@@ -154,6 +159,7 @@ PODS:
     - TwitterCore (>= 3.0.3)
 
 DEPENDENCIES:
+  - DKImagePickerController
   - FacebookCore
   - FacebookLogin
   - Firebase
@@ -162,6 +168,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BoringSSL: 84318770d120503ab1a6aaf1df777c5ca053697e
+  DKImagePickerController: 51ad6ee2ba05414bb741db54a72cd7f4fb178e34
   FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
   FacebookLogin: 0af839ea858faef99550d16596b87b4a8e8906e6
   FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
@@ -190,6 +197,6 @@ SPEC CHECKSUMS:
   TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
   TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
 
-PODFILE CHECKSUM: 36218019672134e7debd1a0e1260dbc9b1369bd7
+PODFILE CHECKSUM: d4cda488c61839d366bb33b6120c0fc841f1e346
 
 COCOAPODS: 1.2.0

@@ -22,10 +22,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="mxi-p7-t0Q" kind="show" identifier="pickPhotos" id="5Qu-iy-kLw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="85.599999999999994" y="105.69715142428787"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="xo6-Nz-Pok">
+            <objects>
+                <viewController id="mxi-p7-t0Q" customClass="PhotoViewController" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jtY-dx-GcN"/>
+                        <viewControllerLayoutGuide type="bottom" id="8MP-nP-8Cv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yEh-T1-GwB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEz-aw-psi">
+                                <rect key="frame" x="137" y="75" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Upload photos"/>
+                                <connections>
+                                    <action selector="selectPhoto" destination="mxi-p7-t0Q" eventType="touchUpInside" id="YpM-og-Bat"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bnV-Xq-mrS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1088.8" y="105.69715142428787"/>
         </scene>
     </scenes>
 </document>

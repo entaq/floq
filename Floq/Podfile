@@ -5,4 +5,6 @@ target 'Floq' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
 
+  pod 'DKImagePickerController'
+
 end

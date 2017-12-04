@@ -34,6 +34,7 @@ class ViewController: UIViewController, LoginButtonDelegate {
                     let photoURL = user.photoURL
                     
                     print(uid,email,photoURL)
+                    self.performSegue(withIdentifier: "pickPhotos", sender: nil)
                 }
             }
         }
@@ -58,7 +59,6 @@ class ViewController: UIViewController, LoginButtonDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
