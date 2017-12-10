@@ -103,6 +103,7 @@ PODS:
   - FirebaseUI/Twitter (4.5.0):
     - FirebaseUI/Auth
     - TwitterKit (~> 3.0)
+  - Floaty (4.0.0)
   - GoogleSignIn (4.1.1):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -144,6 +145,11 @@ PODS:
   - GTMSessionFetcher/Core (1.1.12)
   - GTMSessionFetcher/Full (1.1.12):
     - GTMSessionFetcher/Core (= 1.1.12)
+  - IGListKit (3.1.1):
+    - IGListKit/Default (= 3.1.1)
+  - IGListKit/Default (3.1.1):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.1.1)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -164,6 +170,8 @@ DEPENDENCIES:
   - FacebookLogin
   - Firebase
   - FirebaseUI
+  - Floaty (~> 4.0.0)
+  - IGListKit
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -182,6 +190,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 148c25c986c8699e67304b114e365713dce467f2
   FirebaseStorage: 0930e97994dc79b404179bdfafb6b16f59433a82
   FirebaseUI: 883482fea73b73bbb488c55176f4c6ad128957eb
+  Floaty: 4f88811bbf08521807f42355db6a9c0db85d5d78
   GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   gRPC: b56decfd0094854d2ccfe80c8fb767237dace3be
@@ -190,6 +199,7 @@ SPEC CHECKSUMS:
   gRPC-RxLibrary: 4f46343e74e74a7ee8373ffeeaf772dfb330cbd7
   GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
   leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
@@ -197,6 +207,6 @@ SPEC CHECKSUMS:
   TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
   TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
 
-PODFILE CHECKSUM: d4cda488c61839d366bb33b6120c0fc841f1e346
+PODFILE CHECKSUM: d5fba43818b6de09eadfb4f8050ab7801165374b
 
 COCOAPODS: 1.2.0
