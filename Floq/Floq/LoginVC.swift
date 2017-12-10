@@ -11,8 +11,9 @@ import FirebaseAuth
 import FacebookLogin
 import FacebookCore
 
-class ViewController: UIViewController, LoginButtonDelegate {
+class LoginVC: UIViewController, LoginButtonDelegate {
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        
         
         if let accessToken = AccessToken.current {
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
@@ -21,21 +22,7 @@ class ViewController: UIViewController, LoginButtonDelegate {
 //                    // ...
 //                    return
 //                }
-                // User is signed in
-                // ...
-                
-                let user = Auth.auth().currentUser
-                if let user = user {
-                    // The user's ID, unique to the Firebase project.
-                    // Do NOT use this value to authenticate with your backend server,
-                    // if you have one. Use getTokenWithCompletion:completion: instead.
-                    let uid = user.uid
-                    let email = user.email
-                    let photoURL = user.photoURL
-                    
-                    print(uid,email,photoURL)
-                    self.performSegue(withIdentifier: "pickPhotos", sender: nil)
-                }
+               //state change listener down below shoudl pick it up
             }
         }
     }
@@ -47,12 +34,20 @@ class ViewController: UIViewController, LoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let _ = Auth.auth().addStateDidChangeListener() { auth, user in
+            let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
+            
+            loginButton.delegate = self
+            loginButton.center = self.view.center
+            self.view.addSubview(loginButton)
+            if user != nil {
+                self.present(PhotosVC(), animated: true, completion: nil)
+            }
+        }
         
-        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
-    
-        loginButton.delegate = self
-        loginButton.center = view.center
-        view.addSubview(loginButton)
+
+
     }
     
     override func didReceiveMemoryWarning() {
