@@ -62,7 +62,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     func queryPhotos(){
         var set = Set<String>()
         db.collection("floq").document("defaultTest")
-            .collection("photos").getDocuments() { (querySnapshot, err) in
+            .collection("photos").order(by: "fileID", descending: true).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -138,6 +138,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                         userName = realName
                     }
                     newMetadata.customMetadata = [
+                        "fileID" : filePath,
                         "userEmail": userEmail,
                         "userName" : userName,
                         "userID": Auth.auth().currentUser!.uid
