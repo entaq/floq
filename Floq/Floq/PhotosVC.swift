@@ -123,9 +123,9 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
             print(assets)
             
             for asset in assets {
-                asset.originalAsset?.requestContentEditingInput(with: nil, completionHandler: { (contentEditingInput, info) in
-                    let imageFile = contentEditingInput?.fullSizeImageURL
-                    let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))+\(imageFile!.lastPathComponent)"
+                
+                asset.fetchImageDataForAsset(false, completeBlock: { (data, info) in
+                    let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]
                     
                     
@@ -144,22 +144,22 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                     ]
                     
                     self.storageRef.child(filePath)
-                        .putFile(from: imageFile!, metadata: newMetadata) { (metadata, error) in
+                        .putData(data!, metadata: newMetadata, completion: { (metadata, error) in
                             if let error = error {
                                 print("Error uploading: \(error)")
                                 return
                             }
                             print(metadata!, filePath)
-                    }
-                    self.db.collection("floq").document("defaultTest")
-                        .collection("photos").document(filePath)
-                        .setData(newMetadata.customMetadata!) { err in
-                            if let err = err {
-                                print("Error writing document: \(err)")
-                            } else {
-                                print("Document successfully written!")
+                            self.db.collection("floq").document("defaultTest")
+                                .collection("photos").document(filePath)
+                                .setData(newMetadata.customMetadata!) { err in
+                                    if let err = err {
+                                        print("Error writing document: \(err)")
+                                    } else {
+                                        print("Document successfully written!")
+                                    }
                             }
-                    }
+                    })
                     
                     // [END uploadimage]
                 })
