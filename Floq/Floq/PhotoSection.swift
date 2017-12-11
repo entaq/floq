@@ -18,7 +18,7 @@ import Firebase
 
 final class PhotoSection: ListSectionController {
 
-    private var documentID: String?
+    private var photoItem: PhotoItem?
     var storageRef: StorageReference!
 
     override init() {
@@ -40,15 +40,15 @@ final class PhotoSection: ListSectionController {
         let cellClass: AnyClass = index == 0 ? LabelCell.self : ImageCell.self
         let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
         if let cell = cell as? LabelCell {
-            cell.text = documentID
-        } else if let cell = cell as? ImageCell, let documentID = documentID {
-            let reference = storageRef.child(documentID)
+            cell.text = photoItem?.user
+        } else if let cell = cell as? ImageCell, let photoID = photoItem?.photoID {
+            let reference = storageRef.child(photoID)
             cell.setImage(reference: reference)
         }
         return cell
     }
 
     override func didUpdate(to object: Any) {
-        self.documentID = object as? String
+        self.photoItem = object as? PhotoItem
     }
 }

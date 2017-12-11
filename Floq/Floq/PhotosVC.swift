@@ -26,7 +26,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
 
-    var data: [String] = []
+    var data: [PhotoItem] = []
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -67,8 +67,11 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                     print("Error getting documents: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                        if !self.data.contains(document.documentID) {
-                            self.data.append(document.documentID)
+                        guard let userName = document["userName"] as? String else { continue }
+                        
+                        let photoItem = PhotoItem(photoID: document.documentID, user: userName)
+                        if !self.data.contains(photoItem) {
+                            self.data.append(photoItem)
                         }
                         print("\(document.documentID) => \(document.data())")
                     }
@@ -87,8 +90,11 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                 }
                 snapshot.documentChanges.forEach { diff in
                     if (diff.type == .added) {
-                        if !self.data.contains(diff.document.documentID) {
-                            self.data.insert(diff.document.documentID, at: 0)
+                        guard let userName = diff.document["userName"] as? String else { return }
+                        
+                        let photoItem = PhotoItem(photoID: diff.document.documentID, user: userName)
+                        if !self.data.contains(photoItem) {
+                            self.data.insert(photoItem, at: 0)
                             print("photo added: \(diff.document.data())")
                             self.adapter.reloadData(completion: nil)
                         }

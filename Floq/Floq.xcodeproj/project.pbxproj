@@ -17,6 +17,7 @@
 		40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BA1E8891E900200A3F /* Main.storyboard */; };
 		40AA29BE1E8891E900200A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BD1E8891E900200A3F /* Assets.xcassets */; };
 		40AA29C11E8891E900200A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */; };
+		40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */; };
 		BDD0D20C19D0DD84BDB5C758 /* Pods_Floq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48674A44BA36DB0F31439238 /* Pods_Floq.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		40AA29BD1E8891E900200A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40AA29C01E8891E900200A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40AA29C21E8891E900200A3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		48674A44BA36DB0F31439238 /* Pods_Floq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Floq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +86,7 @@
 				40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */,
 				40AA29C21E8891E900200A3F /* Info.plist */,
 				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
+				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
 			);
 			path = Floq;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */,
 				40AA29B91E8891E900200A3F /* LoginVC.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
