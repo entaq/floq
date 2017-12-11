@@ -60,17 +60,18 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     }
     
     func queryPhotos(){
-        var set = Set<String>()
+        data = []
         db.collection("floq").document("defaultTest")
-            .collection("photos").order(by: "fileID", descending: true).getDocuments() { (querySnapshot, err) in
+            .collection("photos").order(by: "timestamp", descending: true).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                        set.insert(document.documentID)
+                        if !self.data.contains(document.documentID) {
+                            self.data.append(document.documentID)
+                        }
                         print("\(document.documentID) => \(document.data())")
                     }
-                    self.data = Array(set)
                     self.adapter.reloadData(completion: nil)
                 }
         }
@@ -150,10 +151,15 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                                 print("Error uploading: \(error)")
                                 return
                             }
-                            print(metadata!, filePath)
+                            var docData: [String: Any] = [
+                                "timestamp" : FieldValue.serverTimestamp()
+                            ]
+                            docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
+                            print(docData, filePath)
+
                             self.db.collection("floq").document("defaultTest")
                                 .collection("photos").document(filePath)
-                                .setData(newMetadata.customMetadata!) { err in
+                                .setData(docData) { err in
                                     if let err = err {
                                         print("Error writing document: \(err)")
                                     } else {
