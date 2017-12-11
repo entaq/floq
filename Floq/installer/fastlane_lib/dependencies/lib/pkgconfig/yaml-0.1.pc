@@ -1,0 +1,10 @@
+prefix=/Users/crashlytics/buildAgent/work/2484be8b71880c21/bundle-2.28.3/fastlane_lib/dependencies
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: LibYAML
+Description: Library to parse and emit YAML
+Version: 0.1.6
+Cflags:
+Libs: -L${libdir} -lyaml

@@ -1,0 +1,13 @@
+prefix=/Users/crashlytics/buildAgent/work/2484be8b71880c21/bundle-2.28.3/fastlane_lib/dependencies
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.11
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

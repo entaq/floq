@@ -1,0 +1,12 @@
+prefix=/Users/crashlytics/buildAgent/work/2484be8b71880c21/bundle-2.28.3/fastlane_lib/dependencies
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenSSL-libssl
+Description: Secure Sockets Layer and cryptography libraries
+Version: 1.0.2g
+Requires.private: libcrypto
+Libs: -lz -L${libdir} -lssl
+Libs.private: -lz
+Cflags: -I${includedir} 
