@@ -24,9 +24,9 @@ PODS:
     - FacebookCore (~> 0.3)
     - FBSDKCoreKit (~> 4.27)
     - FBSDKLoginKit (~> 4.27)
-  - FBSDKCoreKit (4.28.0):
+  - FBSDKCoreKit (4.29.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.28.0):
+  - FBSDKLoginKit (4.29.0):
     - FBSDKCoreKit
   - Firebase (4.7.0):
     - Firebase/Core (= 4.7.0)
@@ -138,7 +138,7 @@ PODS:
   - gRPC/Main (1.7.1):
     - gRPC-Core (= 1.7.1)
     - gRPC-RxLibrary (= 1.7.1)
-  - GTMOAuth2 (1.1.5):
+  - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.1.12):
     - GTMSessionFetcher/Full (= 1.1.12)
@@ -179,8 +179,8 @@ SPEC CHECKSUMS:
   DKImagePickerController: 51ad6ee2ba05414bb741db54a72cd7f4fb178e34
   FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
   FacebookLogin: 0af839ea858faef99550d16596b87b4a8e8906e6
-  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
-  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
+  FBSDKCoreKit: 6f139173dc63a1deaff4430a55f2fe5bb222d2af
+  FBSDKLoginKit: 56a057ca6822535ea0faa25f57a7c41edb697fd4
   Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseAuth: cdeee95b528958dbb7dcf220ad0fb804d3a284b0
@@ -197,10 +197,10 @@ SPEC CHECKSUMS:
   gRPC-Core: 95c4968ae43d29219226f22b656d9f625904281e
   gRPC-ProtoRPC: b7259f51cbc19b77c7a38d96f52a00c3a4ea1637
   gRPC-RxLibrary: 4f46343e74e74a7ee8373ffeeaf772dfb330cbd7
-  GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
+  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
-  leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
