@@ -30,11 +30,25 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
+    var cliqDocumentID: String
+    var cliqName: String?
+
+    init(cliqDocumentID:String, cliqName:String?){
+        self.cliqDocumentID = cliqDocumentID
+        self.cliqName = cliqName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         storageRef = Storage.storage().reference()
         
         view.addSubview(collectionView)
+        self.title = cliqName
         
         let floaty = Floaty()
         
@@ -61,7 +75,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     
     func queryPhotos(){
         data = []
-        db.collection("floq").document("defaultTest")
+        db.collection("floq").document(cliqDocumentID)
             .collection("photos").order(by: "timestamp", descending: true).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -82,7 +96,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
 
     func watchForPhotos() {
         // Do any additional setup after loading the view.
-        db.collection("floq").document("defaultTest").collection("photos")
+        db.collection("floq").document(cliqDocumentID).collection("photos")
             .addSnapshotListener { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     print("Error fetching snapshots: \(error!)")
@@ -163,7 +177,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                             docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                             print(docData, filePath)
 
-                            self.db.collection("floq").document("defaultTest")
+                            self.db.collection("floq").document(self.cliqDocumentID)
                                 .collection("photos").document(filePath)
                                 .setData(docData) { err in
                                     if let err = err {

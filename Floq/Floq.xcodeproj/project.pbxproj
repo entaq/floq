@@ -12,6 +12,12 @@
 		407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997F71FDCDF8900AAE42A /* ImageCell.swift */; };
 		407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997F81FDCDF8900AAE42A /* PhotosVC.swift */; };
 		407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997FD1FDCE0ED00AAE42A /* LabelCell.swift */; };
+		40A1F74120F2F80F00DDA0B1 /* CliqsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74020F2F80F00DDA0B1 /* CliqsVC.swift */; };
+		40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */; };
+		40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74720F3052E00DDA0B1 /* FloatLabelTextField.swift */; };
+		40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74920F3056B00DDA0B1 /* CustomCells.swift */; };
+		40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74C20F3082800DDA0B1 /* ImagePickerController.swift */; };
+		40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1F74E20F3083A00DDA0B1 /* ImageRow.swift */; };
 		40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA29B61E8891E900200A3F /* AppDelegate.swift */; };
 		40AA29B91E8891E900200A3F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA29B81E8891E900200A3F /* LoginVC.swift */; };
 		40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BA1E8891E900200A3F /* Main.storyboard */; };
@@ -29,6 +35,12 @@
 		407997F71FDCDF8900AAE42A /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		407997F81FDCDF8900AAE42A /* PhotosVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		407997FD1FDCE0ED00AAE42A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		40A1F74020F2F80F00DDA0B1 /* CliqsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CliqsVC.swift; sourceTree = "<group>"; };
+		40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCliqVC.swift; sourceTree = "<group>"; };
+		40A1F74720F3052E00DDA0B1 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
+		40A1F74920F3056B00DDA0B1 /* CustomCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCells.swift; sourceTree = "<group>"; };
+		40A1F74C20F3082800DDA0B1 /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
+		40A1F74E20F3083A00DDA0B1 /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		40AA29B31E8891E900200A3F /* Floq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Floq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AA29B61E8891E900200A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40AA29B81E8891E900200A3F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -53,6 +65,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */ = {
+			isa = PBXGroup;
+			children = (
+				40A1F74B20F3080A00DDA0B1 /* ImageRow */,
+				40A1F74720F3052E00DDA0B1 /* FloatLabelTextField.swift */,
+				40A1F74920F3056B00DDA0B1 /* CustomCells.swift */,
+			);
+			path = CustomEurekaFiles;
+			sourceTree = "<group>";
+		};
+		40A1F74B20F3080A00DDA0B1 /* ImageRow */ = {
+			isa = PBXGroup;
+			children = (
+				40A1F74C20F3082800DDA0B1 /* ImagePickerController.swift */,
+				40A1F74E20F3083A00DDA0B1 /* ImageRow.swift */,
+			);
+			path = ImageRow;
+			sourceTree = "<group>";
+		};
 		40AA29AA1E8891E900200A3F = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +105,7 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
+				40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */,
 				407997F71FDCDF8900AAE42A /* ImageCell.swift */,
 				407997FD1FDCE0ED00AAE42A /* LabelCell.swift */,
 				406493811FDDAC3F00224DF8 /* PhotoSection.swift */,
@@ -87,6 +119,8 @@
 				40AA29C21E8891E900200A3F /* Info.plist */,
 				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
 				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
+				40A1F74020F2F80F00DDA0B1 /* CliqsVC.swift */,
+				40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */,
 			);
 			path = Floq;
 			sourceTree = "<group>";
@@ -196,11 +230,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
@@ -224,6 +258,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
@@ -247,6 +282,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
@@ -299,7 +335,13 @@
 				40AA29B91E8891E900200A3F /* LoginVC.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
+				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
+				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */,
+				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
+				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
+				40A1F74120F2F80F00DDA0B1 /* CliqsVC.swift in Sources */,
+				40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
 			);

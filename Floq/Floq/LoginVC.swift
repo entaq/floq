@@ -42,7 +42,8 @@ class LoginVC: UIViewController, LoginButtonDelegate {
             loginButton.center = self.view.center
             self.view.addSubview(loginButton)
             if user != nil {
-                self.present(PhotosVC(), animated: true, completion: nil)
+                let navVC = UINavigationController(rootViewController: CliqsVC())
+                self.present(navVC, animated: true, completion: nil)
             }
         }
         
