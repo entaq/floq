@@ -9,4 +9,5 @@ target 'Floq' do
   pod 'DKImagePickerController'
   pod 'IGListKit'
   pod 'Floaty', '~> 4.0.0' # Use version 4.0.0 for Swift 4.0
+  pod 'Eureka'
 end
