@@ -25,6 +25,24 @@
 		40AA29C11E8891E900200A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */; };
 		40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */; };
 		BDD0D20C19D0DD84BDB5C758 /* Pods_Floq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48674A44BA36DB0F31439238 /* Pods_Floq.framework */; };
+		C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D521A22DF500D3B0E6 /* DataService.swift */; };
+		C48A57D821A22E0900D3B0E6 /* PhotoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D721A22E0900D3B0E6 /* PhotoEngine.swift */; };
+		C48A57DA21A22E4400D3B0E6 /* Helpers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D921A22E4400D3B0E6 /* Helpers+Extensions.swift */; };
+		C4A2A42421A22A10006DFE6E /* GridPhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42321A22A10006DFE6E /* GridPhotoSection.swift */; };
+		C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42521A22AA8006DFE6E /* FullScreenPhotoSection.swift */; };
+		C4A2A42821A22B37006DFE6E /* FLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42721A22B37006DFE6E /* FLUser.swift */; };
+		C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42921A22B4E006DFE6E /* FLCliqItem.swift */; };
+		C4A2A42C21A22B5E006DFE6E /* GridPhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42B21A22B5E006DFE6E /* GridPhotoItem.swift */; };
+		C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A42D21A22BBE006DFE6E /* BaseButton.swift */; };
+		C4A2A43021A22C21006DFE6E /* cliqCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A2A42F21A22C21006DFE6E /* cliqCells.xib */; };
+		C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A2A43121A22C3F006DFE6E /* FullScreenCell.xib */; };
+		C4A2A43821A22C4A006DFE6E /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43221A22C41006DFE6E /* PhotoCell.swift */; };
+		C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43321A22C42006DFE6E /* CliqsCell.swift */; };
+		C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43421A22C44006DFE6E /* SupportViews.swift */; };
+		C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43521A22C48006DFE6E /* FullScreenCell.swift */; };
+		C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A2A43621A22C4A006DFE6E /* PhotoCell.xib */; };
+		C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */; };
+		C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +69,24 @@
 		40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		48674A44BA36DB0F31439238 /* Pods_Floq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Floq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.release.xcconfig"; sourceTree = "<group>"; };
+		C48A57D521A22DF500D3B0E6 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		C48A57D721A22E0900D3B0E6 /* PhotoEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEngine.swift; sourceTree = "<group>"; };
+		C48A57D921A22E4400D3B0E6 /* Helpers+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Helpers+Extensions.swift"; sourceTree = "<group>"; };
+		C4A2A42321A22A10006DFE6E /* GridPhotoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPhotoSection.swift; sourceTree = "<group>"; };
+		C4A2A42521A22AA8006DFE6E /* FullScreenPhotoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenPhotoSection.swift; sourceTree = "<group>"; };
+		C4A2A42721A22B37006DFE6E /* FLUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLUser.swift; sourceTree = "<group>"; };
+		C4A2A42921A22B4E006DFE6E /* FLCliqItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLCliqItem.swift; sourceTree = "<group>"; };
+		C4A2A42B21A22B5E006DFE6E /* GridPhotoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridPhotoItem.swift; sourceTree = "<group>"; };
+		C4A2A42D21A22BBE006DFE6E /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		C4A2A42F21A22C21006DFE6E /* cliqCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cliqCells.xib; sourceTree = "<group>"; };
+		C4A2A43121A22C3F006DFE6E /* FullScreenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullScreenCell.xib; sourceTree = "<group>"; };
+		C4A2A43221A22C41006DFE6E /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		C4A2A43321A22C42006DFE6E /* CliqsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CliqsCell.swift; sourceTree = "<group>"; };
+		C4A2A43421A22C44006DFE6E /* SupportViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
+		C4A2A43521A22C48006DFE6E /* FullScreenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenCell.swift; sourceTree = "<group>"; };
+		C4A2A43621A22C4A006DFE6E /* PhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCliqVC.swift; sourceTree = "<group>"; };
+		C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFullScreenVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,23 +142,84 @@
 			isa = PBXGroup;
 			children = (
 				40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */,
-				407997F71FDCDF8900AAE42A /* ImageCell.swift */,
-				407997FD1FDCE0ED00AAE42A /* LabelCell.swift */,
-				406493811FDDAC3F00224DF8 /* PhotoSection.swift */,
-				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
+				C4A2A42021A22944006DFE6E /* Model */,
+				C4A2A41E21A22910006DFE6E /* SectionControllers */,
+				C4A2A42121A2294C006DFE6E /* View */,
+				C4A2A42221A22959006DFE6E /* Controller */,
+				C4A2A41F21A2292F006DFE6E /* Services */,
 				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
 				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
-				40AA29B81E8891E900200A3F /* LoginVC.swift */,
 				40AA29BA1E8891E900200A3F /* Main.storyboard */,
 				40AA29BD1E8891E900200A3F /* Assets.xcassets */,
 				40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */,
 				40AA29C21E8891E900200A3F /* Info.plist */,
 				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
-				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
-				40A1F74020F2F80F00DDA0B1 /* CliqsVC.swift */,
-				40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */,
 			);
 			path = Floq;
+			sourceTree = "<group>";
+		};
+		C4A2A41E21A22910006DFE6E /* SectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				406493811FDDAC3F00224DF8 /* PhotoSection.swift */,
+				C4A2A42321A22A10006DFE6E /* GridPhotoSection.swift */,
+				C4A2A42521A22AA8006DFE6E /* FullScreenPhotoSection.swift */,
+			);
+			path = SectionControllers;
+			sourceTree = "<group>";
+		};
+		C4A2A41F21A2292F006DFE6E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C48A57D921A22E4400D3B0E6 /* Helpers+Extensions.swift */,
+				C48A57D721A22E0900D3B0E6 /* PhotoEngine.swift */,
+				C48A57D521A22DF500D3B0E6 /* DataService.swift */,
+			);
+			name = Services;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C4A2A42021A22944006DFE6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C4A2A42B21A22B5E006DFE6E /* GridPhotoItem.swift */,
+				C4A2A42921A22B4E006DFE6E /* FLCliqItem.swift */,
+				C4A2A42721A22B37006DFE6E /* FLUser.swift */,
+				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
+			);
+			name = Model;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C4A2A42121A2294C006DFE6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C4A2A42F21A22C21006DFE6E /* cliqCells.xib */,
+				407997F71FDCDF8900AAE42A /* ImageCell.swift */,
+				407997FD1FDCE0ED00AAE42A /* LabelCell.swift */,
+				C4A2A42D21A22BBE006DFE6E /* BaseButton.swift */,
+				C4A2A43321A22C42006DFE6E /* CliqsCell.swift */,
+				C4A2A43521A22C48006DFE6E /* FullScreenCell.swift */,
+				C4A2A43121A22C3F006DFE6E /* FullScreenCell.xib */,
+				C4A2A43221A22C41006DFE6E /* PhotoCell.swift */,
+				C4A2A43621A22C4A006DFE6E /* PhotoCell.xib */,
+				C4A2A43421A22C44006DFE6E /* SupportViews.swift */,
+			);
+			name = View;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C4A2A42221A22959006DFE6E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				40AA29B81E8891E900200A3F /* LoginVC.swift */,
+				40A1F74020F2F80F00DDA0B1 /* CliqsVC.swift */,
+				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
+				40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */,
+				C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */,
+				C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		C6C4421E77313EAEA9683D29 /* Frameworks */ = {
@@ -215,8 +312,11 @@
 			files = (
 				40AA29C11E8891E900200A3F /* LaunchScreen.storyboard in Resources */,
 				4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */,
+				C4A2A43021A22C21006DFE6E /* cliqCells.xib in Resources */,
 				40AA29BE1E8891E900200A3F /* Assets.xcassets in Resources */,
+				C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */,
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
+				C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,18 +330,25 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -257,20 +364,28 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/CLImageEditor/CLImageEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/DKCamera/DKCamera.framework",
 				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/DKPhotoGallery/DKPhotoGallery.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
@@ -281,20 +396,28 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CLImageEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKCamera.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKPhotoGallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
@@ -332,16 +455,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */,
+				C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */,
 				40AA29B91E8891E900200A3F /* LoginVC.swift in Sources */,
+				C4A2A42421A22A10006DFE6E /* GridPhotoSection.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
+				C48A57D821A22E0900D3B0E6 /* PhotoEngine.swift in Sources */,
+				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
+				C48A57DA21A22E4400D3B0E6 /* Helpers+Extensions.swift in Sources */,
+				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */,
+				C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */,
+				C4A2A42821A22B37006DFE6E /* FLUser.swift in Sources */,
+				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
+				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
+				C4A2A42C21A22B5E006DFE6E /* GridPhotoItem.swift in Sources */,
+				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
+				C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */,
 				40A1F74120F2F80F00DDA0B1 /* CliqsVC.swift in Sources */,
+				C4A2A43821A22C4A006DFE6E /* PhotoCell.swift in Sources */,
 				40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */,
+				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
 			);

@@ -17,38 +17,36 @@ import IGListKit
 import Firebase
 
 final class PhotoSection: ListSectionController {
-
-    private var photoItem: PhotoItem?
+    
+    private var cliq: FLCliqItem?
     var storageRef: StorageReference!
-
+    
     override init() {
         super.init()
         storageRef = Storage.storage().reference()
     }
-
+    
     override func numberOfItems() -> Int {
-        return 2
+        return 1
     }
-
+    
     override func sizeForItem(at index: Int) -> CGSize {
-        let width: CGFloat = collectionContext?.containerSize.width ?? 0
-        let height: CGFloat = CGFloat(index == 0 ? 55 : 200)
-        return CGSize(width: width, height: height)
+        let width: CGFloat = collectionContext?.containerSize.width  ?? 0
+        let height: CGFloat = CGFloat(index == 0 ? 200 : 2)
+        return CGSize(width: width , height: height)
     }
+    
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cellClass: AnyClass = index == 0 ? LabelCell.self : ImageCell.self
-        let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
-        if let cell = cell as? LabelCell {
-            cell.text = photoItem?.user
-        } else if let cell = cell as? ImageCell, let photoID = photoItem?.photoID {
-            let reference = storageRef.child(photoID)
-            cell.setImage(reference: reference)
+        if let cell = collectionContext?.dequeueReusableCell(withNibName: "cliqCells", bundle: Bundle.main, for: self, at: index) as? CliqsCell {
+            let reference = storageRef.child(cliq?.photoItem.photoID ?? "")
+            cell.configureView(reference: reference, title: cliq!.cliqname, creator:cliq!.photoItem.user)
+            return cell
         }
-        return cell
+        return ImageCell()
     }
-
+    
     override func didUpdate(to object: Any) {
-        self.photoItem = object as? PhotoItem
+        self.cliq = object as? FLCliqItem
     }
 }

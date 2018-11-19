@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -15,24 +15,29 @@
 import UIKit
 import IGListKit
 import DKImagePickerController
-import Firebase
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseAuth
 import Floaty
 
-final class PhotosVC: UIViewController, ListAdapterDataSource {
-    var storageRef: StorageReference!
-    let db = Firestore.firestore()
 
+final class PhotosVC: UIViewController, ListAdapterDataSource {
+    
+    private var storageRef:StorageReference{
+        return Storage.storage().reference()
+    }
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
-
-    var data: [PhotoItem] = []
+    
+    var data: [GridPhotoItem] = []
+    
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
     var cliqDocumentID: String
     var cliqName: String?
-
+    var photoEngine:PhotoEngine = PhotoEngine()
     init(cliqDocumentID:String, cliqName:String?){
         self.cliqDocumentID = cliqDocumentID
         self.cliqName = cliqName
@@ -45,8 +50,9 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        storageRef = Storage.storage().reference()
+        collectionView.backgroundColor = UIColor.globalbackground()
         
+        navigationItem.hidesBackButton = false
         view.addSubview(collectionView)
         self.title = cliqName
         
@@ -63,89 +69,78 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                 print("error trying to logout")
             }
         })
-
-
+        
+        
         view.addSubview(floaty)
-
+        
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        queryPhotos()
-        watchForPhotos()
+        
+        photoEngine.watchForPhotos(cliqDocumentID: cliqDocumentID) { (photos, errm) in
+            if let items = photos {
+                
+                self.data = items
+                self.adapter.reloadData(completion: nil)
+                
+            }
+        }
+        
     }
     
-    func queryPhotos(){
-        data = []
-        db.collection("floq").document(cliqDocumentID)
-            .collection("photos").order(by: "timestamp", descending: true).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        guard let userName = document["userName"] as? String else { continue }
-                        
-                        let photoItem = PhotoItem(photoID: document.documentID, user: userName)
-                        if !self.data.contains(photoItem) {
-                            self.data.append(photoItem)
-                        }
-                        print("\(document.documentID) => \(document.data())")
-                    }
-                    self.adapter.reloadData(completion: nil)
-                }
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
-
-    func watchForPhotos() {
-        // Do any additional setup after loading the view.
-        db.collection("floq").document(cliqDocumentID).collection("photos")
-            .addSnapshotListener { documentSnapshot, error in
-                guard let snapshot = documentSnapshot else {
-                    print("Error fetching snapshots: \(error!)")
-                    return
-                }
-                snapshot.documentChanges.forEach { diff in
-                    if (diff.type == .added) {
-                        guard let userName = diff.document["userName"] as? String else { return }
-                        
-                        let photoItem = PhotoItem(photoID: diff.document.documentID, user: userName)
-                        if !self.data.contains(photoItem) {
-                            self.data.insert(photoItem, at: 0)
-                            print("photo added: \(diff.document.data())")
-                            self.adapter.reloadData(completion: nil)
-                        }
-                    }
-                }
-        }
-    }
+    
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-
+    
     // MARK: ListAdapterDataSource
-
+    
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-
+        
         return data as [ListDiffable]
     }
-
+    
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return PhotoSection()
+        let gridSection = GridPhotoSection()
+        gridSection.delegate = self
+        return gridSection
     }
-
+    
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
+        let uiview = UIView(frame: view.frame)
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
+        label.numberOfLines = 10
+        label.textAlignment = .center
+        label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.text = "Oops, this cliq is empty, try adding some photos"
+        label.center = uiview.center
+        uiview.addSubview(label)
+        return uiview
     }
-
+    
+    
+    
+    
+    
     @objc func selectPhoto() {
         let pickerController = DKImagePickerController()
+        let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
+        activityIndicator.label.text = "Uploading Photos, Please wait.."
         
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
             print("didSelectAssets")
             print(assets)
-            
+            self.view.addSubview(activityIndicator)
             for asset in assets {
                 
-                asset.fetchImageDataForAsset(false, completeBlock: { (data, info) in
+                asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]
                     
@@ -165,29 +160,14 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
                         "userID": Auth.auth().currentUser!.uid
                     ]
                     
-                    self.storageRef.child(filePath)
-                        .putData(data!, metadata: newMetadata, completion: { (metadata, error) in
-                            if let error = error {
-                                print("Error uploading: \(error)")
-                                return
-                            }
-                            var docData: [String: Any] = [
-                                "timestamp" : FieldValue.serverTimestamp()
-                            ]
-                            docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
-                            print(docData, filePath)
-
-                            self.db.collection("floq").document(self.cliqDocumentID)
-                                .collection("photos").document(filePath)
-                                .setData(docData) { err in
-                                    if let err = err {
-                                        print("Error writing document: \(err)")
-                                    } else {
-                                        print("Document successfully written!")
-                                    }
-                            }
+                    self.photoEngine.storeImage(filePath: filePath, data: UIImageJPEGRepresentation(data!, 1)!, id: self.cliqDocumentID, newMetadata: newMetadata, onFinish: { (suc, err) in
+                        if let err = err{
+                            self.present(createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
+                        }else{
+                            activityIndicator.removeFromSuperview()
+                            self.present(createDefaultAlert("SUCCESS", "Photo succesfully added to cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
+                        }
                     })
-                    
                     // [END uploadimage]
                 })
                 
@@ -198,3 +178,15 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
         
     }
 }
+
+
+
+extension PhotosVC:GridPhotoSectionDelegate{
+    
+    func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
+        let actualIndex = photoEngine.getTrueIndex(of: photo)
+        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex)
+        navigationController?.pushViewController(fullscreen, animated: true)
+    }
+}
+

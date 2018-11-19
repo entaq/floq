@@ -10,31 +10,58 @@ import UIKit
 import IGListKit
 import Firebase
 import Floaty
+import CoreLocation
+import Geofirestore
 
-final class CliqsVC : UIViewController, ListAdapterDataSource, UICollectionViewDelegate {
-    var storageRef: StorageReference!
-    let db = Firestore.firestore()
+final class CliqsVC : UIViewController {
     
+    
+    var  fluser:FLUser?
+    private var photoEngine:PhotoEngine!
+    private var locationManager:CLLocationManager!
+    private var queryhandle:GFSQueryHandle?
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
-    var data: [PhotoItem] = []
+    func setupLocation(){
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    convenience init(_ fluser:FLUser?) {
+        self.init()
+        self.fluser = fluser
+    }
+    
+    var data: [FLCliqItem] = []
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        storageRef = Storage.storage().reference()
-
+        view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        photoEngine = PhotoEngine()
+        collectionView.backgroundColor = UIColor.globalbackground()
+        
+        setupLocation()
         self.title = "Floq"
-
+        
         view.addSubview(collectionView)
-
+        
         let floaty = Floaty()
-
+        floaty.buttonColor = .clear
+        floaty.buttonImage = UIImage(named: "page1")
+        
         floaty.addItem("Create a Cliq", icon: UIImage(named: "AppIcon")!, handler: { item in
-            self.navigationController?.pushViewController(CreateCliqVC(), animated: true)
+            self.present(AddCliqVC(), animated: true, completion: nil)
         })
         floaty.addItem("Logout", icon: UIImage(named: "logout")!, handler: { item in
             do {
@@ -44,13 +71,11 @@ final class CliqsVC : UIViewController, ListAdapterDataSource, UICollectionViewD
                 print("error trying to logout")
             }
         })
-
+        
         view.addSubview(floaty)
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        queryPhotos()
-        watchForPhotos()
     }
     
     override func viewDidLayoutSubviews() {
@@ -58,57 +83,28 @@ final class CliqsVC : UIViewController, ListAdapterDataSource, UICollectionViewD
         collectionView.frame = view.bounds
     }
     
-    func queryPhotos() {
-        data = []
-        db.collection("floq").order(by: "timestamp", descending: true).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        guard let cliqName = document["cliqName"] as? String else { continue }
-
-                        let photoItem = PhotoItem(photoID: document.documentID, user: cliqName)
-                        if !self.data.contains(photoItem) {
-                            self.data.append(photoItem)
-                        }
-                        print("\(document.documentID) => \(document.data())")
-                    }
+    
+    func fetchNearbyCliqs(point:GeoPoint){
+        
+        photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
+            if let cliq = cliq {
+                if !self.data.contains(cliq) {
+                    self.data.append(cliq)
                     self.adapter.reloadData(completion: nil)
+                }else{
+                    print("Error occurred with signature: \(errM ?? "Unknown Error")")
                 }
-        }
+            }
+        })
+        
     }
     
-    func watchForPhotos() {
-        // Do any additional setup after loading the view.
-        db.collection("floq")
-            .addSnapshotListener { documentSnapshot, error in
-                guard let snapshot = documentSnapshot else {
-                    print("Error fetching snapshots: \(error!)")
-                    return
-                }
-                snapshot.documentChanges.forEach { diff in
-                    if (diff.type == .added) {
-                        guard let cliqName = diff.document["cliqName"] as? String else { return }
+    
+    
+}
 
-                        let photoItem = PhotoItem(photoID: diff.document.documentID, user: cliqName)
-                        if !self.data.contains(photoItem) {
-                            self.data.insert(photoItem, at: 0)
-                            print("photo added: \(diff.document.data())")
-                            self.adapter.reloadData(completion: nil)
-                        }
-                    }
-                }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = self.data[indexPath.section]
-        let documentID = photo.photoID
-        let cliqName = photo.user
-        self.navigationController?.pushViewController(PhotosVC(cliqDocumentID: documentID, cliqName: cliqName), animated: true)
-    }
-    
-    // MARK: ListAdapterDataSource
+
+extension CliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         
@@ -120,9 +116,43 @@ final class CliqsVC : UIViewController, ListAdapterDataSource, UICollectionViewD
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
+        let view = UIView(frame: self.view.frame)
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
+        label.numberOfLines = 10
+        label.textAlignment = .center
+        label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.text = "Oops, there are no cliqs nearby, try creating a cliq in this location"
+        label.center = view.center
+        view.addSubview(label)
+        return view
     }
-
     
-   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cliq = self.data[indexPath.section]
+        let documentID = cliq.itemID
+        let cliqName = cliq.cliqname
+        self.navigationController?.pushViewController(PhotosVC(cliqDocumentID: documentID, cliqName: cliqName), animated: true)
+        
+    }
+}
+
+
+extension CliqsVC:CLLocationManagerDelegate{
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let userLocation = locations.first else{
+            return
+        }
+        let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        fetchNearbyCliqs(point: point)
+        locationManager?.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
 }
