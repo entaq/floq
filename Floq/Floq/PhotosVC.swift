@@ -50,15 +50,14 @@ final class PhotosVC: UIViewController {
         collectionView.backgroundColor = .globalbackground
         
         navigationItem.hidesBackButton = false
+          navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.addSubview(collectionView)
-        self.title = cliq.name
-        
-        let floaty = UIButton(frame: CGRect(x: view.frame.width - 80, y: view.frame.height - 150, width: 50, height: 50))
-        floaty.backgroundColor = .clear
-        floaty.setImage(.icon_addPhoto, for: .normal)
-        floaty.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
         
         
+        let floaty = Floaty()
+        floaty.buttonColor = .seafoamBlue
+        floaty.plusColor = .white
+        floaty.fabDelegate = self
         view.addSubview(floaty)
         
         adapter.collectionView = collectionView
@@ -77,6 +76,7 @@ final class PhotosVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.title = cliq.name
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
@@ -85,9 +85,9 @@ final class PhotosVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
-        userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
         userlistbutt.setAvatar(uid: cliq.creatorUid)
-        let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         let tp = UITapGestureRecognizer(target: self, action: #selector(userlistTapped))
         tp.numberOfTapsRequired = 1
         uiview.addGestureRecognizer(tp)
@@ -102,6 +102,7 @@ final class PhotosVC: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserListVC.self)) as? UserListVC{
             vc.list = list
+            vc.cliq = cliq
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -203,3 +204,10 @@ extension PhotosVC:GridPhotoSectionDelegate{
     }
 }
 
+
+extension PhotosVC:FloatyDelegate{
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        selectPhoto()
+    }
+}

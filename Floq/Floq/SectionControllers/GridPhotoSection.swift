@@ -22,7 +22,7 @@ final class GridPhotoSection: ListSectionController {
     override init() {
         super.init()
         
-        storageRef = Storage.storage().reference()
+        storageRef = Storage.floqPhotos
     }
     
     override func numberOfItems() -> Int {

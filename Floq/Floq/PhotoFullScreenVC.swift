@@ -16,6 +16,8 @@ class PhotoFullScreenVC: UIViewController {
     var selectedIndex:Int = 0
     var floqname:String
     var userUid:String?
+    var username:String?
+    var total:Int!
     init(allphotos:[PhotoItem], selected index:Int, name:String){
         self.allphotos =  allphotos
         self.selectedIndex = index
@@ -49,11 +51,20 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        total = allphotos.count
+        
+          navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let butt = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         navigationItem.rightBarButtonItem = butt
         view.addSubview(collectionView)
         collectionView.isPagingEnabled = true
+    }
+    
+    
+    
+    func updateTitle(index:Int){
+        title = "\(index + 1) / \(total!)"
     }
     
     @objc func share(){
@@ -79,11 +90,11 @@ class PhotoFullScreenVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
-        setAvatarView()
+        
         collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        
+        setAvatarView()
         adapter.reloadData(completion: nil)
         let obj = allphotos[selectedIndex]
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
@@ -148,18 +159,23 @@ extension PhotoFullScreenVC:ListAdapterDataSource{
 
 extension PhotoFullScreenVC:FullScreenScetionDelegate{
     
-    func willDisplayPhoto(with reference: StorageReference, for userid:String) {
-        userUid = userid
+    func willDisplayPhoto(with reference: StorageReference, for user: (String,String)) {
+        userUid = user.0
         avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
+        username = user.1
     }
+    
+    func willDisplayIndex(_ index:Int){
+        
+    }
+    
     
     @objc func tappedAvatar(_ tapGestureRecognizer:UITapGestureRecognizer){
         if let id  = userUid{
-            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
-                vc.userID = id
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
+            let vc = ProfileImageVC(id: id, name:username ?? "Floq user")
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         }
     }
 }

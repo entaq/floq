@@ -14,6 +14,7 @@ class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layer.cornerRadius = 3
         // Initialization code
     }
     

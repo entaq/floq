@@ -33,15 +33,13 @@ class DataService{
         return db
     }
     
-    var storageRef:StorageReference{
-        return Storage.storage().reference()
-    }
+    
     
     private var geofireRef:CollectionReference{
         return store.collection(References.flocations.rawValue)
     }
     
-    private var photoRefs:CollectionReference{
+    private var floqRef:CollectionReference{
         return store.collection(References.floqs.rawValue)
     }
     
@@ -57,7 +55,7 @@ class DataService{
         userRef.document(user.uid).setData(data) { (err) in
             if let error = err {
                 if let url = user.profileImg{
-                    self.storageRef.child(References.userProfilePhotos.rawValue).child(user.uid).putFile(from: url)
+                    Storage.reference(.userProfilePhotos).child(user.uid).putFile(from: url)
                 }
                 handler(nil, error.localizedDescription)
             }else{
@@ -70,14 +68,18 @@ class DataService{
         let downloader = SDWebImageDownloader.shared()
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
-                self.storageRef.child(References.userProfilePhotos.rawValue).child(uid).putData(image.pngData() ?? data!)
+                Storage.reference(.userProfilePhotos).child(uid).putData(image.pngData() ?? data!)
             }
         }
     }
     
     func joinCliq(key:String, data:[String:Any]){
-        let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue) ?? ""
-        userRef.document(uid).collection(.myCliqs).document(key).setData(data, merge: true) { err in
+        let batch = store.batch()
+        let uid = UserDefaults.uid()
+        batch.setData(data, forDocument: userRef.document(uid).collection(.myCliqs).document(key), merge:true)
+        let clef = floqRef.document(key).collection(.followers).document(uid)
+        batch.updateData(["\(Fields.followers.rawValue).\(uid)":Date()], forDocument: clef)
+        batch.commit { (err) in
             Logger.log(err)
         }
     }
@@ -109,12 +111,13 @@ class DataService{
             Fields.username.rawValue : userName,
             Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
             Fields.cliqname.rawValue : name
-        ]
+            
+            ]
         
         var data = Data()
         data = image.jpegData(compressionQuality: 1.0)!
         
-        self.storageRef.child(filePath)
+       Storage.floqPhotos.child(filePath)
             .putData(data, metadata: newMetadata, completion: { (metadata, error) in
                 if let error = error {
                     onFinish(false,"Error uploading: \(error)")
@@ -122,15 +125,19 @@ class DataService{
                     return
                 }
                 var docData: [String: Any] = [
-                    "timestamp" : FieldValue.serverTimestamp()
+                    "timestamp" : FieldValue.serverTimestamp(),
+                    Fields.followers.rawValue: [UserDefaults.uid():Date()]
                 ]
                 docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                 print(docData, filePath)
-                batch.setData(docData, forDocument: self.photoRefs.document(filePath), merge: true)
-                docData.removeValue(forKey: "cliqName")
+                batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
+                
                 let addata = [Fields.uid.rawValue:uid, Fields.dateCreated.rawValue:docData[Fields.timestamp.rawValue]!]
                 batch.setData(addata, forDocument: self.userRef.document(uid).collection(.myCliqs).document(filePath), merge: true)
-                batch.setData(docData, forDocument:self.photoRefs.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
+                docData.removeValue(forKey: Fields.cliqname.rawValue)
+                docData.removeValue(forKey:  Fields.followers.rawValue)
+                docData.removeValue(forKey:  Fields.userEmail.rawValue)
+                batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
                 batch.commit(completion: { (err) in
                     if err != nil {
                         onFinish(false,"Error writing document data")

@@ -17,6 +17,10 @@ extension Storage{
         return storage().reference().child(ref.rawValue)
     }
     
+    public class var floqPhotos:StorageReference{
+        return reference(.storageFloqs)
+    }
+    
     class func saveAvatar(image:UIImage, completion:@escaping CompletionHandlers.storage){
         let data = image.pngData()
         if data != nil{

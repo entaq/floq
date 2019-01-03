@@ -31,22 +31,20 @@ class MyCliqsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "My Cliqs"
+        
+          navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         let floaty = Floaty()
         floaty.buttonColor = .clear
-        floaty.buttonImage = UIImage(named: "page1")
+        floaty.buttonImage = .icon_app_rounded
+        floaty.fabDelegate = self
         
-        floaty.addItem("Create a Cliq", icon: UIImage(named: "AppIcon")!, handler: { item in
-            self.present(AddCliqVC(), animated: true, completion: nil)
-        })
-        view.addSubview(floaty)
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         collectionView.backgroundColor = UIColor.globalbackground
         view.addSubview(collectionView)
         
         let barbutt = UIBarButtonItem(image: .icon_menu, style: .plain, target: self, action: #selector(accountMenuTapped))
         navigationItem.rightBarButtonItem = barbutt
-        
+        view.addSubview(floaty)
     }
     
     
@@ -65,7 +63,10 @@ class MyCliqsVC: UIViewController {
         adapter.dataSource = self
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "My Cliqs"
+    }
     
     
 
@@ -92,5 +93,13 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cliq = photoEngine.myCliqs[indexPath.section]
         self.navigationController?.pushViewController(PhotosVC(cliq: cliq), animated: true)
+    }
+}
+
+
+extension MyCliqsVC:FloatyDelegate{
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        self.present(AddCliqVC(), animated: true, completion: nil)
     }
 }

@@ -55,23 +55,20 @@ final class HomeVC : UIViewController {
         collectionView.backgroundColor = UIColor.globalbackground
         
         setupLocation()
-        self.title = "Floq"
+        
         
         view.addSubview(collectionView)
         
         let floaty = Floaty()
         floaty.buttonColor = .clear
-        floaty.buttonImage = UIImage(named: "page1")
+        floaty.buttonImage = .icon_app_rounded
         
-        floaty.addItem("Create a Cliq", icon: UIImage(named: "AppIcon")!, handler: { item in
+        floaty.addItem("Create a Cliq", icon:.icon_app, handler: { item in
             self.present(AddCliqVC(), animated: true, completion: nil)
         })
-        floaty.addItem("Logout", icon: UIImage(named: "logout")!, handler: { item in
-            do {
-                try Auth.auth().signOut()
-                self.dismiss(animated: true, completion: nil)
-            } catch {
-                print("error trying to logout")
+        floaty.addItem("Profile", icon:.placeholder, handler: { item in
+            if let vc = UIStoryboard.main.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         })
         
@@ -87,6 +84,12 @@ final class HomeVC : UIViewController {
                 
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        title = "Floq"
+        
     }
     
     override func viewDidLayoutSubviews() {

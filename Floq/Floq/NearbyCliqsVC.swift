@@ -50,6 +50,8 @@ class NearbyCliqsVC: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+          navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         photoEngine = PhotoEngine()
         collectionView.backgroundColor = .globalbackground
@@ -63,9 +65,14 @@ class NearbyCliqsVC: UIViewController{
         }
         setupLocation()
         
-
+        let floaty = Floaty()
+        floaty.buttonColor = .clear
+        floaty.buttonImage = .icon_app_rounded
+        floaty.fabDelegate = self
+        
+        
         view.addSubview(collectionView)
-
+        view.addSubview(floaty)
 
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
@@ -75,6 +82,11 @@ class NearbyCliqsVC: UIViewController{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "Near Me"
     }
 
 
@@ -145,4 +157,12 @@ extension NearbyCliqsVC:CLLocationManagerDelegate{
         print("Error \(error)")
     }
 
+}
+
+extension NearbyCliqsVC:FloatyDelegate{
+    
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        self.present(AddCliqVC(), animated: true, completion: nil)
+    }
 }

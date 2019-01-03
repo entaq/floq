@@ -30,23 +30,32 @@ class FLCliqItem:ListDiffable, Equatable{
     public private (set) var item:PhotoItem
     public private (set) var name:String
     public private (set) var creatorUid:String
+    public private (set) var followers: Aliases.follower_set
+    public private (set) var isActive:Bool
 
     public var joined:Bool
     
-    init(snapshot:DocumentSnapshot,_ joined:Bool = false) {
+    init(snapshot:DocumentSnapshot) {
         id = snapshot.documentID
         self.name = snapshot.getString(.cliqname)
         creatorUid = snapshot.getString(.userUID)
-        item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: snapshot.getDate(.timestamp),uid:creatorUid)
-        self.joined = false
+        let timestamp = snapshot.getDate(.timestamp)
+        item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
+        
+        let data = snapshot.getDictionary(.followers)
+        var followers:Aliases.follower_set = [:]
+        for (key,val) in data{
+            let ts = (val as? Timestamp)?.dateValue().unix_ts ?? 0
+            followers.updateValue(ts, forKey: key)
+        }
+        self.followers = followers
+        if followers.isEmpty{
+            self.followers.updateValue(snapshot.getDate(.timestamp).unix_ts, forKey: creatorUid)
+        }
+        isActive = timestamp > Date()
+        joined = (followers[UserDefaults.uid()] != nil) 
         
     }
-    init(id:String,name:String, item:PhotoItem,uid:String, joined:Bool) {
-        self.id = id
-        self.item = item
-        self.name = name
-        creatorUid = uid
-        self.joined = joined
-    }
+    
     
 }

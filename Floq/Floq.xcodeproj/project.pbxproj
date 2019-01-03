@@ -25,6 +25,7 @@
 		40AA29C11E8891E900200A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */; };
 		40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */; };
 		BDD0D20C19D0DD84BDB5C758 /* Pods_Floq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48674A44BA36DB0F31439238 /* Pods_Floq.framework */; };
+		C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */; };
 		C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */; };
 		C434C50B21DBA9DB003333A1 /* FIRStorage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */; };
 		C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */; };
@@ -56,7 +57,7 @@
 		C4D1E08E21D8AC7D00C5ED9A /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */; };
 		C4D1E09121D8ADDD00C5ED9A /* LoggerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */; };
 		C4D1E09321D8AE4100C5ED9A /* FoundationTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */; };
-		C4D1E09521DA7E2E00C5ED9A /* FLCliqsModeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09421DA7E2E00C5ED9A /* FLCliqsModeller.swift */; };
+		C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */; };
 		C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */; };
 		C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */; };
 /* End PBXBuildFile section */
@@ -85,6 +86,7 @@
 		40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		48674A44BA36DB0F31439238 /* Pods_Floq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Floq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.release.xcconfig"; sourceTree = "<group>"; };
+		C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlbum.swift; sourceTree = "<group>"; };
 		C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FIRStorage+Extensions.swift"; sourceTree = "<group>"; };
 		C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKitModules+Extensions.swift"; sourceTree = "<group>"; };
@@ -116,7 +118,7 @@
 		C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 		C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerService.swift; sourceTree = "<group>"; };
 		C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FoundationTypes+Extensions.swift"; sourceTree = "<group>"; };
-		C4D1E09421DA7E2E00C5ED9A /* FLCliqsModeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCliqsModeller.swift; sourceTree = "<group>"; };
+		C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionableCliq.swift; sourceTree = "<group>"; };
 		C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,7 +222,7 @@
 				C4A2A42921A22B4E006DFE6E /* FLCliqItem.swift */,
 				C4A2A42721A22B37006DFE6E /* FLUser.swift */,
 				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
-				C4D1E09421DA7E2E00C5ED9A /* FLCliqsModeller.swift */,
+				C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */,
 			);
 			name = Model;
 			path = "New Group";
@@ -262,6 +264,7 @@
 				C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */,
 				C434C51021DCBE33003333A1 /* MyCliqsVC.swift */,
 				C434C51421DD2BA0003333A1 /* UserListVC.swift */,
+				C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
 				C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */,
 				C4A2A42C21A22B5E006DFE6E /* GridPhotoItem.swift in Sources */,
+				C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */,
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
@@ -548,7 +552,7 @@
 				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
-				C4D1E09521DA7E2E00C5ED9A /* FLCliqsModeller.swift in Sources */,
+				C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

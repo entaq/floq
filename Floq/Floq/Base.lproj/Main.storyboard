@@ -24,16 +24,56 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="logoFloq" translatesAutoresizingMaskIntoConstraints="NO" id="7YO-nK-qXS">
                                 <rect key="frame" x="104" y="20" width="167" height="74"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="featherLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uZs-4o-huJ">
-                                <rect key="frame" x="0.0" y="337" width="110" height="330"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscapeLineArt" translatesAutoresizingMaskIntoConstraints="NO" id="Jzc-ez-JsP">
+                                <rect key="frame" x="0.0" y="497" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="TEU-Sv-cCj"/>
+                                </constraints>
                             </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="featherLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uZs-4o-huJ">
+                                <rect key="frame" x="20" y="337" width="110" height="330"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="drI-eN-t3k">
+                                <rect key="frame" x="157.5" y="607" width="60" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wYr-89-vdh"/>
+                                    <constraint firstAttribute="width" constant="60" id="wfS-Hh-UXG"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floq is a location-based photo sharing app that lets you share and access photos socially in collective albums called cliqs" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZ9-mr-X0u">
+                                <rect key="frame" x="37" y="110" width="301" height="95.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create or join a cliq anywhere and experience sharing the way it was meant to be" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59O-qo-y9K">
+                                <rect key="frame" x="37" y="221.5" width="301" height="68.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.30588235294117649" green="0.80392156862745101" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="drI-eN-t3k" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Bs-xd-rIy"/>
+                            <constraint firstItem="59O-qo-y9K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="4EG-s5-Mp4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="drI-eN-t3k" secondAttribute="bottom" constant="20" id="9HK-Vh-i3G"/>
                             <constraint firstItem="7YO-nK-qXS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Aze-dX-YyR"/>
-                            <constraint firstItem="uZs-4o-huJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="U5y-C3-99e"/>
+                            <constraint firstAttribute="trailing" secondItem="Jzc-ez-JsP" secondAttribute="trailing" id="CJB-CG-gTv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dZ9-mr-X0u" secondAttribute="trailing" constant="21" id="GiI-8G-ECc"/>
+                            <constraint firstItem="uZs-4o-huJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="U5y-C3-99e"/>
+                            <constraint firstItem="Jzc-ez-JsP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VZz-Nn-7vn"/>
+                            <constraint firstItem="dZ9-mr-X0u" firstAttribute="top" secondItem="7YO-nK-qXS" secondAttribute="bottom" constant="16" id="Xgt-p1-Y41"/>
                             <constraint firstItem="7YO-nK-qXS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YVG-rq-Lm8"/>
+                            <constraint firstItem="59O-qo-y9K" firstAttribute="top" secondItem="dZ9-mr-X0u" secondAttribute="bottom" constant="16" id="buR-CQ-PAF"/>
+                            <constraint firstItem="dZ9-mr-X0u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="liI-ao-pcY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="59O-qo-y9K" secondAttribute="trailing" constant="21" id="m97-I7-hXd"/>
+                            <constraint firstItem="59O-qo-y9K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="og6-qy-fgM"/>
                             <constraint firstItem="uZs-4o-huJ" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="u8T-lK-XWD"/>
+                            <constraint firstItem="drI-eN-t3k" firstAttribute="top" secondItem="Jzc-ez-JsP" secondAttribute="bottom" constant="60" id="v8s-lt-VUE"/>
+                            <constraint firstItem="dZ9-mr-X0u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wMV-XC-EET"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -173,6 +213,7 @@
                             <constraint firstItem="h0n-81-1dI" firstAttribute="top" secondItem="kRk-Tg-Bz3" secondAttribute="bottom" id="Bhv-bP-3gK"/>
                             <constraint firstItem="DwC-ki-nH8" firstAttribute="top" secondItem="MAT-Zj-IBU" secondAttribute="bottom" constant="8" id="GFs-yk-A0O"/>
                             <constraint firstItem="yDl-Xf-DkX" firstAttribute="top" secondItem="h0n-81-1dI" secondAttribute="bottom" id="JGs-RU-Vgd"/>
+                            <constraint firstItem="h0n-81-1dI" firstAttribute="centerX" secondItem="hDc-hn-cX7" secondAttribute="centerX" id="KjJ-yZ-RLD"/>
                             <constraint firstItem="Ikz-jj-nmO" firstAttribute="leading" secondItem="hDc-hn-cX7" secondAttribute="leading" id="XP3-og-yUH"/>
                             <constraint firstItem="Ikz-jj-nmO" firstAttribute="top" secondItem="hDc-hn-cX7" secondAttribute="top" id="etk-0T-Rt0"/>
                             <constraint firstItem="kRk-Tg-Bz3" firstAttribute="top" secondItem="Ikz-jj-nmO" secondAttribute="bottom" id="ijc-NK-2il"/>
@@ -387,6 +428,7 @@
     </scenes>
     <resources>
         <image name="featherLarge" width="110" height="330"/>
+        <image name="landscapeLineArt" width="375" height="64"/>
         <image name="logoFloq" width="167" height="74"/>
     </resources>
 </document>

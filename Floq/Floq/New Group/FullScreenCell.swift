@@ -11,7 +11,7 @@ import FirebaseStorage
 class FullScreenCell: UICollectionViewCell {
     
     private var storageRef:StorageReference{
-        return Storage.storage().reference()
+        return Storage.floqPhotos
     }
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {

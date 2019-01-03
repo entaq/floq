@@ -44,14 +44,10 @@ class CliqsCell: UICollectionViewCell {
         imagevOverlay.layer.cornerRadius = 5.0
     }
     
-    private var storageRef:StorageReference{
-        return Storage.storage().reference()
-    }
-    
     func configureView(cliq:FLCliqItem, key:keys?) {
         self.cliq = cliq
         numberOfCliqslbl.isHidden = true
-        let reference = storageRef.child(cliq.item.photoID)
+        let reference = Storage.floqPhotos.child(cliq.item.photoID)
         imageview.sd_setImage(with: reference, placeholderImage: nil)
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.name
@@ -70,7 +66,7 @@ class CliqsCell: UICollectionViewCell {
         
         if cliq.joined{
             joinbutt.isEnabled = false
-            joinbutt.setTitle("Leave Cliq", for: .normal)
+            joinbutt.setTitle("Joined", for: .normal)
         }
     }
     func setupCollectionView(){
@@ -79,11 +75,12 @@ class CliqsCell: UICollectionViewCell {
     
     func configureViewForSection(cliq:SectionableCliq){
         let cl = cliq.getFirstItem()
-        let reference = storageRef.child(cl.item.photoID)
+        let reference = Storage.floqPhotos.child(cl.item.photoID)
         imageview.sd_setImage(with: reference, placeholderImage: nil)
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.sectionType.rawValue
         self.creator.isHidden = true
+        avi.isHidden = true
         numberOfCliqslbl.isHidden = false
         joinbutt.isHidden = true
         if cliq.sectionType == .near{
@@ -100,7 +97,7 @@ class CliqsCell: UICollectionViewCell {
 
     @IBAction func jointapped(_ sender: Any) {
         if let cliq = cliq{
-            if cliq.joined{
+            if !cliq.joined{
                 let data = [Fields.dateCreated.rawValue:cliq.item.timestamp,Fields.uid.rawValue:cliq.id] as [String : Any]
                 DataService.main.joinCliq(key: cliq.id, data: data)
                 joinbutt.setTitle("Joined", for: .normal)

@@ -11,9 +11,11 @@ import UIKit
 class UserListVC: UITableViewController {
 
     var list:[Aliases.stuple]!
-    
+    var cliq:FLCliqItem!
     override func viewDidLoad() {
         super.viewDidLoad()
+          navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        title = "Cliq Details"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -48,6 +50,10 @@ class UserListVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Members in this Cliq"
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Cliq created on \(cliq.item.timestamp.toStringwith(.month_day_year)) by \(cliq.item.user)"
     }
 
     /*

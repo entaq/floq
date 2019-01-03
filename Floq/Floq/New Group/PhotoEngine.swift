@@ -24,9 +24,7 @@ class PhotoEngine{
     }
     
     
-    private var storageRef:StorageReference{
-        return storage.reference()
-    }
+
     private var geofire:GeoFirestore{
         return GeoFirestore(collectionRef: database.collection(References.flocations.rawValue))
     }
@@ -69,6 +67,7 @@ class PhotoEngine{
         let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
             return (value.key,value.value.0, value.value.1)
         }
+        
         return stup
     }
     
@@ -85,12 +84,8 @@ class PhotoEngine{
                             onFinish(nil,"Document does not exist")
                             return
                         }
-                        let cliqName = snapshot!.getString(Fields.cliqname)
-                        let username = snapshot!.getString(Fields.username)
-                        let ts = snapshot!.getDate(Fields.timestamp)
-                        let uid = snapshot!.getString(.userUID)
-                        let photoItem = PhotoItem(photoID: id, user: username, timestamp: ts,uid:uid)
-                        let cliq = FLCliqItem(id: id, name: cliqName, item: photoItem, uid:uid,joined: false)
+                        
+                        let cliq = FLCliqItem(snapshot: snapshot!)
                         onFinish(cliq,nil)
                         
                     }else{
@@ -181,7 +176,7 @@ class PhotoEngine{
     func getMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
         var counter = 0
         let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
-        userRef.document(uid).collection(.myCliqs).order(by: Fields.dateCreated.rawValue, descending: true).limit(to: 25).getDocuments { (snap, err) in
+        userRef.document(uid).collection(.myCliqs).order(by: Fields.dateCreated.rawValue, descending: true).limit(to: 25).addSnapshotListener { (snap, err) in
             
             if let snap = snap{
                 for doc in snap.documentChanges{
@@ -189,19 +184,21 @@ class PhotoEngine{
                         self.mycliqIds.insert(doc.document.documentID)
                         counter += 1
                         if let dsnap = docsnap{
-                            let cliq = FLCliqItem(snapshot: dsnap, true)
+                            let cliq = FLCliqItem(snapshot: dsnap)
                             
                             if !self.myCliqs.contains(cliq){
                                self.myCliqs.append(cliq)
+                                print("The count is: \(snap.count)")
                                 if counter == snap.count{
                                     handler()
-                                    counter = 0
+                                   
                                 }
                             }
                         }else{
+                            print("The count is: \(snap.count)")
                             if counter == snap.count{
                                 handler()
-                                counter = 0
+                                
                             }
                         }
                     })
@@ -223,7 +220,7 @@ class PhotoEngine{
     
     
     func storeImage(filePath:String, data:Data,id:String, newMetadata:StorageMetadata, onFinish:@escaping CompletionHandlers.dataservice){
-        self.storageRef.child(filePath)
+        Storage.floqPhotos.child(filePath)
             .putData(data, metadata: newMetadata, completion: { (metadata, error) in
                 if let error = error {
                     print("Error uploading: \(error)")

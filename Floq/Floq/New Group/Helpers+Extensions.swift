@@ -38,11 +38,14 @@ enum CompletionHandlers{
 
 enum References:String{
     case users = "FLUSER"
-    case floqs = "floq"
+    case floqs = "FLFLOQs"
     case flocations = "FLLocations"
-    case photos = "photos"
+    case photos = "Photos"
     case myCliqs = "Cliqs"
     case userProfilePhotos = "ProfilePhotos"
+    case followers = "Followers"
+    case storageFloqs = "FLFloqPhotos"
+    
 }
 
 enum Fields:String{
@@ -57,6 +60,8 @@ enum Fields:String{
     case userEmail = "userEmail"
     case latestCliq = "latestCliq"
     case cliqCount = "cliqCount"
+    case dateJoined = "dateJoined"
+    case followers = "followers"
 }
 
 enum keys:String{
@@ -71,6 +76,7 @@ public enum Aliases{
     public typealias sset = Set<String>
     public typealias stuple = (String,String,Int)
     public typealias stray = Array<String>
+    public typealias follower_set = Dictionary<String,Int>
 }
 
 enum InfoMessages:String{
@@ -81,3 +87,12 @@ enum InfoMessages:String{
 }
 
 
+enum DateFormats:String{
+    case short_t = "MM-dd-yyyy HH:mm"
+    case shirt_nt = "MM/dd/yyyy"
+    case year_month = "MMMM yyyy"
+    case month_day_year = "MMM d, yyyy"
+    case long_epoch = "E, d MMM yyyy HH:mm:ss Z"
+    case no_year_t = "MMM d, h:mm a"
+    case no_year_nt = "MMM d"
+}

@@ -13,7 +13,8 @@ import FirebaseStorage
 
 protocol FullScreenScetionDelegate:class {
     
-    func willDisplayPhoto(with reference:StorageReference, for userid:String)
+    func willDisplayPhoto(with reference:StorageReference, for user:(String,String))
+    func willDisplayIndex(_ index:Int)
 }
 
 final class FullScreenPhotoSection: ListSectionController {
@@ -59,19 +60,19 @@ extension FullScreenPhotoSection: ListDisplayDelegate{
     
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
         if let photo = photo{
-            let reference = DataService.main.storageRef.child(References.userProfilePhotos.rawValue).child(photo.userUid)
-            print("This is the ref: \(reference)")
-            delegate?.willDisplayPhoto(with: reference, for:photo.userUid)
+            let reference = Storage.reference(.userProfilePhotos).child(photo.userUid)
+           // print("This is the ref: \(reference)")
+            delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user))
         }
     }
     
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
-        print("End display Cell")
+        //print("End display Cell")
     }
     
     
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
-        
+        delegate?.willDisplayIndex(index)
         
         //print("The reference is \(reference)")
         //avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
