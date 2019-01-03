@@ -19,12 +19,22 @@ import Firebase
 final class PhotoSection: ListSectionController {
     
     private var cliq: FLCliqItem?
+    private var sectionClq:SectionableCliq?
     var storageRef: StorageReference!
-    
+    var isHome:Bool = false
+    var key:keys?
     override init() {
         super.init()
         storageRef = Storage.storage().reference()
     }
+    
+    convenience init(isHome:Bool, keys:keys? = nil) {
+        self.init()
+        self.isHome = isHome
+        key = keys
+    }
+    
+    
     
     override func numberOfItems() -> Int {
         return 1
@@ -39,14 +49,22 @@ final class PhotoSection: ListSectionController {
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         if let cell = collectionContext?.dequeueReusableCell(withNibName: "cliqCells", bundle: Bundle.main, for: self, at: index) as? CliqsCell {
-            let reference = storageRef.child(cliq?.photoItem.photoID ?? "")
-            cell.configureView(reference: reference, title: cliq!.cliqname, creator:cliq!.photoItem.user)
+            if isHome{
+                cell.configureViewForSection(cliq: sectionClq!)
+            }else{
+                cell.configureView(cliq:cliq!, key:key)
+            }
+            
             return cell
         }
         return ImageCell()
     }
     
     override func didUpdate(to object: Any) {
-        self.cliq = object as? FLCliqItem
+        if isHome{
+            self.sectionClq = object as? SectionableCliq
+        }else{
+          self.cliq = object as? FLCliqItem
+        }
     }
 }

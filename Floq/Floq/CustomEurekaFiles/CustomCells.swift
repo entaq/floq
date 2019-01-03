@@ -33,7 +33,7 @@ public class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell whe
     
     public var textField: UITextField! { return floatLabelTextField }
     
-    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    required public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
@@ -65,7 +65,7 @@ public class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell whe
         super.update()
         textLabel?.text = nil
         detailTextLabel?.text = nil
-        floatLabelTextField.attributedPlaceholder = NSAttributedString(string: row.title ?? "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+        floatLabelTextField.attributedPlaceholder = NSAttributedString(string: row.title ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         floatLabelTextField.text =  row.displayValueFor?(row.value)
         floatLabelTextField.isEnabled = !row.isDisabled
         floatLabelTextField.titleTextColour = .lightGray
@@ -163,7 +163,7 @@ public class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell whe
 
 public class TextFloatLabelCell : _FloatLabelCell<String>, CellType {
     
-    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    required public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     

@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 import Geofirestore
 
 class PhotoEngine{
@@ -16,6 +17,8 @@ class PhotoEngine{
     private var geopoint:GeoPoint!
     private let RADIUS = 1.0
     private var allphotos:[PhotoItem] = []
+    public private (set) var mycliqIds:Set<String> = []
+    
     private var storage:Storage{
         return Storage.storage()
     }
@@ -26,6 +29,10 @@ class PhotoEngine{
     }
     private var geofire:GeoFirestore{
         return GeoFirestore(collectionRef: database.collection(References.flocations.rawValue))
+    }
+    
+    private var userRef:CollectionReference{
+        return database.collection(.users)
     }
     
     private var database:Firestore{
@@ -46,6 +53,27 @@ class PhotoEngine{
         return allphotos
     }
     
+    func getAllPhotoMetadata()->[Aliases.stuple]{
+        var dictHolder:[String:(String,Int)] = [:]
+        let all = allPhotos.compactMap { item -> [String:String] in
+            return [item.userUid:item.user]
+        }
+        
+        
+        for item in all{
+            var count = dictHolder[item.first?.key ?? ""]?.1 ?? 0
+            count += 1
+            dictHolder.updateValue((item.first!.value,count), forKey: item.first!.key)
+        }
+        
+        let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
+            return (value.key,value.value.0, value.value.1)
+        }
+        return stup
+    }
+    
+    public private (set) var myCliqs:[FLCliqItem] = []
+    
     
     func queryForCliqsAt(geopoint:GeoPoint,onFinish:@escaping CompletionHandlers.nearbyCliqs){
         query = geofire.query(withCenter: geopoint, radius: RADIUS)
@@ -60,8 +88,9 @@ class PhotoEngine{
                         let cliqName = snapshot!.getString(Fields.cliqname)
                         let username = snapshot!.getString(Fields.username)
                         let ts = snapshot!.getDate(Fields.timestamp)
-                        let photoItem = PhotoItem(photoID: id, user: username, timestamp: ts)
-                        let cliq = FLCliqItem(id: id, name: cliqName, item: photoItem)
+                        let uid = snapshot!.getString(.userUID)
+                        let photoItem = PhotoItem(photoID: id, user: username, timestamp: ts,uid:uid)
+                        let cliq = FLCliqItem(id: id, name: cliqName, item: photoItem, uid:uid,joined: false)
                         onFinish(cliq,nil)
                         
                     }else{
@@ -84,7 +113,7 @@ class PhotoEngine{
                     for document in querySnapshot!.documents {
                         guard let userName = document["userName"] as? String else { continue }
                         let ts = document.getDate(.timestamp)
-                        let photoItem = PhotoItem(photoID: document.documentID, user: userName, timestamp: ts)
+                        let photoItem = PhotoItem(photoID: document.documentID, user: userName, timestamp: ts,uid:document.getString(.userUID))
                         if !data.contains(photoItem) {
                             data.append(photoItem)
                         }
@@ -130,7 +159,8 @@ class PhotoEngine{
                     if (diff.type == .added) {
                         guard let userName = diff.document["userName"] as? String else { return }
                         let ts = diff.document.getDate(.timestamp)
-                        let photoItem = PhotoItem(photoID: diff.document.documentID, user: userName, timestamp:ts)
+                        let fileID = diff.document.getString(Fields.fileID)
+                        let photoItem = PhotoItem(photoID: fileID, user: userName, timestamp:ts,uid:diff.document.getString(.userUID))
                         if !self.allphotos.contains(photoItem) {
                             self.allphotos.append(photoItem)
                             print("photo added: \(diff.document.data())")
@@ -142,6 +172,41 @@ class PhotoEngine{
                         }
                     }
                 }
+        }
+    }
+    
+    //Optimization (Save Latest Cliq in firestore document)
+    //Query Archived cliqs in last 24hrs for the Near Me section.
+    
+    func getMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
+        var counter = 0
+        let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
+        userRef.document(uid).collection(.myCliqs).order(by: Fields.dateCreated.rawValue, descending: true).limit(to: 25).getDocuments { (snap, err) in
+            
+            if let snap = snap{
+                for doc in snap.documentChanges{
+                    self.floqRef.document(doc.document.documentID).getDocument(completion: { (docsnap, err) in
+                        self.mycliqIds.insert(doc.document.documentID)
+                        counter += 1
+                        if let dsnap = docsnap{
+                            let cliq = FLCliqItem(snapshot: dsnap, true)
+                            
+                            if !self.myCliqs.contains(cliq){
+                               self.myCliqs.append(cliq)
+                                if counter == snap.count{
+                                    handler()
+                                    counter = 0
+                                }
+                            }
+                        }else{
+                            if counter == snap.count{
+                                handler()
+                                counter = 0
+                            }
+                        }
+                    })
+                }
+            }
         }
     }
     
@@ -194,19 +259,3 @@ class PhotoEngine{
 }
 
 
-extension DocumentSnapshot{
-    
-    func getString(_ field:Fields)->String{
-        if let data = get(field.rawValue) as? String{
-            return data
-        }
-        return ""
-    }
-    
-    func getDate(_ field:Fields)->Date{
-        if let date = get(field.rawValue) as? Date {
-            return date
-        }
-        return Date()
-    }
-}

@@ -15,12 +15,15 @@ final class PhotoItem: ListDiffable, Equatable {
     let photoID: String
     let user: String
     let timestamp:Date
+    let userUid:String
     
-    init(photoID: String, user: String, timestamp:Date) {
+    init(photoID: String, user: String, timestamp:Date,uid:String) {
         self.photoID = photoID
         self.user = user
         self.timestamp = timestamp
+        self.userUid = uid
     }
+    
     
     // MARK: ListDiffable
     

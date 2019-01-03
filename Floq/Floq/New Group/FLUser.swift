@@ -11,36 +11,17 @@ import Foundation
 
 class FLUser{
     
-    private var _uid:String!
-    private var _username:String!
-    private var _floqs:[String]?
-    
-    var uid:String{
-        return _uid
-    }
-    
-    var username:String{
-        get{
-            return _username
-        }
-        set{
-            _username = newValue
-        }
-    }
-    
-    var floqs:[String]?{
-        get{
-            return _floqs
-        }
-        set{
-            _floqs = newValue
-        }
-    }
+    public private (set) var uid:String!
+    public private (set) var username:String!
+    public private (set) var floqs:[String]?
+    public private (set) var profileImg:URL?
+
     
     
-    init(uid:String, username:String?, floqs:[String]?) {
-        _username = username ?? "Floq User"
-        _uid = uid
-        _floqs = floqs
+    init(uid:String, username:String?,profUrl:URL?, floqs:[String]?) {
+        self.username = username ?? "Floq User"
+        self.uid = uid
+        self.floqs = floqs
+        profileImg = profUrl
     }
 }

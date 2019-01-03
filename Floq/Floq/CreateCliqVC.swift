@@ -77,7 +77,7 @@ class CreateCliqVC : FormViewController {
         ]
         
         var data = Data()
-        data = UIImageJPEGRepresentation(image, 1.0)! 
+        data = image.jpegData(compressionQuality: 1.0)! 
 
         self.storageRef.child(filePath)
             .putData(data, metadata: newMetadata, completion: { (metadata, error) in

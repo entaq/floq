@@ -8,16 +8,22 @@
 
 import UIKit
 import IGListKit
-import Firebase
+import FirebaseStorage
+
+
+protocol FullScreenScetionDelegate:class {
+    
+    func willDisplayPhoto(with reference:StorageReference, for userid:String)
+}
 
 final class FullScreenPhotoSection: ListSectionController {
     
     private var photo:PhotoItem?
-    
+    weak var delegate:FullScreenScetionDelegate?
     
     override init() {
         super.init()
-        
+        displayDelegate = self
     }
     
     override func numberOfItems() -> Int {
@@ -47,4 +53,37 @@ final class FullScreenPhotoSection: ListSectionController {
         photo = object as? PhotoItem
     }
 }
+
+
+extension FullScreenPhotoSection: ListDisplayDelegate{
+    
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
+        if let photo = photo{
+            let reference = DataService.main.storageRef.child(References.userProfilePhotos.rawValue).child(photo.userUid)
+            print("This is the ref: \(reference)")
+            delegate?.willDisplayPhoto(with: reference, for:photo.userUid)
+        }
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
+        print("End display Cell")
+    }
+    
+    
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
+        
+        
+        //print("The reference is \(reference)")
+        //avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter,
+                     didEndDisplaying sectionController: ListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
+        print("Did end displaying cell \(index) in section \(cell.debugDescription)")
+    }
+}
+
+
 

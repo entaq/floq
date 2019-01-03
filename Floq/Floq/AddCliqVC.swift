@@ -87,7 +87,7 @@ class AddCliqVC: UIViewController {
         createButton = UIButton(frame: CGRect(x: 50, y: view.frame.height - 120, width: view.frame.width - 100, height: 80))
         
         createButton.setTitle("Create", for: .normal)
-        createButton.setAttributedTitle(NSAttributedString(string: "Create", attributes: [ .font: UIFont.systemFont(ofSize: 30, weight: .medium), NSAttributedStringKey.foregroundColor:UIColor.white]), for: .normal)
+        createButton.setAttributedTitle(NSAttributedString(string: "Create", attributes: [ .font: UIFont.systemFont(ofSize: 30, weight: .medium), NSAttributedString.Key.foregroundColor:UIColor.white]), for: .normal)
         createButton.addTarget(self, action: #selector(createCliqPressed(_:)), for: .touchUpInside)
         createButton.backgroundColor = UIColor(red: 132/255, green: 149/255, blue: 165/255, alpha: 1)
         createButton.layer.cornerRadius = 4.0
@@ -118,7 +118,7 @@ class AddCliqVC: UIViewController {
     
     func imagePickerAlert(){
         
-        let alert = createDefaultAlert("Add Cover Photo", "",.actionSheet, "Take photo") { (action) in
+        let alert = UIAlertController.createDefaultAlert("Add Cover Photo", "",.actionSheet, "Take photo") { (action) in
             self.imagePicker = UIImagePickerController()
             self.imagePicker?.sourceType = .camera
             self.present(self.imagePicker!, animated: true, completion: nil)
@@ -162,17 +162,17 @@ class AddCliqVC: UIViewController {
         
         guard name != nil && (name?.count)! > 0 else {
             
-            present(createDefaultAlert("INFO", "Please add a title for your cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
+            present(UIAlertController.createDefaultAlert("INFO", "Please add a title for your cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
             return
         }
         
         guard let image : UIImage = imageValue else {
-            present(createDefaultAlert("INFO", "Please add a cover image",.alert, "OK",.default, nil), animated: true, completion: nil)
+            present(UIAlertController.createDefaultAlert("INFO", "Please add a cover image",.alert, "OK",.default, nil), animated: true, completion: nil)
             return
         }
         
         guard let loc : CLLocation = location else {
-            present(createDefaultAlert("INFO", "Unable to access current location. Please enable location services",.alert, "OK",.default, nil), animated: true, completion: nil)
+            present(UIAlertController.createDefaultAlert("INFO", "Unable to access current location. Please enable location services",.alert, "OK",.default, nil), animated: true, completion: nil)
             return
         }
         let overlay = LoaderView(frame: self.view.frame)
@@ -183,7 +183,7 @@ class AddCliqVC: UIViewController {
                 if suc && errM == nil{
                   self.dismiss(animated: true, completion: nil)
                 }else{
-                    self.present(createDefaultAlert("INFO", errM!,.alert, "OK",.default, nil), animated: true, completion: nil)
+                    self.present(UIAlertController.createDefaultAlert("INFO", errM!,.alert, "OK",.default, nil), animated: true, completion: nil)
                 }
             }
         }
@@ -211,8 +211,11 @@ extension AddCliqVC:UIImagePickerControllerDelegate,UINavigationControllerDelega
         imagePicker!.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage{
             imageView.image = image
             imagebutt.setTitle("", for: .normal)
         }
@@ -241,3 +244,13 @@ extension AddCliqVC:CLLocationManagerDelegate{
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

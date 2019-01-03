@@ -16,15 +16,17 @@ class LoginVC: UIViewController, LoginButtonDelegate {
     var fluser:FLUser?
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         
-        
+        Logger.log(result)
         if let accessToken = AccessToken.current {
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
             Auth.auth().signInAndRetrieveData(with: credential) { (data, err) in
                 if (data != nil && err == nil){
                     let user = data?.user
-                    self.fluser = FLUser(uid:user!.uid , username:data?.additionalUserInfo?.username, floqs: nil)
+                    
+                    self.fluser = FLUser(uid:user!.uid , username:data?.additionalUserInfo?.username,profUrl: data?.user.photoURL, floqs: nil)
+                    self.saveUserdata(user: self.fluser!)
                 }else{
-                    let alert = createDefaultAlert("OOPS!!", err!.localizedDescription,.alert, "Dismiss",.default, nil)
+                    let alert = UIAlertController.createDefaultAlert("OOPS!!", err!.localizedDescription,.alert, "Dismiss",.default, nil)
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -47,16 +49,33 @@ class LoginVC: UIViewController, LoginButtonDelegate {
             loginButton.center = self.view.center
             self.view.addSubview(loginButton)
             if user != nil  {
-                
-                let navVC = UINavigationController(rootViewController:CliqsVC(self.fluser))
-                
-                
+                self.saveUserdata(user: user!)
+                let navVC = UINavigationController(rootViewController:HomeVC(self.fluser))
                 self.present(navVC, animated: true, completion: nil)
             }
         }
         
         
         
+    }
+    
+    func saveUserdata(user:User){
+        DataService.main.getAndStoreProfileImg(imgUrl: user.photoURL!, uid: user.uid)
+        if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
+            return
+        }
+        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, floqs: nil)
+        DataService.main.setUser(user: fuser, handler: {_,_ in })
+        UserDefaults.standard.set(user.uid, forKey: Fields.uid.rawValue)
+        
+    }
+    
+    func saveUserdata(user:FLUser){
+        if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
+            return
+        }
+        DataService.main.setUser(user: user, handler: {_,_ in })
+        UserDefaults.standard.set(user.uid, forKey: Fields.uid.rawValue)
     }
     
     override func didReceiveMemoryWarning() {

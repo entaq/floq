@@ -13,10 +13,13 @@ import Floaty
 import CoreLocation
 import Geofirestore
 
-final class CliqsVC : UIViewController {
+final class Ho : UIViewController {
     
     
     var  fluser:FLUser?
+    var data: [FLCliqItem] = []
+    var allCliqs:[SectionableCliq] = []
+    var nearbyScliq:SectionableCliq?
     private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
@@ -39,9 +42,9 @@ final class CliqsVC : UIViewController {
     convenience init(_ fluser:FLUser?) {
         self.init()
         self.fluser = fluser
+        
     }
     
-    var data: [FLCliqItem] = []
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -76,6 +79,14 @@ final class CliqsVC : UIViewController {
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        photoEngine.getMyCliqs {
+            if self.photoEngine.myCliqs.count > 0{
+                let section = SectionableCliq(cliqs: self.photoEngine.myCliqs, type: .mine)
+                self.allCliqs.append(section)
+                self.adapter.reloadData(completion: nil)
+                
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -89,7 +100,12 @@ final class CliqsVC : UIViewController {
         photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
             if let cliq = cliq {
                 if !self.data.contains(cliq) {
-                    self.data.append(cliq)
+                    if self.nearbyScliq == nil{
+                        self.nearbyScliq = SectionableCliq(cliqs: [cliq], type: .near)
+                        self.allCliqs.append(self.nearbyScliq!)
+                    }else{
+                        self.nearbyScliq!.update(cliq)
+                    }
                     self.adapter.reloadData(completion: nil)
                 }else{
                     print("Error occurred with signature: \(errM ?? "Unknown Error")")
@@ -108,11 +124,11 @@ extension CliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         
-        return data as [ListDiffable]
+        return allCliqs as [ListDiffable]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return PhotoSection()
+        return PhotoSection(isHome: true)
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
@@ -129,10 +145,10 @@ extension CliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cliq = self.data[indexPath.section]
-        let documentID = cliq.itemID
-        let cliqName = cliq.cliqname
-        self.navigationController?.pushViewController(PhotosVC(cliqDocumentID: documentID, cliqName: cliqName), animated: true)
+//        let cliq = self.data[indexPath.section]
+//        let documentID = cliq.id
+//        let cliqName = cliq.name
+//        self.navigationController?.pushViewController(PhotosVC(cliqDocumentID: documentID, cliqName: cliqName), animated: true)
         
     }
 }

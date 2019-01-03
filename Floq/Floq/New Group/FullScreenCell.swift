@@ -16,23 +16,14 @@ class FullScreenCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        imageView.clipsToBounds = true
         // Initialization code
     }
     
     
     func setImage(_ photo:PhotoItem){
-        if let image = DataService.main.getCachedImage(for: photo.photoID){
-            imageView.image = image
-        }else{
-            //imageView.image = UIImage(named: "featherLarge")
-            imageView.sd_setImage(with: storageRef.child(photo.photoID))
-//            imageView.sd_setImage(with: storageRef.child(photo.photoID), placeholderImage:nil) { (img, err, cacheType, ref) in
-//                if img != nil{
-//                    DataService.main.cache(img!, key: photo.photoID)
-//                }
-//            }
-            
-        }
+        imageView.sd_setImage(with: storageRef.child(photo.photoID))
+        
     }
 
 }

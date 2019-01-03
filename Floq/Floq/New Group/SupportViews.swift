@@ -46,7 +46,7 @@ class LoaderView:UIView{
         activity = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
         activity.center = CGPoint(x: center.x, y: center.y - 100)
         addSubview(activity)
-        activity.activityIndicatorViewStyle = .whiteLarge
+        activity.style = .whiteLarge
         label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: frame.width - 32, height: 40)))
         label.center = center
         label.backgroundColor = .clear
@@ -59,6 +59,7 @@ class LoaderView:UIView{
         addSubview(label)
         activity.startAnimating()
     }
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -76,5 +77,33 @@ class SeperatorCell:UICollectionViewCell{
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class AvatarImageView:UIImageView{
+    
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonSetup()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        commonSetup()
+    }
+    
+    func commonSetup(){
+        layer.cornerRadius = frame.width / 2
+        layer.borderColor = UIColor.white.cgColor
+        layer.borderWidth = 1
+        clipsToBounds = true
+        contentMode = .scaleAspectFill
+    }
+    
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

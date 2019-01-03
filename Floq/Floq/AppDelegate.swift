@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FacebookCore
+import SDWebImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,15 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.isTranslucent = false
-        navigationBarAppearace.tintColor = UIColor.white
-        navigationBarAppearace.barTintColor = UIColor.barTint()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationBarAppearace.tintColor = .white
+        navigationBarAppearace.barTintColor = .barTint
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         return true
         
@@ -53,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
     

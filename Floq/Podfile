@@ -2,11 +2,11 @@ target 'Floq' do
   use_frameworks!
   pod 'FirebaseUI'
   pod 'Firebase'
-
-  pod 'FacebookCore', :git => 'https://github.com/facebook/facebook-sdk-swift', :branch => 'master'
-  pod 'FacebookLogin'
+  pod 'FBSDKCoreKit', '4.36.0'
+  pod 'FBSDKLoginKit', '4.36.0'
+  pod 'FacebookCore', '0.4'
+  pod 'FacebookLogin', '0.4'
   pod 'Geofirestore'
-
   pod 'DKImagePickerController'
   pod 'IGListKit'
   pod 'Floaty', '~> 4.0.0' # Use version 4.0.0 for Swift 4.0

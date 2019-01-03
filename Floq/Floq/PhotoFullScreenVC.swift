@@ -8,16 +8,18 @@
 
 import UIKit
 import IGListKit
+import FirebaseStorage
 
 class PhotoFullScreenVC: UIViewController {
 
     var allphotos:[PhotoItem]!
     var selectedIndex:Int = 0
-    
-    
-    init(allphotos:[PhotoItem], selected index:Int){
+    var floqname:String
+    var userUid:String?
+    init(allphotos:[PhotoItem], selected index:Int, name:String){
         self.allphotos =  allphotos
         self.selectedIndex = index
+        floqname = name
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,6 +36,7 @@ class PhotoFullScreenVC: UIViewController {
         let imgv = UIImageView()
         imgv.clipsToBounds = true
         imgv.contentMode = .scaleAspectFill
+        
         return imgv
     }()
     
@@ -54,7 +57,22 @@ class PhotoFullScreenVC: UIViewController {
     }
     
     @objc func share(){
-        present(createDefaultAlert("INFO", "SHARED!!",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+        if let cell = collectionView.visibleCells.first as? FullScreenCell{
+            if let image = cell.imageView.image{
+                let sheet = UIAlertController.createDefaultAlert("Save Photo", "",.actionSheet, "cancel",.cancel, nil)
+                let action = UIAlertAction(title: "Save", style: .default) { (ac) in
+                    let album = CustomPhotoAlbum(album: self.floqname)
+                    album.save(image:image)
+                    self.present(UIAlertController.createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+                }
+                sheet.addAction(action)
+                present(sheet, animated: true, completion: nil)
+            }else{
+                //present(createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+            }
+        }
+        
+        
     }
     
     
@@ -62,26 +80,38 @@ class PhotoFullScreenVC: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
         setAvatarView()
-        collectionView.backgroundColor = UIColor.globalbackground()
+        collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        
         adapter.reloadData(completion: nil)
         let obj = allphotos[selectedIndex]
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
     }
     
     func setAvatarView(){
-        avatarImageview.frame =  CGRect(x: self.view.center.x - 35, y: 30, width: 70, height: 70)
+        let tapImage = UITapGestureRecognizer(target: self, action: #selector(tappedAvatar(_:)))
+        tapImage.numberOfTapsRequired = 1
+        avatarImageview.isUserInteractionEnabled = true
+        avatarImageview.addGestureRecognizer(tapImage)
+        avatarImageview.frame =  CGRect(x: self.view.center.x - 35, y: 40, width: 60, height: 60)
         avatarImageview.backgroundColor = UIColor.white
-        avatarImageview.layer.cornerRadius = 35
-        avatarImageview.layer.borderWidth = 2.0
+        avatarImageview.layer.cornerRadius = 30
+        avatarImageview.layer.borderWidth = 2
+        avatarImageview.image = .placeholder
         avatarImageview.layer.borderColor = UIColor.white.cgColor
-        avatarImageview.image = UIImage(named: "addcliq")
         self.navigationController?.view.addSubview(avatarImageview)
 
 
         
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.view.addSubview(avatarImageview)
+        
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,7 +122,9 @@ class PhotoFullScreenVC: UIViewController {
 
 
 extension PhotoFullScreenVC:ListAdapterDataSource{
+
     
+
     
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
@@ -101,13 +133,34 @@ extension PhotoFullScreenVC:ListAdapterDataSource{
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return FullScreenPhotoSection()
+        let section = FullScreenPhotoSection()
+        section.delegate = self
+        return section
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
 
         return nil
     }
+    
+}
 
+
+extension PhotoFullScreenVC:FullScreenScetionDelegate{
+    
+    func willDisplayPhoto(with reference: StorageReference, for userid:String) {
+        userUid = userid
+        avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
+    }
+    
+    @objc func tappedAvatar(_ tapGestureRecognizer:UITapGestureRecognizer){
+        if let id  = userUid{
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
+                vc.userID = id
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
 }
 

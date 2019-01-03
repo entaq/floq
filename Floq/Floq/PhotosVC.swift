@@ -21,26 +21,23 @@ import FirebaseAuth
 import Floaty
 
 
-final class PhotosVC: UIViewController, ListAdapterDataSource {
+final class PhotosVC: UIViewController {
     
-    private var storageRef:StorageReference{
-        return Storage.storage().reference()
-    }
+    var data: [GridPhotoItem] = []
+    private var cliq:FLCliqItem!
+    var photoEngine:PhotoEngine = PhotoEngine()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
-    var data: [GridPhotoItem] = []
-    
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    var cliqDocumentID: String
-    var cliqName: String?
-    var photoEngine:PhotoEngine = PhotoEngine()
-    init(cliqDocumentID:String, cliqName:String?){
-        self.cliqDocumentID = cliqDocumentID
-        self.cliqName = cliqName
+    var userlistbutt:AvatarImageView!
+    
+    
+    init(cliq:FLCliqItem){
+        self.cliq = cliq
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,25 +47,16 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = UIColor.globalbackground()
+        collectionView.backgroundColor = .globalbackground
         
         navigationItem.hidesBackButton = false
         view.addSubview(collectionView)
-        self.title = cliqName
+        self.title = cliq.name
         
-        let floaty = Floaty()
-        
-        floaty.addItem("Add photo", icon: UIImage(named: "AppIcon")!, handler: { item in
-            self.selectPhoto()
-        })
-        floaty.addItem("Logout", icon: UIImage(named: "logout")!, handler: { item in
-            do {
-                try Auth.auth().signOut()
-                self.dismiss(animated: true, completion: nil)
-            } catch {
-                print("error trying to logout")
-            }
-        })
+        let floaty = UIButton(frame: CGRect(x: view.frame.width - 80, y: view.frame.height - 150, width: 50, height: 50))
+        floaty.backgroundColor = .clear
+        floaty.setImage(.icon_addPhoto, for: .normal)
+        floaty.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
         
         
         view.addSubview(floaty)
@@ -76,7 +64,7 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
-        photoEngine.watchForPhotos(cliqDocumentID: cliqDocumentID) { (photos, errm) in
+        photoEngine.watchForPhotos(cliqDocumentID: cliq.id) { (photos, errm) in
             if let items = photos {
                 
                 self.data = items
@@ -97,8 +85,86 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+        userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        userlistbutt.setAvatar(uid: cliq.creatorUid)
+        let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let tp = UITapGestureRecognizer(target: self, action: #selector(userlistTapped))
+        tp.numberOfTapsRequired = 1
+        uiview.addGestureRecognizer(tp)
+        uiview.addSubview(userlistbutt)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiview)
+        
     }
     
+
+    @objc func userlistTapped(){
+        let list = photoEngine.getAllPhotoMetadata()
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserListVC.self)) as? UserListVC{
+            vc.list = list
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @objc func selectPhoto() {
+        let pickerController = DKImagePickerController()
+        let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
+        activityIndicator.label.text = "Uploading Photos, Please wait.."
+        
+        pickerController.didCancel = {
+            
+        }
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            
+           
+            if assets.isEmpty{
+                
+                return
+            }
+            self.view.addSubview(activityIndicator)
+            for asset in assets {
+                
+                asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
+                    let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
+                    // [START uploadimage]
+                    
+                    
+                    
+                    let newMetadata = StorageMetadata()
+                    var userEmail = "unknown"
+                    var userName = "unknown"
+                    if let realEmail = Auth.auth().currentUser?.email, let realName = Auth.auth().currentUser?.displayName {
+                        userEmail = realEmail
+                        userName = realName
+                    }
+                    newMetadata.customMetadata = [
+                        Fields.fileID.rawValue : filePath,
+                        Fields.userEmail.rawValue: userEmail,
+                        Fields.username.rawValue : userName,
+                        Fields.userUID.rawValue: Auth.auth().currentUser!.uid
+                    ]
+                    
+                    self.photoEngine.storeImage(filePath: filePath, data: data!.jpegData(compressionQuality: 1)!, id: self.cliq.id, newMetadata: newMetadata, onFinish: { (suc, err) in
+                        if let err = err{
+                            self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
+                        }else{
+                            activityIndicator.removeFromSuperview()
+                            self.present(UIAlertController.createDefaultAlert("SUCCESS", "Photo succesfully added to cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
+                        }
+                    })
+                    // [END uploadimage]
+                })
+                
+            }
+        }
+        
+        self.present(pickerController, animated: true) {}
+        
+    }
+}
+
+
+extension PhotosVC:ListAdapterDataSource{
     // MARK: ListAdapterDataSource
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
@@ -124,59 +190,6 @@ final class PhotosVC: UIViewController, ListAdapterDataSource {
         uiview.addSubview(label)
         return uiview
     }
-    
-    
-    
-    
-    
-    @objc func selectPhoto() {
-        let pickerController = DKImagePickerController()
-        let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
-        activityIndicator.label.text = "Uploading Photos, Please wait.."
-        
-        pickerController.didSelectAssets = { (assets: [DKAsset]) in
-            print("didSelectAssets")
-            print(assets)
-            self.view.addSubview(activityIndicator)
-            for asset in assets {
-                
-                asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
-                    let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
-                    // [START uploadimage]
-                    
-                    
-                    // Create file metadata to update
-                    let newMetadata = StorageMetadata()
-                    var userEmail = "unknown"
-                    var userName = "unknown"
-                    if let realEmail = Auth.auth().currentUser?.email, let realName = Auth.auth().currentUser?.displayName {
-                        userEmail = realEmail
-                        userName = realName
-                    }
-                    newMetadata.customMetadata = [
-                        "fileID" : filePath,
-                        "userEmail": userEmail,
-                        "userName" : userName,
-                        "userID": Auth.auth().currentUser!.uid
-                    ]
-                    
-                    self.photoEngine.storeImage(filePath: filePath, data: UIImageJPEGRepresentation(data!, 1)!, id: self.cliqDocumentID, newMetadata: newMetadata, onFinish: { (suc, err) in
-                        if let err = err{
-                            self.present(createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
-                        }else{
-                            activityIndicator.removeFromSuperview()
-                            self.present(createDefaultAlert("SUCCESS", "Photo succesfully added to cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
-                        }
-                    })
-                    // [END uploadimage]
-                })
-                
-            }
-        }
-        
-        self.present(pickerController, animated: true) {}
-        
-    }
 }
 
 
@@ -185,7 +198,7 @@ extension PhotosVC:GridPhotoSectionDelegate{
     
     func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
         let actualIndex = photoEngine.getTrueIndex(of: photo)
-        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex)
+        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex,name:cliq.name)
         navigationController?.pushViewController(fullscreen, animated: true)
     }
 }

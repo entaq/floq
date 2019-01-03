@@ -7,6 +7,7 @@
 //
 
 import IGListKit
+import FirebaseFirestore
 
 class FLCliqItem:ListDiffable, Equatable{
     
@@ -25,32 +26,27 @@ class FLCliqItem:ListDiffable, Equatable{
         return id == object.id
     }
     
-    private let id:String
-    private let item:PhotoItem
-    private let name:String
+    public private (set) var id:String
+    public private (set) var item:PhotoItem
+    public private (set) var name:String
+    public private (set) var creatorUid:String
+
+    public var joined:Bool
     
-    var itemID:String{
-        get{
-            return id
-        }
+    init(snapshot:DocumentSnapshot,_ joined:Bool = false) {
+        id = snapshot.documentID
+        self.name = snapshot.getString(.cliqname)
+        creatorUid = snapshot.getString(.userUID)
+        item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: snapshot.getDate(.timestamp),uid:creatorUid)
+        self.joined = false
+        
     }
-    
-    var photoItem:PhotoItem{
-        get{
-            return item
-        }
-    }
-    
-    var cliqname:String{
-        get{
-            return name
-        }
-    }
-    
-    init(id:String,name:String, item:PhotoItem) {
+    init(id:String,name:String, item:PhotoItem,uid:String, joined:Bool) {
         self.id = id
         self.item = item
         self.name = name
+        creatorUid = uid
+        self.joined = joined
     }
     
 }
