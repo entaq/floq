@@ -24,7 +24,7 @@ class UserProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-       userID = UserDefaults.uid()
+        userID = UserDefaults.uid
         
         imageView.setAvatar(uid: userID)
         DataService.main.getUserWith(userID) { (user, err) in

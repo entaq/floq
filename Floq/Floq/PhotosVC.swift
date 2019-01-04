@@ -132,15 +132,10 @@ final class PhotosVC: UIViewController {
                     
                     
                     let newMetadata = StorageMetadata()
-                    var userEmail = "unknown"
-                    var userName = "unknown"
-                    if let realEmail = Auth.auth().currentUser?.email, let realName = Auth.auth().currentUser?.displayName {
-                        userEmail = realEmail
-                        userName = realName
-                    }
+                    var userName = Auth.auth().currentUser?.displayName ?? UserDefaults.username
+                    
                     newMetadata.customMetadata = [
                         Fields.fileID.rawValue : filePath,
-                        Fields.userEmail.rawValue: userEmail,
                         Fields.username.rawValue : userName,
                         Fields.userUID.rawValue: Auth.auth().currentUser!.uid
                     ]
@@ -208,6 +203,19 @@ extension PhotosVC:GridPhotoSectionDelegate{
 extension PhotosVC:FloatyDelegate{
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        selectPhoto()
+        if cliq.isMember(){
+            selectPhoto()
+        }else{
+            let alert = UIAlertController.createDefaultAlert("INFO!!", "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos",.alert, "Cancel",.cancel, nil)
+            let join = UIAlertAction(title: "Join", style: .default) { (ac) in
+                DataService.main.joinCliq(cliq: self.cliq)
+                self.cliq.addMember()
+                self.selectPhoto()
+            }
+            
+            alert.addAction(join)
+            present(alert, animated: true, completion: nil)
+        }
+        
     }
 }

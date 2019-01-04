@@ -15,7 +15,7 @@ extension Auth{
       
         do{
             try auth().signOut()
-             UserDefaults.standard.set(nil, forKey: Fields.uid.rawValue)
+             UserDefaults.invalidateUserData()
             completion(true,nil)
         }catch let err{
             completion(false,err.localizedDescription)
@@ -28,7 +28,7 @@ extension Auth{
             if let err = err{
                 completion(false,err.localizedDescription)
             }else{
-                UserDefaults.standard.set(nil, forKey: Fields.uid.rawValue)
+                UserDefaults.invalidateUserData()
                 completion(true,nil)
             }
         })

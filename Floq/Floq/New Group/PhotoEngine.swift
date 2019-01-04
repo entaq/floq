@@ -18,6 +18,7 @@ class PhotoEngine{
     private let RADIUS = 1.0
     private var allphotos:[PhotoItem] = []
     public private (set) var mycliqIds:Set<String> = []
+    public private (set) var activeCliq:FLCliqItem?
     
     private var storage:Storage{
         return Storage.storage()
@@ -185,11 +186,12 @@ class PhotoEngine{
                         counter += 1
                         if let dsnap = docsnap{
                             let cliq = FLCliqItem(snapshot: dsnap)
-                            
+                            print("My click contains: \(self.myCliqs.count)")
                             if !self.myCliqs.contains(cliq){
                                self.myCliqs.append(cliq)
                                 print("The count is: \(snap.count)")
                                 if counter == snap.count{
+                                    self.setMostActive()
                                     handler()
                                    
                                 }
@@ -205,6 +207,19 @@ class PhotoEngine{
                 }
             }
         }
+    }
+    
+    func setMostActive(){
+        var actives = myCliqs.compactMap { (cliq) -> FLCliqItem? in
+            if cliq.isActive{
+               return cliq
+            }
+            return nil
+        }
+        actives.sort { (a1, a2) -> Bool in
+            a2.item.timestamp > a1.item.timestamp
+        }
+        activeCliq = actives.first
     }
     
     func generateGridItems(new:[PhotoItem])->[GridPhotoItem]{
@@ -246,6 +261,14 @@ class PhotoEngine{
             })
     }
     
+    
+    
+    func isDuplicate(_ cliq:FLCliqItem)->Bool{
+        return myCliqs.contains(where: { (item) -> Bool in
+            print("item id is \(item.id) and cliq id is \(cliq.id)")
+            return item.id == cliq.id
+        })
+    }
     
     deinit {
         if query != nil{

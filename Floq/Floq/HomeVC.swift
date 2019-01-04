@@ -20,6 +20,8 @@ final class HomeVC : UIViewController {
     var data: [FLCliqItem] = []
     var allCliqs:[SectionableCliq] = []
     var nearbyScliq:SectionableCliq?
+    var mySectionalCliqs:SectionableCliq?
+    var myActiveSectionCliq:SectionableCliq?
     private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
@@ -78,10 +80,7 @@ final class HomeVC : UIViewController {
         adapter.dataSource = self
         photoEngine.getMyCliqs {
             if self.photoEngine.myCliqs.count > 0{
-                let section = SectionableCliq(cliqs: self.photoEngine.myCliqs, type: .mine)
-                self.allCliqs.append(section)
-                self.adapter.reloadData(completion: nil)
-                
+                self.updateData()
             }
         }
     }
@@ -109,6 +108,9 @@ final class HomeVC : UIViewController {
                     }else{
                         self.nearbyScliq!.update(cliq)
                     }
+                    self.allCliqs.sort { (s1, s2) -> Bool in
+                        return s1.designatedIndex < s2.designatedIndex
+                    }
                     self.adapter.reloadData(completion: nil)
                 }else{
                     print("Error occurred with signature: \(errM ?? "Unknown Error")")
@@ -118,7 +120,38 @@ final class HomeVC : UIViewController {
         
     }
     
-    
+    func updateData(){
+        if mySectionalCliqs != nil{
+            mySectionalCliqs!.cliqs = self.photoEngine.myCliqs
+        }else{
+            mySectionalCliqs = SectionableCliq(cliqs: photoEngine.myCliqs, type: .mine)
+            allCliqs.append(mySectionalCliqs!)
+        }
+        if myActiveSectionCliq != nil{
+            if photoEngine.activeCliq != nil{
+                if photoEngine.activeCliq!.id != mySectionalCliqs!.cliqs.first!{
+                    myActiveSectionCliq?.cliqs = [photoEngine.activeCliq!]
+                }else{
+                    //There is no more active cliq.. Remove that section
+                    if allCliqs.contains(myActiveSectionCliq!){
+                        allCliqs.remove(at: 0)
+
+                    }
+                }
+            }
+        }else{
+            if self.photoEngine.activeCliq != nil{
+                myActiveSectionCliq = SectionableCliq(cliqs: [photoEngine.activeCliq!], type: .active)
+                allCliqs.append(mySectionalCliqs!)
+            }
+            
+        }
+        allCliqs.sort { (s1, s2) -> Bool in
+            return s1.designatedIndex < s2.designatedIndex
+        }
+        
+        self.adapter.reloadData(completion: nil)
+    }
     
 }
 
@@ -131,6 +164,11 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        if let sect =  object as? SectionableCliq{
+            if sect.sectionType == .active{
+                return ActiveSectionController()
+            }
+        }
         return PhotoSection(isHome: true)
     }
     

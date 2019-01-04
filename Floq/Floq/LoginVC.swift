@@ -43,7 +43,7 @@ class LoginVC: UIViewController, LoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("The dispaly name is")
         let _ = Auth.auth().addStateDidChangeListener() { auth, user in
             let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
             
@@ -77,7 +77,9 @@ class LoginVC: UIViewController, LoginButtonDelegate {
             return
         }
         DataService.main.setUser(user: user, handler: {_,_ in })
-        UserDefaults.standard.set(user.uid, forKey: Fields.uid.rawValue)
+        UserDefaults.set(user.uid, for:.uid)
+        UserDefaults.set(user.username, for:.username)
+        
     }
     
     override func didReceiveMemoryWarning() {

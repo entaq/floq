@@ -26,6 +26,16 @@ class FLCliqItem:ListDiffable, Equatable{
         return id == object.id
     }
     
+    func isMember(_ id:String? = nil)->Bool{
+        let id = id ?? UserDefaults.uid
+        return (followers[id] != nil)
+    }
+    
+    func addMember(_ id:String? = nil){
+        let id = id ?? UserDefaults.uid
+        followers.updateValue(Date().unix_ts, forKey: id)
+    }
+    
     public private (set) var id:String
     public private (set) var item:PhotoItem
     public private (set) var name:String
@@ -52,8 +62,8 @@ class FLCliqItem:ListDiffable, Equatable{
         if followers.isEmpty{
             self.followers.updateValue(snapshot.getDate(.timestamp).unix_ts, forKey: creatorUid)
         }
-        isActive = timestamp > Date()
-        joined = (followers[UserDefaults.uid()] != nil) 
+        isActive = timestamp.nextDay > Date()
+        joined = (followers[UserDefaults.uid] != nil) 
         
     }
     

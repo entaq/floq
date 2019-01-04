@@ -48,7 +48,7 @@ enum References:String{
     
 }
 
-enum Fields:String{
+public enum Fields:String{
     case fileID = "fileID"
     case username = "userName"
     case dateCreated = "dateCreated"
@@ -67,6 +67,7 @@ enum Fields:String{
 enum keys:String{
     case near = "Near Me"
     case mine = "My Cliqs"
+    case active = "active"
 }
 
 

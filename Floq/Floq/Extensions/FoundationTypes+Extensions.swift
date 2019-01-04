@@ -73,11 +73,26 @@ extension Array {
             Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
+    
+    
 }
 
 extension UserDefaults{
     
-    class func uid()->String{
+    public class var uid:String{
         return standard.string(forKey: Fields.uid.rawValue)!
+    }
+    
+    public class var username:String{
+        return standard.string(forKey: Fields.username.rawValue)!
+    }
+    
+    class func set(_ value:Any, for field:Fields){
+        standard.set(value, forKey: field.rawValue)
+    }
+    
+    public class func invalidateUserData(){
+        standard.removeObject(forKey: Fields.username.rawValue)
+        standard.removeObject(forKey: Fields.uid.rawValue)
     }
 }

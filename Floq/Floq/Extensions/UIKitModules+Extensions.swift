@@ -146,5 +146,10 @@ extension Date{
     public var unix_ts:Int{
         return Int(timeIntervalSince1970)
     }
+    
+    public var nextDay:Date{
+        let BASE = 3600 * 24
+        return addingTimeInterval(TimeInterval(BASE))
+    }
 
 }

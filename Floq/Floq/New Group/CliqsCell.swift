@@ -98,8 +98,8 @@ class CliqsCell: UICollectionViewCell {
     @IBAction func jointapped(_ sender: Any) {
         if let cliq = cliq{
             if !cliq.joined{
-                let data = [Fields.dateCreated.rawValue:cliq.item.timestamp,Fields.uid.rawValue:cliq.id] as [String : Any]
-                DataService.main.joinCliq(key: cliq.id, data: data)
+                
+                DataService.main.joinCliq(cliq:cliq)
                 joinbutt.setTitle("Joined", for: .normal)
                 delegate?.didJoinCliq(true, with: cliq.id)
             }else{

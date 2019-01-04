@@ -34,9 +34,9 @@ class  SectionableCliq:ListDiffable, Equatable{
     }
     
     
-    public private (set) var cliqs:[FLCliqItem]
+    public  var cliqs:[FLCliqItem]
     public private (set) var sectionType:keys
-    
+    public private (set) var designatedIndex:Int
     func getFirstItem()->FLCliqItem{
         return cliqs.first!
     }
@@ -48,5 +48,16 @@ class  SectionableCliq:ListDiffable, Equatable{
     init(cliqs:[FLCliqItem],type:keys) {
         self.cliqs = cliqs
         sectionType = type
+        switch type {
+        case .active:
+            designatedIndex = 0
+            break
+        case .near:
+            designatedIndex = 1
+            break
+        default:
+            designatedIndex = 2
+            break
+        }
     }
 }

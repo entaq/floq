@@ -73,11 +73,12 @@ class DataService{
         }
     }
     
-    func joinCliq(key:String, data:[String:Any]){
+    func joinCliq(cliq:FLCliqItem){
+        let data = [Fields.dateCreated.rawValue:cliq.item.timestamp,Fields.uid.rawValue:cliq.id] as [String : Any]
         let batch = store.batch()
-        let uid = UserDefaults.uid()
-        batch.setData(data, forDocument: userRef.document(uid).collection(.myCliqs).document(key), merge:true)
-        let clef = floqRef.document(key).collection(.followers).document(uid)
+        let uid = UserDefaults.uid
+        batch.setData(data, forDocument: userRef.document(uid).collection(.myCliqs).document(cliq.id), merge:true)
+        let clef = floqRef.document(cliq.id).collection(.followers).document(uid)
         batch.updateData(["\(Fields.followers.rawValue).\(uid)":Date()], forDocument: clef)
         batch.commit { (err) in
             Logger.log(err)
@@ -97,17 +98,12 @@ class DataService{
         let tpath = Int(Date.timeIntervalSinceReferenceDate * 1000)
         let filePath = "\(name) - \(tpath)"
         let geofire = GeoFirestore(collectionRef: geofireRef)
-        let uid = UserDefaults.uid()
+        let uid = UserDefaults.uid
         let newMetadata = StorageMetadata()
-        var userEmail = "unknown"
-        var userName = "unknown"
-        if let realEmail = Auth.auth().currentUser?.email, let realName = Auth.auth().currentUser?.displayName {
-            userEmail = realEmail
-            userName = realName
-        }
+        let userName = Auth.auth().currentUser?.displayName ?? UserDefaults.username
+        
         newMetadata.customMetadata = [
             Fields.fileID.rawValue : filePath,
-            Fields.userEmail.rawValue: userEmail,
             Fields.username.rawValue : userName,
             Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
             Fields.cliqname.rawValue : name
@@ -126,7 +122,7 @@ class DataService{
                 }
                 var docData: [String: Any] = [
                     "timestamp" : FieldValue.serverTimestamp(),
-                    Fields.followers.rawValue: [UserDefaults.uid():Date()]
+                    Fields.followers.rawValue: [UserDefaults.uid:Date()]
                 ]
                 docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                 print(docData, filePath)
