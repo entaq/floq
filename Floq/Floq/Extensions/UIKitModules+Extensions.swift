@@ -30,6 +30,10 @@ extension UIViewController{
         
         view.removeFromSuperview()
     }
+    
+    public class var identifier:String{
+        return String(describing: self)
+    }
 }
 
 extension UIView{

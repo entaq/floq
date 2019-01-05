@@ -265,7 +265,7 @@ class PhotoEngine{
     
     func isDuplicate(_ cliq:FLCliqItem)->Bool{
         return myCliqs.contains(where: { (item) -> Bool in
-            print("item id is \(item.id) and cliq id is \(cliq.id)")
+            
             return item.id == cliq.id
         })
     }

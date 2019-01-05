@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.tintColor = .white
         navigationBarAppearace.barTintColor = .barTint
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
+        setRootViewController()
         return true
         
     }
@@ -58,7 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
     
-    
+    func setRootViewController(){
+        if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
+            let home = UINavigationController(rootViewController: HomeVC(nil))
+            window?.rootViewController = home
+        }else{
+            let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
+            window?.rootViewController = onboard
+        }
+    }
     
 }
 

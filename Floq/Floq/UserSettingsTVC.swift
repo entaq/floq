@@ -64,6 +64,7 @@ class UserSettingsTVC: UITableViewController {
         let action = UIAlertAction(title: "Deactivate", style: .destructive) { (ac) in
             Auth.deActivateAccount { (success, err) in
                 if success{
+                    
                     self.navigationController?.dismiss(animated: true, completion: nil)
                     
                 }else{
@@ -82,7 +83,8 @@ class UserSettingsTVC: UITableViewController {
         let action = UIAlertAction(title: "Logout", style: .destructive) { (ac) in
             Auth.logout { (success, err) in
                 if success{
-                    self.navigationController?.dismiss(animated: true, completion: nil)
+                    let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
+                    self.present(onboard, animated: true, completion: nil)
                     
                 }else{
                     self.present(UIAlertController.createDefaultAlert("🚨🚨 Error 🚨🚨", err ?? "Unknown Error",.alert, "OK",.default, nil), animated: true, completion: nil)

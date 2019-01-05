@@ -27,12 +27,17 @@
 		BDD0D20C19D0DD84BDB5C758 /* Pods_Floq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48674A44BA36DB0F31439238 /* Pods_Floq.framework */; };
 		C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */; };
 		C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */; };
+		C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */; };
 		C434C50B21DBA9DB003333A1 /* FIRStorage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */; };
 		C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */; };
 		C434C50F21DBEB48003333A1 /* FirebaseAuth+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C50E21DBEB48003333A1 /* FirebaseAuth+Extensions.swift */; };
 		C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51021DCBE33003333A1 /* MyCliqsVC.swift */; };
 		C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51221DD2A32003333A1 /* UserListCell.swift */; };
 		C434C51521DD2BA0003333A1 /* UserListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51421DD2BA0003333A1 /* UserListVC.swift */; };
+		C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */; };
+		C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */; };
+		C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */; };
+		C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */; };
 		C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D521A22DF500D3B0E6 /* DataService.swift */; };
 		C48A57D821A22E0900D3B0E6 /* PhotoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D721A22E0900D3B0E6 /* PhotoEngine.swift */; };
 		C48A57DA21A22E4400D3B0E6 /* Helpers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D921A22E4400D3B0E6 /* Helpers+Extensions.swift */; };
@@ -93,7 +98,7 @@
 		40A1F74E20F3083A00DDA0B1 /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		40AA29B31E8891E900200A3F /* Floq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Floq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AA29B61E8891E900200A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		40AA29B81E8891E900200A3F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		40AA29B81E8891E900200A3F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "../New Group1/LoginVC.swift"; sourceTree = "<group>"; };
 		40AA29BB1E8891E900200A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40AA29BD1E8891E900200A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40AA29C01E8891E900200A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -103,12 +108,17 @@
 		6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.release.xcconfig"; sourceTree = "<group>"; };
 		C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlbum.swift; sourceTree = "<group>"; };
+		C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalOnBoardVC.swift; sourceTree = "<group>"; };
 		C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FIRStorage+Extensions.swift"; sourceTree = "<group>"; };
 		C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKitModules+Extensions.swift"; sourceTree = "<group>"; };
 		C434C50E21DBEB48003333A1 /* FirebaseAuth+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseAuth+Extensions.swift"; sourceTree = "<group>"; };
 		C434C51021DCBE33003333A1 /* MyCliqsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCliqsVC.swift; sourceTree = "<group>"; };
 		C434C51221DD2A32003333A1 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		C434C51421DD2BA0003333A1 /* UserListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListVC.swift; sourceTree = "<group>"; };
+		C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPVC.swift; sourceTree = "<group>"; };
+		C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoOneVC.swift; sourceTree = "<group>"; };
+		C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoTwoVC.swift; sourceTree = "<group>"; };
+		C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOnBaordVC.swift; sourceTree = "<group>"; };
 		C48A57D521A22DF500D3B0E6 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		C48A57D721A22E0900D3B0E6 /* PhotoEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEngine.swift; sourceTree = "<group>"; };
 		C48A57D921A22E4400D3B0E6 /* Helpers+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Helpers+Extensions.swift"; sourceTree = "<group>"; };
@@ -223,6 +233,26 @@
 			path = Floq;
 			sourceTree = "<group>";
 		};
+		C430B79221E1110E0010F2AE /* Depracated */ = {
+			isa = PBXGroup;
+			children = (
+				40AA29B81E8891E900200A3F /* LoginVC.swift */,
+			);
+			path = Depracated;
+			sourceTree = "<group>";
+		};
+		C45CE27221E0C96E0071C59D /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */,
+				C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */,
+				C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */,
+				C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */,
+				C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		C4A28E3421DFCA0500ADA02D /* FloqTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,8 +326,9 @@
 		C4A2A42221A22959006DFE6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C430B79221E1110E0010F2AE /* Depracated */,
+				C45CE27221E0C96E0071C59D /* OnBoarding */,
 				C4A2A41E21A22910006DFE6E /* SectionControllers */,
-				40AA29B81E8891E900200A3F /* LoginVC.swift */,
 				40A1F74020F2F80F00DDA0B1 /* HomeVC.swift */,
 				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
 				40A1F74420F300DD00DDA0B1 /* CreateCliqVC.swift */,
@@ -618,6 +649,7 @@
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
 				C48A57D821A22E0900D3B0E6 /* PhotoEngine.swift in Sources */,
+				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
@@ -634,6 +666,8 @@
 				C4A28E4021E01D3000ADA02D /* ActiveSectionController.swift in Sources */,
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
+				C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */,
+				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
@@ -642,6 +676,7 @@
 				C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */,
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
+				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
 				C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */,
 				40A1F74120F2F80F00DDA0B1 /* HomeVC.swift in Sources */,
@@ -649,6 +684,7 @@
 				40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */,
 				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
+				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
 				C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */,
 			);

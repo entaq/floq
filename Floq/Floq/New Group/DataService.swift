@@ -64,6 +64,20 @@ class DataService{
         }
     }
     
+    func isRegistered(uid:String,handler:@escaping (_ exists:Bool, _ username:String?)->()){
+        userRef.document(uid).getDocument { (snap, err) in
+            if let snap = snap{
+                if snap.exists{
+                    handler(true,snap.getString(.username))
+                }else{
+                   handler(false,nil)
+                }
+            }else{
+               handler(false,nil)
+            }
+        }
+    }
+    
     func getAndStoreProfileImg(imgUrl:URL,uid:String){
         let downloader = SDWebImageDownloader.shared()
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
