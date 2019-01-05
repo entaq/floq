@@ -81,7 +81,7 @@ extension UserProfileVC:UIImagePickerControllerDelegate,UINavigationControllerDe
         picker.dismiss(animated: true, completion: nil)
         if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage{
             imageView.image = image
-            let loader = LoaderView(frame: imageView.frame)
+            let loader = LoaderView(frame: imageView.frame, offset: 25)
             view.addSubview(loader)
             Storage.saveAvatar(image: image) { (succ, err) in
                 loader.removeFromSuperview()

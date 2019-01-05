@@ -132,7 +132,7 @@ final class PhotosVC: UIViewController {
                     
                     
                     let newMetadata = StorageMetadata()
-                    var userName = Auth.auth().currentUser?.displayName ?? UserDefaults.username
+                    let userName =  UserDefaults.username
                     
                     newMetadata.customMetadata = [
                         Fields.fileID.rawValue : filePath,

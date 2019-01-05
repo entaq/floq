@@ -79,6 +79,12 @@ class PhotoEngine{
         query = geofire.query(withCenter: geopoint, radius: RADIUS)
             let _ = query!.observe(.documentEntered) { (id, location) in
             if let id = id {
+                let date = self.getTimeFromIdFormat(id: id)
+                if date != nil{
+                    if date!.nextDay < Date(){
+                        return
+                    }
+                }
                 self.database.collection(References.floqs.rawValue).document(id).getDocument(completion: { (snapshot, error) in
                     if error == nil && snapshot != nil {
                         guard snapshot!.exists else {
@@ -87,7 +93,10 @@ class PhotoEngine{
                         }
                         
                         let cliq = FLCliqItem(snapshot: snapshot!)
-                        onFinish(cliq,nil)
+                        if cliq.isActive{
+                            onFinish(cliq,nil)
+                        }
+                        
                         
                     }else{
                         onFinish(nil,error!.localizedDescription)
@@ -96,6 +105,18 @@ class PhotoEngine{
             }
         }
         
+    }
+    
+    func getTimeFromIdFormat(id:String)->Date?{
+        //Format Anime Fan Arts - 568229967329
+        let ns = id.replacingOccurrences(of: " ", with: "")
+        let chset = ns.split(separator: "-")
+        if chset.count == 2{
+            if let ts = Int(chset.last!){
+                return Date(timeIntervalSinceReferenceDate: TimeInterval((ts / 1000)))
+            }
+        }
+        return nil
     }
     
     func queryPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.photogrids){

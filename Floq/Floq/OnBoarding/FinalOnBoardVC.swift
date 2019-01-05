@@ -19,6 +19,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
         nickNameText.layer.borderColor = UIColor.black.cgColor
         nickNameText.layer.borderWidth = 1
         nickNameText.layer.cornerRadius = 4
+        nickNameText.delegate = self
         
     }
     
@@ -38,6 +39,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
         if (textField.text!.count > 4) {
             saveUserdata(user: user)
         }else{

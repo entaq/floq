@@ -135,6 +135,18 @@ extension UIColor{
 }
 
 
+extension UIAlertController{
+    
+    class func createDefaultAlert(_ title:String, _ message:String, _ style:UIAlertController.Style = .alert, _ actionTitle:String, _ actionStyle:UIAlertAction.Style = .default, _ handler: CompletionHandlers.alert?) -> UIAlertController{
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        let action = UIAlertAction(title: actionTitle, style: actionStyle, handler: handler)
+        alert.addAction(action)
+        return alert
+    }
+}
+
+
 extension Date{
     
     

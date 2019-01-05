@@ -34,7 +34,7 @@ class HomeOnBaordVC:UIViewController {
         onBoardPage = 
             UIStoryboard.main.instantiateViewController(withIdentifier: OnBoardingPVC.identifier) as? OnBoardingPVC
         onBoardPage.dataSource = self
-        
+        onBoardPage.delegate = self
         onBoardPage.setViewControllers([pages.first!], direction: .forward, animated: false, completion: nil)
         onBoardPage.view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         add(onBoardPage, to: self.view)
@@ -65,7 +65,7 @@ class HomeOnBaordVC:UIViewController {
 }
 
 
-extension HomeOnBaordVC:UIPageViewControllerDataSource{
+extension HomeOnBaordVC:UIPageViewControllerDataSource,UIPageViewControllerDelegate{
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
@@ -91,7 +91,21 @@ extension HomeOnBaordVC:UIPageViewControllerDataSource{
         
         return pages[nextIndex]
     }
+    
+
    
 
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+//        let vc = pendingViewControllers.first!
+//        let index = pages.index(of: vc)
+//        pageControl.currentPage = index!
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let vc = previousViewControllers.first!
+        let index = pages.index(of: vc)
+        pageControl.currentPage = index!
+    }
+    
 
 }

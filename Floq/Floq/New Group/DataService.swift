@@ -20,10 +20,12 @@ class DataService{
     
     
     static var main:DataService{
+        
         return _main
         
     }
     
+    public static var profileIDs:Set<String> = []
     
     private var store:Firestore{
         let db = Firestore.firestore()
@@ -87,6 +89,14 @@ class DataService{
         }
     }
     
+    func cleanUp(uid:String){
+        let rtepData:Aliases.dictionary = [Fields.username.rawValue:"Floq user",Fields.profileImg.rawValue:"placeholder",Fields.deleted.rawValue:true,Fields.dateDeleted.rawValue:Date()]
+        userRef.document(uid).updateData(rtepData)
+        Storage.reference(.userProfilePhotos).child(uid).delete { (err) in
+            Logger.log(err)
+        }
+    }
+    
     func joinCliq(cliq:FLCliqItem){
         let data = [Fields.dateCreated.rawValue:cliq.item.timestamp,Fields.uid.rawValue:cliq.id] as [String : Any]
         let batch = store.batch()
@@ -112,56 +122,66 @@ class DataService{
     
     func addNewCliq(image:UIImage, name:String,locaion:CLLocation, onFinish:@escaping CompletionHandlers.dataservice){
         
-        let batch = store.batch()
-        let tpath = Int(Date.timeIntervalSinceReferenceDate * 1000)
-        let filePath = "\(name) - \(tpath)"
-        let geofire = GeoFirestore(collectionRef: geofireRef)
-        let uid = UserDefaults.uid
-        let newMetadata = StorageMetadata()
-        let userName = Auth.auth().currentUser?.displayName ?? UserDefaults.username
-        
-        newMetadata.customMetadata = [
-            Fields.fileID.rawValue : filePath,
-            Fields.username.rawValue : userName,
-            Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
-            Fields.cliqname.rawValue : name
+        userRef.document(UserDefaults.uid).getDocument { (snapshotq, err) in
+            guard let snap = snapshotq else{
+                onFinish(false,err?.localizedDescription ?? "")
+                return
+            }
+            let count = snap.getInt(.cliqCount)
+            let batch = self.store.batch()
+            let tpath = Int(Date.timeIntervalSinceReferenceDate * 1000)
+            let filePath = "\(name) - \(tpath)"
+            let geofire = GeoFirestore(collectionRef: self.geofireRef)
+            let uid = UserDefaults.uid
+            let newMetadata = StorageMetadata()
+            let userName =  snap.getString(.username)
             
-            ]
-        
-        var data = Data()
-        data = image.jpegData(compressionQuality: 1.0)!
-        
-       Storage.floqPhotos.child(filePath)
-            .putData(data, metadata: newMetadata, completion: { (metadata, error) in
-                if let error = error {
-                    onFinish(false,"Error uploading: \(error)")
-                    print("Error uploading: \(error)")
-                    return
-                }
-                var docData: [String: Any] = [
-                    "timestamp" : FieldValue.serverTimestamp(),
-                    Fields.followers.rawValue: [UserDefaults.uid:Date()]
-                ]
-                docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
-                print(docData, filePath)
-                batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
+            newMetadata.customMetadata = [
+                Fields.fileID.rawValue : filePath,
+                Fields.username.rawValue : userName,
+                Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
+                Fields.cliqname.rawValue : name
                 
-                let addata = [Fields.uid.rawValue:uid, Fields.dateCreated.rawValue:docData[Fields.timestamp.rawValue]!]
-                batch.setData(addata, forDocument: self.userRef.document(uid).collection(.myCliqs).document(filePath), merge: true)
-                docData.removeValue(forKey: Fields.cliqname.rawValue)
-                docData.removeValue(forKey:  Fields.followers.rawValue)
-                docData.removeValue(forKey:  Fields.userEmail.rawValue)
-                batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
-                batch.commit(completion: { (err) in
-                    if err != nil {
-                        onFinish(false,"Error writing document data")
-                        
-                    } else {
-                        onFinish(true,nil)
+            ]
+            
+            var data = Data()
+            data = image.jpegData(compressionQuality: 1.0)!
+            
+            Storage.floqPhotos.child(filePath)
+                .putData(data, metadata: newMetadata, completion: { (metadata, error) in
+                    if let error = error {
+                        onFinish(false,"Error uploading: \(error)")
+                        print("Error uploading: \(error)")
+                        return
                     }
+                    var docData: [String: Any] = [
+                        "timestamp" : FieldValue.serverTimestamp(),
+                        Fields.followers.rawValue: [UserDefaults.uid:Date()]
+                        
+                    ]
+                    docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
+                    print(docData, filePath)
+                    batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
+                    
+                    let addata = [Fields.uid.rawValue:uid, Fields.dateCreated.rawValue:docData[Fields.timestamp.rawValue]!,Fields.cliqCount.rawValue: count + 1]
+                    batch.setData(addata, forDocument: self.userRef.document(uid).collection(.myCliqs).document(filePath), merge: true)
+                    docData.removeValue(forKey: Fields.cliqname.rawValue)
+                    docData.removeValue(forKey:  Fields.followers.rawValue)
+                    docData.removeValue(forKey:  Fields.userEmail.rawValue)
+                    batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
+                    batch.commit(completion: { (err) in
+                        if err != nil {
+                            onFinish(false,"Error writing document data")
+                            
+                        } else {
+                            onFinish(true,nil)
+                        }
+                    })
+                    geofire.setLocation(location: locaion, forDocumentWithID: filePath)
+                    
+                    
                 })
-                geofire.setLocation(location: locaion, forDocumentWithID: filePath)
-            })
+        }
     }
     
     func getUserWith(_ uid:String, handler:@escaping CompletionHandlers.dataservice){

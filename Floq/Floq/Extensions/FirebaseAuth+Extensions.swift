@@ -7,6 +7,8 @@
 //
 
 import FirebaseAuth
+import FacebookCore
+import FacebookLogin
 
 
 extension Auth{
@@ -23,14 +25,22 @@ extension Auth{
     }
     
     class func deActivateAccount(_ completion:@escaping CompletionHandlers.storage){
-        
-        auth().currentUser?.delete(completion: { (err) in
+        let credemtial = FacebookAuthProvider.credential(withAccessToken: AccessToken.current?.authenticationToken ?? "")
+        auth().signInAndRetrieveData(with: credemtial) { (data, err) in
             if let err = err{
                 completion(false,err.localizedDescription)
             }else{
-                UserDefaults.invalidateUserData()
-                completion(true,nil)
+                auth().currentUser?.delete(completion: { (err) in
+                    
+                    if let err = err{
+                        completion(false,err.localizedDescription)
+                    }else{
+                        UserDefaults.invalidateUserData()
+                        completion(true,nil)
+                    }
+                })
             }
-        })
+        }
+        
     }
 }

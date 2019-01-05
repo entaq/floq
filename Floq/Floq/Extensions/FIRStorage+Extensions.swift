@@ -21,6 +21,10 @@ extension Storage{
         return reference(.storageFloqs)
     }
     
+    public class var profilePhotos:StorageReference{
+        return reference(.userProfilePhotos)
+    }
+    
     class func saveAvatar(image:UIImage, completion:@escaping CompletionHandlers.storage){
         let data = image.pngData()
         if data != nil{
@@ -44,10 +48,24 @@ extension Storage{
 }
 
 
+extension SDImageCache{
+    
+    class func invalidateProfiles(){
+        let prof = DataService.profileIDs
+        for p in prof{
+            shared().removeImage(forKey: Storage.profilePhotos.child(p).fullPath, withCompletion: nil)
+        }
+    }
+}
+
+
 extension UIImageView{
     
     func setAvatar(uid:String){
         let storageRef = Storage.reference(.userProfilePhotos).child(uid)
+        sd_setImage(with: storageRef, placeholderImage: .placeholder) { (img, err, type, ref) in
+            DataService.profileIDs.insert(uid)
+        }
         sd_setImage(with: storageRef, placeholderImage: UIImage.placeholder)
     }
     

@@ -62,6 +62,7 @@ class UserSettingsTVC: UITableViewController {
     func deactivateAccount(){
         let alert = UIAlertController.createDefaultAlert("Log Out", "You are about to deactivate your account.",.actionSheet, "Cancel",.default, nil)
         let action = UIAlertAction(title: "Deactivate", style: .destructive) { (ac) in
+            DataService.main.cleanUp(uid: UserDefaults.uid)
             Auth.deActivateAccount { (success, err) in
                 if success{
                     
@@ -81,7 +82,9 @@ class UserSettingsTVC: UITableViewController {
     func logout(){
         let alert = UIAlertController.createDefaultAlert("Log Out", "You are about to logout from your account",.alert, "Cancel",.default, nil)
         let action = UIAlertAction(title: "Logout", style: .destructive) { (ac) in
+
             Auth.logout { (success, err) in
+                
                 if success{
                     let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
                     self.present(onboard, animated: true, completion: nil)
