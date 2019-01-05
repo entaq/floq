@@ -78,10 +78,14 @@ class DataService{
         let batch = store.batch()
         let uid = UserDefaults.uid
         batch.setData(data, forDocument: userRef.document(uid).collection(.myCliqs).document(cliq.id), merge:true)
-        let clef = floqRef.document(cliq.id).collection(.followers).document(uid)
+        let clef = floqRef.document(cliq.id)
         batch.updateData(["\(Fields.followers.rawValue).\(uid)":Date()], forDocument: clef)
         batch.commit { (err) in
-            Logger.log(err)
+            if let err = err{
+                Logger.log(err)
+            }else{
+                
+            }
         }
     }
     

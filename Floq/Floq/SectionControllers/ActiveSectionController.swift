@@ -21,11 +21,15 @@ final class ActiveSectionController:ListSectionController{
     override func sizeForItem(at index: Int) -> CGSize {
         let width: CGFloat = collectionContext?.containerSize.width  ?? 0
         
-        return CGSize(width: width , height: 50)
+        return CGSize(width: width , height: 60)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        <#code#>
+        if let cell = collectionContext?.dequeueReusableCell(withNibName: String(describing: ActiveSectionCell.self), bundle: nil, for: self, at: index) as? ActiveSectionCell{
+            cell.configure(title: sectionClq?.cliqs.first?.name ?? "")
+            return cell
+        }
+        return ActiveSectionCell()
     }
     
     override func didUpdate(to object: Any) {

@@ -62,6 +62,8 @@ class CliqsCell: UICollectionViewCell {
             self.creator.text = cliq.item.user
             avi.setAvatar(uid: cliq.creatorUid)
             break
+        default:
+            break
         }
         
         if cliq.joined{

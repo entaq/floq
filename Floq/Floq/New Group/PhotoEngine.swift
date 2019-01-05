@@ -217,7 +217,7 @@ class PhotoEngine{
             return nil
         }
         actives.sort { (a1, a2) -> Bool in
-            a2.item.timestamp > a1.item.timestamp
+            a2.item.timestamp < a1.item.timestamp
         }
         activeCliq = actives.first
     }

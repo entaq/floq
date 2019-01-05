@@ -12,6 +12,7 @@ import Firebase
 import Floaty
 import CoreLocation
 import Geofirestore
+import Crashlytics
 
 final class HomeVC : UIViewController {
     
@@ -83,6 +84,7 @@ final class HomeVC : UIViewController {
                 self.updateData()
             }
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,7 +131,7 @@ final class HomeVC : UIViewController {
         }
         if myActiveSectionCliq != nil{
             if photoEngine.activeCliq != nil{
-                if photoEngine.activeCliq!.id != mySectionalCliqs!.cliqs.first!{
+                if photoEngine.activeCliq!.id != mySectionalCliqs!.cliqs.first!.id{
                     myActiveSectionCliq?.cliqs = [photoEngine.activeCliq!]
                 }else{
                     //There is no more active cliq.. Remove that section
@@ -142,7 +144,7 @@ final class HomeVC : UIViewController {
         }else{
             if self.photoEngine.activeCliq != nil{
                 myActiveSectionCliq = SectionableCliq(cliqs: [photoEngine.activeCliq!], type: .active)
-                allCliqs.append(mySectionalCliqs!)
+                allCliqs.append(myActiveSectionCliq!)
             }
             
         }
@@ -178,13 +180,23 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        Crashlytics.sharedInstance().crash()
         let cliqsction = self.allCliqs[indexPath.section]
-        if cliqsction.sectionType == .near{
-          let vc = NearbyCliqsVC(with: photoEngine, data: cliqsction.cliqs)
+        switch cliqsction.sectionType {
+        case .active:
+            let vc = PhotosVC(cliq: cliqsction.cliqs.first!)
             navigationController?.pushViewController(vc, animated: true)
-        }else{
-           let vc = MyCliqsVC(engine: photoEngine)
+            break
+        case .near:
+            let vc = NearbyCliqsVC(with: photoEngine, data: cliqsction.cliqs)
             navigationController?.pushViewController(vc, animated: true)
+            break
+        case .mine:
+            let vc = MyCliqsVC(engine: photoEngine)
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        default:
+            break
         }
         
         
