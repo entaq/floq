@@ -46,6 +46,8 @@ playground.xcworkspace
 #
 Pods/
 
+floq-cloud-functions/functions/node_modules/
+
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
