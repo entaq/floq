@@ -180,7 +180,7 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Crashlytics.sharedInstance().crash()
+        
         let cliqsction = self.allCliqs[indexPath.section]
         switch cliqsction.sectionType {
         case .active:
@@ -195,8 +195,7 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
             let vc = MyCliqsVC(engine: photoEngine)
             navigationController?.pushViewController(vc, animated: true)
             break
-        default:
-            break
+
         }
         
         
