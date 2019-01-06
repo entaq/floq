@@ -18,6 +18,7 @@ final class HomeVC : UIViewController {
     
     
     var  fluser:FLUser?
+    var isFetchingNearby = false
     var data: [FLCliqItem] = []
     var allCliqs:[SectionableCliq] = []
     var nearbyScliq:SectionableCliq?
@@ -100,7 +101,7 @@ final class HomeVC : UIViewController {
     
     
     func fetchNearbyCliqs(point:GeoPoint){
-        
+        if isFetchingNearby{return}else{isFetchingNearby = true}
         photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
             if let cliq = cliq {
                 if !self.data.contains(cliq) {
@@ -114,6 +115,7 @@ final class HomeVC : UIViewController {
                         return s1.designatedIndex < s2.designatedIndex
                     }
                     self.adapter.reloadData(completion: nil)
+                    self.isFetchingNearby = false
                 }else{
                     print("Error occurred with signature: \(errM ?? "Unknown Error")")
                 }

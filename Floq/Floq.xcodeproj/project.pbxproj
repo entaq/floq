@@ -339,14 +339,14 @@
 				C45CE27221E0C96E0071C59D /* OnBoarding */,
 				C4A2A41E21A22910006DFE6E /* SectionControllers */,
 				40A1F74020F2F80F00DDA0B1 /* HomeVC.swift */,
-				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
 				C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */,
-				C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */,
 				C4D1E08B21D794D400C5ED9A /* NearbyCliqsVC.swift */,
+				C434C51021DCBE33003333A1 /* MyCliqsVC.swift */,
+				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
+				C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */,
+				C434C51421DD2BA0003333A1 /* UserListVC.swift */,
 				C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */,
 				C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */,
-				C434C51021DCBE33003333A1 /* MyCliqsVC.swift */,
-				C434C51421DD2BA0003333A1 /* UserListVC.swift */,
 				C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */,
 			);
 			name = Controller;

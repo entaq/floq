@@ -31,6 +31,7 @@ extension Storage{
             let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
             let ref = reference(.userProfilePhotos).child(uid)
             ref.putData(data!, metadata: nil) { (meta, err) in
+                
                 if err == nil{
                     let cache = SDImageCache.shared()
                     cache.removeImage(forKey: ref.fullPath, withCompletion: {

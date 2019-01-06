@@ -30,6 +30,7 @@ class UserProfileVC: UIViewController {
         DataService.main.getUserWith(userID) { (user, err) in
             if let user = user as? FLUser{
                 self.title = user.username.capitalized
+                
             }
         }
         

@@ -16,7 +16,7 @@ import Geofirestore
 
 class NearbyCliqsVC: UIViewController{
 
-    
+    private var isFetchingNearby = false
     private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
@@ -55,14 +55,8 @@ class NearbyCliqsVC: UIViewController{
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         photoEngine = PhotoEngine()
         collectionView.backgroundColor = .globalbackground
-        for cl in data{
-            for s in myCliqs{
-                if cl.id == s{
-                    cl.joined = true
-                    break
-                }
-            }
-        }
+        
+        
         setupLocation()
         
         let floaty = Floaty()
@@ -91,7 +85,7 @@ class NearbyCliqsVC: UIViewController{
 
 
     func fetchNearbyCliqs(point:GeoPoint){
-
+        if isFetchingNearby{return}else{isFetchingNearby = true}
         photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
             if let cliq = cliq {
                 if !self.data.contains(cliq) {
@@ -102,6 +96,7 @@ class NearbyCliqsVC: UIViewController{
                     }
                     self.data.append(cliq)
                     self.adapter.reloadData(completion: nil)
+                    self.isFetchingNearby = false
                 }else{
                     print("Error occurred with signature: \(errM ?? "Unknown Error")")
                 }
