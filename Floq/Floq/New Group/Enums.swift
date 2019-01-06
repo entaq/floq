@@ -30,11 +30,13 @@ enum References:String{
     case userProfilePhotos = "ProfilePhotos"
     case followers = "Followers"
     case storageFloqs = "FLFloqPhotos"
+    case tokenRefs = "FLTOKENS"
     
 }
 
 public enum Fields:String{
     case fileID = "fileID"
+    case cliqID = "cliqID"
     case username = "userName"
     case dateCreated = "dateCreated"
     case timestamp = "timestamp"
@@ -49,6 +51,9 @@ public enum Fields:String{
     case followers = "followers"
     case deleted = "deleted"
     case dateDeleted = "dateDeleted"
+    case instanceToken = "instanceToken"
+    case savedInstance =  "savedInstance"
+    
 }
 
 enum keys:String{

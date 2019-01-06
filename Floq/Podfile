@@ -2,6 +2,7 @@ target 'Floq' do
   use_frameworks!
   pod 'FirebaseUI'
   pod 'Firebase'
+  pod 'Firebase/Messaging'
   pod 'FBSDKCoreKit', '4.36.0'
   pod 'FBSDKLoginKit', '4.36.0'
   pod 'FacebookCore', '0.4'

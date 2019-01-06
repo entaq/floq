@@ -14,6 +14,7 @@ import CoreLocation
 import Geofirestore
 import Crashlytics
 
+
 final class HomeVC : UIViewController {
     
     
@@ -54,6 +55,9 @@ final class HomeVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let app = UIApplication.shared.delegate as? AppDelegate{
+            app.registerRemoteNotifs(app: UIApplication.shared)
+        }
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         photoEngine = PhotoEngine()
         collectionView.backgroundColor = UIColor.globalbackground
@@ -186,7 +190,7 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
         let cliqsction = self.allCliqs[indexPath.section]
         switch cliqsction.sectionType {
         case .active:
-            let vc = PhotosVC(cliq: cliqsction.cliqs.first!)
+            let vc = PhotosVC(cliq: cliqsction.cliqs.first!, id: cliqsction.cliqs.first!.id)
             navigationController?.pushViewController(vc, animated: true)
             break
         case .near:

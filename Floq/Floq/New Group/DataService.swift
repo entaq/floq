@@ -119,6 +119,36 @@ class DataService{
         
     }
     
+    func saveNewUserInstanceToken(token:String, complete:@escaping CompletionHandlers.storage){
+        
+        if let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
+            store.collection(.tokenRefs).document(uid).setData([Fields.instanceToken.rawValue:token,Fields.dateCreated.rawValue:Date()], merge: true) { (err) in
+                if let err = err {
+                    complete(false,err.localizedDescription)
+                }else{
+                    complete(true,nil)
+                }
+            }
+        }else{
+            complete(false,"No uid")
+        }
+    }
+    
+    func getCliq(id:String, finish:@escaping (_ cliq:FLCliqItem?, _ errM:String?)->()){
+        floqRef.document(id).getDocument { (snapshot, err) in
+            if let snapshot = snapshot{
+                if snapshot.exists{
+                    let cliq = FLCliqItem(snapshot: snapshot)
+                    finish(cliq,nil)
+                }else{
+                    finish(nil,"Cliq doesnt Exist")
+                }
+            }else{
+                finish(nil,err?.localizedDescription)
+            }
+        }
+    }
+    
     
     func addNewCliq(image:UIImage, name:String,locaion:CLLocation, onFinish:@escaping CompletionHandlers.dataservice){
         

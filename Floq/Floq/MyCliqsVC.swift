@@ -92,7 +92,7 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cliq = photoEngine.myCliqs[indexPath.section]
-        self.navigationController?.pushViewController(PhotosVC(cliq: cliq), animated: true)
+        self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id:cliq.id), animated: true)
     }
 }
 

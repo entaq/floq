@@ -129,7 +129,7 @@ extension NearbyCliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cliq = self.data[indexPath.section]
-        self.navigationController?.pushViewController(PhotosVC(cliq: cliq), animated: true)
+        self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id: cliq.id), animated: true)
 
     }
 }

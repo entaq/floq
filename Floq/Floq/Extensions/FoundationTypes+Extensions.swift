@@ -83,6 +83,10 @@ extension UserDefaults{
         return standard.string(forKey: Fields.uid.rawValue)!
     }
     
+    public class var instanceToken:String{
+        return standard.string(forKey: Fields.instanceToken.rawValue) ?? ""
+    }
+    
     public class var username:String{
         return standard.string(forKey: Fields.username.rawValue)!
     }
@@ -93,6 +97,6 @@ extension UserDefaults{
     
     public class func invalidateUserData(){
         standard.removeObject(forKey: Fields.username.rawValue)
-        standard.removeObject(forKey: Fields.uid.rawValue)
+        standard.removeObject(forKey: Fields.uid.rawValue) 
     }
 }

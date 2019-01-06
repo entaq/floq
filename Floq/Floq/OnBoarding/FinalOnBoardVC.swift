@@ -33,6 +33,11 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)
         let navC = UINavigationController(rootViewController: HomeVC(nil))
+        if let appdel = UIApplication.shared.delegate as? AppDelegate{
+            appdel.window?.rootViewController = UINavigationController(rootViewController: HomeVC())
+            appdel.window?.makeKeyAndVisible()
+        }
+        
         self.present(navC, animated: true, completion: nil)
     }
     

@@ -24,7 +24,8 @@ import Floaty
 final class PhotosVC: UIViewController {
     
     var data: [GridPhotoItem] = []
-    private var cliq:FLCliqItem!
+    private var cliq:FLCliqItem?
+    private var cliqID:String!
     var photoEngine:PhotoEngine = PhotoEngine()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
@@ -36,8 +37,9 @@ final class PhotosVC: UIViewController {
     var userlistbutt:AvatarImageView!
     
     
-    init(cliq:FLCliqItem){
+    init(cliq:FLCliqItem? , id:String){
         self.cliq = cliq
+        self.cliqID = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,7 +50,15 @@ final class PhotosVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .globalbackground
-        
+        if cliq == nil{
+            DataService.main.getCliq(id: cliqID) { (cliq, err) in
+                if let cliq = cliq{
+                    self.cliq = cliq
+                    self.title = cliq.name
+                    self.userlistbutt.setAvatar(uid: cliq.creatorUid)
+                }
+            }
+        }
         navigationItem.hidesBackButton = false
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.addSubview(collectionView)
@@ -63,7 +73,7 @@ final class PhotosVC: UIViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
-        photoEngine.watchForPhotos(cliqDocumentID: cliq.id) { (photos, errm) in
+        photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (photos, errm) in
             if let items = photos {
                 
                 self.data = items
@@ -76,9 +86,10 @@ final class PhotosVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.title = cliq.name
+        self.title = cliq?.name ?? ""
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
+    
     
     
     
@@ -86,7 +97,7 @@ final class PhotosVC: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
         userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
-        userlistbutt.setAvatar(uid: cliq.creatorUid)
+        userlistbutt.setAvatar(uid: cliq?.creatorUid ?? "placeholder")
         let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         let tp = UITapGestureRecognizer(target: self, action: #selector(userlistTapped))
         tp.numberOfTapsRequired = 1
@@ -140,7 +151,7 @@ final class PhotosVC: UIViewController {
                         Fields.userUID.rawValue: Auth.auth().currentUser!.uid
                     ]
                     
-                    self.photoEngine.storeImage(filePath: filePath, data: data!.jpegData(compressionQuality: 1)!, id: self.cliq.id, newMetadata: newMetadata, onFinish: { (suc, err) in
+                    self.photoEngine.storeImage(filePath: filePath, data: data!.jpegData(compressionQuality: 1)!, id: self.cliqID, newMetadata: newMetadata, onFinish: { (suc, err) in
                         if let err = err{
                             self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
                         }else{
@@ -194,7 +205,7 @@ extension PhotosVC:GridPhotoSectionDelegate{
     
     func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
         let actualIndex = photoEngine.getTrueIndex(of: photo)
-        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex,name:cliq.name)
+        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex,name:cliq?.name ?? "")
         navigationController?.pushViewController(fullscreen, animated: true)
     }
 }
@@ -203,18 +214,20 @@ extension PhotosVC:GridPhotoSectionDelegate{
 extension PhotosVC:FloatyDelegate{
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        if cliq.isMember(){
-            selectPhoto()
-        }else{
-            let alert = UIAlertController.createDefaultAlert("INFO!!", "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos",.alert, "Cancel",.cancel, nil)
-            let join = UIAlertAction(title: "Join", style: .default) { (ac) in
-                DataService.main.joinCliq(cliq: self.cliq)
-                self.cliq.addMember()
-                self.selectPhoto()
+        if let cliq = self.cliq{
+            if cliq.isMember(){
+                selectPhoto()
+            }else{
+                let alert = UIAlertController.createDefaultAlert("INFO!!", "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos",.alert, "Cancel",.cancel, nil)
+                let join = UIAlertAction(title: "Join", style: .default) { (ac) in
+                    DataService.main.joinCliq(cliq: self.cliq!)
+                    self.cliq!.addMember()
+                    self.selectPhoto()
+                }
+                
+                alert.addAction(join)
+                present(alert, animated: true, completion: nil)
             }
-            
-            alert.addAction(join)
-            present(alert, animated: true, completion: nil)
         }
         
     }

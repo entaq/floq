@@ -6,10 +6,11 @@
 //  Copyright © 2017 Arun Nagarajan. All rights reserved.
 //
 
-import UIKit
 import Firebase
 import FacebookCore
 import SDWebImage
+import UserNotifications
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
-        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        if (UserDefaults.standard.string(forKey: Fields.uid.rawValue) != nil){
+            application.registerForRemoteNotifications()
+        }
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.isTranslucent = false
         navigationBarAppearace.tintColor = .white
@@ -59,6 +64,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
     
+   
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("This is the user info sent: \(userInfo.debugDescription)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print("This is the user info sent: \(userInfo.debugDescription)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("The tokjen data: \(deviceToken.debugDescription)")
+    }
+    
+    
+    
     func setRootViewController(){
         if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
             let home = UINavigationController(rootViewController: HomeVC(nil))
@@ -69,5 +90,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func registerRemoteNotifs(app:UIApplication){
+        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (succes, err) in
+            if succes{
+                //Print succesfully
+                InstanceID.instanceID().instanceID(handler: { (result, err) in
+                    if let result = result{
+                        DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
+                            if success{
+                                UserDefaults.set(result.token, for: .instanceToken)
+                            }else{
+                                
+                                Logger.log(err)
+                            }
+                        })
+                    }
+                })
+            }else{
+                Logger.log(err)
+                let alert = UIAlertController.createDefaultAlert("OOPS!!", "Looks like you refused permissions to receives notifications for floq. Please reconsider if you or you can always change these in settings",.alert, "OK",.default, nil)
+                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                
+            }
+        }
+       app.registerForRemoteNotifications()
+    }
 }
+
+
+
+extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Will Present tne ")
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Will Present the response: \(response.notification.request.content.userInfo.description)")
+        let id = response.notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
+        if let nav = window?.rootViewController as? UINavigationController{
+            if id == ""{return}
+            nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+        }
+        completionHandler()
+    }
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        let prevTok = UserDefaults.instanceToken
+        if prevTok != fcmToken{
+            DataService.main.saveNewUserInstanceToken(token: fcmToken) { (success, err) in
+                if success{
+                    UserDefaults.set(fcmToken, for: .instanceToken)
+                }else{
+                    Logger.log(err)
+                }
+            }
+        }
+    }
+    
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received this message: \(remoteMessage.appData.debugDescription)")
+    }
+}
+
 
