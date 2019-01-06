@@ -14,7 +14,13 @@ protocol CliqDelegate:class {
 }
 
 class CliqsCell: UICollectionViewCell {
-
+    
+    @IBOutlet weak var mavi1:AvatarImageView!
+    @IBOutlet weak var mavi2:AvatarImageView!
+    @IBOutlet weak var mavi3:AvatarImageView!
+    @IBOutlet weak var mavi4:AvatarImageView!
+    @IBOutlet weak var mavi5:AvatarImageView!
+    @IBOutlet weak var membersAvatarStack: UIStackView!
     @IBOutlet weak var commentlbl: UILabel!
     @IBOutlet weak var numberLikeslbl: UILabel!
     @IBOutlet weak var usernamePhotoStack: UIStackView!
@@ -33,6 +39,7 @@ class CliqsCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         commentStack.isHidden = true
+        membersAvatarStack.isHidden = true
         likeStack.isHidden = true
         imageview.clipsToBounds = true
         avi.clipsToBounds = true
@@ -57,6 +64,8 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.isHidden = true
             creator.isHidden = true
             avi.isHidden = true
+            membersAvatarStack.isHidden = false
+            configureMemberAvatar(followers: cliq.followers)
             break
         case .near:
             self.creator.text = cliq.item.user
@@ -71,8 +80,66 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.setTitle("Joined", for: .normal)
         }
     }
-    func setupCollectionView(){
-    
+    func configureMemberAvatar(followers:Aliases.follower_set){
+        let keys = followers.allKeys()
+        switch keys.count {
+        case 1:
+            mavi1.isHidden = false
+            mavi2.isHidden = true
+            mavi3.isHidden = true
+            mavi4.isHidden = true
+            mavi5.isHidden = true
+             mavi1.setAvatar(uid: keys.first!)
+        case 2:
+            mavi1.isHidden = false
+            mavi2.isHidden = false
+            mavi3.isHidden = true
+            mavi4.isHidden = true
+            mavi5.isHidden = true
+            mavi1.setAvatar(uid: keys.first!)
+            mavi2.setAvatar(uid: keys[1])
+            break
+        case 3:
+            mavi1.isHidden = false
+            mavi2.isHidden = false
+            mavi3.isHidden = false
+            mavi4.isHidden = true
+            mavi5.isHidden = true
+            mavi1.setAvatar(uid: keys.first!)
+            mavi2.setAvatar(uid: keys[1])
+            mavi3.setAvatar(uid: keys[2])
+            break
+        case 4:
+            mavi1.isHidden = false
+            mavi2.isHidden = false
+            mavi3.isHidden = false
+            mavi4.isHidden = false
+            mavi5.isHidden = true
+            mavi1.setAvatar(uid: keys.first!)
+            mavi2.setAvatar(uid: keys[1])
+            mavi3.setAvatar(uid: keys[2])
+            mavi4.setAvatar(uid: keys[3])
+            break
+        case 5:
+            mavi1.isHidden = false
+            mavi2.isHidden = false
+            mavi3.isHidden = false
+            mavi4.isHidden = false
+            mavi5.isHidden = false
+            mavi1.setAvatar(uid: keys.first!)
+            mavi2.setAvatar(uid: keys[1])
+            mavi3.setAvatar(uid: keys[2])
+            mavi4.setAvatar(uid: keys[3])
+            mavi5.image = UIImage.icon_addPhoto
+            break
+        default:
+            mavi1.isHidden = true
+            mavi2.isHidden = true
+            mavi3.isHidden = true
+            mavi4.isHidden = true
+            mavi5.isHidden = true
+            break
+        }
     }
     
     func configureViewForSection(cliq:SectionableCliq){
@@ -90,8 +157,10 @@ class CliqsCell: UICollectionViewCell {
             likeStack.isHidden = true
             numberOfCliqslbl.text = "\(cliq.count()) public Cliqs"
         }else{
+            
             numberOfCliqslbl.text = "\(cliq.count()) Cliqs"
             //commentStack.isHidden = false
+            
             
         }
     }

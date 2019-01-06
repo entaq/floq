@@ -53,8 +53,12 @@ class OnBoardInfoTwoVC: UIViewController {
                         if exists{
                             UserDefaults.set(username!, for: .username)
                             UserDefaults.set(user.uid, for: .uid)
-                            let navC = UINavigationController(rootViewController: HomeVC(nil))
-                            self.present(navC, animated: true, completion: nil)
+                            if let appdel = UIApplication.shared.delegate as? AppDelegate{
+                                let navC = UINavigationController(rootViewController: HomeVC(nil))
+                                appdel.window?.rootViewController = navC
+                                appdel.window?.makeKeyAndVisible()
+                            }
+                            
                         }else{
                             let vc = UIStoryboard.main.instantiateViewController(withIdentifier: FinalOnBoardVC.identifier) as! FinalOnBoardVC
                             vc.user = user

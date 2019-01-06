@@ -123,6 +123,46 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="Ikk-ep-PLV"/>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="u7i-fg-XvJ">
+                                <rect key="frame" x="139" y="64" width="125" height="25"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="PLI-gv-I1i" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="4Fv-N9-z1B"/>
+                                            <constraint firstAttribute="width" constant="25" id="QeJ-zR-c0W"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="h5w-ta-a0i" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                        <rect key="frame" x="25" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="W8Y-11-TIc"/>
+                                            <constraint firstAttribute="width" constant="25" id="utH-Ub-4Jb"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="Qwl-2y-4v2" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="wCK-XS-dyq"/>
+                                            <constraint firstAttribute="height" constant="25" id="xny-ne-K78"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="Rfu-f5-qhH" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                        <rect key="frame" x="75" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="3rE-ot-9Eu"/>
+                                            <constraint firstAttribute="height" constant="25" id="WU8-sm-tp0"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="vM3-I9-vKg" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                        <rect key="frame" x="100" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="U9L-sS-o10"/>
+                                            <constraint firstAttribute="height" constant="25" id="pU5-Jy-7pv"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -139,7 +179,9 @@
                             <constraint firstItem="WTi-bM-XaL" firstAttribute="centerX" secondItem="QSq-DF-X8B" secondAttribute="centerX" id="YRn-av-njL"/>
                             <constraint firstAttribute="bottom" secondItem="VaH-dE-gch" secondAttribute="bottom" constant="8" id="ZaH-35-cuL"/>
                             <constraint firstItem="BM1-sZ-kM0" firstAttribute="leading" secondItem="QSq-DF-X8B" secondAttribute="leading" constant="16" id="aER-Fl-wpc"/>
+                            <constraint firstItem="u7i-fg-XvJ" firstAttribute="centerX" secondItem="QSq-DF-X8B" secondAttribute="centerX" id="d0R-pp-Fdn"/>
                             <constraint firstAttribute="trailing" secondItem="HMs-41-RGX" secondAttribute="trailing" constant="16" id="hBH-dQ-zau"/>
+                            <constraint firstItem="u7i-fg-XvJ" firstAttribute="centerY" secondItem="QSq-DF-X8B" secondAttribute="centerY" id="iJW-ec-jpk"/>
                             <constraint firstItem="KT8-P0-JHo" firstAttribute="centerX" secondItem="QSq-DF-X8B" secondAttribute="centerX" id="iqn-aX-o3d"/>
                             <constraint firstItem="Fdj-6q-G18" firstAttribute="top" secondItem="QSq-DF-X8B" secondAttribute="top" id="kVD-K2-Bnc"/>
                             <constraint firstItem="BM1-sZ-kM0" firstAttribute="top" secondItem="QSq-DF-X8B" secondAttribute="top" constant="20" id="ofA-2K-FHo"/>
@@ -169,6 +211,12 @@
                 <outlet property="imageview" destination="c3e-xX-N4K" id="kwE-Nk-UsE"/>
                 <outlet property="joinbutt" destination="WTi-bM-XaL" id="AGT-LR-XRW"/>
                 <outlet property="likeStack" destination="KT8-P0-JHo" id="RgX-YQ-6he"/>
+                <outlet property="mavi1" destination="PLI-gv-I1i" id="VbF-QK-1o9"/>
+                <outlet property="mavi2" destination="h5w-ta-a0i" id="e5o-9i-xfv"/>
+                <outlet property="mavi3" destination="Qwl-2y-4v2" id="ypY-T1-NWL"/>
+                <outlet property="mavi4" destination="Rfu-f5-qhH" id="3Hj-Ed-Skk"/>
+                <outlet property="mavi5" destination="vM3-I9-vKg" id="1rJ-BY-Udy"/>
+                <outlet property="membersAvatarStack" destination="u7i-fg-XvJ" id="q9W-9a-aBo"/>
                 <outlet property="numberLikeslbl" destination="dVn-Y4-gQY" id="xAo-yq-nMn"/>
                 <outlet property="numberOfCliqslbl" destination="HMs-41-RGX" id="UMF-FJ-c0J"/>
                 <outlet property="title" destination="BM1-sZ-kM0" id="LOL-le-J16"/>
