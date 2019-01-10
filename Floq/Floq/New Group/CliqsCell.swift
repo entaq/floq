@@ -43,6 +43,7 @@ class CliqsCell: UICollectionViewCell {
         likeStack.isHidden = true
         imageview.clipsToBounds = true
         avi.clipsToBounds = true
+        mavi5.backgroundColor = .white
         avi.layer.cornerRadius = avi.frame.width / 2
         avi.layer.borderWidth = 2.0
         avi.layer.borderColor = UIColor.white.cgColor

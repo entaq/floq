@@ -119,6 +119,7 @@ final class PhotosVC: UIViewController {
     }
     
     @objc func selectPhoto() {
+        
         let pickerController = DKImagePickerController()
         let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
         activityIndicator.label.text = "Uploading Photos, Please wait.."
@@ -127,7 +128,18 @@ final class PhotosVC: UIViewController {
             
         }
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
-            
+            for asset in assets{
+                asset.fetchOriginalImage(completeBlock: { (image, info) in
+                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 1)?.count ?? 0)")
+                    
+                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.8)?.count ?? 0)")
+                    
+                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.5)?.count ?? 0)")
+                    
+                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.35)?.count ?? 0)")
+                    return
+                })
+            }
            
             if assets.isEmpty{
                 
@@ -151,7 +163,8 @@ final class PhotosVC: UIViewController {
                         Fields.userUID.rawValue: Auth.auth().currentUser!.uid
                     ]
                     
-                    self.photoEngine.storeImage(filePath: filePath, data: data!.jpegData(compressionQuality: 1)!, id: self.cliqID, newMetadata: newMetadata, onFinish: { (suc, err) in
+                    
+                    self.photoEngine.storeImage(filePath: filePath, data: data!.dataFromJPEG()!, id: self.cliqID, newMetadata: newMetadata, onFinish: { (suc, err) in
                         if let err = err{
                             self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
                         }else{
@@ -168,6 +181,8 @@ final class PhotosVC: UIViewController {
         self.present(pickerController, animated: true) {}
         
     }
+    
+    
 }
 
 

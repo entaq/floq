@@ -13,6 +13,9 @@ import Floaty
 import CoreLocation
 import Geofirestore
 import Crashlytics
+import FacebookLogin
+import FacebookCore
+import SDWebImage
 
 
 final class HomeVC : UIViewController {
@@ -28,21 +31,11 @@ final class HomeVC : UIViewController {
     private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
-    func setupLocation(){
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            
-            locationManager?.startUpdatingLocation()
-        }
-    }
     
     convenience init(_ fluser:FLUser?) {
         self.init()
@@ -50,40 +43,14 @@ final class HomeVC : UIViewController {
         
     }
     
-    
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let app = UIApplication.shared.delegate as? AppDelegate{
             app.registerRemoteNotifs(app: UIApplication.shared)
         }
-        view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
-        photoEngine = PhotoEngine()
-        collectionView.backgroundColor = UIColor.globalbackground
         
+        setup()
         setupLocation()
-        
-        
-        view.addSubview(collectionView)
-        
-        let floaty = Floaty()
-        floaty.buttonColor = .clear
-        floaty.buttonImage = .icon_app_rounded
-        
-        floaty.addItem("Create a Cliq", icon:.icon_app, handler: { item in
-            self.present(AddCliqVC(), animated: true, completion: nil)
-        })
-        floaty.addItem("Profile", icon:.placeholder, handler: { item in
-            if let vc = UIStoryboard.main.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        })
-        
-        view.addSubview(floaty)
-        adapter.collectionViewDelegate = self
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
         photoEngine.getMyCliqs {
             if self.photoEngine.myCliqs.count > 0{
                 self.updateData()
@@ -104,27 +71,24 @@ final class HomeVC : UIViewController {
     }
     
     
+    
+    
+    
     func fetchNearbyCliqs(point:GeoPoint){
         if isFetchingNearby{return}else{isFetchingNearby = true}
-        photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
-            if let cliq = cliq {
-                if !self.data.contains(cliq) {
-                    if self.nearbyScliq == nil{
-                        self.nearbyScliq = SectionableCliq(cliqs: [cliq], type: .near)
-                        self.allCliqs.append(self.nearbyScliq!)
-                    }else{
-                        self.nearbyScliq!.update(cliq)
-                    }
-                    self.allCliqs.sort { (s1, s2) -> Bool in
-                        return s1.designatedIndex < s2.designatedIndex
-                    }
-                    self.adapter.reloadData(completion: nil)
-                    self.isFetchingNearby = false
-                }else{
-                    print("Error occurred with signature: \(errM ?? "Unknown Error")")
-                }
+        photoEngine.queryForCliqsAt(geopoint: point) {
+            if self.nearbyScliq == nil{
+                self.nearbyScliq = SectionableCliq(cliqs: self.photoEngine.nearbyCliqs, type: .near)
+                self.allCliqs.append(self.nearbyScliq!)
+            }else{
+                self.nearbyScliq!.cliqs = self.photoEngine.nearbyCliqs
             }
-        })
+            self.allCliqs.sort { (s1, s2) -> Bool in
+                return s1.designatedIndex < s2.designatedIndex
+            }
+            self.adapter.reloadData(completion: nil)
+            self.isFetchingNearby = false
+        }
         
     }
     
@@ -137,14 +101,11 @@ final class HomeVC : UIViewController {
         }
         if myActiveSectionCliq != nil{
             if photoEngine.activeCliq != nil{
-                if photoEngine.activeCliq!.id != mySectionalCliqs!.cliqs.first!.id{
+                if photoEngine.activeCliq!.id != myActiveSectionCliq!.cliqs.first!.id{
                     myActiveSectionCliq?.cliqs = [photoEngine.activeCliq!]
                 }else{
                     //There is no more active cliq.. Remove that section
-                    if allCliqs.contains(myActiveSectionCliq!){
-                        allCliqs.remove(at: 0)
-
-                    }
+                    
                 }
             }
         }else{
@@ -159,6 +120,34 @@ final class HomeVC : UIViewController {
         }
         
         self.adapter.reloadData(completion: nil)
+    }
+    
+    
+    func setup(){
+        view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        photoEngine = PhotoEngine()
+        collectionView.backgroundColor = UIColor.globalbackground
+        let floaty = Floaty()
+        floaty.buttonColor = .clear
+        floaty.buttonImage = .icon_app_rounded
+        
+        floaty.addItem("Create a Cliq", icon:.icon_app, handler: { item in
+            self.present(AddCliqVC(), animated: true, completion: nil)
+        })
+        floaty.addItem("Profile", icon:.placeholder, handler: { item in
+            if let vc = UIStoryboard.main.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        })
+        
+        view.addSubview(collectionView)
+        
+        
+        view.addSubview(floaty)
+        adapter.collectionViewDelegate = self
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+        
     }
     
 }
@@ -204,12 +193,27 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
 
         }
         
-        
-    }
+    
+   }
+    
+
 }
 
 
 extension HomeVC:CLLocationManagerDelegate{
+    
+    func setupLocation(){
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         

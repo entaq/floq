@@ -154,8 +154,9 @@
                                             <constraint firstAttribute="height" constant="25" id="WU8-sm-tp0"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addcliq" translatesAutoresizingMaskIntoConstraints="NO" id="vM3-I9-vKg" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addphoto" translatesAutoresizingMaskIntoConstraints="NO" id="vM3-I9-vKg" customClass="AvatarImageView" customModule="Floq" customModuleProvider="target">
                                         <rect key="frame" x="100" y="0.0" width="25" height="25"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="U9L-sS-o10"/>
                                             <constraint firstAttribute="height" constant="25" id="pU5-Jy-7pv"/>
@@ -227,5 +228,6 @@
     </objects>
     <resources>
         <image name="addcliq" width="90" height="90"/>
+        <image name="addphoto" width="96" height="96"/>
     </resources>
 </document>

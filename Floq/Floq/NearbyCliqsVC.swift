@@ -86,23 +86,9 @@ class NearbyCliqsVC: UIViewController{
 
     func fetchNearbyCliqs(point:GeoPoint){
         if isFetchingNearby{return}else{isFetchingNearby = true}
-        photoEngine.queryForCliqsAt(geopoint: point, onFinish: { (cliq, errM) in
-            if let cliq = cliq {
-                if !self.data.contains(cliq) {
-                    for s in self.myCliqs{
-                        if cliq.id == s{
-                            cliq.joined = true
-                        }
-                    }
-                    self.data.append(cliq)
-                    self.adapter.reloadData(completion: nil)
-                    self.isFetchingNearby = false
-                }else{
-                    print("Error occurred with signature: \(errM ?? "Unknown Error")")
-                }
-            }
-        })
-
+        photoEngine.queryForCliqsAt(geopoint: point) {
+            self.adapter.reloadData(completion: nil)
+        }
     }
 
 
@@ -116,7 +102,7 @@ extension NearbyCliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
 
-        return data as [ListDiffable]
+        return photoEngine.nearbyCliqs as [ListDiffable]
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

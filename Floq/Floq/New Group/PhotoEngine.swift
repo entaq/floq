@@ -19,6 +19,11 @@ class PhotoEngine{
     private var allphotos:[PhotoItem] = []
     public private (set) var mycliqIds:Set<String> = []
     public private (set) var activeCliq:FLCliqItem?
+    public private (set) var nearbyCliqs:[FLCliqItem] = []
+    public private (set)  var myCliqs:[FLCliqItem] = []
+    var allPhotos:[PhotoItem]{
+        return allphotos
+    }
     
     private var storage:Storage{
         return Storage.storage()
@@ -46,11 +51,9 @@ class PhotoEngine{
         return database.collection(References.floqs.rawValue)
     }
     
+    
     private var query:GFSQuery?
     
-    var allPhotos:[PhotoItem]{
-        return allphotos
-    }
     
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
@@ -72,10 +75,10 @@ class PhotoEngine{
         return stup
     }
     
-    public private (set) var myCliqs:[FLCliqItem] = []
     
     
-    func queryForCliqsAt(geopoint:GeoPoint,onFinish:@escaping CompletionHandlers.nearbyCliqs){
+    
+    func queryForCliqsAt(geopoint:GeoPoint,onFinish:@escaping CompletionHandlers.simpleBlock){
         query = geofire.query(withCenter: geopoint, radius: RADIUS)
             let _ = query!.observe(.documentEntered) { (id, location) in
             if let id = id {
@@ -88,18 +91,20 @@ class PhotoEngine{
                 self.database.collection(References.floqs.rawValue).document(id).getDocument(completion: { (snapshot, error) in
                     if error == nil && snapshot != nil {
                         guard snapshot!.exists else {
-                            onFinish(nil,"Document does not exist")
+                            
                             return
                         }
                         
                         let cliq = FLCliqItem(snapshot: snapshot!)
                         if cliq.isActive{
-                            onFinish(cliq,nil)
+                            self.addNearby(cliq)
+                            onFinish()
                         }
                         
                         
                     }else{
-                        onFinish(nil,error!.localizedDescription)
+                        Logger.log(error)
+                        onFinish()
                     }
                 })
             }
@@ -107,8 +112,18 @@ class PhotoEngine{
         
     }
     
+    func addNearby(_ cliq:FLCliqItem){
+        if nearbyCliqs.contains(cliq){
+           return
+        }
+        nearbyCliqs.append(cliq)
+        nearbyCliqs.sort { (a1, a2) -> Bool in
+            return a1.item.timestamp > a2.item.timestamp
+        }
+    }
+    
     func getTimeFromIdFormat(id:String)->Date?{
-        //Format Anime Fan Arts - 568229967329
+        
         let ns = id.replacingOccurrences(of: " ", with: "")
         let chset = ns.split(separator: "-")
         if chset.count == 2{
@@ -196,51 +211,52 @@ class PhotoEngine{
     //Query Archived cliqs in last 24hrs for the Near Me section.
     
     func getMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
-        var counter = 0
+        
         let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
         userRef.document(uid).collection(.myCliqs).order(by: Fields.dateCreated.rawValue, descending: true).limit(to: 25).addSnapshotListener { (snap, err) in
             
             if let snap = snap{
+                let group = DispatchGroup()
                 for doc in snap.documentChanges{
+                    group.enter()
                     self.floqRef.document(doc.document.documentID).getDocument(completion: { (docsnap, err) in
                         self.mycliqIds.insert(doc.document.documentID)
-                        counter += 1
+                        
                         if let dsnap = docsnap{
                             let cliq = FLCliqItem(snapshot: dsnap)
                             print("My click contains: \(self.myCliqs.count)")
                             if !self.myCliqs.contains(cliq){
-                               self.myCliqs.append(cliq)
-                                print("The count is: \(snap.count)")
-                                if counter == snap.count{
-                                    self.setMostActive()
-                                    handler()
-                                   
-                                }
+                                self.myCliqs.append(cliq)
                             }
+                            group.leave()
                         }else{
                             print("The count is: \(snap.count)")
-                            if counter == snap.count{
-                                handler()
-                                
-                            }
+                            group.leave()
                         }
                     })
                 }
+                group.notify(queue: .main, execute: {
+                    self.setMostActive()
+                    handler()
+                })
             }
         }
     }
     
     func setMostActive(){
-        var actives = myCliqs.compactMap { (cliq) -> FLCliqItem? in
-            if cliq.isActive{
-               return cliq
-            }
-            return nil
-        }
-        actives.sort { (a1, a2) -> Bool in
-            a2.item.timestamp < a1.item.timestamp
-        }
-        activeCliq = actives.first
+        myCliqs.sort(by: { (a1, a2) -> Bool in
+            a1.item.timestamp > a2.item.timestamp
+        })
+//        var actives = myCliqs.compactMap { (cliq) -> FLCliqItem? in
+//            if cliq.isActive{
+//               return cliq
+//            }
+//            return nil
+//        }
+//        actives.sort { (a1, a2) -> Bool in
+//            a2.item.timestamp < a1.item.timestamp
+//        }
+        activeCliq = myCliqs.first
     }
     
     func generateGridItems(new:[PhotoItem])->[GridPhotoItem]{

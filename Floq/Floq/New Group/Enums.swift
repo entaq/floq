@@ -19,6 +19,13 @@ enum CompletionHandlers{
     typealias storage = (_ success:Bool, _ errorMessage:String?) -> ()
 }
 
+enum ImageSizes:Int{
+    case supermax = 32000000
+    case max = 16000000
+    case medium = 8000000
+    case min = 4000000
+}
+
 
 
 enum References:String{

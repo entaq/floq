@@ -80,6 +80,7 @@ class DataService{
         }
     }
     
+    
     func getAndStoreProfileImg(imgUrl:URL,uid:String){
         let downloader = SDWebImageDownloader.shared()
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
@@ -214,6 +215,8 @@ class DataService{
                 })
         }
     }
+    
+
     
     func getUserWith(_ uid:String, handler:@escaping CompletionHandlers.dataservice){
         

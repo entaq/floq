@@ -7,6 +7,8 @@
 //
 
 import FirebaseAuth.FIRUser
+import FacebookLogin
+import FacebookCore
 
 class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
 
@@ -24,6 +26,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     }
     
     func saveUserdata(user:User){
+       
         DataService.main.getAndStoreProfileImg(imgUrl: user.photoURL!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return

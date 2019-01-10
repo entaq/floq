@@ -9,6 +9,7 @@
 import FirebaseAuth
 import FacebookCore
 import FacebookLogin
+import FirebaseInstanceID
 
 class OnBoardInfoTwoVC: UIViewController {
 
@@ -76,7 +77,9 @@ class OnBoardInfoTwoVC: UIViewController {
     
 
     func saveUserdata(user:User){
-        DataService.main.getAndStoreProfileImg(imgUrl: user.photoURL!, uid: user.uid)
+        let userID = AccessToken.current?.userId ?? ""
+        let url = URL(string: "https://graph.facebook.com/\(userID)/picture?type=large")
+        DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
@@ -84,7 +87,18 @@ class OnBoardInfoTwoVC: UIViewController {
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)
-        
+        InstanceID.instanceID().instanceID(handler: { (result, err) in
+            if let result = result{
+                DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
+                    if success{
+                        UserDefaults.set(result.token, for: .instanceToken)
+                    }else{
+                        
+                        Logger.log(err)
+                    }
+                })
+            }
+        })
     }
     
     

@@ -77,10 +77,16 @@ extension Array {
     
 }
 
+extension Array where Element == FLCliqItem{
+    
+    
+}
+
 extension UserDefaults{
     
     public class var uid:String{
         return standard.string(forKey: Fields.uid.rawValue)!
+       
     }
     
     public class var instanceToken:String{

@@ -7,6 +7,9 @@
 //
 
 import FirebaseStorage
+import FacebookLogin
+import FacebookCore
+import SDWebImage
 
 class UserProfileVC: UIViewController {
 
@@ -34,7 +37,6 @@ class UserProfileVC: UIViewController {
             }
         }
         
-        
         // Do any additional setup after loading the view.
     }
     
@@ -60,6 +62,8 @@ class UserProfileVC: UIViewController {
         present(alert, animated: true, completion: nil)
         
     }
+    
+
     /*
     // MARK: - Navigation
 
