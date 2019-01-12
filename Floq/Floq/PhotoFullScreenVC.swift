@@ -18,12 +18,16 @@ class PhotoFullScreenVC: UIViewController {
     var userUid:String?
     var username:String?
     var total:Int!
+    var isSelected = false
     init(allphotos:[PhotoItem], selected index:Int, name:String){
         self.allphotos =  allphotos
         self.selectedIndex = index
         floqname = name
         super.init(nibName: nil, bundle: nil)
     }
+    
+    
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -89,15 +93,8 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
         
-        collectionView.backgroundColor = .globalbackground
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
-        setAvatarView()
-        adapter.reloadData(completion: nil)
-        let obj = allphotos[selectedIndex]
-        adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
+        
     }
     
     func setAvatarView(){
@@ -105,7 +102,7 @@ class PhotoFullScreenVC: UIViewController {
         tapImage.numberOfTapsRequired = 1
         avatarImageview.isUserInteractionEnabled = true
         avatarImageview.addGestureRecognizer(tapImage)
-        avatarImageview.frame =  CGRect(x: self.view.center.x - 35, y: 40, width: 60, height: 60)
+        avatarImageview.frame =  CGRect(x: self.view.center.x - 30, y: 30, width: 60, height: 60)
         avatarImageview.backgroundColor = UIColor.white
         avatarImageview.layer.cornerRadius = 30
         avatarImageview.layer.borderWidth = 2
@@ -120,8 +117,16 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.view.addSubview(avatarImageview)
+        collectionView.frame = CGRect(x: 0, y: -60, width: view.bounds.width, height: view.bounds.height + 60)
+        setAvatarView()
+        collectionView.backgroundColor = .globalbackground
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
         
+        adapter.reloadData(completion: nil)
+        let obj = allphotos[selectedIndex]
+        adapter.collectionViewDelegate = self
+        adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
         
     }
 
@@ -132,7 +137,7 @@ class PhotoFullScreenVC: UIViewController {
 }
 
 
-extension PhotoFullScreenVC:ListAdapterDataSource{
+extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
 
     
 
@@ -154,6 +159,31 @@ extension PhotoFullScreenVC:ListAdapterDataSource{
         return nil
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isSelected{
+            
+            UIView.animate(withDuration: 0.5) {
+                self.navigationController?.navigationBar.alpha = 1
+                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                statusBar?.alpha = 1
+
+                self.avatarImageview.alpha = 1
+                self.collectionView.backgroundColor = .globalbackground
+                self.isSelected = false
+            }
+        }else{
+            UIView.animate(withDuration: 0.5) {
+                self.navigationController?.navigationBar.alpha = 0
+                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                statusBar?.alpha = 0
+                self.avatarImageview.alpha = 0
+                self.collectionView.backgroundColor = .black
+                self.isSelected = true
+            }
+        }
+        
+    }
+    
 }
 
 
@@ -168,6 +198,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     func willDisplayIndex(_ index:Int){
         
     }
+    
     
     
     @objc func tappedAvatar(_ tapGestureRecognizer:UITapGestureRecognizer){

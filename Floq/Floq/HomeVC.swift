@@ -87,7 +87,7 @@ final class HomeVC : UIViewController {
                 return s1.designatedIndex < s2.designatedIndex
             }
             self.adapter.reloadData(completion: nil)
-            self.isFetchingNearby = false
+            //self.isFetchingNearby = false
         }
         
     }

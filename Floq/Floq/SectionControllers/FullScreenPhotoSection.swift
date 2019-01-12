@@ -15,6 +15,7 @@ protocol FullScreenScetionDelegate:class {
     
     func willDisplayPhoto(with reference:StorageReference, for user:(String,String))
     func willDisplayIndex(_ index:Int)
+    
 }
 
 final class FullScreenPhotoSection: ListSectionController {
@@ -53,6 +54,9 @@ final class FullScreenPhotoSection: ListSectionController {
         
         photo = object as? PhotoItem
     }
+    
+   
+    
 }
 
 
@@ -61,7 +65,7 @@ extension FullScreenPhotoSection: ListDisplayDelegate{
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
         if let photo = photo{
             let reference = Storage.reference(.userProfilePhotos).child(photo.userUid)
-           // print("This is the ref: \(reference)")
+           
             delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user))
         }
     }

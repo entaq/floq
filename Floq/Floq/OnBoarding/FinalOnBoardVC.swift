@@ -48,10 +48,10 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
-        if (textField.text!.count > 4) {
+        if (textField.text!.count > 0) {
             saveUserdata(user: user)
         }else{
-            let alert = UIAlertController.createDefaultAlert("OOPS!!", "Please provide an a nickname of more than four letters",.alert, "Dismiss",.default, nil)
+            let alert = UIAlertController.createDefaultAlert("OOPS!!", "Please provide an a nickname",.alert, "Dismiss",.default, nil)
             self.present(alert, animated: true, completion: nil)
         }
         return true

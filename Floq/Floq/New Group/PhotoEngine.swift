@@ -244,9 +244,11 @@ class PhotoEngine{
     }
     
     func setMostActive(){
+        print(myCliqs.debugDescription)
         myCliqs.sort(by: { (a1, a2) -> Bool in
             a1.item.timestamp > a2.item.timestamp
         })
+        print(myCliqs.debugDescription)
 //        var actives = myCliqs.compactMap { (cliq) -> FLCliqItem? in
 //            if cliq.isActive{
 //               return cliq

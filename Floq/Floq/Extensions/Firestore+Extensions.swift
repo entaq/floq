@@ -28,7 +28,7 @@ extension DocumentSnapshot{
         if let field = get(id.rawValue) as? Timestamp{
             return field.dateValue()
         }
-        return Date.init(timeIntervalSince1970: 0)
+        return Date()
         
         
     }
