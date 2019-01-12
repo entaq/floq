@@ -20,6 +20,9 @@ const FIELD_followers = "followers";
 const FIELD_deleted = "deleted";
 const FIELD_dateDeleted = "dateDeleted";
 const FIELD_instanceToken = "instanceToken";
+const REF_ANALYTICS = "FLANALYTICS";
+const DOC_CLIQS = "Cliqs";
+const FIELD_COUNT = "count";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -55,6 +58,25 @@ export const photoAdded = functions.firestore
       }
     }
     return promise;
+  });
+
+export const analyticsOnCliqs = functions.firestore
+  .document(`${REF_FLOQS}/{id}`)
+  .onCreate(async (snap, context) => {
+    var ref = store.doc(`${REF_ANALYTICS}/${DOC_CLIQS}`);
+    return store
+      .runTransaction(trans => {
+        return trans.get(ref).then(docsnap => {
+          var newCount = docsnap.get(FIELD_COUNT) + 1;
+          trans.update(ref, { [FIELD_COUNT]: newCount });
+        });
+      })
+      .then(result => {
+        console.log(`Transaction succesful ${result}`);
+      })
+      .catch(err => {
+        console.log(`Error occurred with sig: ${err}`);
+      });
   });
 
 export const testFunctionsWorks = functions.https.onRequest(
