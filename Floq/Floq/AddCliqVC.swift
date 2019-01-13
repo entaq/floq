@@ -73,6 +73,7 @@ class AddCliqVC: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         textField.backgroundColor = .clear
         textField.textColor = .white
+        textField.returnKeyType = .done
         textField.delegate = self
         textviewbg.addSubview(textField)
         

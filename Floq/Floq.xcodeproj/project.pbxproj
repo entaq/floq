@@ -71,6 +71,7 @@
 		C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */; };
 		C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */; };
 		C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */; };
+		C4ED7D8121EB292B0073ED76 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +156,7 @@
 		C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionableCliq.swift; sourceTree = "<group>"; };
 		C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTVC.swift; sourceTree = "<group>"; };
+		C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +362,7 @@
 			children = (
 				C434C50E21DBEB48003333A1 /* FirebaseAuth+Extensions.swift */,
 				C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */,
+				C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */,
 				C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */,
 				C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */,
 				C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */,
@@ -681,6 +684,7 @@
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
 				C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */,
+				C4ED7D8121EB292B0073ED76 /* Firestore+Extensions.swift in Sources */,
 				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
