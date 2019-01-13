@@ -82,7 +82,7 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow Floq to use your location. Location data will not be shared to any other third party</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo Library usage description</string>
+	<string>Allow Floq to access your Photos</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow Floq to use your location. Location data will not be shared to any other third party</string>
 </dict>
