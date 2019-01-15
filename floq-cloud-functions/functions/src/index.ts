@@ -80,7 +80,30 @@ export const analyticsOnCliqs = functions.firestore
   });
 
 export const testFunctionsWorks = functions.https.onRequest(
-  (request, response) => {
-    response.send("Hello from Firebase, Im working fully!");
+  async (request, response) => {
+    var alldocs = await store.collection(REF_FLOQS).get();
+    let batch = store.batch();
+    alldocs.forEach(element => {
+      let data = element.data();
+      let followers = data[FIELD_followers];
+      if (Array.isArray(followers)) {
+        let y = 0;
+      } else {
+        let arrdata = [];
+        for (const key in followers) {
+          arrdata.push(key);
+        }
+        batch.update(element.ref, { [FIELD_followers]: arrdata });
+      }
+    });
+
+    batch
+      .commit()
+      .then(x => {
+        response.status(200).send(x);
+      })
+      .catch(err => {
+        response.status(404).send(err);
+      });
   }
 );
