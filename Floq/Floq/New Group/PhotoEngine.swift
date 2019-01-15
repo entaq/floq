@@ -210,6 +210,33 @@ class PhotoEngine{
     //Optimization (Save Latest Cliq in firestore document)
     //Query Archived cliqs in last 24hrs for the Near Me section.
     
+    func queryForMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
+        let uid = UserDefaults.uid
+        floqRef.whereField(Fields.followers.rawValue, arrayContains: uid).addSnapshotListener { (querySnap, err) in
+            if let query = querySnap{
+                for doc in query.documentChanges{
+                    let cliq = FLCliqItem(snapshot: doc.document)
+                    if self.myCliqs.contains(cliq){
+                        let index = self.myCliqs.firstIndex(of: cliq)
+                        if let index = index{
+                            self.myCliqs.remove(at: index)
+                            self.myCliqs.append(cliq)
+                        }
+                    }else{
+                        self.myCliqs.append(cliq)
+                    }
+                }
+                self.myCliqs.sort(by: { (a1, a2) -> Bool in
+                    a1.item.timestamp > a2.item.timestamp
+                })
+                self.setMostActive()
+                handler()
+            }
+        }
+    }
+    /*
+     Depracated: Not cost Efficient
+     */
     func getMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
         
         let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
@@ -243,22 +270,13 @@ class PhotoEngine{
         }
     }
     
+    
     func setMostActive(){
-        print(myCliqs.debugDescription)
-        myCliqs.sort(by: { (a1, a2) -> Bool in
-            a1.item.timestamp > a2.item.timestamp
-        })
-        print(myCliqs.debugDescription)
-//        var actives = myCliqs.compactMap { (cliq) -> FLCliqItem? in
-//            if cliq.isActive{
-//               return cliq
-//            }
-//            return nil
-//        }
-//        actives.sort { (a1, a2) -> Bool in
-//            a2.item.timestamp < a1.item.timestamp
-//        }
-        activeCliq = myCliqs.first
+        let latest = UserDefaults.activeCliqID
+        let lcliqs = myCliqs.filter { (item) -> Bool in
+            return item.id == latest
+        }
+        activeCliq = lcliqs.first
     }
     
     func generateGridItems(new:[PhotoItem])->[GridPhotoItem]{

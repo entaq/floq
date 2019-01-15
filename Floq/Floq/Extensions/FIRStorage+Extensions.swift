@@ -26,7 +26,7 @@ extension Storage{
     }
     
     class func saveAvatar(image:UIImage, completion:@escaping CompletionHandlers.storage){
-        let data = image.pngData()
+        let data = image.dataFromJPEG()
         if data != nil{
             let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
             let ref = reference(.userProfilePhotos).child(uid)

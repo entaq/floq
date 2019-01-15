@@ -99,12 +99,11 @@ class DataService{
     }
     
     func joinCliq(cliq:FLCliqItem){
-        let data = [Fields.dateCreated.rawValue:cliq.item.timestamp,Fields.uid.rawValue:cliq.id] as [String : Any]
         let batch = store.batch()
         let uid = UserDefaults.uid
-        batch.setData(data, forDocument: userRef.document(uid).collection(.myCliqs).document(cliq.id), merge:true)
+        batch.updateData(["\(References.myCliqs.rawValue).\(cliq.id)":FieldValue.serverTimestamp()], forDocument: userRef.document(uid))
         let clef = floqRef.document(cliq.id)
-        batch.updateData(["\(Fields.followers.rawValue).\(uid)":Date()], forDocument: clef)
+        batch.updateData([Fields.followers.rawValue:FieldValue.arrayUnion([uid])], forDocument: clef)
         batch.commit { (err) in
             if let err = err{
                 Logger.log(err)
@@ -187,7 +186,7 @@ class DataService{
                     }
                     var docData: [String: Any] = [
                         "timestamp" : FieldValue.serverTimestamp(),
-                        Fields.followers.rawValue: [UserDefaults.uid:Date()]
+                        Fields.followers.rawValue: [UserDefaults.uid]
                         
                     ]
                     docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })

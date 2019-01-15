@@ -11,11 +11,10 @@ import IGListKit
 import Firebase
 import Floaty
 import CoreLocation
-import Geofirestore
-import Crashlytics
 import FacebookLogin
 import FacebookCore
 import SDWebImage
+import Geofirestore
 
 
 final class HomeVC : UIViewController {
@@ -31,7 +30,8 @@ final class HomeVC : UIViewController {
     private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -51,7 +51,7 @@ final class HomeVC : UIViewController {
         
         setup()
         setupLocation()
-        photoEngine.getMyCliqs {
+        photoEngine.queryForMyCliqs {
             if self.photoEngine.myCliqs.count > 0{
                 self.updateData()
             }
@@ -62,6 +62,10 @@ final class HomeVC : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = "Floq"
+        if photoEngine.activeCliq != nil{
+            photoEngine.setMostActive()
+            updateData()
+        }
         
     }
     
@@ -75,6 +79,7 @@ final class HomeVC : UIViewController {
     
     
     func fetchNearbyCliqs(point:GeoPoint){
+        
         if isFetchingNearby{return}else{isFetchingNearby = true}
         photoEngine.queryForCliqsAt(geopoint: point) {
             if self.nearbyScliq == nil{

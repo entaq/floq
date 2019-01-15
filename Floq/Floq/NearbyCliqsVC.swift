@@ -40,11 +40,10 @@ class NearbyCliqsVC: UIViewController{
     convenience init(with Engine:PhotoEngine,data:[FLCliqItem]) {
         self.init()
         self.photoEngine = Engine
-        self.data = data
         myCliqs = photoEngine.mycliqIds
     }
 
-    var data: [FLCliqItem] = []
+    
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -71,6 +70,7 @@ class NearbyCliqsVC: UIViewController{
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.reloadData(completion: nil)
     }
 
     override func viewDidLayoutSubviews() {
@@ -114,7 +114,7 @@ extension NearbyCliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cliq = self.data[indexPath.section]
+        let cliq = self.photoEngine.nearbyCliqs[indexPath.section]
         self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id: cliq.id), animated: true)
 
     }
@@ -129,7 +129,7 @@ extension NearbyCliqsVC:CLLocationManagerDelegate{
             return
         }
         let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        fetchNearbyCliqs(point: point)
+       fetchNearbyCliqs(point: point)
         locationManager?.stopUpdatingLocation()
     }
 

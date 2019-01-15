@@ -28,19 +28,19 @@ class FLCliqItem:ListDiffable, Equatable{
     
     func isMember(_ id:String? = nil)->Bool{
         let id = id ?? UserDefaults.uid
-        return (followers[id] != nil)
+        return followers.contains(id)
     }
     
     func addMember(_ id:String? = nil){
         let id = id ?? UserDefaults.uid
-        followers.updateValue(Date().unix_ts, forKey: id)
+        followers.insert(id)
     }
     
     public private (set) var id:String
     public private (set) var item:PhotoItem
     public private (set) var name:String
     public private (set) var creatorUid:String
-    public private (set) var followers: Aliases.follower_set
+    public private (set) var followers: Set<String>
     public private (set) var isActive:Bool
 
     public var joined:Bool
@@ -52,19 +52,16 @@ class FLCliqItem:ListDiffable, Equatable{
         creatorUid = snapshot.getString(.userUID)
         let timestamp = snapshot.getDate(.timestamp)
         item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
-        
-        let data = snapshot.getDictionary(.followers)
-        var followers:Aliases.follower_set = [:]
-        for (key,val) in data{
-            let ts = (val as? Timestamp)?.dateValue().unix_ts ?? 0
-            followers.updateValue(ts, forKey: key)
+        followers = []
+        if let data = snapshot.get(Fields.followers.rawValue) as? [String]{
+            self.followers = Set<String>(data)
         }
-        self.followers = followers
+    
         if followers.isEmpty{
-            self.followers.updateValue(snapshot.getDate(.timestamp).unix_ts, forKey: creatorUid)
+            self.followers.insert(creatorUid)
         }
         isActive = timestamp.nextDay > Date()
-        joined = (followers[UserDefaults.uid] != nil) 
+        joined = followers.contains(UserDefaults.uid)
         
     }
     

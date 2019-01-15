@@ -128,18 +128,6 @@ final class PhotosVC: UIViewController {
             
         }
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
-            for asset in assets{
-                asset.fetchOriginalImage(completeBlock: { (image, info) in
-                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 1)?.count ?? 0)")
-                    
-                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.8)?.count ?? 0)")
-                    
-                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.5)?.count ?? 0)")
-                    
-                    print("The actual image sixe is \(image!.jpegData(compressionQuality: 0.35)?.count ?? 0)")
-                    return
-                })
-            }
            
             if assets.isEmpty{
                 

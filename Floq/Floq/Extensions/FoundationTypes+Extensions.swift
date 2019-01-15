@@ -89,6 +89,14 @@ extension UserDefaults{
        
     }
     
+    public class func setLatest(_ id:String){
+        set(id, for: .latestCliq)
+    }
+    
+    public class var activeCliqID:String{
+        return standard.string(forKey: Fields.latestCliq.rawValue) ?? ""
+    }
+    
     public class var instanceToken:String{
         return standard.string(forKey: Fields.instanceToken.rawValue) ?? ""
     }
@@ -103,6 +111,7 @@ extension UserDefaults{
     
     public class func invalidateUserData(){
         standard.removeObject(forKey: Fields.username.rawValue)
-        standard.removeObject(forKey: Fields.uid.rawValue) 
+        standard.removeObject(forKey: Fields.uid.rawValue)
+        standard.removeObject(forKey: Fields.latestCliq.rawValue)
     }
 }

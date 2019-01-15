@@ -81,8 +81,8 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.setTitle("Joined", for: .normal)
         }
     }
-    func configureMemberAvatar(followers:Aliases.follower_set){
-        let keys = followers.allKeys()
+    func configureMemberAvatar(followers:Set<String>){
+        let keys = Array<String>(followers)
         switch keys.count {
         case 1:
             mavi1.isHidden = false
