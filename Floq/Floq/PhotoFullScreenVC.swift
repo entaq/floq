@@ -77,8 +77,14 @@ class PhotoFullScreenVC: UIViewController {
                 let sheet = UIAlertController.createDefaultAlert("Save Photo", "",.actionSheet, "cancel",.cancel, nil)
                 let action = UIAlertAction(title: "Save", style: .default) { (ac) in
                     let album = CustomPhotoAlbum(album: self.floqname)
-                    album.save(image:image)
-                    self.present(UIAlertController.createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+                    album.save(image: image, handler:{ (success, err) in
+                        if success{
+                            self.present(UIAlertController.createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+                        }else{
+                            self.present(UIAlertController.createDefaultAlert("ERROR", "Photo could not be saved: ++\(err ?? "Unknown Error")",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
+                        }
+                    })
+                    
                 }
                 sheet.addAction(action)
                 present(sheet, animated: true, completion: nil)
