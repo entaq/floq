@@ -87,6 +87,7 @@ final class PhotosVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = cliq?.name ?? ""
+        print("Cliq ID is: \(cliqID)")
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
@@ -150,9 +151,9 @@ final class PhotosVC: UIViewController {
                         Fields.username.rawValue : userName,
                         Fields.userUID.rawValue: Auth.auth().currentUser!.uid
                     ]
+                    let fid = self.cliq?.id ?? self.cliqID
                     
-                    
-                    self.photoEngine.storeImage(filePath: filePath, data: data!.dataFromJPEG()!, id: self.cliqID, newMetadata: newMetadata, onFinish: { (suc, err) in
+                    self.photoEngine.storeImage(filePath: filePath, data: data!.dataFromJPEG()!, id: fid!, newMetadata: newMetadata, onFinish: { (suc, err) in
                         if let err = err{
                             self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
                         }else{

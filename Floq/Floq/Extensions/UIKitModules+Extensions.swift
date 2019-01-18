@@ -78,22 +78,22 @@ extension UIImage{
     func dataFromJPEG()-> Data?{
         var compression:CGFloat = 1
         if let data = jpegData(compressionQuality: compression){
-            if data.count > ImageSizes.min.rawValue{
+            if data.count < ImageSizes.min.rawValue{
                 compression = 1
                 return jpegData(compressionQuality: compression)
             }
-            if data.count > ImageSizes.medium.rawValue{
+            if data.count < ImageSizes.medium.rawValue{
                 compression = 0.8
                 return jpegData(compressionQuality: compression)
             }
-            if data.count > ImageSizes.max.rawValue{
+            if data.count < ImageSizes.max.rawValue{
                 compression = 0.5
                 return jpegData(compressionQuality: compression)
             }
-            if data.count > ImageSizes.supermax.rawValue{
-                compression = 0.3
-                return jpegData(compressionQuality: compression)
-            }
+            
+            compression = 0.3
+            return jpegData(compressionQuality: compression)
+            
         }
         return nil
     }
