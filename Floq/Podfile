@@ -1,7 +1,10 @@
 target 'Floq' do
   use_frameworks!
-  pod 'FirebaseUI'
-  pod 'Firebase'
+  pod 'FirebaseUI/Storage', '~> 5.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Messaging'
   pod 'FBSDKCoreKit', '4.36.0'
   pod 'FBSDKLoginKit', '4.36.0'
