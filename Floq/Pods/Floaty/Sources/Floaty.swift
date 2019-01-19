@@ -636,7 +636,7 @@ open class Floaty: UIView {
     fileprivate func setPlusLayer() {
         plusLayer.removeFromSuperlayer()
         plusLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
-        plusLayer.lineCap = CAShapeLayerLineCap.round
+        plusLayer.lineCap = .round
         plusLayer.strokeColor = plusColor.cgColor
         plusLayer.lineWidth = 2.0
         plusLayer.path = plusBezierPath().cgPath
@@ -1197,7 +1197,7 @@ extension Floaty {
     func setAccessibilityView() {
         self.addSubview(accessibilityView)
         accessibilityView.isAccessibilityElement = true
-        accessibilityView.accessibilityTraits = UIAccessibilityTraits.button
+        accessibilityView.accessibilityTraits != UIAccessibilityTraits.button
     }
     
     open override var accessibilityLabel : String? {
