@@ -10,8 +10,10 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 import Geofirestore
+import CoreLocation
 
-class PhotoEngine{
+
+class PhotoEngine:NSObject{
     
     
     private var geopoint:GeoPoint!
@@ -20,7 +22,9 @@ class PhotoEngine{
     public private (set) var mycliqIds:Set<String> = []
     public private (set) var activeCliq:FLCliqItem?
     public private (set) var nearbyCliqs:[FLCliqItem] = []
+    private var locationManager:CLLocationManager?
     public private (set)  var myCliqs:[FLCliqItem] = []
+    
     var allPhotos:[PhotoItem]{
         return allphotos
     }
@@ -134,31 +138,6 @@ class PhotoEngine{
         return nil
     }
     
-    func queryPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.photogrids){
-        var data:[PhotoItem] = []
-        database.collection(References.floqs.rawValue).document(cliqDocumentID)
-            .collection(References.photos.rawValue).order(by: Fields.timestamp.rawValue, descending: true).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                    onFinish(nil,err.localizedDescription)
-                } else {
-                    for document in querySnapshot!.documents {
-                        guard let userName = document["userName"] as? String else { continue }
-                        let ts = document.getDate(.timestamp)
-                        let photoItem = PhotoItem(photoID: document.documentID, user: userName, timestamp: ts,uid:document.getString(.userUID))
-                        if !data.contains(photoItem) {
-                            data.append(photoItem)
-                        }
-                        data.sort(by: { (a1, a2) -> Bool in
-                            return a1.timestamp.timeIntervalSince1970 > a2.timestamp.timeIntervalSince1970
-                        })
-                        let gridsItems = self.generateGridItems(new: data)
-                        self.storeAllPhotos(data)
-                        onFinish(gridsItems,nil)
-                    }
-                }
-        }
-    }
     
     func getTrueIndex(of photo:PhotoItem)->Int{
        let index = allphotos.firstIndex(of: photo) ?? 0
@@ -234,41 +213,7 @@ class PhotoEngine{
             }
         }
     }
-    /*
-     Depracated: Not cost Efficient
-     */
-    func getMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
-        
-        let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue)!
-        userRef.document(uid).collection(.myCliqs).order(by: Fields.dateCreated.rawValue, descending: true).limit(to: 25).addSnapshotListener { (snap, err) in
-            
-            if let snap = snap{
-                let group = DispatchGroup()
-                for doc in snap.documentChanges{
-                    group.enter()
-                    self.floqRef.document(doc.document.documentID).getDocument(completion: { (docsnap, err) in
-                        self.mycliqIds.insert(doc.document.documentID)
-                        
-                        if let dsnap = docsnap{
-                            let cliq = FLCliqItem(snapshot: dsnap)
-                            print("My click contains: \(self.myCliqs.count)")
-                            if !self.myCliqs.contains(cliq){
-                                self.myCliqs.append(cliq)
-                            }
-                            group.leave()
-                        }else{
-                            print("The count is: \(snap.count)")
-                            group.leave()
-                        }
-                    })
-                }
-                group.notify(queue: .main, execute: {
-                    self.setMostActive()
-                    handler()
-                })
-            }
-        }
-    }
+   
     
     
     func setMostActive(){
@@ -336,3 +281,33 @@ class PhotoEngine{
 }
 
 
+extension PhotoEngine: CLLocationManagerDelegate{
+    
+    func setupLocation(){
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let userLocation = locations.first else{
+            return
+        }
+        let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+       // fetchNearbyCliqs(point: point)
+        locationManager?.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+}

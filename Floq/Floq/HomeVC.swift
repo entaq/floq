@@ -11,8 +11,6 @@ import IGListKit
 import Firebase
 import Floaty
 import CoreLocation
-import FacebookLogin
-import FacebookCore
 import SDWebImage
 import Geofirestore
 
@@ -22,7 +20,6 @@ final class HomeVC : UIViewController {
     
     var  fluser:FLUser?
     var isFetchingNearby = false
-    var data: [FLCliqItem] = []
     var allCliqs:[SectionableCliq] = []
     var nearbyScliq:SectionableCliq?
     var mySectionalCliqs:SectionableCliq?
@@ -50,7 +47,7 @@ final class HomeVC : UIViewController {
         }
         
         setup()
-        setupLocation()
+        //setupLocation()
         photoEngine.queryForMyCliqs {
             if self.photoEngine.myCliqs.count > 0{
                 self.updateData()
@@ -207,32 +204,6 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
 
 extension HomeVC:CLLocationManagerDelegate{
     
-    func setupLocation(){
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            
-            locationManager?.startUpdatingLocation()
-        }
-    }
     
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard let userLocation = locations.first else{
-            return
-        }
-        let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        fetchNearbyCliqs(point: point)
-        locationManager?.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
     
 }
