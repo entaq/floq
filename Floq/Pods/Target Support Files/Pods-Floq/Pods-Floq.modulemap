@@ -1,0 +1,6 @@
+framework module Pods_Floq {
+  umbrella header "Pods-Floq-umbrella.h"
+
+  export *
+  module * { export * }
+}
