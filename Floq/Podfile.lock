@@ -57,7 +57,6 @@ PODS:
     - SDWebImage/GIF
   - DKPhotoGallery/Resource (0.0.11):
     - SDWebImage/GIF
-  - Eureka (4.3.1)
   - Fabric (1.9.0)
   - FacebookCore (0.4.0):
     - Bolts (~> 1.9)
@@ -145,38 +144,9 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseUI (5.2.2):
-    - FirebaseUI/Anonymous (= 5.2.2)
-    - FirebaseUI/Auth (= 5.2.2)
-    - FirebaseUI/Database (= 5.2.2)
-    - FirebaseUI/Facebook (= 5.2.2)
-    - FirebaseUI/Firestore (= 5.2.2)
-    - FirebaseUI/Google (= 5.2.2)
-    - FirebaseUI/Phone (= 5.2.2)
-    - FirebaseUI/Storage (= 5.2.2)
-    - FirebaseUI/Twitter (= 5.2.2)
-  - FirebaseUI/Anonymous (5.2.2):
-    - FirebaseUI/Auth
-  - FirebaseUI/Auth (5.2.2):
-    - Firebase/Auth (~> 5.0)
-  - FirebaseUI/Database (5.2.2):
-    - Firebase/Database (~> 5.0)
-  - FirebaseUI/Facebook (5.2.2):
-    - FBSDKLoginKit (~> 4.0)
-    - FirebaseUI/Auth
-  - FirebaseUI/Firestore (5.2.2):
-    - Firebase/Firestore
-  - FirebaseUI/Google (5.2.2):
-    - FirebaseUI/Auth
-    - GoogleSignIn (~> 4.0)
-  - FirebaseUI/Phone (5.2.2):
-    - FirebaseUI/Auth
   - FirebaseUI/Storage (5.2.2):
     - Firebase/Storage (~> 5.0)
     - SDWebImage (~> 4.0)
-  - FirebaseUI/Twitter (5.2.2):
-    - FirebaseUI/Auth
-    - TwitterKit (~> 3.0)
   - FLAnimatedImage (1.0.12)
   - Floaty (4.0.1)
   - GeoFire (3.0.0):
@@ -192,18 +162,6 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleSignIn (4.4.0):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.2.0):
-    - GoogleToolboxForMac/Defines (= 2.2.0)
-  - GoogleToolboxForMac/Defines (2.2.0)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.0)":
-    - GoogleToolboxForMac/DebugUtils (= 2.2.0)
-    - GoogleToolboxForMac/Defines (= 2.2.0)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
   - GoogleUtilities/AppDelegateSwizzler (5.3.6):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -251,6 +209,11 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.6.1)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
   - SDWebImage (4.4.3):
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
@@ -258,25 +221,26 @@ PODS:
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
   - TOCropViewController (2.4.0)
-  - TwitterCore (3.2.0)
-  - TwitterKit (3.4.2):
-    - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
   - Crashlytics (~> 3.12.0)
   - DKImagePickerController
-  - Eureka
   - Fabric (~> 1.9.0)
   - FacebookCore (= 0.4)
   - FacebookLogin (= 0.4)
   - FBSDKCoreKit (= 4.36.0)
   - FBSDKLoginKit (= 4.36.0)
-  - Firebase
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Firestore
   - Firebase/Messaging
-  - FirebaseUI
+  - Firebase/Storage
+  - FirebaseUI/Storage (~> 5.0)
   - Floaty (~> 4.0.0)
   - Geofirestore
   - IGListKit
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -286,7 +250,6 @@ SPEC REPOS:
     - DKCamera
     - DKImagePickerController
     - DKPhotoGallery
-    - Eureka
     - Fabric
     - FacebookCore
     - FacebookLogin
@@ -309,8 +272,6 @@ SPEC REPOS:
     - GeoFire
     - Geofirestore
     - GoogleAppMeasurement
-    - GoogleSignIn
-    - GoogleToolboxForMac
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -319,10 +280,11 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
     - SDWebImage
     - TOCropViewController
-    - TwitterCore
-    - TwitterKit
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -331,7 +293,6 @@ SPEC CHECKSUMS:
   DKCamera: 61fa47629a39354e5111bca1fe96695de020dcb9
   DKImagePickerController: 358ebcd5ce87db8863ec4b8dea651c67baca36e0
   DKPhotoGallery: e5fc53899345c26af4374503dd249caabac7d26a
-  Eureka: 28ea296f06710f6745266b71f17862048941a32d
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
   FacebookLogin: eb0f2251aca835a94d70a5f7e580edc46d1e1603
@@ -354,8 +315,6 @@ SPEC CHECKSUMS:
   GeoFire: e3ae6f4be3f2466c3467ef6c1c203db3af935c59
   Geofirestore: ad548ea5e3c1ae595c746c7b796df5534d8202f3
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
-  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
-  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   "gRPC-C++": 19eec1ffd34de29453f5fab5b4697ad0f240ad51
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
@@ -364,11 +323,12 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   TOCropViewController: 368d8df3ea43b62c3dc5a61f11b9048274d240bd
-  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
-  TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 67d8d446bd276c6503738972130f0253fe9f5378
+PODFILE CHECKSUM: 2d2db1afe3288e4158710ed41845e0a2ebc78217
 
 COCOAPODS: 1.5.3
