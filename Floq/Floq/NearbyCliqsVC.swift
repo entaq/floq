@@ -17,7 +17,9 @@ import Geofirestore
 class NearbyCliqsVC: UIViewController{
 
     private var isFetchingNearby = false
-    private var photoEngine:PhotoEngine!
+    private var photoEngine:PhotoEngine{
+        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+    }
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
     private  var myCliqs:Set<String>!
@@ -25,21 +27,11 @@ class NearbyCliqsVC: UIViewController{
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
 
-    func setupLocation(){
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.requestAlwaysAuthorization()
 
-        if CLLocationManager.locationServicesEnabled() {
 
-            locationManager?.startUpdatingLocation()
-        }
-    }
-
-    convenience init(with Engine:PhotoEngine,data:[FLCliqItem]) {
+    convenience init(data:[FLCliqItem]) {
         self.init()
-        self.photoEngine = Engine
+        
         myCliqs = photoEngine.mycliqIds
     }
 
@@ -52,11 +44,10 @@ class NearbyCliqsVC: UIViewController{
         
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
-        photoEngine = PhotoEngine()
+        
         collectionView.backgroundColor = .globalbackground
+        performRegistrations()
         
-        
-        setupLocation()
         
         let floaty = Floaty()
         floaty.buttonColor = .clear
@@ -83,12 +74,13 @@ class NearbyCliqsVC: UIViewController{
         title = "Near Me"
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //NotificationCenter.default.removeObserver(self)
+    }
 
-    func fetchNearbyCliqs(point:GeoPoint){
-        if isFetchingNearby{return}else{isFetchingNearby = true}
-        photoEngine.queryForCliqsAt(geopoint: point) {
-            self.adapter.reloadData(completion: nil)
-        }
+    @objc func reloadData(){
+        adapter.reloadData(completion: nil)
     }
 
 
@@ -118,27 +110,13 @@ extension NearbyCliqsVC: UICollectionViewDelegate, ListAdapterDataSource{
         self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id: cliq.id), animated: true)
 
     }
+    
+    func performRegistrations(){
+        NotificationCenter.set(observer: self, selector: #selector(reloadData), name: .cliqEntered)
+        NotificationCenter.set(observer: self, selector: #selector(reloadData), name: .cliqLeft)
+    }
 }
 
-
-extension NearbyCliqsVC:CLLocationManagerDelegate{
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-        guard let userLocation = locations.first else{
-            return
-        }
-        let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-       fetchNearbyCliqs(point: point)
-        locationManager?.stopUpdatingLocation()
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
-
-}
 
 extension NearbyCliqsVC:FloatyDelegate{
     

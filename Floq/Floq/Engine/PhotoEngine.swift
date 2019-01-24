@@ -11,30 +11,44 @@ import FirebaseFirestore
 import FirebaseStorage
 import Geofirestore
 import CoreLocation
-
+import RxSwift
 
 class PhotoEngine:NSObject{
     
     
-    private var geopoint:GeoPoint!
-    private let RADIUS = 1.0
+    private var query:GFSQuery?
+    private let MAX_IDs = 15
     private var allphotos:[PhotoItem] = []
+    private let bag = DisposeBag()
     public private (set) var mycliqIds:Set<String> = []
     public private (set) var activeCliq:FLCliqItem?
     public private (set) var nearbyCliqs:[FLCliqItem] = []
-    private var locationManager:CLLocationManager?
+    private var core:CoreEngine!
     public private (set)  var myCliqs:[FLCliqItem] = []
-    
+    public private (set) var nearbyIds:NSMutableOrderedSet = []
+    private var geoPoint:GeoPoint?
     var allPhotos:[PhotoItem]{
         return allphotos
+    }
+    
+    override init() {
+        super.init()
+        core = CoreEngine()
+        let locationSub = core.locationPoint.share()
+        locationSub.subscribe(onNext: { (point) in
+            self.geoPoint = point
+            self.listenForCliqsAt(geopoint: point)
+        }) {
+            
+            }.disposed(by: bag)
+        
+        start()
     }
     
     private var storage:Storage{
         return Storage.storage()
     }
     
-    
-
     private var geofire:GeoFirestore{
         return GeoFirestore(collectionRef: database.collection(References.flocations.rawValue))
     }
@@ -55,10 +69,13 @@ class PhotoEngine:NSObject{
         return database.collection(References.floqs.rawValue)
     }
     
+    func start(){
+        core.setupLocation()
+        queryForMyCliqs()
+    }
     
-    private var query:GFSQuery?
     
-    
+
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
         let all = allPhotos.compactMap { item -> [String:String] in
@@ -82,8 +99,8 @@ class PhotoEngine:NSObject{
     
     
     
-    func queryForCliqsAt(geopoint:GeoPoint,onFinish:@escaping CompletionHandlers.simpleBlock){
-        query = geofire.query(withCenter: geopoint, radius: RADIUS)
+    func listenForCliqsAt(geopoint:GeoPoint){
+        query = geofire.query(withCenter: geopoint, radius: core.RADIUS)
             let _ = query!.observe(.documentEntered) { (id, location) in
             if let id = id {
                 let date = self.getTimeFromIdFormat(id: id)
@@ -92,38 +109,61 @@ class PhotoEngine:NSObject{
                         return
                     }
                 }
-                self.database.collection(References.floqs.rawValue).document(id).getDocument(completion: { (snapshot, error) in
-                    if error == nil && snapshot != nil {
-                        guard snapshot!.exists else {
-                            
-                            return
-                        }
-                        
-                        let cliq = FLCliqItem(snapshot: snapshot!)
-                        if cliq.isActive{
-                            self.addNearby(cliq)
-                            onFinish()
-                        }
-                        
-                        
-                    }else{
-                        Logger.log(error)
-                        onFinish()
-                    }
-                })
+                self.nearbyIds.add(id)
+                self.getNearbyDocument(id: id)
+            }
+        }
+        
+        let _ = query!.observe(.documentExited) { (id, location) in
+            guard let id = id else{return}
+            if let cliq = self.getCliq(id: id){
+                let index = self.nearbyCliqs.firstIndex(of: cliq) ?? -1
+                self.nearbyCliqs.remove(at: index)
+                self.post(name: .cliqLeft)
             }
         }
         
     }
     
+    
+    private func getNearbyDocument(id:String){
+        
+        
+        self.database.collection(References.floqs.rawValue).document(id).addSnapshotListener({ (snapshot, error) in
+            if error == nil && snapshot != nil {
+                guard snapshot!.exists else {
+                    return
+                }
+                
+                let cliq = FLCliqItem(snapshot: snapshot!)
+                if cliq.isActive{
+                    self.addNearby(cliq)
+                }
+            }else{
+                Logger.log(error)
+            }})
+    }
+    
     func addNearby(_ cliq:FLCliqItem){
         if nearbyCliqs.contains(cliq){
-           return
+            if let oldcliq = getCliq(id: cliq.id){
+                if oldcliq.hasChanges(item: cliq){
+                    let index = nearbyCliqs.firstIndex(of: oldcliq) ?? -1
+                    nearbyCliqs.remove(at: index)
+                }else{return}
+            }else{return}
         }
         nearbyCliqs.append(cliq)
         nearbyCliqs.sort { (a1, a2) -> Bool in
             return a1.item.timestamp > a2.item.timestamp
         }
+       post(name: .cliqEntered)
+    }
+    
+    func getCliq(id:String)->FLCliqItem?{
+        return nearbyCliqs.filter{
+            return $0.id == id
+        }.first
     }
     
     func getTimeFromIdFormat(id:String)->Date?{
@@ -189,7 +229,7 @@ class PhotoEngine:NSObject{
     //Optimization (Save Latest Cliq in firestore document)
     //Query Archived cliqs in last 24hrs for the Near Me section.
     
-    func queryForMyCliqs(handler:@escaping CompletionHandlers.simpleBlock){
+    func queryForMyCliqs(){
         let uid = UserDefaults.uid
         floqRef.whereField(Fields.followers.rawValue, arrayContains: uid).addSnapshotListener { (querySnap, err) in
             if let query = querySnap{
@@ -209,7 +249,7 @@ class PhotoEngine:NSObject{
                     a1.item.timestamp > a2.item.timestamp
                 })
                 self.setMostActive()
-                handler()
+                
             }
         }
     }
@@ -222,6 +262,7 @@ class PhotoEngine:NSObject{
             return item.id == latest
         }
         activeCliq = lcliqs.first
+        post(name: .myCliqsUpdated)
     }
     
     func generateGridItems(new:[PhotoItem])->[GridPhotoItem]{
@@ -265,6 +306,9 @@ class PhotoEngine:NSObject{
     
     
     
+    
+    
+    
     func isDuplicate(_ cliq:FLCliqItem)->Bool{
         return myCliqs.contains(where: { (item) -> Bool in
             
@@ -277,37 +321,19 @@ class PhotoEngine:NSObject{
             query?.removeAllObservers()
         }
     }
+    
+    func post(name:Notification){
+        NotificationCenter.post(name:name)
+    }
+    enum Notification:String{
+        case cliqEntered = "cliqEntered"
+        case cliqLeft = "cliqLeft"
+        case myCliqsUpdated = "cliqsUpdated"
+    }
 
 }
 
 
-extension PhotoEngine: CLLocationManagerDelegate{
-    
-    func setupLocation(){
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            
-            locationManager?.startUpdatingLocation()
-        }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard let userLocation = locations.first else{
-            return
-        }
-        let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-       // fetchNearbyCliqs(point: point)
-        locationManager?.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
-}
+
+
+

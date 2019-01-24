@@ -24,43 +24,34 @@ final class HomeVC : UIViewController {
     var nearbyScliq:SectionableCliq?
     var mySectionalCliqs:SectionableCliq?
     var myActiveSectionCliq:SectionableCliq?
-    private var photoEngine:PhotoEngine!
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
-    
+    var globalEngine:PhotoEngine{
+        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+    }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
     
-    convenience init(_ fluser:FLUser?) {
-        self.init()
-        self.fluser = fluser
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let app = UIApplication.shared.delegate as? AppDelegate{
             app.registerRemoteNotifs(app: UIApplication.shared)
         }
-        
+        finishRegistrations()
         setup()
-        //setupLocation()
-        photoEngine.queryForMyCliqs {
-            if self.photoEngine.myCliqs.count > 0{
-                self.updateData()
-            }
-        }
+
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = "Floq"
-        if photoEngine.activeCliq != nil{
-            photoEngine.setMostActive()
+        if globalEngine.activeCliq != nil{
+            globalEngine.setMostActive()
             updateData()
         }
         
@@ -72,47 +63,40 @@ final class HomeVC : UIViewController {
     }
     
     
-    
-    
-    
-    func fetchNearbyCliqs(point:GeoPoint){
-        
-        if isFetchingNearby{return}else{isFetchingNearby = true}
-        photoEngine.queryForCliqsAt(geopoint: point) {
-            if self.nearbyScliq == nil{
-                self.nearbyScliq = SectionableCliq(cliqs: self.photoEngine.nearbyCliqs, type: .near)
-                self.allCliqs.append(self.nearbyScliq!)
-            }else{
-                self.nearbyScliq!.cliqs = self.photoEngine.nearbyCliqs
-            }
-            self.allCliqs.sort { (s1, s2) -> Bool in
-                return s1.designatedIndex < s2.designatedIndex
-            }
-            self.adapter.reloadData(completion: nil)
-            //self.isFetchingNearby = false
+    @objc func updateNearby(){
+        if self.nearbyScliq == nil{
+            self.nearbyScliq = SectionableCliq(cliqs: self.globalEngine.nearbyCliqs, type: .near)
+            self.allCliqs.append(self.nearbyScliq!)
+        }else{
+            self.nearbyScliq!.cliqs = self.globalEngine.nearbyCliqs
         }
-        
+        self.allCliqs.sort { (s1, s2) -> Bool in
+            return s1.designatedIndex < s2.designatedIndex
+        }
+        self.adapter.reloadData(completion: nil)
     }
     
-    func updateData(){
+    
+    
+    @objc func updateData(){
         if mySectionalCliqs != nil{
-            mySectionalCliqs!.cliqs = self.photoEngine.myCliqs
+            mySectionalCliqs!.cliqs = self.globalEngine.myCliqs
         }else{
-            mySectionalCliqs = SectionableCliq(cliqs: photoEngine.myCliqs, type: .mine)
+            mySectionalCliqs = SectionableCliq(cliqs: globalEngine.myCliqs, type: .mine)
             allCliqs.append(mySectionalCliqs!)
         }
         if myActiveSectionCliq != nil{
-            if photoEngine.activeCliq != nil{
-                if photoEngine.activeCliq!.id != myActiveSectionCliq!.cliqs.first!.id{
-                    myActiveSectionCliq?.cliqs = [photoEngine.activeCliq!]
+            if globalEngine.activeCliq != nil{
+                if globalEngine.activeCliq!.id != myActiveSectionCliq!.cliqs.first!.id{
+                    myActiveSectionCliq?.cliqs = [globalEngine.activeCliq!]
                 }else{
                     //There is no more active cliq.. Remove that section
                     
                 }
             }
         }else{
-            if self.photoEngine.activeCliq != nil{
-                myActiveSectionCliq = SectionableCliq(cliqs: [photoEngine.activeCliq!], type: .active)
+            if self.globalEngine.activeCliq != nil{
+                myActiveSectionCliq = SectionableCliq(cliqs: [globalEngine.activeCliq!], type: .active)
                 allCliqs.append(myActiveSectionCliq!)
             }
             
@@ -127,7 +111,7 @@ final class HomeVC : UIViewController {
     
     func setup(){
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
-        photoEngine = PhotoEngine()
+        
         collectionView.backgroundColor = UIColor.globalbackground
         let floaty = Floaty()
         floaty.buttonColor = .clear
@@ -150,6 +134,20 @@ final class HomeVC : UIViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
+    }
+    
+    
+    func finishRegistrations(){
+        NotificationCenter.set(observer: self, selector: #selector(updateNearby), name: .cliqEntered)
+        NotificationCenter.set(observer: self, selector: #selector(updateData), name: .myCliqsUpdated)
+    }
+    
+    func removeRegistrations(){
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    deinit {
+        removeRegistrations()
     }
     
 }
@@ -185,11 +183,11 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
             navigationController?.pushViewController(vc, animated: true)
             break
         case .near:
-            let vc = NearbyCliqsVC(with: photoEngine, data: cliqsction.cliqs)
+            let vc = NearbyCliqsVC(data: cliqsction.cliqs)
             navigationController?.pushViewController(vc, animated: true)
             break
         case .mine:
-            let vc = MyCliqsVC(engine: photoEngine)
+            let vc = MyCliqsVC()
             navigationController?.pushViewController(vc, animated: true)
             break
 
@@ -201,9 +199,3 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
 
 }
 
-
-extension HomeVC:CLLocationManagerDelegate{
-    
-    
-    
-}

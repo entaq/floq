@@ -52,7 +52,7 @@ class LoginVC: UIViewController, LoginButtonDelegate {
             self.view.addSubview(loginButton)
             if user != nil  {
                 self.saveUserdata(user: user!)
-                let navVC = UINavigationController(rootViewController:HomeVC(self.fluser))
+                let navVC = UINavigationController(rootViewController:HomeVC())
                 self.present(navVC, animated: true, completion: nil)
             }
         }

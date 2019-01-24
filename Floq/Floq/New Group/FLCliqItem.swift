@@ -36,6 +36,11 @@ class FLCliqItem:ListDiffable, Equatable{
         followers.insert(id)
     }
     
+    public func hasChanges(item:FLCliqItem)->Bool{
+        return !(item.followers.count == followers.count)
+        
+    }
+    
     public private (set) var id:String
     public private (set) var item:PhotoItem
     public private (set) var name:String

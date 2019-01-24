@@ -36,7 +36,6 @@ class AddCliqVC: UIViewController {
     
     
     
-    
     func setupViews(){
         
         self.view.backgroundColor = UIColor.white

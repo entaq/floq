@@ -26,7 +26,9 @@ final class PhotosVC: UIViewController {
     var data: [GridPhotoItem] = []
     private var cliq:FLCliqItem?
     private var cliqID:String!
-    var photoEngine:PhotoEngine = PhotoEngine()
+    var photoEngine:PhotoEngine{
+        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+    }
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()

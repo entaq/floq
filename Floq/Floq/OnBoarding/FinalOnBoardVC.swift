@@ -35,8 +35,9 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)
-        let navC = UINavigationController(rootViewController: HomeVC(nil))
+        let navC = UINavigationController(rootViewController: HomeVC())
         if let appdel = UIApplication.shared.delegate as? AppDelegate{
+            appdel.photoEngine = PhotoEngine()
             appdel.window?.rootViewController = UINavigationController(rootViewController: HomeVC())
             appdel.window?.makeKeyAndVisible()
         }

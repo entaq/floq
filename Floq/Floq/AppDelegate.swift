@@ -16,7 +16,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    var photoEngine:PhotoEngine!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -82,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setRootViewController(){
         if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            let home = UINavigationController(rootViewController: HomeVC(nil))
+            photoEngine = PhotoEngine()
+            let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
         }else{
             let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC

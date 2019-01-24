@@ -11,7 +11,9 @@ import Floaty
 
 class MyCliqsVC: UIViewController {
     
-    private var photoEngine:PhotoEngine!
+    private var photoEngine:PhotoEngine{
+        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+    }
     
     lazy var adapter:ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
@@ -19,9 +21,9 @@ class MyCliqsVC: UIViewController {
     
         private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    init(engine:PhotoEngine) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        photoEngine = engine
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +51,7 @@ class MyCliqsVC: UIViewController {
     
     
     @objc func accountMenuTapped(){
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let storyboard = UIStoryboard.main
         if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
             navigationController?.pushViewController(vc, animated: true)
         }
