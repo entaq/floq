@@ -17,7 +17,7 @@ import Geofirestore
 class NearbyCliqsVC: UIViewController{
 
     private var isFetchingNearby = false
-    private var photoEngine:PhotoEngine{
+    private var photoEngine:CliqEngine{
         return (UIApplication.shared.delegate as! AppDelegate).photoEngine
     }
     private var locationManager:CLLocationManager!

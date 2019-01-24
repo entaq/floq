@@ -11,7 +11,7 @@ import Floaty
 
 class MyCliqsVC: UIViewController {
     
-    private var photoEngine:PhotoEngine{
+    private var photoEngine:CliqEngine{
         return (UIApplication.shared.delegate as! AppDelegate).photoEngine
     }
     

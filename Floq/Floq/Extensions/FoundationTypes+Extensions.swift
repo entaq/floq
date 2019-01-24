@@ -119,11 +119,11 @@ extension UserDefaults{
 
 extension NotificationCenter{
     
-    class func post(name:PhotoEngine.Notification, object:Any? = nil){
+    class func post(name:CliqEngine.Notification, object:Any? = nil){
         NotificationCenter.default.post(name: NSNotification.Name(name.rawValue), object: object)
     }
     
-    class func set(observer:Any, selector:Selector, name:PhotoEngine.Notification,_ object:Any? = nil){
+    class func set(observer:Any, selector:Selector, name:CliqEngine.Notification,_ object:Any? = nil){
         self.default.addObserver(observer, selector: selector, name: NSNotification.Name(name.rawValue), object: object)
     }
 }

@@ -26,7 +26,7 @@ final class HomeVC : UIViewController {
     var myActiveSectionCliq:SectionableCliq?
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
-    var globalEngine:PhotoEngine{
+    var globalEngine:CliqEngine{
         return (UIApplication.shared.delegate as! AppDelegate).photoEngine
     }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())

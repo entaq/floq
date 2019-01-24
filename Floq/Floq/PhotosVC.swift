@@ -26,9 +26,7 @@ final class PhotosVC: UIViewController {
     var data: [GridPhotoItem] = []
     private var cliq:FLCliqItem?
     private var cliqID:String!
-    var photoEngine:PhotoEngine{
-        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
-    }
+    var photoEngine = PhotosEngine()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -89,7 +87,7 @@ final class PhotosVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = cliq?.name ?? ""
-        print("Cliq ID is: \(cliqID)")
+       
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     

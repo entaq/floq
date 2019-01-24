@@ -55,7 +55,7 @@ class OnBoardInfoTwoVC: UIViewController {
                             UserDefaults.set(username!, for: .username)
                             UserDefaults.set(user.uid, for: .uid)
                             if let appdel = UIApplication.shared.delegate as? AppDelegate{
-                                appdel.photoEngine = PhotoEngine()
+                                appdel.photoEngine = CliqEngine()
                                 let navC = UINavigationController(rootViewController: HomeVC())
                                 appdel.window?.rootViewController = navC
                                 appdel.window?.makeKeyAndVisible()
