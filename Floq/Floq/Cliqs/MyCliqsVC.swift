@@ -12,7 +12,7 @@ import Floaty
 class MyCliqsVC: UIViewController {
     
     private var photoEngine:CliqEngine{
-        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+        return (UIApplication.shared.delegate as! AppDelegate).mainEngine
     }
     
     lazy var adapter:ListAdapter = {
@@ -47,6 +47,7 @@ class MyCliqsVC: UIViewController {
         let barbutt = UIBarButtonItem(image: .icon_menu, style: .plain, target: self, action: #selector(accountMenuTapped))
         navigationItem.rightBarButtonItem = barbutt
         view.addSubview(floaty)
+        finishRegistrations()
     }
     
     
@@ -70,7 +71,21 @@ class MyCliqsVC: UIViewController {
         title = "My Cliqs"
     }
     
+    func finishRegistrations(){
+        NotificationCenter.set(observer: self, selector: #selector(updateData), name: .myCliqsUpdated)
+    }
     
+    func removeRegistrations(){
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func updateData(){
+        adapter.reloadData(completion: nil)
+    }
+    
+    deinit {
+        removeRegistrations()
+    }
 
 
 }

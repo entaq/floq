@@ -16,7 +16,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var photoEngine:CliqEngine!
+    var mainEngine:CliqEngine!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -52,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
+            mainEngine.start()
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -82,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setRootViewController(){
         if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            photoEngine = CliqEngine()
+            mainEngine = CliqEngine()
             let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
         }else{

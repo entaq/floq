@@ -18,7 +18,7 @@ class NearbyCliqsVC: UIViewController{
 
     private var isFetchingNearby = false
     private var photoEngine:CliqEngine{
-        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+        return (UIApplication.shared.delegate as! AppDelegate).mainEngine
     }
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?

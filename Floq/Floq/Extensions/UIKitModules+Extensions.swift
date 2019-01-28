@@ -38,7 +38,7 @@ extension UIViewController{
 
 extension UIView{
     
-    class func listAdapterEmptyView(superView:UIView, info:InfoMessages)->UIView{
+    class func listAdapterEmptyView(superView:UIView, info:Info.Messages)->UIView{
         let view = UIView(frame: superView.frame)
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
         label.numberOfLines = 10
@@ -164,6 +164,14 @@ extension UIAlertController{
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         let action = UIAlertAction(title: actionTitle, style: actionStyle, handler: handler)
+        alert.addAction(action)
+        return alert
+    }
+    
+    class func createDefaultAlert(_ title:Info.Titles, _ message:Info.Messages, _ style:UIAlertController.Style = .alert, _ actionTitle:Info.Action, _ actionStyle:UIAlertAction.Style = .default, _ handler: CompletionHandlers.alert?) -> UIAlertController{
+        
+        let alert = UIAlertController(title: title.rawValue, message: message.rawValue, preferredStyle: style)
+        let action = UIAlertAction(title: actionTitle.rawValue, style: actionStyle, handler: handler)
         alert.addAction(action)
         return alert
     }

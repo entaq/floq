@@ -112,6 +112,7 @@
 		C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlbum.swift; sourceTree = "<group>"; };
 		C41EBFAF21E145430094EBC6 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "Floq/New Group1/LoginVC.swift"; sourceTree = SOURCE_ROOT; };
+		C42D00F221FCF318007065DF /* Floq-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Floq-Bridging-Header.h"; sourceTree = "<group>"; };
 		C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalOnBoardVC.swift; sourceTree = "<group>"; };
 		C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FIRStorage+Extensions.swift"; sourceTree = "<group>"; };
 		C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKitModules+Extensions.swift"; sourceTree = "<group>"; };
@@ -224,13 +225,13 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
+				C49F793421FF186600E92512 /* Services */,
 				C48BEDA621F8F52B00D0A4F7 /* Engine */,
 				C430B79321E12B1E0010F2AE /* Sources */,
 				C4D1E08F21D8AC8800C5ED9A /* Extensions */,
 				C4A2A42021A22944006DFE6E /* Model */,
-				C4A2A42121A2294C006DFE6E /* View */,
+				C4A2A42121A2294C006DFE6E /* Views */,
 				C4A2A42221A22959006DFE6E /* Controller */,
-				C4A2A41F21A2292F006DFE6E /* Services */,
 				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
 				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
 				40AA29BA1E8891E900200A3F /* Main.storyboard */,
@@ -278,8 +279,57 @@
 				C48A57D721A22E0900D3B0E6 /* CliqEngine.swift */,
 				C48BEDA721F8F6EA00D0A4F7 /* Core.swift */,
 				C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */,
+				C42D00F221FCF318007065DF /* Floq-Bridging-Header.h */,
 			);
 			path = Engine;
+			sourceTree = "<group>";
+		};
+		C49F793021FF170300E92512 /* Cliqs */ = {
+			isa = PBXGroup;
+			children = (
+				40A1F74020F2F80F00DDA0B1 /* HomeVC.swift */,
+				C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */,
+				C4D1E08B21D794D400C5ED9A /* NearbyCliqsVC.swift */,
+				C434C51021DCBE33003333A1 /* MyCliqsVC.swift */,
+			);
+			path = Cliqs;
+			sourceTree = "<group>";
+		};
+		C49F793121FF173000E92512 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
+				C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */,
+				C434C51421DD2BA0003333A1 /* UserListVC.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		C49F793221FF174F00E92512 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */,
+				C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */,
+				C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C49F793321FF17DE00E92512 /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
+		C49F793421FF186600E92512 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */,
+				C48A57D521A22DF500D3B0E6 /* DataService.swift */,
+				C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C4A28E3421DFCA0500ADA02D /* FloqTests */ = {
@@ -304,21 +354,10 @@
 			path = SectionControllers;
 			sourceTree = "<group>";
 		};
-		C4A2A41F21A2292F006DFE6E /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */,
-				C48A57D921A22E4400D3B0E6 /* Enums.swift */,
-				C48A57D521A22DF500D3B0E6 /* DataService.swift */,
-				C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */,
-			);
-			name = Services;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		C4A2A42021A22944006DFE6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C48A57D921A22E4400D3B0E6 /* Enums.swift */,
 				C4A2A42B21A22B5E006DFE6E /* GridPhotoItem.swift */,
 				C4A2A42921A22B4E006DFE6E /* FLCliqItem.swift */,
 				C4A2A42721A22B37006DFE6E /* FLUser.swift */,
@@ -329,7 +368,7 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
-		C4A2A42121A2294C006DFE6E /* View */ = {
+		C4A2A42121A2294C006DFE6E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				C4A2A42F21A22C21006DFE6E /* cliqCells.xib */,
@@ -348,25 +387,19 @@
 				C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */,
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
 			);
-			name = View;
+			name = Views;
 			path = "New Group";
 			sourceTree = "<group>";
 		};
 		C4A2A42221A22959006DFE6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C49F793321FF17DE00E92512 /* Updates */,
+				C49F793221FF174F00E92512 /* Profile */,
+				C49F793121FF173000E92512 /* Photos */,
+				C49F793021FF170300E92512 /* Cliqs */,
 				C45CE27221E0C96E0071C59D /* OnBoarding */,
 				C4A2A41E21A22910006DFE6E /* SectionControllers */,
-				40A1F74020F2F80F00DDA0B1 /* HomeVC.swift */,
-				C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */,
-				C4D1E08B21D794D400C5ED9A /* NearbyCliqsVC.swift */,
-				C434C51021DCBE33003333A1 /* MyCliqsVC.swift */,
-				407997F81FDCDF8900AAE42A /* PhotosVC.swift */,
-				C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */,
-				C434C51421DD2BA0003333A1 /* UserListVC.swift */,
-				C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */,
-				C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */,
-				C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -791,6 +824,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Floq-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -833,6 +867,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Floq-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -844,6 +879,7 @@
 			baseConfigurationReference = 057B0F75B8FF1CD316481054 /* Pods-Floq.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Floq/Floq.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
@@ -853,6 +889,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Floq/Engine/Floq-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -864,6 +902,7 @@
 			baseConfigurationReference = 6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Floq/Floq.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
@@ -872,6 +911,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Floq/Engine/Floq-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";

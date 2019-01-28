@@ -27,7 +27,7 @@ final class HomeVC : UIViewController {
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
     var globalEngine:CliqEngine{
-        return (UIApplication.shared.delegate as! AppDelegate).photoEngine
+        return (UIApplication.shared.delegate as! AppDelegate).mainEngine
     }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var adapter: ListAdapter = {

@@ -11,6 +11,11 @@ import FirebaseFirestore
 
 class FLCliqItem:ListDiffable, Equatable{
     
+    enum Max:Int {
+        case followers = 30
+        case photos = 100
+    }
+    
     func diffIdentifier() -> NSObjectProtocol {
         return id as NSObjectProtocol
     }
@@ -39,6 +44,11 @@ class FLCliqItem:ListDiffable, Equatable{
     public func hasChanges(item:FLCliqItem)->Bool{
         return !(item.followers.count == followers.count)
         
+    }
+    
+    
+    public var canFollow:Bool{
+        return followers.count < Max.followers.rawValue
     }
     
     public private (set) var id:String

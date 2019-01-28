@@ -70,7 +70,6 @@ enum keys:String{
 }
 
 
-
 public enum Aliases{
     public typealias dictionary = Dictionary<String,Any>
     public typealias sset = Set<String>
@@ -79,12 +78,30 @@ public enum Aliases{
     public typealias follower_set = Dictionary<String,Int>
 }
 
-enum InfoMessages:String{
+struct Info{
+    enum Messages:String{
+        case nocliqs_nearby = "Oops, there are no cliqs nearby, try creating a cliq in this location"
+        case nocliqs_for_me = "Oops, You have no cliqs, try adding some cliqs"
+        case not_aCliqMember = "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos"
+        case maxed_out_cliq = "You are unable to join. This cliq has reached its maximum capacity of followers"
+    }
+
+    enum Titles:String {
+        case info = "INFO!!"
+        case error = "Error"
+        case success = "Success"
+    }
     
-    case nocliqs_nearby = "Oops, there are no cliqs nearby, try creating a cliq in this location"
-    case nocliqs_for_me = "Oops, You have no cliqs, try adding some cliqs"
-    
+    enum Action:String {
+        case dismiss  = "Dismiss"
+        case cancel = "Cancel"
+        case ok = "OK"
+        case delete = "Delete"
+    }
 }
+
+
+
 
 
 enum DateFormats:String{
@@ -96,3 +113,6 @@ enum DateFormats:String{
     case no_year_t = "MMM d, h:mm a"
     case no_year_nt = "MMM d"
 }
+
+
+

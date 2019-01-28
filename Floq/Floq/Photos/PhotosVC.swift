@@ -222,15 +222,20 @@ extension PhotosVC:FloatyDelegate{
             if cliq.isMember(){
                 selectPhoto()
             }else{
-                let alert = UIAlertController.createDefaultAlert("INFO!!", "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos",.alert, "Cancel",.cancel, nil)
-                let join = UIAlertAction(title: "Join", style: .default) { (ac) in
-                    DataService.main.joinCliq(cliq: self.cliq!)
-                    self.cliq!.addMember()
-                    self.selectPhoto()
+                if cliq.canFollow{
+                    let alert = UIAlertController.createDefaultAlert(.info,.not_aCliqMember ,.alert, .cancel,.cancel, nil)
+                    let join = UIAlertAction(title: "Join", style: .default) { (ac) in
+                        DataService.main.joinCliq(cliq: self.cliq!)
+                        self.cliq!.addMember()
+                        self.selectPhoto()
+                    }
+                    
+                    alert.addAction(join)
+                    present(alert, animated: true, completion: nil)
+                }else{
+                    let alert = UIAlertController.createDefaultAlert(.info,.maxed_out_cliq ,.alert, .ok,.cancel, nil)
+                    present(alert, animated: true, completion: nil)
                 }
-                
-                alert.addAction(join)
-                present(alert, animated: true, completion: nil)
             }
         }
         

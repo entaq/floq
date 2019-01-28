@@ -190,7 +190,7 @@ class CliqEngine:NSObject{
         let lcliqs = myCliqs.filter { (item) -> Bool in
             return item.id == latest
         }
-        activeCliq = lcliqs.first
+        activeCliq = lcliqs.first?.isActive ?? false ? lcliqs.first : nil
         post(name: .myCliqsUpdated)
     }
     
@@ -215,6 +215,7 @@ class CliqEngine:NSObject{
     func post(name:Notification){
         NotificationCenter.post(name:name)
     }
+    
     enum Notification:String{
         case cliqEntered = "cliqEntered"
         case cliqLeft = "cliqLeft"

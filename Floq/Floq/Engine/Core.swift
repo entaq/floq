@@ -8,7 +8,7 @@
 
 import FirebaseFirestore
 import FirebaseStorage
-import Geofirestore
+
 import CoreLocation
 import RxSwift
 
