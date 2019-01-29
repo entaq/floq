@@ -41,7 +41,7 @@ class NotificationAlertView:UIView{
     override func layoutSubviews() {
         super.layoutSubviews()
         titleLabel.frame = CGRect(x: 16, y: 25, width: frame.width, height: 20)
-        subtitlelabel.frame = CGRect(x: 16, y: 45, width: frame.width, height: 40)
+        subtitlelabel.frame = CGRect(x: 16, y: 45, width: frame.width - 16, height: 40)
         self.addSubview(titleLabel)
         addSubview(subtitlelabel)
         let tap = UITapGestureRecognizer(target: self, action: #selector(response))
@@ -62,7 +62,7 @@ class NotificationAlertView:UIView{
             
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             UIView.animate(withDuration: 1, delay: 1, options: .curveEaseOut, animations: {
                 self.frame.size.height = -200
             }, completion: { (succes) in

@@ -40,10 +40,14 @@ export const photoAdded = functions.firestore
     const cliq = await store.doc(`${REF_FLOQS}/${cliqID}`).get();
     const followers = cliq.get(FIELD_followers);
     const cliqName = cliq.get(FIELD_cliqname);
-    for (const key in followers) {
+
+    const total = followers.length;
+    for (let i = 0; i < total; i++) {
+      const key = followers[i];
       if (key !== posterID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
         const token = tokenSnap.get(FIELD_instanceToken);
+
         const message = {
           notification: {
             title: "Photo Added!!",
@@ -54,6 +58,7 @@ export const photoAdded = functions.firestore
           },
           token: token
         };
+        console.log(`The payload is ${message}`);
         promise = admin.messaging().send(message);
       }
     }

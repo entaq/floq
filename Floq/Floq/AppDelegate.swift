@@ -10,7 +10,7 @@ import Firebase
 import FacebookCore
 import SDWebImage
 import UserNotifications
-
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
             mainEngine.start()
-            //watchForUpdateChanges()
+            watchForUpdateChanges()
         }
     }
     
@@ -90,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainEngine = CliqEngine()
             let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
-           // watchForUpdateChanges()
+            watchForUpdateChanges()
         }else{
             let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
             window?.rootViewController = onboard
@@ -134,7 +134,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
+        let title = notification.request.content.title
+        let body = notification.request.content.body
+        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
+        showInAppAlert(title: title, body: body, id: id)
+        completionHandler(.sound)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -202,14 +206,18 @@ extension AppDelegate{
 
 extension AppDelegate{
     
-    func showInAppAlert(title:String, body:String){
+    func showInAppAlert(title:String, body:String, id:String){
         let width = UIScreen.main.bounds.width
         let frame = CGRect(x: -width, y: 0, width: width, height: 90)
         let alert = NotificationAlertView(frame: frame)
         alert.subtitlelabel.text = body
         alert.titleLabel.text = title
-        alert.method = { id in
-            
+        alert.method = { _ in
+            if id == ""{return}
+            if let nav = self.window?.rootViewController as? UINavigationController{
+                
+                nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+            }
         }
         window?.rootViewController?.view.addSubview(alert)
     }
@@ -223,6 +231,6 @@ extension AppDelegate{
 func openAppStore(){
     let url = URL(string: "itms-apps://itunes.apple.com/gh/app/streaker-odds-and-streaks/id1222312862?mt=8")!
     if UIApplication.shared.canOpenURL(url){
-        UIApplication.shared.canOpenURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
