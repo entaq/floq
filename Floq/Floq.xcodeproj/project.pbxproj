@@ -34,6 +34,9 @@
 		C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51021DCBE33003333A1 /* MyCliqsVC.swift */; };
 		C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51221DD2A32003333A1 /* UserListCell.swift */; };
 		C434C51521DD2BA0003333A1 /* UserListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C434C51421DD2BA0003333A1 /* UserListVC.swift */; };
+		C43B8D5322006126003B7A00 /* ForceUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B8D5222006126003B7A00 /* ForceUpdateVC.swift */; };
+		C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B8D5422006B30003B7A00 /* UpdateInfo.swift */; };
+		C43B8D57220073EB003B7A00 /* NotificationAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */; };
 		C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */; };
 		C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */; };
 		C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */; };
@@ -73,7 +76,6 @@
 		C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */; };
 		C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */; };
 		C4D4F8C721FA4B3A00A26797 /* PhotosEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */; };
-		C4ED7D8121EB292B0073ED76 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,9 @@
 		C434C51021DCBE33003333A1 /* MyCliqsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCliqsVC.swift; sourceTree = "<group>"; };
 		C434C51221DD2A32003333A1 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		C434C51421DD2BA0003333A1 /* UserListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListVC.swift; sourceTree = "<group>"; };
+		C43B8D5222006126003B7A00 /* ForceUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateVC.swift; sourceTree = "<group>"; };
+		C43B8D5422006B30003B7A00 /* UpdateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateInfo.swift; sourceTree = "<group>"; };
+		C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAlertView.swift; sourceTree = "<group>"; };
 		C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPVC.swift; sourceTree = "<group>"; };
 		C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoOneVC.swift; sourceTree = "<group>"; };
 		C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoTwoVC.swift; sourceTree = "<group>"; };
@@ -318,6 +323,7 @@
 		C49F793321FF17DE00E92512 /* Updates */ = {
 			isa = PBXGroup;
 			children = (
+				C43B8D5222006126003B7A00 /* ForceUpdateVC.swift */,
 			);
 			path = Updates;
 			sourceTree = "<group>";
@@ -363,6 +369,7 @@
 				C4A2A42721A22B37006DFE6E /* FLUser.swift */,
 				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
 				C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */,
+				C43B8D5422006B30003B7A00 /* UpdateInfo.swift */,
 			);
 			name = Model;
 			path = "New Group";
@@ -386,6 +393,7 @@
 				C434C51221DD2A32003333A1 /* UserListCell.swift */,
 				C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */,
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
+				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -483,7 +491,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Arun Nagarajan";
 				TargetAttributes = {
 					40AA29B21E8891E900200A3F = {
@@ -690,6 +698,7 @@
 				C4D1E09121D8ADDD00C5ED9A /* LoggerService.swift in Sources */,
 				C434C50B21DBA9DB003333A1 /* FIRStorage+Extensions.swift in Sources */,
 				C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */,
+				C43B8D57220073EB003B7A00 /* NotificationAlertView.swift in Sources */,
 				C4D1E08E21D8AC7D00C5ED9A /* Firestore+Extensions.swift in Sources */,
 				C4A2A42421A22A10006DFE6E /* GridPhotoSection.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
@@ -714,14 +723,15 @@
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
 				C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */,
-				C4ED7D8121EB292B0073ED76 /* Firestore+Extensions.swift in Sources */,
 				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
+				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
 				C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */,
 				C4A2A42C21A22B5E006DFE6E /* GridPhotoItem.swift in Sources */,
 				C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */,
+				C43B8D5322006126003B7A00 /* ForceUpdateVC.swift in Sources */,
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
 				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,
@@ -788,15 +798,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -839,15 +857,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

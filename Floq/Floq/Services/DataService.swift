@@ -215,6 +215,17 @@ class DataService{
         }
     }
     
+    
+    func listenForUpdates(handler:@escaping CompletionHandlers.dataservice){
+        store.collection(.utils).document(References.updateDoc.rawValue).addSnapshotListener { (snapshot, err) in
+            guard let snapshot = snapshot else {return}
+            if let _ = snapshot.data(){
+                let update = UpdateInfo(snap: snapshot)
+                handler(update,nil)
+            }
+        }
+    }
+    
 
     
     func getUserWith(_ uid:String, handler:@escaping CompletionHandlers.dataservice){

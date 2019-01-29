@@ -56,6 +56,7 @@ final class PhotosVC: UIViewController {
                     self.cliq = cliq
                     self.title = cliq.name
                     self.userlistbutt.setAvatar(uid: cliq.creatorUid)
+                    if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
                 }
             }
         }
@@ -87,7 +88,9 @@ final class PhotosVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = cliq?.name ?? ""
-       
+        if let cliq = self.cliq{
+            if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
+        }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     

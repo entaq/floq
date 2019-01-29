@@ -190,7 +190,10 @@ class CliqEngine:NSObject{
         let lcliqs = myCliqs.filter { (item) -> Bool in
             return item.id == latest
         }
-        activeCliq = lcliqs.first?.isActive ?? false ? lcliqs.first : nil
+        if let first = lcliqs.first {
+            activeCliq = first.isActive ? first : nil
+        }
+        //activeCliq = lcliqs.first?.isActive ?? false ? lcliqs.first : nil
         post(name: .myCliqsUpdated)
     }
     

@@ -17,6 +17,7 @@ enum CompletionHandlers{
     typealias photogrids = (_ grids:[GridPhotoItem]?, _ errorMessage:String?) -> ()
     typealias simpleBlock = ()->()
     typealias storage = (_ success:Bool, _ errorMessage:String?) -> ()
+    typealias notification = (_ id:String?) -> ()
 }
 
 enum ImageSizes:Int{
@@ -24,6 +25,11 @@ enum ImageSizes:Int{
     case max = 16000000
     case medium = 8000000
     case min = 4000000
+}
+
+enum Update:Int{
+    case current = 1
+    case leastSupport = 0
 }
 
 
@@ -38,6 +44,8 @@ enum References:String{
     case followers = "Followers"
     case storageFloqs = "FLFloqPhotos"
     case tokenRefs = "FLTOKENS"
+    case utils = "FLUTILTY"
+    case updateDoc = "Updates"
     
 }
 
@@ -60,6 +68,9 @@ public enum Fields:String{
     case dateDeleted = "dateDeleted"
     case instanceToken = "instanceToken"
     case savedInstance =  "savedInstance"
+    case current = "current"
+    case info = "info"
+    case least = "leastSupported"
     
 }
 

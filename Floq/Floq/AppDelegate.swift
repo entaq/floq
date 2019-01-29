@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = .barTint
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
+        
         return true
         
     }
@@ -54,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
             mainEngine.start()
+            //watchForUpdateChanges()
         }
     }
     
@@ -88,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainEngine = CliqEngine()
             let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
+           // watchForUpdateChanges()
         }else{
             let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
             window?.rootViewController = onboard
@@ -131,7 +134,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("Will Present tne ")
+        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -162,3 +165,64 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
 }
 
 
+// MARK:- Update Changes
+
+extension AppDelegate{
+    
+    func watchForUpdateChanges(){
+        
+        DataService.main.listenForUpdates { (update, err) in
+            guard let update = update as? UpdateInfo else {return}
+            if update.islessThanLeastSupport(){
+                guard let vc = UIStoryboard.main.instantiateViewController(withIdentifier: ForceUpdateVC.identifier) as? ForceUpdateVC else{return}
+                vc.info = update.updateInfo
+                self.window?.rootViewController = vc
+                DispatchQueue.main.async {
+                     self.window?.makeKeyAndVisible()
+                }
+            }else{
+                if update.notifyUpdate(){
+                    let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, nil)
+                    let action = UIAlertAction(title: "Update", style: .default, handler: { (action) in
+                        openAppStore()
+                    })
+                    alert.addAction(action)
+                    DispatchQueue.main.async {
+                        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+
+extension AppDelegate{
+    
+    func showInAppAlert(title:String, body:String){
+        let width = UIScreen.main.bounds.width
+        let frame = CGRect(x: -width, y: 0, width: width, height: 90)
+        let alert = NotificationAlertView(frame: frame)
+        alert.subtitlelabel.text = body
+        alert.titleLabel.text = title
+        alert.method = { id in
+            
+        }
+        window?.rootViewController?.view.addSubview(alert)
+    }
+
+    
+}
+
+
+
+
+func openAppStore(){
+    let url = URL(string: "itms-apps://itunes.apple.com/gh/app/streaker-odds-and-streaks/id1222312862?mt=8")!
+    if UIApplication.shared.canOpenURL(url){
+        UIApplication.shared.canOpenURL(url)
+    }
+}
