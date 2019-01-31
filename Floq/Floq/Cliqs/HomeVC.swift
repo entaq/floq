@@ -21,13 +21,15 @@ final class HomeVC : UIViewController {
     var  fluser:FLUser?
     var isFetchingNearby = false
     var allCliqs:[SectionableCliq] = []
-    var nearbyScliq:SectionableCliq?
-    var mySectionalCliqs:SectionableCliq?
-    var myActiveSectionCliq:SectionableCliq?
+
     private var locationManager:CLLocationManager!
     private var queryhandle:GFSQueryHandle?
     var globalEngine:CliqEngine{
         return (UIApplication.shared.delegate as! AppDelegate).mainEngine
+    }
+    
+    var myCliqCount:Int{
+        return (UIApplication.shared.delegate as! AppDelegate).appUser?.cliqs ?? 0
     }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var adapter: ListAdapter = {
@@ -64,47 +66,12 @@ final class HomeVC : UIViewController {
     
     
     @objc func updateNearby(){
-        if self.nearbyScliq == nil{
-            self.nearbyScliq = SectionableCliq(cliqs: self.globalEngine.nearbyCliqs, type: .near)
-            self.allCliqs.append(self.nearbyScliq!)
-        }else{
-            self.nearbyScliq!.cliqs = self.globalEngine.nearbyCliqs
-        }
-        self.allCliqs.sort { (s1, s2) -> Bool in
-            return s1.designatedIndex < s2.designatedIndex
-        }
         self.adapter.reloadData(completion: nil)
     }
     
     
     
     @objc func updateData(){
-        if mySectionalCliqs != nil{
-            mySectionalCliqs!.cliqs = self.globalEngine.myCliqs
-        }else{
-            mySectionalCliqs = SectionableCliq(cliqs: globalEngine.myCliqs, type: .mine)
-            allCliqs.append(mySectionalCliqs!)
-        }
-        if myActiveSectionCliq != nil{
-            if globalEngine.activeCliq != nil{
-                if globalEngine.activeCliq!.id != myActiveSectionCliq!.cliqs.first!.id{
-                    myActiveSectionCliq?.cliqs = [globalEngine.activeCliq!]
-                }else{
-                    //There is no more active cliq.. Remove that section
-                    
-                }
-            }
-        }else{
-            if self.globalEngine.activeCliq != nil{
-                myActiveSectionCliq = SectionableCliq(cliqs: [globalEngine.activeCliq!], type: .active)
-                allCliqs.append(myActiveSectionCliq!)
-            }
-            
-        }
-        allCliqs.sort { (s1, s2) -> Bool in
-            return s1.designatedIndex < s2.designatedIndex
-        }
-        
         self.adapter.reloadData(completion: nil)
     }
     
@@ -120,6 +87,7 @@ final class HomeVC : UIViewController {
         floaty.addItem("Create a Cliq", icon:.icon_app, handler: { item in
             self.present(AddCliqVC(), animated: true, completion: nil)
         })
+        
         floaty.addItem("Profile", icon:.placeholder, handler: { item in
             if let vc = UIStoryboard.main.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -157,7 +125,7 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         
-        return allCliqs as [ListDiffable]
+        return globalEngine.homeData as [ListDiffable]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -176,7 +144,7 @@ extension HomeVC: UICollectionViewDelegate, ListAdapterDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let cliqsction = self.allCliqs[indexPath.section]
+        let cliqsction = globalEngine.homeData[indexPath.section]
         switch cliqsction.sectionType {
         case .active:
             let vc = PhotosVC(cliq: cliqsction.cliqs.first!, id: cliqsction.cliqs.first!.id)

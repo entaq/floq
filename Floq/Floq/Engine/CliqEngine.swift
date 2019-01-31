@@ -18,7 +18,7 @@ class CliqEngine:NSObject{
     
     private var query:GFSQuery?
     private let MAX_IDs = 15
-    
+    private var isFetchingMine = false
     private let bag = DisposeBag()
     public private (set) var mycliqIds:Set<String> = []
     public private (set) var activeCliq:FLCliqItem?
@@ -27,11 +27,21 @@ class CliqEngine:NSObject{
     public private (set)  var myCliqs:[FLCliqItem] = []
     public private (set) var nearbyIds:NSMutableOrderedSet = []
     private var geoPoint:GeoPoint?
-    
-    
+    private var lastSnapshot:DocumentSnapshot?
+    private var nearbyScliq:SectionableCliq?
+    private var mySectionalCliqs:SectionableCliq?
+    private var ActiveSectionCliq:SectionableCliq?
+    var homeData:[SectionableCliq]!{
+        didSet{
+            homeData.sort { (a1, a2) -> Bool in
+                return a1.designatedIndex < a2.designatedIndex
+            }
+        }
+    }
     override init() {
         super.init()
         core = CoreEngine()
+        homeData = []
         let locationSub = core.locationPoint.share()
         locationSub.subscribe(onNext: { (point) in
             self.geoPoint = point
@@ -103,8 +113,6 @@ class CliqEngine:NSObject{
     
     
     private func getNearbyDocument(id:String){
-        
-        
         self.database.collection(References.floqs.rawValue).document(id).addSnapshotListener({ (snapshot, error) in
             if error == nil && snapshot != nil {
                 guard snapshot!.exists else {
@@ -133,6 +141,14 @@ class CliqEngine:NSObject{
         nearbyCliqs.sort { (a1, a2) -> Bool in
             return a1.item.timestamp > a2.item.timestamp
         }
+        if nearbyScliq != nil{
+            if homeData.contains(nearbyScliq!){
+               let index = homeData.firstIndex(of: nearbyScliq!)!
+                homeData.remove(at: index)
+            }
+        }
+        nearbyScliq = SectionableCliq(cliqs: nearbyCliqs, type: .near)
+        homeData.append(nearbyScliq!)
        post(name: .cliqEntered)
     }
     
@@ -159,9 +175,20 @@ class CliqEngine:NSObject{
     //Query Archived cliqs in last 24hrs for the Near Me section.
     
     func queryForMyCliqs(){
+        
+        if isFetchingMine {return}
+        isFetchingMine = true
         let uid = UserDefaults.uid
-        floqRef.whereField(Fields.followers.rawValue, arrayContains: uid).addSnapshotListener { (querySnap, err) in
+        var query:Query
+        if myCliqs.isEmpty{
+            query = floqRef.whereField(Fields.followers.rawValue, arrayContains: uid).limit(to: 20).order(by: Fields.timestamp.rawValue, descending: true)
+        }else{
+            guard let last = lastSnapshot else {return}
+            query = floqRef.whereField(Fields.followers.rawValue, arrayContains: uid).order(by: Fields.timestamp.rawValue, descending: true).start(atDocument: last).limit(to: 20)
+        }
+        query.addSnapshotListener { (querySnap, err) in
             if let query = querySnap{
+                self.lastSnapshot = query.documents.last
                 for doc in query.documentChanges{
                     let cliq = FLCliqItem(snapshot: doc.document)
                     if self.myCliqs.contains(cliq){
@@ -174,16 +201,18 @@ class CliqEngine:NSObject{
                         self.myCliqs.append(cliq)
                     }
                 }
-                self.myCliqs.sort(by: { (a1, a2) -> Bool in
-                    a1.item.timestamp > a2.item.timestamp
-                })
                 self.setMostActive()
+                self.updateMyCliqsSection()
+                self.post(name: .myCliqsUpdated)
+                self.isFetchingMine = false
                 
             }
         }
     }
    
-    
+    func fetchNextBadge(){
+        
+    }
     
     func setMostActive(){
         let latest = UserDefaults.activeCliqID
@@ -193,11 +222,47 @@ class CliqEngine:NSObject{
         if let first = lcliqs.first {
             activeCliq = first.isActive ? first : nil
         }
-        //activeCliq = lcliqs.first?.isActive ?? false ? lcliqs.first : nil
-        post(name: .myCliqsUpdated)
+        homeData.removeAll { (sec) -> Bool in
+            return sec.sectionType == .active
+        }
+        if let ac = activeCliq{
+            ActiveSectionCliq = SectionableCliq(cliqs: [ac], type: .active)
+            homeData.append(ActiveSectionCliq!)
+            
+//            if ActiveSectionCliq != nil{
+//                if !homeData.contains(ActiveSectionCliq!){
+//                    let index = homeData.firstIndex(of: ActiveSectionCliq!)!
+//                    homeData.remove(at: index)
+//                }
+//                ActiveSectionCliq!.cliqs = [ac]
+//            }else{
+//
+//            }
+        }
     }
     
     
+    func updateMyCliqsSection(){
+        let count = appUser?.cliqs
+        
+////            if homeData.contains(mySectionalCliqs!){
+////                let index = homeData.firstIndex(of: mySectionalCliqs!)!
+////                homeData.remove(at: index)
+////            }
+//            mySectionalCliqs!.cliqs = myCliqs
+//            mySectionalCliqs!.setCount(count)
+//
+//        }else{
+//            mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
+//            homeData.append(mySectionalCliqs!)
+//        }
+       mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
+        homeData.removeAll { (sec) -> Bool in
+            return sec.sectionType == .mine
+        }
+        homeData.append(mySectionalCliqs!)
+        
+    }
     
     
     
@@ -226,6 +291,8 @@ class CliqEngine:NSObject{
     }
 
 }
+
+
 
 
 

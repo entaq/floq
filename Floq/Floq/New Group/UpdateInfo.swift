@@ -13,11 +13,14 @@ public struct UpdateInfo{
     var current:Int
     var leastSupport:Int
     var updateInfo:String
+    var forcedInfo:String
+    
     
     init(snap:DocumentSnapshot) {
         current = snap.getInt(.current)
         leastSupport = snap.getInt(.least)
         updateInfo = snap.getString(.info)
+        forcedInfo = snap.getString(.forced)
     }
     
     func islessThanLeastSupport()->Bool{

@@ -23,7 +23,7 @@ class LoginVC: UIViewController, LoginButtonDelegate {
                 if (data != nil && err == nil){
                     let user = data?.user
                     
-                    self.fluser = FLUser(uid:user!.uid , username:data?.additionalUserInfo?.username,profUrl: data?.user.photoURL, floqs: nil)
+                    self.fluser = FLUser(uid:user!.uid , username:data?.additionalUserInfo?.username,profUrl: data?.user.photoURL, cliqs: 0)
                     self.saveUserdata(user: self.fluser!)
                 }else{
                     let alert = UIAlertController.createDefaultAlert("OOPS!!", err!.localizedDescription,.alert, "Dismiss",.default, nil)
@@ -66,7 +66,7 @@ class LoginVC: UIViewController, LoginButtonDelegate {
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
-        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, floqs: nil)
+        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, cliqs: 0)
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.standard.set(user.uid, forKey: Fields.uid.rawValue)
         

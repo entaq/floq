@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var mainEngine:CliqEngine!
-    
+    var appUser:FLUser?
+    var isSyncng = false
+    var isWatching = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
@@ -43,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        isSyncng = false
+        isWatching = false
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -54,13 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            mainEngine.start()
+            //mainEngine.start()
             watchForUpdateChanges()
+            selfSync()
         }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
         SDImageCache.shared().clearMemory()
     }
     
@@ -87,10 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setRootViewController(){
         if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
+            selfSync()
             mainEngine = CliqEngine()
             let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
             watchForUpdateChanges()
+            
         }else{
             let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
             window?.rootViewController = onboard
@@ -174,12 +182,12 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
 extension AppDelegate{
     
     func watchForUpdateChanges(){
-        
+        if isWatching{return}
         DataService.main.listenForUpdates { (update, err) in
             guard let update = update as? UpdateInfo else {return}
             if update.islessThanLeastSupport(){
                 guard let vc = UIStoryboard.main.instantiateViewController(withIdentifier: ForceUpdateVC.identifier) as? ForceUpdateVC else{return}
-                vc.info = update.updateInfo
+                vc.info = update.forcedInfo
                 self.window?.rootViewController = vc
                 DispatchQueue.main.async {
                      self.window?.makeKeyAndVisible()
@@ -197,6 +205,17 @@ extension AppDelegate{
                 }
             }
         }
+        
+        isWatching = true
+    }
+    
+    func selfSync(){
+        if isSyncng{return}
+        DataService.main.synchronizeSelf { (user, err) in
+            guard let user = user as? FLUser else{return}
+            self.appUser = user
+        }
+        isSyncng = true
     }
     
 }
@@ -226,6 +245,9 @@ extension AppDelegate{
 }
 
 
+var appUser:FLUser?{
+    return (UIApplication.shared.delegate as! AppDelegate).appUser
+}
 
 
 func openAppStore(){

@@ -59,6 +59,7 @@ class OnBoardInfoTwoVC: UIViewController {
                                 let navC = UINavigationController(rootViewController: HomeVC())
                                 appdel.window?.rootViewController = navC
                                 appdel.window?.makeKeyAndVisible()
+                                appdel.selfSync()
                             }
                             
                         }else{
@@ -84,7 +85,7 @@ class OnBoardInfoTwoVC: UIViewController {
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
-        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, floqs: nil)
+        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, cliqs: 0)
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)

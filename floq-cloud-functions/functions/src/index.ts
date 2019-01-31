@@ -4,6 +4,7 @@ import * as admin from "firebase-admin";
 const REF_FLOQS = "FLFLOQs";
 const REF_PHOTOS = "Photos";
 const REF_TOKENS = "FLTOKENS";
+const REF_USERS = "FLUSER"
 const FIELD_fileID = "fileID";
 const FIELD_username = "userName";
 const FIELD_dateCreated = "dateCreated";
@@ -112,3 +113,22 @@ export const testFunctionsWorks = functions.https.onRequest(
       });
   }
 );
+
+export const reAlignDatabase = functions.https.onRequest(
+  async (request, response) => {
+    const batch = store.batch()
+    const docs = await store.collection(REF_USERS).get();
+    for (const doc of docs.docs){
+      const id = doc.id
+      const mydocs = await store.collection(REF_FLOQS).where(FIELD_followers,"array-contains",id).get();
+      const count = mydocs.size;
+      batch.update(doc.ref,{[FIELD_cliqCount]:count});
+    }
+    
+    batch.commit().then(x => {
+      response.status(200).send(x);
+    }).catch(err => {
+      response.status(404).send(err);
+    });
+
+  });

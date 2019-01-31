@@ -53,7 +53,7 @@ class DataService{
     
     
     func setUser(user:FLUser, handler:@escaping CompletionHandlers.dataservice){
-        let data = [Fields.username.rawValue: user.username, Fields.dateCreated.rawValue:Date(),Fields.profileImg.rawValue:user.profileImg?.absoluteString ?? ""] as [String:Any]
+        let data = [Fields.username.rawValue: user.username, Fields.dateCreated.rawValue:Date(),Fields.profileImg.rawValue:user.profileImg?.absoluteString ?? "",Fields.cliqCount.rawValue:0] as [String:Any]
         userRef.document(user.uid).setData(data) { (err) in
             if let error = err {
                 if let url = user.profileImg{
@@ -109,6 +109,29 @@ class DataService{
                 Logger.log(err)
             }else{
                 
+            }
+        }
+        let ref = userRef.document(uid)
+        store.runTransaction({ (transaction, errorPointer) -> Any? in
+            let doc:DocumentSnapshot
+            do{
+                try doc = transaction.getDocument(ref)
+            }catch let err as NSError{
+                errorPointer?.pointee = err
+                return nil
+            }
+            
+            guard let count = doc.get(Fields.cliqCount.rawValue) as? Int else{
+                let error = NSError(domain: "Database", code: 404, userInfo: ["msg":"Field not found"])
+                errorPointer?.pointee = error
+                return nil
+            }
+            
+            transaction.updateData([Fields.cliqCount.rawValue: count + 1], forDocument: ref)
+            return nil
+        }) { (_, err) in
+            if let err = err{
+                print("Transaction Failed with signature: \(err.localizedDescription)")
             }
         }
     }
@@ -193,8 +216,8 @@ class DataService{
                     print(docData, filePath)
                     batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
                     
-                    let addata = [Fields.uid.rawValue:uid, Fields.dateCreated.rawValue:docData[Fields.timestamp.rawValue]!,Fields.cliqCount.rawValue: count + 1]
-                    batch.setData(addata, forDocument: self.userRef.document(uid).collection(.myCliqs).document(filePath), merge: true)
+                    let addata = [Fields.cliqCount.rawValue: count + 1]
+                    batch.setData(addata, forDocument: self.userRef.document(uid), merge: true)
                     docData.removeValue(forKey: Fields.cliqname.rawValue)
                     docData.removeValue(forKey:  Fields.followers.rawValue)
                     docData.removeValue(forKey:  Fields.userEmail.rawValue)
@@ -215,6 +238,13 @@ class DataService{
         }
     }
     
+    func synchronizeSelf(handler:@escaping CompletionHandlers.dataservice){
+        userRef.document(UserDefaults.uid).addSnapshotListener { (doc, err) in
+            guard let snap = doc, let _ = doc?.data() else {return}
+            let user = FLUser(snap: snap)
+            handler(user,nil)
+        }
+    }
     
     func listenForUpdates(handler:@escaping CompletionHandlers.dataservice){
         store.collection(.utils).document(References.updateDoc.rawValue).addSnapshotListener { (snapshot, err) in
@@ -232,7 +262,7 @@ class DataService{
         
         userRef.document(uid).getDocument { (snapshot, err) in
             if let snap = snapshot{
-                let user = FLUser(uid: uid, username: snap.getString(.username), profUrl: nil, floqs: nil)
+                let user = FLUser(snap: snap)
                 handler(user,nil)
             }
         }

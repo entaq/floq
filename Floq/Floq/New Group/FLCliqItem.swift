@@ -61,7 +61,7 @@ class FLCliqItem:ListDiffable, Equatable{
     public var joined:Bool
     
     init(snapshot:DocumentSnapshot) {
-        print(snapshot.debugDescription)
+        
         id = snapshot.documentID
         self.name = snapshot.getString(.cliqname)
         creatorUid = snapshot.getString(.userUID)

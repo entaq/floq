@@ -31,7 +31,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
-        let fuser = FLUser(uid: user.uid, username: nickNameText.text!, profUrl: user.photoURL, floqs: nil)
+        let fuser = FLUser(uid: user.uid, username: nickNameText.text!, profUrl: user.photoURL, cliqs: 0)
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)
@@ -40,6 +40,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
             appdel.mainEngine = CliqEngine()
             appdel.window?.rootViewController = UINavigationController(rootViewController: HomeVC())
             appdel.window?.makeKeyAndVisible()
+            appdel.selfSync()
         }
         
         self.present(navC, animated: true, completion: nil)

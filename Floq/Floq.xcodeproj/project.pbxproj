@@ -230,20 +230,15 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
-				C49F793421FF186600E92512 /* Services */,
+				C4A6FAA42201973A00D3F789 /* App */,
+				C4A2A42221A22959006DFE6E /* Controller */,
 				C48BEDA621F8F52B00D0A4F7 /* Engine */,
-				C430B79321E12B1E0010F2AE /* Sources */,
 				C4D1E08F21D8AC8800C5ED9A /* Extensions */,
 				C4A2A42021A22944006DFE6E /* Model */,
+				C4A6FAA5220197C900D3F789 /* Resources */,
+				C49F793421FF186600E92512 /* Services */,
+				C430B79321E12B1E0010F2AE /* Sources */,
 				C4A2A42121A2294C006DFE6E /* Views */,
-				C4A2A42221A22959006DFE6E /* Controller */,
-				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
-				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
-				40AA29BA1E8891E900200A3F /* Main.storyboard */,
-				40AA29BD1E8891E900200A3F /* Assets.xcassets */,
-				40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */,
-				40AA29C21E8891E900200A3F /* Info.plist */,
-				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
 			);
 			path = Floq;
 			sourceTree = "<group>";
@@ -378,6 +373,8 @@
 		C4A2A42121A2294C006DFE6E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */,
+				40AA29BA1E8891E900200A3F /* Main.storyboard */,
 				C4A2A42F21A22C21006DFE6E /* cliqCells.xib */,
 				407997F71FDCDF8900AAE42A /* ImageCell.swift */,
 				407997FD1FDCE0ED00AAE42A /* LabelCell.swift */,
@@ -410,6 +407,25 @@
 				C4A2A41E21A22910006DFE6E /* SectionControllers */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		C4A6FAA42201973A00D3F789 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C4A6FAA5220197C900D3F789 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
+				40AA29C21E8891E900200A3F /* Info.plist */,
+				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
+				40AA29BD1E8891E900200A3F /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C4D1E08F21D8AC8800C5ED9A /* Extensions */ = {
@@ -906,12 +922,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Floq/Floq.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Floq/Resources/Floq.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
-				INFOPLIST_FILE = Floq/Info.plist;
+				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -929,11 +945,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Floq/Floq.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Floq/Resources/Floq.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y86G6TS245;
-				INFOPLIST_FILE = Floq/Info.plist;
+				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -11,6 +11,8 @@ import Floaty
 
 class MyCliqsVC: UIViewController {
     
+    private let refresh = UIRefreshControl()
+    
     private var photoEngine:CliqEngine{
         return (UIApplication.shared.delegate as! AppDelegate).mainEngine
     }
@@ -23,13 +25,24 @@ class MyCliqsVC: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupRefresh(){
+        refresh.tintColor = .seafoamBlue
+        refresh.attributedTitle = NSAttributedString(string: "Loading Cliqs....", attributes: [NSAttributedString.Key.foregroundColor : UIColor.seafoamBlue])
+        refresh.addTarget(self, action: #selector(reload), for: .valueChanged)
+        collectionView.refreshControl = refresh
+        
+    }
+    
+    @objc func reload(){
+    
+        photoEngine.queryForMyCliqs()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +77,7 @@ class MyCliqsVC: UIViewController {
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.scrollViewDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +95,7 @@ class MyCliqsVC: UIViewController {
     
     @objc func updateData(){
         adapter.reloadData(completion: nil)
+        refresh.endRefreshing()
     }
     
     deinit {
@@ -112,6 +127,14 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
 
         self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id:cliq.id), animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if offset > contentHeight - scrollView.frame.height + 100{
+           photoEngine.queryForMyCliqs()
+        }
+    }
 }
 
 
@@ -121,3 +144,5 @@ extension MyCliqsVC:FloatyDelegate{
         self.present(AddCliqVC(), animated: true, completion: nil)
     }
 }
+
+

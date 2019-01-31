@@ -71,6 +71,7 @@ public enum Fields:String{
     case current = "current"
     case info = "info"
     case least = "leastSupported"
+    case forced = "forcedUpdateInfo"
     
 }
 
