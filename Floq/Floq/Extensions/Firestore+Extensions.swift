@@ -83,6 +83,14 @@ extension DocumentSnapshot{
 
 extension Firestore{
     
+    class var database:Firestore{
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        return db
+    }
+    
     func collection(_ ref:References)->CollectionReference{
         return collection(ref.rawValue)
     }

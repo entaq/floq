@@ -46,6 +46,8 @@ enum References:String{
     case tokenRefs = "FLTOKENS"
     case utils = "FLUTILTY"
     case updateDoc = "Updates"
+    case likes = "LIKES"
+    case requestLikeShard = "LikesShard"
     
 }
 
@@ -72,6 +74,10 @@ public enum Fields:String{
     case info = "info"
     case least = "leastSupported"
     case forced = "forcedUpdateInfo"
+    case likes = "likes"
+    case likers = "likers"
+    case maxxedLikes = "maxxedL"
+    case shardLikes = "shards"
     
 }
 

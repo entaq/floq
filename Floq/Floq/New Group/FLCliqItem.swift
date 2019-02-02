@@ -66,7 +66,7 @@ class FLCliqItem:ListDiffable, Equatable{
         self.name = snapshot.getString(.cliqname)
         creatorUid = snapshot.getString(.userUID)
         let timestamp = snapshot.getDate(.timestamp)
-        item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
+        item = PhotoItem(id:id, photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
         followers = []
         if let data = snapshot.get(Fields.followers.rawValue) as? [String]{
             self.followers = Set<String>(data)

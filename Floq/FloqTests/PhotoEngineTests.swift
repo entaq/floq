@@ -9,9 +9,9 @@
 import XCTest
 @testable import Floq
 class PhotoEngineTests: XCTestCase {
-    var photoEngine:PhotoEngine!
+    var photoEngine:PhotosEngine!
     override func setUp() {
-        photoEngine = PhotoEngine()
+        
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 

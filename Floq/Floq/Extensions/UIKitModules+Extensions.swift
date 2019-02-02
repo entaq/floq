@@ -75,6 +75,10 @@ extension UIImage{
         return UIImage(named:"AppIcon")!
     }
     
+    public static var icon_like:UIImage{
+        return UIImage(named:"like")!
+    }
+    
     func dataFromJPEG()-> Data?{
         var compression:CGFloat = 1
         if let data = jpegData(compressionQuality: compression){

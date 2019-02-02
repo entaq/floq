@@ -212,7 +212,7 @@ extension PhotosVC:GridPhotoSectionDelegate{
     
     func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
         let actualIndex = photoEngine.getTrueIndex(of: photo)
-        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex,name:cliq?.name ?? "")
+        let fullscreen = PhotoFullScreenVC(engine: photoEngine, selected: actualIndex,name:cliq?.name ?? "",id:cliqID)
         navigationController?.pushViewController(fullscreen, animated: true)
     }
 }

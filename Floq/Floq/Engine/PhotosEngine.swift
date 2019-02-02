@@ -11,22 +11,16 @@ import FirebaseStorage
 
 
 class PhotosEngine:NSObject{
-    
+    static let MAXX_LIKES = 34000
     private var allphotos:[PhotoItem] = []
     var allPhotos:[PhotoItem]{
         return allphotos
     }
     
-    private var database:Firestore{
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        return db
-    }
+    
     
     private var floqRef:CollectionReference{
-        return database.collection(References.floqs.rawValue)
+        return Firestore.database.collection(References.floqs.rawValue)
     }
     
     func getAllPhotoMetadata()->[Aliases.stuple]{
@@ -77,21 +71,103 @@ class PhotosEngine:NSObject{
                 }
                 snapshot.documentChanges.forEach { diff in
                     if (diff.type == .added) {
-                        guard let userName = diff.document["userName"] as? String else { return }
-                        let ts = diff.document.getDate(.timestamp)
-                        let fileID = diff.document.getString(Fields.fileID)
-                        let photoItem = PhotoItem(photoID: fileID, user: userName, timestamp:ts,uid:diff.document.getString(.userUID))
+                        
+                        let photoItem = PhotoItem(doc: diff.document)
                         if !self.allphotos.contains(photoItem) {
                             self.allphotos.append(photoItem)
-                            print("photo added: \(diff.document.data())")
                             self.allphotos.sort(by: { (i1, i2) -> Bool in
                                 return i1.timestamp > i2.timestamp
                             })
                             let grid = self.generateGridItems(new: self.allPhotos)
                             onFinish(grid, nil)
                         }
+                    }else if diff.type == .modified{
+                        let id = diff.document.documentID
+                        self.allphotos.first(where: { (item) -> Bool in
+                            return item.photoID == id
+                        })?.makeChanges(diff.document)
+                    }else if diff.type == .removed{
+                        self.allphotos.removeAll(where: { (photo) -> Bool in
+                            return photo.photoID == diff.document.documentID
+                        })
                     }
                 }
+        }
+    }
+    
+    func likeAPhoto(cliqID:String,id:String){
+        let photo = allphotos.first {return $0.photoID == id}
+        guard photo != nil else {return}
+        if photo!.Liked(){return}
+        let photoId = photo!.photoID
+        let uid = UserDefaults.uid
+        let ref = floqRef.document(cliqID).collection(.photos).document(photoId)
+        
+        Firestore.database.runTransaction({ (transaction, errroP) -> Any? in
+            let doc:DocumentSnapshot
+            do{
+                try doc = transaction.getDocument(ref)
+            }catch let err as NSError{
+                errroP?.pointee = err
+                return err
+            }
+            
+            let likes = doc.getInt(.likes)
+            var newUpdate:[String:Any] = [Fields.likes.rawValue:likes + 1]
+            let exc = doc.getBoolena(.maxxedLikes)
+            if(exc){
+                if var shard = doc.get(Fields.shardLikes.rawValue) as? [String:Bool]{
+                    let active = shard.first{
+                        return $0.value == false
+                    }
+                    if active == nil{
+                        errroP?.pointee = NSError(domain: "Floq.Likes.Sharding", code: 100, userInfo: ["msg":"Could not find an available Shard"])
+                        return nil
+                        
+                    }
+                    
+                    let shadDoc:DocumentSnapshot
+                    do{
+                        try shadDoc = transaction.getDocument(ref.collection(.likes).document(active!.key))
+                    }catch let err as NSError{
+                        errroP?.pointee = err
+                        return nil
+                    }
+                    var exceeds = false
+                    
+                    if (likes + 1) > PhotosEngine.MAXX_LIKES{exceeds = true}
+                    var likers = shadDoc.getArray(.likers) as? PhotoItem.Likers ?? []
+                    likers.append(uid)
+                    shard.updateValue(exceeds, forKey: active!.key)
+                    newUpdate.updateValue(shard, forKey: Fields.shardLikes.rawValue)
+                    transaction.updateData(newUpdate, forDocument: ref)
+                    transaction.updateData([Fields.likers.rawValue:likers], forDocument: ref.collection(.likes).document(active!.key))
+                    if shard.count > PhotosEngine.MAXX_LIKES{
+                        let newsharef = ref.collection(.likes).document()
+                        transaction.setData(["\(Fields.shardLikes.rawValue).\(newsharef.documentID)":false], forDocument: ref)
+                    }
+                    
+                }
+            }else{
+                var exceeds = false
+                if (likes + 1) > PhotosEngine.MAXX_LIKES{
+                    exceeds = true
+                    let newsharef = ref.collection(.likes).document()
+                    transaction.setData(["\(Fields.shardLikes.rawValue).\(newsharef.documentID)":false], forDocument: ref)
+                }
+                var likers = doc.getArray(.likers) as? PhotoItem.Likers ?? []
+                likers.append(uid)
+                newUpdate.merge([Fields.likers.rawValue:likers,Fields.maxxedLikes.rawValue:exceeds], uniquingKeysWith: { (k1, k2) -> Any in
+                    return k2
+                })
+                transaction.updateData(newUpdate, forDocument: ref)
+                
+            }
+            return nil
+        }) { (sux, err) in
+            if let err = err{
+                print("Transaction Error: \(err.localizedDescription)")
+            }
         }
     }
     

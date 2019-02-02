@@ -66,10 +66,10 @@
 		C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A2A43621A22C4A006DFE6E /* PhotoCell.xib */; };
 		C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */; };
 		C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */; };
+		C4A944FB2204EE3000D40C44 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A944FA2204EE3000D40C44 /* Firestore+Extensions.swift */; };
 		C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E08721D7894500C5ED9A /* FloqCell.swift */; };
 		C4D1E08A21D7894500C5ED9A /* FloqCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D1E08821D7894500C5ED9A /* FloqCell.xib */; };
 		C4D1E08C21D794D400C5ED9A /* NearbyCliqsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E08B21D794D400C5ED9A /* NearbyCliqsVC.swift */; };
-		C4D1E08E21D8AC7D00C5ED9A /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */; };
 		C4D1E09121D8ADDD00C5ED9A /* LoggerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */; };
 		C4D1E09321D8AE4100C5ED9A /* FoundationTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */; };
 		C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */; };
@@ -156,17 +156,16 @@
 		C4A2A43621A22C4A006DFE6E /* PhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
 		C4A2A43D21A22CB5006DFE6E /* AddCliqVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCliqVC.swift; sourceTree = "<group>"; };
 		C4A2A43F21A22CC1006DFE6E /* PhotoFullScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFullScreenVC.swift; sourceTree = "<group>"; };
+		C4A944FA2204EE3000D40C44 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 		C4D1E08721D7894500C5ED9A /* FloqCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqCell.swift; sourceTree = "<group>"; };
 		C4D1E08821D7894500C5ED9A /* FloqCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FloqCell.xib; sourceTree = "<group>"; };
 		C4D1E08B21D794D400C5ED9A /* NearbyCliqsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyCliqsVC.swift; sourceTree = "<group>"; };
-		C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 		C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerService.swift; sourceTree = "<group>"; };
 		C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FoundationTypes+Extensions.swift"; sourceTree = "<group>"; };
 		C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionableCliq.swift; sourceTree = "<group>"; };
 		C4D1E09621DB989000C5ED9A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		C4D1E09821DB98D200C5ED9A /* UserSettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTVC.swift; sourceTree = "<group>"; };
 		C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosEngine.swift; sourceTree = "<group>"; };
-		C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,9 +430,8 @@
 		C4D1E08F21D8AC8800C5ED9A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C4A944FA2204EE3000D40C44 /* Firestore+Extensions.swift */,
 				C434C50E21DBEB48003333A1 /* FirebaseAuth+Extensions.swift */,
-				C4D1E08D21D8AC7D00C5ED9A /* Firestore+Extensions.swift */,
-				C4ED7D8021EB292B0073ED76 /* Firestore+Extensions.swift */,
 				C4D1E09221D8AE4100C5ED9A /* FoundationTypes+Extensions.swift */,
 				C434C50A21DBA9DB003333A1 /* FIRStorage+Extensions.swift */,
 				C434C50C21DBBEEC003333A1 /* UIKitModules+Extensions.swift */,
@@ -715,7 +713,6 @@
 				C434C50B21DBA9DB003333A1 /* FIRStorage+Extensions.swift in Sources */,
 				C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */,
 				C43B8D57220073EB003B7A00 /* NotificationAlertView.swift in Sources */,
-				C4D1E08E21D8AC7D00C5ED9A /* Firestore+Extensions.swift in Sources */,
 				C4A2A42421A22A10006DFE6E /* GridPhotoSection.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
@@ -750,6 +747,7 @@
 				C43B8D5322006126003B7A00 /* ForceUpdateVC.swift in Sources */,
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
+				C4A944FB2204EE3000D40C44 /* Firestore+Extensions.swift in Sources */,
 				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
 				C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */,

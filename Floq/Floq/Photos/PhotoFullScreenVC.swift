@@ -12,16 +12,22 @@ import FirebaseStorage
 
 class PhotoFullScreenVC: UIViewController {
 
-    var allphotos:[PhotoItem]!
+    var engine:PhotosEngine!
+    var likelabel:UILabel!
+    var likebar:UIView  = UIView(frame: .zero)
     var selectedIndex:Int = 0
+    var imgv:UIImageView!
     var floqname:String
     var userUid:String?
     var username:String?
     var total:Int!
+    var currentPhotoID:String?
+    private var cliqID:String
     var isSelected = false
-    init(allphotos:[PhotoItem], selected index:Int, name:String){
-        self.allphotos =  allphotos
+    init(engine:PhotosEngine, selected index:Int, name:String, id:String){
+        self.engine = engine
         self.selectedIndex = index
+        cliqID = id
         floqname = name
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,13 +61,14 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        total = allphotos.count
+        total = engine.allPhotos.count
         
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let butt = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         navigationItem.rightBarButtonItem = butt
         view.addSubview(collectionView)
+        createLikeBar()
         collectionView.isPagingEnabled = true
     }
     
@@ -116,7 +123,7 @@ class PhotoFullScreenVC: UIViewController {
         avatarImageview.layer.borderColor = UIColor.white.cgColor
         self.navigationController?.view.addSubview(avatarImageview)
 
-
+        
         
 
     }
@@ -130,7 +137,7 @@ class PhotoFullScreenVC: UIViewController {
         adapter.dataSource = self
         
         adapter.reloadData(completion: nil)
-        let obj = allphotos[selectedIndex]
+        let obj = engine.allPhotos[selectedIndex]
         adapter.collectionViewDelegate = self
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
         
@@ -151,7 +158,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         
-        return allphotos as [ListDiffable]
+        return engine.allPhotos as [ListDiffable]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -174,6 +181,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
                 statusBar?.alpha = 1
 
                 self.avatarImageview.alpha = 1
+                self.likebar.alpha = 1
                 self.collectionView.backgroundColor = .globalbackground
                 self.isSelected = false
             }
@@ -183,6 +191,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
                 let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
                 statusBar?.alpha = 0
                 self.avatarImageview.alpha = 0
+                self.likebar.alpha = 0
                 self.collectionView.backgroundColor = .black
                 self.isSelected = true
             }
@@ -190,15 +199,93 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         
     }
     
+    func createLikeBar(){
+        imgv = UIImageView(image: UIImage.icon_like)
+        likelabel = UILabel(frame: .zero)
+        view.addSubview(likebar)
+        likebar.addSubview(imgv)
+        likebar.addSubview(likelabel)
+        likebar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            likebar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            likebar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            likebar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            likebar.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        likebar.backgroundColor = .seafoamBlue
+        
+        
+        imgv.translatesAutoresizingMaskIntoConstraints = false
+        imgv.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            imgv.heightAnchor.constraint(equalToConstant: 30),
+            imgv.widthAnchor.constraint(equalToConstant: 30),
+            imgv.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
+            imgv.leftAnchor.constraint(equalTo: likebar.leftAnchor, constant: 20)
+        ])
+        likelabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            likelabel.leftAnchor.constraint(equalTo: imgv.rightAnchor, constant: 16),
+            likelabel.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
+            likelabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        likelabel.textColor = .white
+        likelabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        likelabel.backgroundColor = .clear
+        
+        imgv.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(AnimateImage(_:)))
+        tap.numberOfTapsRequired = 1
+        imgv.addGestureRecognizer(tap)
+        
+    }
+    
 }
 
 
 extension PhotoFullScreenVC:FullScreenScetionDelegate{
-    
-    func willDisplayPhoto(with reference: StorageReference, for user: (String,String)) {
+    func willDisplayPhoto(with reference: StorageReference, for user: (String, String,Int,Bool), _ photoId: String) {
+        currentPhotoID = photoId
         userUid = user.0
         avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
         username = user.1
+        likelabel.text = "\(user.2)"
+        imgv.isUserInteractionEnabled = !user.3
+    }
+    
+    
+    func photoWasLiked(id:String?) {
+        //guard let id = id else{return}
+        //engine.likeAPhoto(cliqID: cliqID, id:id)
+        
+    }
+    
+    
+    
+    @objc func AnimateImage(_ recognizer:UITapGestureRecognizer){
+        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
+            self.imgv.transform = self.imgv.transform.scaledBy(x: 2, y: 2)
+            
+        }) { (suc) in
+                //
+        }
+        UIView.animate(withDuration: 0.6, delay: 1.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+            self.imgv.transform = CGAffineTransform.identity
+                //self.imgv.transform.scaledBy(x: 0.5, y: 0.5)
+        }) { (b) in
+            //self.imgv.frame.size = CGSize(width: , height: 50)
+        }
+        if let photo = engine.allPhotos.first(where: { (item) -> Bool in
+            return item.absoluteID == currentPhotoID!
+        }){
+            if !photo.likers.contains(UserDefaults.uid){
+                
+                likelabel.text = "\(photo.likes + 1)"
+                //photo.likers.append(contentsOf: UserDefaults.uid)
+                imgv.isUserInteractionEnabled = false
+                engine.likeAPhoto(cliqID: cliqID, id: currentPhotoID!)
+            }
+        }
     }
     
     func willDisplayIndex(_ index:Int){
