@@ -16,15 +16,19 @@ protocol FullScreenScetionDelegate:class {
     func willDisplayPhoto(with reference:StorageReference, for user:(String,String,Int,Bool), _ photoId:String)
     func willDisplayIndex(_ index:Int)
     func photoWasLiked(id:String?)
+    func photoWasSelected()
     
 }
 
 final class FullScreenPhotoSection: ListSectionController,PhotoLikedDelegate {
+    func photoselected() {
+        delegate?.photoWasSelected()
+    }
+    
     
     func photoWasLiked() {
         delegate?.photoWasLiked(id:photo?.photoID)
     }
-    
     
     private var photo:PhotoItem?
     weak var delegate:FullScreenScetionDelegate?

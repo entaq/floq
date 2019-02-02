@@ -173,29 +173,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isSelected{
-            
-            UIView.animate(withDuration: 0.5) {
-                self.navigationController?.navigationBar.alpha = 1
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 1
-
-                self.avatarImageview.alpha = 1
-                self.likebar.alpha = 1
-                self.collectionView.backgroundColor = .globalbackground
-                self.isSelected = false
-            }
-        }else{
-            UIView.animate(withDuration: 0.5) {
-                self.navigationController?.navigationBar.alpha = 0
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 0
-                self.avatarImageview.alpha = 0
-                self.likebar.alpha = 0
-                self.collectionView.backgroundColor = .black
-                self.isSelected = true
-            }
-        }
+        
         
     }
     
@@ -244,6 +222,34 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
 
 
 extension PhotoFullScreenVC:FullScreenScetionDelegate{
+    
+    
+    func photoWasSelected() {
+        if isSelected{
+            
+            UIView.animate(withDuration: 0.5) {
+                self.navigationController?.navigationBar.alpha = 1
+                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                statusBar?.alpha = 1
+                
+                self.avatarImageview.alpha = 1
+                self.likebar.alpha = 1
+                self.collectionView.backgroundColor = .globalbackground
+                self.isSelected = false
+            }
+        }else{
+            UIView.animate(withDuration: 0.5) {
+                self.navigationController?.navigationBar.alpha = 0
+                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                statusBar?.alpha = 0
+                self.avatarImageview.alpha = 0
+                self.likebar.alpha = 0
+                self.collectionView.backgroundColor = .black
+                self.isSelected = true
+            }
+        }
+    }
+    
     func willDisplayPhoto(with reference: StorageReference, for user: (String, String,Int,Bool), _ photoId: String) {
         currentPhotoID = photoId
         userUid = user.0
@@ -257,6 +263,28 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     func photoWasLiked(id:String?) {
         //guard let id = id else{return}
         //engine.likeAPhoto(cliqID: cliqID, id:id)
+        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
+            self.imgv.transform = self.imgv.transform.scaledBy(x: 2, y: 2)
+            
+        }) { (suc) in
+            //
+        }
+        UIView.animate(withDuration: 0.6, delay: 1.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+            self.imgv.transform = CGAffineTransform.identity
+            
+        }) { (b) in
+            
+        }
+        if let photo = engine.allPhotos.first(where: { (item) -> Bool in
+            return item.absoluteID == currentPhotoID!
+        }){
+            if !photo.likers.contains(UserDefaults.uid){
+                
+                likelabel.text = "\(photo.likes + 1)"
+                imgv.isUserInteractionEnabled = false
+                engine.likeAPhoto(cliqID: cliqID, id: currentPhotoID!)
+            }
+        }
         
     }
     
@@ -271,9 +299,9 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         }
         UIView.animate(withDuration: 0.6, delay: 1.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
             self.imgv.transform = CGAffineTransform.identity
-                //self.imgv.transform.scaledBy(x: 0.5, y: 0.5)
+            
         }) { (b) in
-            //self.imgv.frame.size = CGSize(width: , height: 50)
+            
         }
         if let photo = engine.allPhotos.first(where: { (item) -> Bool in
             return item.absoluteID == currentPhotoID!
@@ -281,7 +309,6 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             if !photo.likers.contains(UserDefaults.uid){
                 
                 likelabel.text = "\(photo.likes + 1)"
-                //photo.likers.append(contentsOf: UserDefaults.uid)
                 imgv.isUserInteractionEnabled = false
                 engine.likeAPhoto(cliqID: cliqID, id: currentPhotoID!)
             }

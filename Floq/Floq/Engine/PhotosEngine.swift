@@ -96,12 +96,11 @@ class PhotosEngine:NSObject{
     }
     
     func likeAPhoto(cliqID:String,id:String){
-        let photo = allphotos.first {return $0.photoID == id}
+        let photo = allphotos.first {return $0.absoluteID == id}
         guard photo != nil else {return}
         if photo!.Liked(){return}
-        let photoId = photo!.photoID
         let uid = UserDefaults.uid
-        let ref = floqRef.document(cliqID).collection(.photos).document(photoId)
+        let ref = floqRef.document(cliqID).collection(.photos).document(id)
         
         Firestore.database.runTransaction({ (transaction, errroP) -> Any? in
             let doc:DocumentSnapshot
@@ -133,18 +132,26 @@ class PhotosEngine:NSObject{
                         errroP?.pointee = err
                         return nil
                     }
-                    var exceeds = false
                     
-                    if (likes + 1) > PhotosEngine.MAXX_LIKES{exceeds = true}
+                    var exceeds = false
                     var likers = shadDoc.getArray(.likers) as? PhotoItem.Likers ?? []
-                    likers.append(uid)
+                    let maXVal = PhotosEngine.MAXX_LIKES * (shard.count + 1)
+                    if (likes + 1) > maXVal{
+                        exceeds = true
+                        likers = [uid]
+                    }else{
+                        likers.append(uid)
+                    }
+                    
                     shard.updateValue(exceeds, forKey: active!.key)
                     newUpdate.updateValue(shard, forKey: Fields.shardLikes.rawValue)
                     transaction.updateData(newUpdate, forDocument: ref)
-                    transaction.updateData([Fields.likers.rawValue:likers], forDocument: ref.collection(.likes).document(active!.key))
-                    if shard.count > PhotosEngine.MAXX_LIKES{
+                    if shard.count > maXVal{
                         let newsharef = ref.collection(.likes).document()
                         transaction.setData(["\(Fields.shardLikes.rawValue).\(newsharef.documentID)":false], forDocument: ref)
+                        transaction.setData([Fields.likers.rawValue:likers], forDocument: newsharef, merge: true)
+                    }else{
+                      transaction.updateData([Fields.likers.rawValue:likers], forDocument: ref.collection(.likes).document(active!.key))
                     }
                     
                 }

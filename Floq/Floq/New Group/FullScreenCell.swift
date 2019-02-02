@@ -11,6 +11,7 @@ import FirebaseStorage
 
 protocol PhotoLikedDelegate:class {
     func photoWasLiked()
+    func photoselected()
 }
 
 class FullScreenCell: UICollectionViewCell {
@@ -23,9 +24,13 @@ class FullScreenCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.clipsToBounds = true
+        let Tap = UITapGestureRecognizer(target: self, action: #selector(selectPhoto))
+        Tap.numberOfTapsRequired = 1
+        addGestureRecognizer(Tap)
         let dTap = UITapGestureRecognizer(target: self, action: #selector(likeAPhoto))
         dTap.numberOfTapsRequired = 2
         addGestureRecognizer(dTap)
+        Tap.require(toFail: dTap)
         
     }
     
@@ -33,6 +38,10 @@ class FullScreenCell: UICollectionViewCell {
     func setImage(_ photo:PhotoItem){
         imageView.sd_setImage(with: storageRef.child(photo.photoID))
         
+    }
+    
+    @objc func selectPhoto(){
+        delegate?.photoselected()
     }
     
     @objc func likeAPhoto(){
