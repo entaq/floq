@@ -84,15 +84,35 @@ class PhotosEngine:NSObject{
                     }else if diff.type == .modified{
                         let id = diff.document.documentID
                         self.allphotos.first(where: { (item) -> Bool in
-                            return item.photoID == id
+                            return item.absoluteID == id
                         })?.makeChanges(diff.document)
+                        self.post(.modified)
                     }else if diff.type == .removed{
                         self.allphotos.removeAll(where: { (photo) -> Bool in
                             return photo.photoID == diff.document.documentID
                         })
+                        
                     }
                 }
         }
+    }
+    
+    func getExtraLikes(id:String){
+        guard let photo = allphotos.first(where: {$0.absoluteID == id}) else{return}
+        if photo.likesUpdated {return}
+        if photo.shards.count > 0{
+            photo.reference.collection(.likes).getDocuments { (query, err) in
+                guard let query = query else{return}
+                var likes = PhotoItem.Likers()
+                for doc in query.documents{
+                    let likers = doc.getArray(.likers) as? PhotoItem.Likers ?? []
+                    likes.append(contentsOf: likers)
+                }
+                photo.updateLikes(likers: likes)
+                
+            }
+        }
+        
     }
     
     func likeAPhoto(cliqID:String,id:String){
@@ -115,58 +135,63 @@ class PhotosEngine:NSObject{
             var newUpdate:[String:Any] = [Fields.likes.rawValue:likes + 1]
             let exc = doc.getBoolena(.maxxedLikes)
             if(exc){
-                if var shard = doc.get(Fields.shardLikes.rawValue) as? [String:Bool]{
-                    let active = shard.first{
-                        return $0.value == false
-                    }
-                    if active == nil{
-                        errroP?.pointee = NSError(domain: "Floq.Likes.Sharding", code: 100, userInfo: ["msg":"Could not find an available Shard"])
-                        return nil
-                        
-                    }
-                    
-                    let shadDoc:DocumentSnapshot
-                    do{
-                        try shadDoc = transaction.getDocument(ref.collection(.likes).document(active!.key))
-                    }catch let err as NSError{
-                        errroP?.pointee = err
-                        return nil
-                    }
-                    
-                    var exceeds = false
-                    var likers = shadDoc.getArray(.likers) as? PhotoItem.Likers ?? []
-                    let maXVal = PhotosEngine.MAXX_LIKES * (shard.count + 1)
-                    if (likes + 1) > maXVal{
-                        exceeds = true
-                        likers = [uid]
-                    }else{
-                        likers.append(uid)
-                    }
-                    
-                    shard.updateValue(exceeds, forKey: active!.key)
-                    newUpdate.updateValue(shard, forKey: Fields.shardLikes.rawValue)
-                    transaction.updateData(newUpdate, forDocument: ref)
-                    if shard.count > maXVal{
-                        let newsharef = ref.collection(.likes).document()
-                        transaction.setData(["\(Fields.shardLikes.rawValue).\(newsharef.documentID)":false], forDocument: ref)
-                        transaction.setData([Fields.likers.rawValue:likers], forDocument: newsharef, merge: true)
-                    }else{
-                      transaction.updateData([Fields.likers.rawValue:likers], forDocument: ref.collection(.likes).document(active!.key))
-                    }
+                var shard = doc.get(Fields.shardLikes.rawValue) as? [String:Bool] ?? [:]
+                let active = shard.first{
+                    return $0.value == false
+                }
+                if active == nil{
+                    errroP?.pointee = NSError(domain: "Floq.Likes.Sharding", code: 100, userInfo: ["msg":"Could not find an available Shard"])
+                    return nil
                     
                 }
+                
+                let shadDoc:DocumentSnapshot
+                do{
+                    try shadDoc = transaction.getDocument(ref.collection(.likes).document(active!.key))
+                }catch let err as NSError{
+                    errroP?.pointee = err
+                    return nil
+                }
+                
+                var exceeds = false
+                var likers = shadDoc.getArray(.likers) as? PhotoItem.Likers ?? []
+                let maXVal = PhotosEngine.MAXX_LIKES * (shard.count + 1)
+                if (likes + 1) > maXVal{
+                    exceeds = true
+                    likers = [uid]
+                }else{
+                    likers.append(uid)
+                }
+                
+                shard.updateValue(exceeds, forKey: active!.key)
+                newUpdate.updateValue(shard, forKey: Fields.shardLikes.rawValue)
+                transaction.updateData(newUpdate, forDocument: ref)
+                if shard.count > maXVal{
+                    let newsharef = ref.collection(.likes).document()
+                    shard.updateValue(false, forKey: newsharef.documentID)
+                    transaction.updateData([Fields.shardLikes.rawValue:shard], forDocument: ref)
+                    transaction.setData([Fields.likers.rawValue:likers], forDocument: newsharef, merge: true)
+                }else{
+                  transaction.updateData([Fields.likers.rawValue:likers], forDocument: ref.collection(.likes).document(active!.key))
+                }
+                
             }else{
                 var exceeds = false
+                var likers = doc.getArray(.likers) as? PhotoItem.Likers ?? []
                 if (likes + 1) > PhotosEngine.MAXX_LIKES{
                     exceeds = true
                     let newsharef = ref.collection(.likes).document()
-                    transaction.setData(["\(Fields.shardLikes.rawValue).\(newsharef.documentID)":false], forDocument: ref)
+                    newUpdate.updateValue([newsharef.documentID:false], forKey: Fields.shardLikes.rawValue)
+                    likers = [uid]
+                    transaction.setData([Fields.likers.rawValue:likers], forDocument: newsharef, merge: true)
+                    
+                }else{
+                   likers.append(uid)
+                    newUpdate.merge([Fields.likers.rawValue:likers,Fields.maxxedLikes.rawValue:exceeds], uniquingKeysWith: { (k1, k2) -> Any in
+                        return k2
+                    })
                 }
-                var likers = doc.getArray(.likers) as? PhotoItem.Likers ?? []
-                likers.append(uid)
-                newUpdate.merge([Fields.likers.rawValue:likers,Fields.maxxedLikes.rawValue:exceeds], uniquingKeysWith: { (k1, k2) -> Any in
-                    return k2
-                })
+                
                 transaction.updateData(newUpdate, forDocument: ref)
                 
             }
@@ -215,5 +240,9 @@ class PhotosEngine:NSObject{
                         }
                 }
             })
+    }
+    
+    func post(_ name:FLNotification){
+        NotificationCenter.post(name: name)
     }
 }

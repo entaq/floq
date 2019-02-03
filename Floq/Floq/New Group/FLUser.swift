@@ -24,6 +24,10 @@ class FLUser{
         profileImg = profUrl
     }
     
+    func increaseCount(){
+        cliqs += 1
+    }
+    
     init(snap:DocumentSnapshot) {
         username = snap.getString(.username)
         uid = snap.documentID

@@ -17,7 +17,7 @@ import Geofirestore
 
 final class HomeVC : UIViewController {
     
-    
+    var refreshControl:UIRefreshControl!
     var  fluser:FLUser?
     var isFetchingNearby = false
     var allCliqs:[SectionableCliq] = []
@@ -52,10 +52,8 @@ final class HomeVC : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = "Floq"
-        if globalEngine.activeCliq != nil{
-            globalEngine.setMostActive()
-            updateData()
-        }
+        globalEngine.setMostActive()
+        updateData()
         
     }
     
@@ -73,6 +71,9 @@ final class HomeVC : UIViewController {
     
     @objc func updateData(){
         self.adapter.reloadData(completion: nil)
+        if refreshControl.isRefreshing{
+            refreshControl.endRefreshing()
+        }
     }
     
     
@@ -93,7 +94,9 @@ final class HomeVC : UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         })
-        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
         view.addSubview(collectionView)
         
         
@@ -108,6 +111,7 @@ final class HomeVC : UIViewController {
     func finishRegistrations(){
         NotificationCenter.set(observer: self, selector: #selector(updateNearby), name: .cliqEntered)
         NotificationCenter.set(observer: self, selector: #selector(updateData), name: .myCliqsUpdated)
+        NotificationCenter.set(observer: self, selector: #selector(updateNearby), name: .cliqLeft)
     }
     
     func removeRegistrations(){

@@ -102,11 +102,12 @@ class CliqEngine:NSObject{
         
         let _ = query!.observe(.documentExited) { (id, location) in
             guard let id = id else{return}
-            if let cliq = self.getCliq(id: id){
-                let index = self.nearbyCliqs.firstIndex(of: cliq) ?? -1
-                self.nearbyCliqs.remove(at: index)
-                self.post(name: .cliqLeft)
+            
+            self.nearbyCliqs.removeAll{return $0.id == id}
+            if self.nearbyCliqs.isEmpty{
+                self.homeData.removeAll{return $0.sectionType == .near}
             }
+            self.post(name: .cliqLeft)
         }
         
     }
@@ -188,6 +189,10 @@ class CliqEngine:NSObject{
         }
         query.addSnapshotListener { (querySnap, err) in
             if let query = querySnap{
+//                if self.lastSnapshot == nil && self.homeData.isEmpty{
+//                    //This is the first fetch
+//                    
+//                }
                 self.lastSnapshot = query.documents.last
                 for doc in query.documentChanges{
                     let cliq = FLCliqItem(snapshot: doc.document)
@@ -244,22 +249,12 @@ class CliqEngine:NSObject{
     
     func updateMyCliqsSection(){
         let count = appUser?.cliqs
-        
-////            if homeData.contains(mySectionalCliqs!){
-////                let index = homeData.firstIndex(of: mySectionalCliqs!)!
-////                homeData.remove(at: index)
-////            }
-//            mySectionalCliqs!.cliqs = myCliqs
-//            mySectionalCliqs!.setCount(count)
-//
-//        }else{
-//            mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
-//            homeData.append(mySectionalCliqs!)
-//        }
-       mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
         homeData.removeAll { (sec) -> Bool in
             return sec.sectionType == .mine
         }
+        if myCliqs.isEmpty{return}
+        myCliqs.sort {return $0.item.timestamp > $1.item.timestamp}
+        mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
         homeData.append(mySectionalCliqs!)
         
     }
@@ -280,15 +275,10 @@ class CliqEngine:NSObject{
         }
     }
     
-    func post(name:Notification){
+    func post(name:FLNotification){
         NotificationCenter.post(name:name)
     }
     
-    enum Notification:String{
-        case cliqEntered = "cliqEntered"
-        case cliqLeft = "cliqLeft"
-        case myCliqsUpdated = "cliqsUpdated"
-    }
 
 }
 

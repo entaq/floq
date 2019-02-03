@@ -10,10 +10,11 @@ import FirebaseFirestore.FIRDocumentSnapshot
 
 final class PhotoItem: ListDiffable, Equatable {
     typealias Likers = [String]
+    typealias Shards = [String:Bool]
     static func ==(lhs: PhotoItem, rhs: PhotoItem) -> Bool {
         return lhs.photoID == rhs.photoID && lhs.user == rhs.user
     }
-    
+    var reference:DocumentReference!
     let photoID: String
     let user: String
     let timestamp:Date
@@ -21,6 +22,8 @@ final class PhotoItem: ListDiffable, Equatable {
     let absoluteID:String
     public private (set) var likes:Int
     public private (set) var likers:Likers
+    public private (set) var shards:Shards
+    public private (set) var likesUpdated:Bool = false
     
     init(id:String,photoID: String, user: String, timestamp:Date,uid:String, likes:Int = 0) {
         absoluteID = id
@@ -30,9 +33,12 @@ final class PhotoItem: ListDiffable, Equatable {
         self.userUid = uid
         self.likes = likes
         likers = []
+        shards = [:]
+        
     }
     
     init(doc:DocumentSnapshot){
+        reference = doc.reference
         photoID = doc.getString(.fileID)
         absoluteID = doc.documentID
         user = doc.getString(.username)
@@ -40,7 +46,13 @@ final class PhotoItem: ListDiffable, Equatable {
         userUid = doc.getString(.userUID)
         likes = doc.getInt(.likes)
         likers = doc.getArray(.likers) as? Likers ?? []
-        
+        shards = doc.getDictionary(.shardLikes) as? Shards ?? [:]
+        likesUpdated = shards.count < 1
+    }
+    
+    func updateLikes(likers:Likers){
+        self.likers.append(contentsOf: likers)
+        likesUpdated = true
     }
     
     func makeChanges(_ docChanges:DocumentSnapshot){

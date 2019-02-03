@@ -81,10 +81,20 @@ public enum Fields:String{
     
 }
 
+public enum FLNotification:String{
+    case added = "added"
+    case modified = "modified"
+    case removed = "removed"
+    case cliqEntered = "cliqEntered"
+    case cliqLeft = "cliqLeft"
+    case myCliqsUpdated = "cliqsUpdated"
+}
+
 enum keys:String{
     case near = "Near Me"
     case mine = "My Cliqs"
     case active = "active"
+    
 }
 
 

@@ -70,8 +70,17 @@ class PhotoFullScreenVC: UIViewController {
         view.addSubview(collectionView)
         createLikeBar()
         collectionView.isPagingEnabled = true
+        
     }
     
+    @objc func reload(){
+        adapter.reloadData(completion: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        NotificationCenter.default.removeObserver(self)
+    }
     
     
     func updateTitle(index:Int){
@@ -140,7 +149,7 @@ class PhotoFullScreenVC: UIViewController {
         let obj = engine.allPhotos[selectedIndex]
         adapter.collectionViewDelegate = self
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
-        
+        NotificationCenter.set(observer: self, selector: #selector(reload), name: .modified)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -252,6 +261,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     
     func willDisplayPhoto(with reference: StorageReference, for user: (String, String,Int,Bool), _ photoId: String) {
         currentPhotoID = photoId
+        engine.getExtraLikes(id: photoId)
         userUid = user.0
         avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
         username = user.1

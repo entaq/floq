@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage.SDImageCache
+import FirebaseStorage.FIRStorage
 
 
 extension UIViewController{
@@ -57,6 +59,16 @@ extension UIImage{
     
     public static var placeholder:UIImage{
         return UIImage(named: "imageplaceholder")!
+    }
+    
+    public static var loading:UIImage{
+        return UIImage.gif(asset: "rippleAnim") ?? .placeholder
+    }
+    
+    public static var myphoto:UIImage{
+        let ref = Storage.profilePhotos.child(UserDefaults.uid)
+        let img = SDImageCache.shared().imageFromCache(forKey: ref.fullPath)
+        return img ?? .placeholder
     }
     
     public static var icon_menu:UIImage{

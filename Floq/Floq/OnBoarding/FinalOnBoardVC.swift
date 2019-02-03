@@ -26,8 +26,9 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     }
     
     func saveUserdata(user:User){
-       
-        DataService.main.getAndStoreProfileImg(imgUrl: user.photoURL!, uid: user.uid)
+        let userID = AccessToken.current?.userId ?? ""
+       let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }

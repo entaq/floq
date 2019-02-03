@@ -24,6 +24,7 @@
 		40AA29C11E8891E900200A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AA29BF1E8891E900200A3F /* LaunchScreen.storyboard */; };
 		40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */; };
 		BDD0D20C19D0DD84BDB5C758 /* Pods_Floq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48674A44BA36DB0F31439238 /* Pods_Floq.framework */; };
+		C400093122072C16004B6067 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = C400093022072C16004B6067 /* UIImage+Gif.swift */; };
 		C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */; };
 		C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */; };
 		C41EBFB021E145430094EBC6 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EBFAF21E145430094EBC6 /* LoginVC.swift */; };
@@ -111,6 +112,7 @@
 		40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		48674A44BA36DB0F31439238 /* Pods_Floq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Floq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6285A53FB34E03B9DFF66883 /* Pods-Floq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.release.xcconfig"; sourceTree = "<group>"; };
+		C400093022072C16004B6067 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		C40FC38E21DE552400CD39A8 /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
 		C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlbum.swift; sourceTree = "<group>"; };
 		C41EBFAF21E145430094EBC6 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = "Floq/New Group1/LoginVC.swift"; sourceTree = SOURCE_ROOT; };
@@ -242,6 +244,14 @@
 			path = Floq;
 			sourceTree = "<group>";
 		};
+		C400092F22072C01004B6067 /* SwiftGif */ = {
+			isa = PBXGroup;
+			children = (
+				C400093022072C16004B6067 /* UIImage+Gif.swift */,
+			);
+			path = SwiftGif;
+			sourceTree = "<group>";
+		};
 		C430B79221E1110E0010F2AE /* Depracated */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +264,7 @@
 		C430B79321E12B1E0010F2AE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C400092F22072C01004B6067 /* SwiftGif */,
 				C430B79221E1110E0010F2AE /* Depracated */,
 				40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */,
 			);
@@ -704,6 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C400093122072C16004B6067 /* UIImage+Gif.swift in Sources */,
 				C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */,
 				C48BEDA821F8F6EA00D0A4F7 /* Core.swift in Sources */,
 				40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */,

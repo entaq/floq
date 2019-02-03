@@ -85,7 +85,10 @@ class DataService{
         let downloader = SDWebImageDownloader.shared()
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
-                Storage.reference(.userProfilePhotos).child(uid).putData(image.pngData() ?? data!)
+                print("Image Succesfully Saved from facebool")
+                let ef = Storage.reference(.userProfilePhotos).child(uid)
+                SDImageCache.shared().store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
+                ef.putData(image.pngData() ?? data!)
             }
         }
     }
@@ -101,6 +104,7 @@ class DataService{
     func joinCliq(cliq:FLCliqItem){
         let batch = store.batch()
         let uid = UserDefaults.uid
+        (UIApplication.shared.delegate as! AppDelegate).appUser?.increaseCount()
         batch.updateData(["\(References.myCliqs.rawValue).\(cliq.id)":FieldValue.serverTimestamp()], forDocument: userRef.document(uid))
         let clef = floqRef.document(cliq.id)
         batch.updateData([Fields.followers.rawValue:FieldValue.arrayUnion([uid])], forDocument: clef)
@@ -231,8 +235,6 @@ class DataService{
                             onFinish(true,nil)
                         }
                     })
-                    
-                    
                     
                 })
         }

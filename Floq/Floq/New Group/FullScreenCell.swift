@@ -10,6 +10,7 @@ import FirebaseStorage
 
 
 protocol PhotoLikedDelegate:class {
+    
     func photoWasLiked()
     func photoselected()
 }
@@ -36,8 +37,8 @@ class FullScreenCell: UICollectionViewCell {
     
     
     func setImage(_ photo:PhotoItem){
-        imageView.sd_setImage(with: storageRef.child(photo.photoID))
         
+        imageView.sd_setImage(with: storageRef.child(photo.photoID), placeholderImage: .loading)
     }
     
     @objc func selectPhoto(){
