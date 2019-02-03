@@ -67,7 +67,7 @@ extension UIImageView{
         sd_setImage(with: storageRef, placeholderImage: .placeholder) { (img, err, type, ref) in
             DataService.profileIDs.insert(uid)
         }
-        sd_setImage(with: storageRef, placeholderImage: UIImage.placeholder)
+        //sd_setImage(with: storageRef, placeholderImage: UIImage.placeholder)
     }
     
     

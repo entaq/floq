@@ -24,9 +24,10 @@ import Floaty
 final class PhotosVC: UIViewController {
     
     var data: [GridPhotoItem] = []
+    private var floaty:Floaty!
     private var cliq:FLCliqItem?
     private var cliqID:String!
-    var photoEngine:PhotoEngine = PhotoEngine()
+    var photoEngine = PhotosEngine()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -50,25 +51,28 @@ final class PhotosVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .globalbackground
+        floaty = Floaty()
+        floaty.buttonColor = .seafoamBlue
+        floaty.plusColor = .white
+        floaty.fabDelegate = self
+        view.addSubview(floaty)
         if cliq == nil{
             DataService.main.getCliq(id: cliqID) { (cliq, err) in
                 if let cliq = cliq{
                     self.cliq = cliq
                     self.title = cliq.name
+                    self.floaty.isHidden = !cliq.isActive
                     self.userlistbutt.setAvatar(uid: cliq.creatorUid)
+                    if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
                 }
             }
+        }else{
+            floaty.isHidden = !cliq!.isActive
         }
         navigationItem.hidesBackButton = false
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.addSubview(collectionView)
         
-        
-        let floaty = Floaty()
-        floaty.buttonColor = .seafoamBlue
-        floaty.plusColor = .white
-        floaty.fabDelegate = self
-        view.addSubview(floaty)
         
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -87,7 +91,9 @@ final class PhotosVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = cliq?.name ?? ""
-        print("Cliq ID is: \(cliqID)")
+        if let cliq = self.cliq{
+            if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
+        }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
@@ -209,7 +215,7 @@ extension PhotosVC:GridPhotoSectionDelegate{
     
     func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
         let actualIndex = photoEngine.getTrueIndex(of: photo)
-        let fullscreen = PhotoFullScreenVC(allphotos: photoEngine.allPhotos, selected: actualIndex,name:cliq?.name ?? "")
+        let fullscreen = PhotoFullScreenVC(engine: photoEngine, selected: actualIndex,name:cliq?.name ?? "",id:cliqID)
         navigationController?.pushViewController(fullscreen, animated: true)
     }
 }
@@ -222,15 +228,20 @@ extension PhotosVC:FloatyDelegate{
             if cliq.isMember(){
                 selectPhoto()
             }else{
-                let alert = UIAlertController.createDefaultAlert("INFO!!", "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos",.alert, "Cancel",.cancel, nil)
-                let join = UIAlertAction(title: "Join", style: .default) { (ac) in
-                    DataService.main.joinCliq(cliq: self.cliq!)
-                    self.cliq!.addMember()
-                    self.selectPhoto()
+                if cliq.canFollow{
+                    let alert = UIAlertController.createDefaultAlert(.info,.not_aCliqMember ,.alert, .cancel,.cancel, nil)
+                    let join = UIAlertAction(title: "Join", style: .default) { (ac) in
+                        DataService.main.joinCliq(cliq: self.cliq!)
+                        self.cliq!.addMember()
+                        self.selectPhoto()
+                    }
+                    
+                    alert.addAction(join)
+                    present(alert, animated: true, completion: nil)
+                }else{
+                    let alert = UIAlertController.createDefaultAlert(.info,.maxed_out_cliq ,.alert, .ok,.cancel, nil)
+                    present(alert, animated: true, completion: nil)
                 }
-                
-                alert.addAction(join)
-                present(alert, animated: true, completion: nil)
             }
         }
         

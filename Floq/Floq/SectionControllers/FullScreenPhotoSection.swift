@@ -13,12 +13,22 @@ import FirebaseStorage
 
 protocol FullScreenScetionDelegate:class {
     
-    func willDisplayPhoto(with reference:StorageReference, for user:(String,String))
+    func willDisplayPhoto(with reference:StorageReference, for user:(String,String,Int,Bool), _ photoId:String)
     func willDisplayIndex(_ index:Int)
+    func photoWasLiked(id:String?)
+    func photoWasSelected()
     
 }
 
-final class FullScreenPhotoSection: ListSectionController {
+final class FullScreenPhotoSection: ListSectionController,PhotoLikedDelegate {
+    func photoselected() {
+        delegate?.photoWasSelected()
+    }
+    
+    
+    func photoWasLiked() {
+        delegate?.photoWasLiked(id:photo?.photoID)
+    }
     
     private var photo:PhotoItem?
     weak var delegate:FullScreenScetionDelegate?
@@ -41,6 +51,7 @@ final class FullScreenPhotoSection: ListSectionController {
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         if let cell = collectionContext?.dequeueReusableCell(withNibName:String(describing: FullScreenCell.self), bundle: Bundle.main, for: self, at: index) as? FullScreenCell {
+            cell.delegate = self as PhotoLikedDelegate
             if let photo = photo{
                 cell.setImage(photo)
             }
@@ -66,7 +77,7 @@ extension FullScreenPhotoSection: ListDisplayDelegate{
         if let photo = photo{
             let reference = Storage.reference(.userProfilePhotos).child(photo.userUid)
            
-            delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user))
+            delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user,photo.likes,photo.hasliked()), photo.absoluteID)
         }
     }
     

@@ -115,3 +115,16 @@ extension UserDefaults{
         standard.removeObject(forKey: Fields.latestCliq.rawValue)
     }
 }
+
+
+extension NotificationCenter{
+    
+    class func post(name:FLNotification, object:Any? = nil){
+        NotificationCenter.default.post(name: NSNotification.Name(name.rawValue), object: object)
+    }
+    
+    
+    class func set(observer:Any, selector:Selector, name:FLNotification,_ object:Any? = nil){
+        self.default.addObserver(observer, selector: selector, name: NSNotification.Name(name.rawValue), object: object)
+    }
+}

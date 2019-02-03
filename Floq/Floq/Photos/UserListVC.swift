@@ -49,7 +49,7 @@ class UserListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Members in this Cliq"
+        return "Members who have added photos to this Cliq"
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

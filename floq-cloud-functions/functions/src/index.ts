@@ -4,6 +4,7 @@ import * as admin from "firebase-admin";
 const REF_FLOQS = "FLFLOQs";
 const REF_PHOTOS = "Photos";
 const REF_TOKENS = "FLTOKENS";
+const REF_USERS = "FLUSER"
 const FIELD_fileID = "fileID";
 const FIELD_username = "userName";
 const FIELD_dateCreated = "dateCreated";
@@ -40,10 +41,14 @@ export const photoAdded = functions.firestore
     const cliq = await store.doc(`${REF_FLOQS}/${cliqID}`).get();
     const followers = cliq.get(FIELD_followers);
     const cliqName = cliq.get(FIELD_cliqname);
-    for (const key in followers) {
+
+    const total = followers.length;
+    for (let i = 0; i < total; i++) {
+      const key = followers[i];
       if (key !== posterID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
         const token = tokenSnap.get(FIELD_instanceToken);
+
         const message = {
           notification: {
             title: "Photo Added!!",
@@ -54,6 +59,7 @@ export const photoAdded = functions.firestore
           },
           token: token
         };
+        console.log(`The payload is ${message}`);
         promise = admin.messaging().send(message);
       }
     }
@@ -107,3 +113,22 @@ export const testFunctionsWorks = functions.https.onRequest(
       });
   }
 );
+
+export const reAlignDatabase = functions.https.onRequest(
+  async (request, response) => {
+    const batch = store.batch()
+    const docs = await store.collection(REF_USERS).get();
+    for (const doc of docs.docs){
+      const id = doc.id
+      const mydocs = await store.collection(REF_FLOQS).where(FIELD_followers,"array-contains",id).get();
+      const count = mydocs.size;
+      batch.update(doc.ref,{[FIELD_cliqCount]:count});
+    }
+    
+    batch.commit().then(x => {
+      response.status(200).send(x);
+    }).catch(err => {
+      response.status(404).send(err);
+    });
+
+  });

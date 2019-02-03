@@ -11,7 +11,11 @@ import Floaty
 
 class MyCliqsVC: UIViewController {
     
-    private var photoEngine:PhotoEngine!
+    private let refresh = UIRefreshControl()
+    
+    private var photoEngine:CliqEngine{
+        return (UIApplication.shared.delegate as! AppDelegate).mainEngine
+    }
     
     lazy var adapter:ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
@@ -19,15 +23,26 @@ class MyCliqsVC: UIViewController {
     
         private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    init(engine:PhotoEngine) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        photoEngine = engine
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupRefresh(){
+        refresh.tintColor = .seafoamBlue
+        refresh.attributedTitle = NSAttributedString(string: "Loading Cliqs....", attributes: [NSAttributedString.Key.foregroundColor : UIColor.seafoamBlue])
+        refresh.addTarget(self, action: #selector(reload), for: .valueChanged)
+        collectionView.refreshControl = refresh
+        
+    }
+    
+    @objc func reload(){
+    
+        photoEngine.queryForMyCliqs()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +60,12 @@ class MyCliqsVC: UIViewController {
         let barbutt = UIBarButtonItem(image: .icon_menu, style: .plain, target: self, action: #selector(accountMenuTapped))
         navigationItem.rightBarButtonItem = barbutt
         view.addSubview(floaty)
+        finishRegistrations()
     }
     
     
     @objc func accountMenuTapped(){
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let storyboard = UIStoryboard.main
         if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: UserProfileVC.self)) as? UserProfileVC{
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -61,6 +77,7 @@ class MyCliqsVC: UIViewController {
         adapter.collectionViewDelegate = self
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.scrollViewDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +85,22 @@ class MyCliqsVC: UIViewController {
         title = "My Cliqs"
     }
     
+    func finishRegistrations(){
+        NotificationCenter.set(observer: self, selector: #selector(updateData), name: .myCliqsUpdated)
+    }
     
+    func removeRegistrations(){
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func updateData(){
+        adapter.reloadData(completion: nil)
+        refresh.endRefreshing()
+    }
+    
+    deinit {
+        removeRegistrations()
+    }
 
 
 }
@@ -92,8 +124,16 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cliq = photoEngine.myCliqs[indexPath.section]
-        UserDefaults.setLatest(cliq.id)
+
         self.navigationController?.pushViewController(PhotosVC(cliq: cliq, id:cliq.id), animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if offset > contentHeight - scrollView.frame.height + 100{
+           photoEngine.queryForMyCliqs()
+        }
     }
 }
 
@@ -104,3 +144,5 @@ extension MyCliqsVC:FloatyDelegate{
         self.present(AddCliqVC(), animated: true, completion: nil)
     }
 }
+
+

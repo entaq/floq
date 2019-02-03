@@ -37,17 +37,24 @@ class  SectionableCliq:ListDiffable, Equatable{
     public  var cliqs:[FLCliqItem]
     public private (set) var sectionType:keys
     public private (set) var designatedIndex:Int
+    private var cliqcount:Int?
     func getFirstItem()->FLCliqItem{
         return cliqs.first!
     }
     
+    
     func count()->Int{
-        return cliqs.count
+        return cliqcount ?? cliqs.count
     }
     
-    init(cliqs:[FLCliqItem],type:keys) {
+    func setCount(_ count:Int?){
+        cliqcount = count
+    }
+    
+    init(cliqs:[FLCliqItem],type:keys,count:Int? = nil) {
         self.cliqs = cliqs
         sectionType = type
+        self.cliqcount = count
         switch type {
         case .active:
             designatedIndex = 0

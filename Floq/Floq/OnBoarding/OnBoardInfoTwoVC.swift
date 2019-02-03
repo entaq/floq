@@ -52,12 +52,15 @@ class OnBoardInfoTwoVC: UIViewController {
                 if let user = data?.user{
                     DataService.main.isRegistered(uid: user.uid, handler: { (exists, username) in
                         if exists{
+                            self.saveUserdata(user: user)
                             UserDefaults.set(username!, for: .username)
                             UserDefaults.set(user.uid, for: .uid)
                             if let appdel = UIApplication.shared.delegate as? AppDelegate{
-                                let navC = UINavigationController(rootViewController: HomeVC(nil))
+                                appdel.mainEngine = CliqEngine()
+                                let navC = UINavigationController(rootViewController: HomeVC())
                                 appdel.window?.rootViewController = navC
                                 appdel.window?.makeKeyAndVisible()
+                                appdel.selfSync()
                             }
                             
                         }else{
@@ -78,28 +81,29 @@ class OnBoardInfoTwoVC: UIViewController {
 
     func saveUserdata(user:User){
         let userID = AccessToken.current?.userId ?? ""
-        let url = URL(string: "https://graph.facebook.com/\(userID)/picture?type=large")
+        let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
         DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
-        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, floqs: nil)
-        DataService.main.setUser(user: fuser, handler: {_,_ in })
-        UserDefaults.set(fuser.uid, for:.uid)
-        UserDefaults.set(fuser.username, for:.username)
-        InstanceID.instanceID().instanceID(handler: { (result, err) in
-            if let result = result{
-                DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
-                    if success{
-                        UserDefaults.set(result.token, for: .instanceToken)
-                    }else{
-                        
-                        Logger.log(err)
-                    }
-                })
-            }
-        })
     }
+//        let fuser = FLUser(uid: user.uid, username: user.displayName, profUrl: user.photoURL, cliqs: 0)
+//        DataService.main.setUser(user: fuser, handler: {_,_ in })
+//        UserDefaults.set(fuser.uid, for:.uid)
+//        UserDefaults.set(fuser.username, for:.username)
+//        InstanceID.instanceID().instanceID(handler: { (result, err) in
+//            if let result = result{
+//                DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
+//                    if success{
+//                        UserDefaults.set(result.token, for: .instanceToken)
+//                    }else{
+//
+//                        Logger.log(err)
+//                    }
+//                })
+//            }
+//        })
+    
     
     
 

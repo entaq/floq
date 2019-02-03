@@ -1,5 +1,7 @@
 target 'Floq' do
   use_frameworks!
+  pod 'RxSwift',    '~> 4.0'
+  pod 'RxCocoa',    '~> 4.0'
   pod 'FirebaseUI/Storage', '~> 5.0'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
@@ -10,12 +12,12 @@ target 'Floq' do
   pod 'FBSDKLoginKit', '4.36.0'
   pod 'FacebookCore', '0.4'
   pod 'FacebookLogin', '0.4'
-  pod 'Geofirestore'
   pod 'DKImagePickerController'
+  pod 'Geofirestore'
   pod 'IGListKit'
   pod 'Fabric', '~> 1.9.0'
   pod 'Crashlytics', '~> 3.12.0'
   pod 'Floaty', '~> 4.0.0' # Use version 4.0.0 for Swift 4.0
-  pod 'Eureka'
+ 
 end
 

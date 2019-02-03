@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage.SDImageCache
+import FirebaseStorage.FIRStorage
 
 
 extension UIViewController{
@@ -38,7 +40,7 @@ extension UIViewController{
 
 extension UIView{
     
-    class func listAdapterEmptyView(superView:UIView, info:InfoMessages)->UIView{
+    class func listAdapterEmptyView(superView:UIView, info:Info.Messages)->UIView{
         let view = UIView(frame: superView.frame)
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
         label.numberOfLines = 10
@@ -59,6 +61,16 @@ extension UIImage{
         return UIImage(named: "imageplaceholder")!
     }
     
+    public static var loading:UIImage{
+        return UIImage.gif(asset: "rippleAnim") ?? .placeholder
+    }
+    
+    public static var myphoto:UIImage{
+        let ref = Storage.profilePhotos.child(UserDefaults.uid)
+        let img = SDImageCache.shared().imageFromCache(forKey: ref.fullPath)
+        return img ?? .placeholder
+    }
+    
     public static var icon_menu:UIImage{
         return UIImage(named: "icon_account")!
     }
@@ -73,6 +85,10 @@ extension UIImage{
     
     public static var icon_app:UIImage{
         return UIImage(named:"AppIcon")!
+    }
+    
+    public static var icon_like:UIImage{
+        return UIImage(named:"like")!
     }
     
     func dataFromJPEG()-> Data?{
@@ -164,6 +180,14 @@ extension UIAlertController{
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         let action = UIAlertAction(title: actionTitle, style: actionStyle, handler: handler)
+        alert.addAction(action)
+        return alert
+    }
+    
+    class func createDefaultAlert(_ title:Info.Titles, _ message:Info.Messages, _ style:UIAlertController.Style = .alert, _ actionTitle:Info.Action, _ actionStyle:UIAlertAction.Style = .default, _ handler: CompletionHandlers.alert?) -> UIAlertController{
+        
+        let alert = UIAlertController(title: title.rawValue, message: message.rawValue, preferredStyle: style)
+        let action = UIAlertAction(title: actionTitle.rawValue, style: actionStyle, handler: handler)
         alert.addAction(action)
         return alert
     }

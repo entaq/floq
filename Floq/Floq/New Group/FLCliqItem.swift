@@ -11,6 +11,11 @@ import FirebaseFirestore
 
 class FLCliqItem:ListDiffable, Equatable{
     
+    enum Max:Int {
+        case followers = 30
+        case photos = 100
+    }
+    
     func diffIdentifier() -> NSObjectProtocol {
         return id as NSObjectProtocol
     }
@@ -36,6 +41,16 @@ class FLCliqItem:ListDiffable, Equatable{
         followers.insert(id)
     }
     
+    public func hasChanges(item:FLCliqItem)->Bool{
+        return !(item.followers.count == followers.count)
+        
+    }
+    
+    
+    public var canFollow:Bool{
+        return followers.count < Max.followers.rawValue
+    }
+    
     public private (set) var id:String
     public private (set) var item:PhotoItem
     public private (set) var name:String
@@ -46,12 +61,12 @@ class FLCliqItem:ListDiffable, Equatable{
     public var joined:Bool
     
     init(snapshot:DocumentSnapshot) {
-        print(snapshot.debugDescription)
+        
         id = snapshot.documentID
         self.name = snapshot.getString(.cliqname)
         creatorUid = snapshot.getString(.userUID)
         let timestamp = snapshot.getDate(.timestamp)
-        item = PhotoItem(photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
+        item = PhotoItem(id:id, photoID: snapshot.getString(.fileID), user: snapshot.getString(.username), timestamp: timestamp,uid:creatorUid)
         followers = []
         if let data = snapshot.get(Fields.followers.rawValue) as? [String]{
             self.followers = Set<String>(data)

@@ -26,19 +26,22 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     }
     
     func saveUserdata(user:User){
-       
-        DataService.main.getAndStoreProfileImg(imgUrl: user.photoURL!, uid: user.uid)
+        let userID = AccessToken.current?.userId ?? ""
+       let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }
-        let fuser = FLUser(uid: user.uid, username: nickNameText.text!, profUrl: user.photoURL, floqs: nil)
+        let fuser = FLUser(uid: user.uid, username: nickNameText.text!, profUrl: user.photoURL, cliqs: 0)
         DataService.main.setUser(user: fuser, handler: {_,_ in })
         UserDefaults.set(fuser.uid, for:.uid)
         UserDefaults.set(fuser.username, for:.username)
-        let navC = UINavigationController(rootViewController: HomeVC(nil))
+        let navC = UINavigationController(rootViewController: HomeVC())
         if let appdel = UIApplication.shared.delegate as? AppDelegate{
+            appdel.mainEngine = CliqEngine()
             appdel.window?.rootViewController = UINavigationController(rootViewController: HomeVC())
             appdel.window?.makeKeyAndVisible()
+            appdel.selfSync()
         }
         
         self.present(navC, animated: true, completion: nil)

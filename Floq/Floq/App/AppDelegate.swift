@@ -10,14 +10,16 @@ import Firebase
 import FacebookCore
 import SDWebImage
 import UserNotifications
-
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
-    
+    var mainEngine:CliqEngine!
+    var appUser:FLUser?
+    var isSyncng = false
+    var isWatching = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
@@ -32,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = .barTint
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
+        
         return true
         
     }
@@ -42,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        isSyncng = false
+        isWatching = false
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -52,10 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
+            //mainEngine.start()
+            watchForUpdateChanges()
+            selfSync()
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
         SDImageCache.shared().clearMemory()
     }
     
@@ -82,8 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setRootViewController(){
         if let _  = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            let home = UINavigationController(rootViewController: HomeVC(nil))
+            selfSync()
+            mainEngine = CliqEngine()
+            let home = UINavigationController(rootViewController: HomeVC())
             window?.rootViewController = home
+            watchForUpdateChanges()
+            
         }else{
             let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
             window?.rootViewController = onboard
@@ -127,7 +142,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("Will Present tne ")
+        let title = notification.request.content.title
+        let body = notification.request.content.body
+        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
+        showInAppAlert(title: title, body: body, id: id)
+        completionHandler(.sound)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -158,3 +177,82 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
 }
 
 
+// MARK:- Update Changes
+
+extension AppDelegate{
+    
+    func watchForUpdateChanges(){
+        if isWatching{return}
+        DataService.main.listenForUpdates { (update, err) in
+            guard let update = update as? UpdateInfo else {return}
+            if update.islessThanLeastSupport(){
+                guard let vc = UIStoryboard.main.instantiateViewController(withIdentifier: ForceUpdateVC.identifier) as? ForceUpdateVC else{return}
+                vc.info = update.forcedInfo
+                self.window?.rootViewController = vc
+                DispatchQueue.main.async {
+                     self.window?.makeKeyAndVisible()
+                }
+            }else{
+                if update.notifyUpdate(){
+                    let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, nil)
+                    let action = UIAlertAction(title: "Update", style: .default, handler: { (action) in
+                        openAppStore()
+                    })
+                    alert.addAction(action)
+                    DispatchQueue.main.async {
+                        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+        
+        isWatching = true
+    }
+    
+    func selfSync(){
+        if isSyncng{return}
+        DataService.main.synchronizeSelf { (user, err) in
+            guard let user = user as? FLUser else{return}
+            self.appUser = user
+        }
+        isSyncng = true
+    }
+    
+}
+
+
+
+
+extension AppDelegate{
+    
+    func showInAppAlert(title:String, body:String, id:String){
+        let width = UIScreen.main.bounds.width
+        let frame = CGRect(x: -width, y: 0, width: width, height: 90)
+        let alert = NotificationAlertView(frame: frame)
+        alert.subtitlelabel.text = body
+        alert.titleLabel.text = title
+        alert.method = { _ in
+            if id == ""{return}
+            if let nav = self.window?.rootViewController as? UINavigationController{
+                
+                nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+            }
+        }
+        window?.rootViewController?.view.addSubview(alert)
+    }
+
+    
+}
+
+
+var appUser:FLUser?{
+    return (UIApplication.shared.delegate as! AppDelegate).appUser
+}
+
+
+func openAppStore(){
+    let url = URL(string: "itms-apps://itunes.apple.com/gh/app/streaker-odds-and-streaks/id1222312862?mt=8")!
+    if UIApplication.shared.canOpenURL(url){
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}

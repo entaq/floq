@@ -495,6 +495,63 @@
             </objects>
             <point key="canvasLocation" x="2887" y="442"/>
         </scene>
+        <!--Force UpdateVC-->
+        <scene sceneID="YxF-ko-CvS">
+            <objects>
+                <viewController storyboardIdentifier="ForceUpdateVC" id="CTn-uq-MRh" customClass="ForceUpdateVC" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wC9-5V-Zbs"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cz8-RB-bec"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U55-qh-Cll">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please update Floq to continue using the app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9L0-2n-0hV">
+                                <rect key="frame" x="25" y="120" width="325" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCb-BN-b9E">
+                                <rect key="frame" x="112.5" y="313.5" width="150" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="OFf-2g-kVu"/>
+                                    <constraint firstAttribute="width" constant="150" id="UhV-Ew-asQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Update Now">
+                                    <color key="titleColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="updatePressed:" destination="CTn-uq-MRh" eventType="touchUpInside" id="2X4-NL-kqW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="PCb-BN-b9E" firstAttribute="centerX" secondItem="U55-qh-Cll" secondAttribute="centerX" id="6Bk-Yy-J3H"/>
+                            <constraint firstItem="9L0-2n-0hV" firstAttribute="leading" secondItem="U55-qh-Cll" secondAttribute="leading" constant="25" id="8rM-lS-yNF"/>
+                            <constraint firstItem="PCb-BN-b9E" firstAttribute="centerY" secondItem="U55-qh-Cll" secondAttribute="centerY" id="bV1-lz-fxE"/>
+                            <constraint firstAttribute="trailing" secondItem="9L0-2n-0hV" secondAttribute="trailing" constant="25" id="brT-ez-BFb"/>
+                            <constraint firstItem="9L0-2n-0hV" firstAttribute="top" secondItem="wC9-5V-Zbs" secondAttribute="bottom" constant="100" id="wa4-n8-QaB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="infoText" destination="9L0-2n-0hV" id="xHa-sZ-bow"/>
+                        <outlet property="updateabutton" destination="PCb-BN-b9E" id="4GH-dM-2hW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ok4-ht-7Qz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3596" y="441.22938530734638"/>
+        </scene>
         <!--On Board Info OneVC-->
         <scene sceneID="IQe-AW-Oag">
             <objects>

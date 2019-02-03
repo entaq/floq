@@ -36,7 +36,6 @@ class AddCliqVC: UIViewController {
     
     
     
-    
     func setupViews(){
         
         self.view.backgroundColor = UIColor.white
@@ -232,6 +231,7 @@ extension AddCliqVC:CLLocationManagerDelegate{
         guard let userLocation = locations.first else{
             return
         }
+        
         location = userLocation
         locationManager?.stopUpdatingLocation()
     }

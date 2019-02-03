@@ -53,7 +53,7 @@ class DataService{
     
     
     func setUser(user:FLUser, handler:@escaping CompletionHandlers.dataservice){
-        let data = [Fields.username.rawValue: user.username, Fields.dateCreated.rawValue:Date(),Fields.profileImg.rawValue:user.profileImg?.absoluteString ?? ""] as [String:Any]
+        let data = [Fields.username.rawValue: user.username, Fields.dateCreated.rawValue:Date(),Fields.profileImg.rawValue:user.profileImg?.absoluteString ?? "",Fields.cliqCount.rawValue:0] as [String:Any]
         userRef.document(user.uid).setData(data) { (err) in
             if let error = err {
                 if let url = user.profileImg{
@@ -85,7 +85,10 @@ class DataService{
         let downloader = SDWebImageDownloader.shared()
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
-                Storage.reference(.userProfilePhotos).child(uid).putData(image.pngData() ?? data!)
+                print("Image Succesfully Saved from facebool")
+                let ef = Storage.reference(.userProfilePhotos).child(uid)
+                SDImageCache.shared().store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
+                ef.putData(image.pngData() ?? data!)
             }
         }
     }
@@ -101,6 +104,7 @@ class DataService{
     func joinCliq(cliq:FLCliqItem){
         let batch = store.batch()
         let uid = UserDefaults.uid
+        (UIApplication.shared.delegate as! AppDelegate).appUser?.increaseCount()
         batch.updateData(["\(References.myCliqs.rawValue).\(cliq.id)":FieldValue.serverTimestamp()], forDocument: userRef.document(uid))
         let clef = floqRef.document(cliq.id)
         batch.updateData([Fields.followers.rawValue:FieldValue.arrayUnion([uid])], forDocument: clef)
@@ -109,6 +113,29 @@ class DataService{
                 Logger.log(err)
             }else{
                 
+            }
+        }
+        let ref = userRef.document(uid)
+        store.runTransaction({ (transaction, errorPointer) -> Any? in
+            let doc:DocumentSnapshot
+            do{
+                try doc = transaction.getDocument(ref)
+            }catch let err as NSError{
+                errorPointer?.pointee = err
+                return nil
+            }
+            
+            guard let count = doc.get(Fields.cliqCount.rawValue) as? Int else{
+                let error = NSError(domain: "Database", code: 404, userInfo: ["msg":"Field not found"])
+                errorPointer?.pointee = error
+                return nil
+            }
+            
+            transaction.updateData([Fields.cliqCount.rawValue: count + 1], forDocument: ref)
+            return nil
+        }) { (_, err) in
+            if let err = err{
+                print("Transaction Failed with signature: \(err.localizedDescription)")
             }
         }
     }
@@ -193,8 +220,8 @@ class DataService{
                     print(docData, filePath)
                     batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
                     
-                    let addata = [Fields.uid.rawValue:uid, Fields.dateCreated.rawValue:docData[Fields.timestamp.rawValue]!,Fields.cliqCount.rawValue: count + 1]
-                    batch.setData(addata, forDocument: self.userRef.document(uid).collection(.myCliqs).document(filePath), merge: true)
+                    let addata = [Fields.cliqCount.rawValue: count + 1]
+                    batch.setData(addata, forDocument: self.userRef.document(uid), merge: true)
                     docData.removeValue(forKey: Fields.cliqname.rawValue)
                     docData.removeValue(forKey:  Fields.followers.rawValue)
                     docData.removeValue(forKey:  Fields.userEmail.rawValue)
@@ -204,14 +231,30 @@ class DataService{
                             onFinish(false,"Error writing document data")
                             
                         } else {
-                            geofire.setLocation(location: locaion, forDocumentWithID: filePath)
+                            geofire.setLocation(location: locaion, forDocumentWithID: filePath, addTimeStamp: true, completion: nil)
                             onFinish(true,nil)
                         }
                     })
                     
-                    
-                    
                 })
+        }
+    }
+    
+    func synchronizeSelf(handler:@escaping CompletionHandlers.dataservice){
+        userRef.document(UserDefaults.uid).addSnapshotListener { (doc, err) in
+            guard let snap = doc, let _ = doc?.data() else {return}
+            let user = FLUser(snap: snap)
+            handler(user,nil)
+        }
+    }
+    
+    func listenForUpdates(handler:@escaping CompletionHandlers.dataservice){
+        store.collection(.utils).document(References.updateDoc.rawValue).addSnapshotListener { (snapshot, err) in
+            guard let snapshot = snapshot else {return}
+            if let _ = snapshot.data(){
+                let update = UpdateInfo(snap: snapshot)
+                handler(update,nil)
+            }
         }
     }
     
@@ -221,7 +264,7 @@ class DataService{
         
         userRef.document(uid).getDocument { (snapshot, err) in
             if let snap = snapshot{
-                let user = FLUser(uid: uid, username: snap.getString(.username), profUrl: nil, floqs: nil)
+                let user = FLUser(snap: snap)
                 handler(user,nil)
             }
         }

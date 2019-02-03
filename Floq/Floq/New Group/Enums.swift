@@ -17,6 +17,7 @@ enum CompletionHandlers{
     typealias photogrids = (_ grids:[GridPhotoItem]?, _ errorMessage:String?) -> ()
     typealias simpleBlock = ()->()
     typealias storage = (_ success:Bool, _ errorMessage:String?) -> ()
+    typealias notification = (_ id:String?) -> ()
 }
 
 enum ImageSizes:Int{
@@ -24,6 +25,11 @@ enum ImageSizes:Int{
     case max = 16000000
     case medium = 8000000
     case min = 4000000
+}
+
+enum Update:Int{
+    case current = 1
+    case leastSupport = 0
 }
 
 
@@ -38,6 +44,10 @@ enum References:String{
     case followers = "Followers"
     case storageFloqs = "FLFloqPhotos"
     case tokenRefs = "FLTOKENS"
+    case utils = "FLUTILTY"
+    case updateDoc = "Updates"
+    case likes = "LIKES"
+    case requestLikeShard = "LikesShard"
     
 }
 
@@ -60,15 +70,32 @@ public enum Fields:String{
     case dateDeleted = "dateDeleted"
     case instanceToken = "instanceToken"
     case savedInstance =  "savedInstance"
+    case current = "current"
+    case info = "info"
+    case least = "leastSupported"
+    case forced = "forcedUpdateInfo"
+    case likes = "likes"
+    case likers = "likers"
+    case maxxedLikes = "maxxedL"
+    case shardLikes = "shards"
     
+}
+
+public enum FLNotification:String{
+    case added = "added"
+    case modified = "modified"
+    case removed = "removed"
+    case cliqEntered = "cliqEntered"
+    case cliqLeft = "cliqLeft"
+    case myCliqsUpdated = "cliqsUpdated"
 }
 
 enum keys:String{
     case near = "Near Me"
     case mine = "My Cliqs"
     case active = "active"
+    
 }
-
 
 
 public enum Aliases{
@@ -79,12 +106,30 @@ public enum Aliases{
     public typealias follower_set = Dictionary<String,Int>
 }
 
-enum InfoMessages:String{
+struct Info{
+    enum Messages:String{
+        case nocliqs_nearby = "Oops, there are no cliqs nearby, try creating a cliq in this location"
+        case nocliqs_for_me = "Oops, You have no cliqs, try adding some cliqs"
+        case not_aCliqMember = "You are unable to add photos because you have not joined this cliq yet. Join this cliq to add photos"
+        case maxed_out_cliq = "You are unable to join. This cliq has reached its maximum capacity of followers"
+    }
+
+    enum Titles:String {
+        case info = "INFO!!"
+        case error = "Error"
+        case success = "Success"
+    }
     
-    case nocliqs_nearby = "Oops, there are no cliqs nearby, try creating a cliq in this location"
-    case nocliqs_for_me = "Oops, You have no cliqs, try adding some cliqs"
-    
+    enum Action:String {
+        case dismiss  = "Dismiss"
+        case cancel = "Cancel"
+        case ok = "OK"
+        case delete = "Delete"
+    }
 }
+
+
+
 
 
 enum DateFormats:String{
@@ -96,3 +141,6 @@ enum DateFormats:String{
     case no_year_t = "MMM d, h:mm a"
     case no_year_nt = "MMM d"
 }
+
+
+

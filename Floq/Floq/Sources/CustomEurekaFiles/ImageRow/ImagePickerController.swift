@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Eureka
+/*
 
 /// Selector Controller used to pick an image
 open class ImagePickerController : UIImagePickerController, TypedRowControllerType, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -63,3 +63,4 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
 }
+*/
