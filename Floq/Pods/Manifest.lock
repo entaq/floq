@@ -57,7 +57,6 @@ PODS:
     - SDWebImage/GIF
   - DKPhotoGallery/Resource (0.0.11):
     - SDWebImage/GIF
-  - Eureka (4.3.1)
   - Fabric (1.9.0)
   - FacebookCore (0.4.0):
     - Bolts (~> 1.9)
@@ -210,6 +209,11 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.6.1)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
   - SDWebImage (4.4.3):
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
@@ -221,7 +225,6 @@ PODS:
 DEPENDENCIES:
   - Crashlytics (~> 3.12.0)
   - DKImagePickerController
-  - Eureka
   - Fabric (~> 1.9.0)
   - FacebookCore (= 0.4)
   - FacebookLogin (= 0.4)
@@ -236,6 +239,8 @@ DEPENDENCIES:
   - Floaty (~> 4.0.0)
   - Geofirestore
   - IGListKit
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -245,7 +250,6 @@ SPEC REPOS:
     - DKCamera
     - DKImagePickerController
     - DKPhotoGallery
-    - Eureka
     - Fabric
     - FacebookCore
     - FacebookLogin
@@ -276,6 +280,9 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
     - SDWebImage
     - TOCropViewController
 
@@ -286,7 +293,6 @@ SPEC CHECKSUMS:
   DKCamera: 61fa47629a39354e5111bca1fe96695de020dcb9
   DKImagePickerController: 358ebcd5ce87db8863ec4b8dea651c67baca36e0
   DKPhotoGallery: e5fc53899345c26af4374503dd249caabac7d26a
-  Eureka: 28ea296f06710f6745266b71f17862048941a32d
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
   FacebookLogin: eb0f2251aca835a94d70a5f7e580edc46d1e1603
@@ -317,9 +323,12 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   TOCropViewController: 368d8df3ea43b62c3dc5a61f11b9048274d240bd
 
-PODFILE CHECKSUM: a7df403507bf87897f942a5675a30115d28a61e1
+PODFILE CHECKSUM: c5724a5e191224586f64dbaa2d8a1cd149f5c812
 
 COCOAPODS: 1.5.3

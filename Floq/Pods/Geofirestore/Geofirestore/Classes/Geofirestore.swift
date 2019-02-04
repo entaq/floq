@@ -76,12 +76,14 @@ public class GeoFirestore {
      * @param documentID The documentID of the document for which this location is saved
      * @param completion The completion block that is called once the location was successfully updated on the server
      */
-    public func setLocation(location: CLLocation, forDocumentWithID documentID: String, completion: GFSCompletionBlock? = nil) {
+    public func setLocation(location: CLLocation, forDocumentWithID documentID: String,addTimeStamp:Bool = false, completion: GFSCompletionBlock? = nil) {
         if CLLocationCoordinate2DIsValid(location.coordinate) {
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             if let geoHash = GFGeoHash(location: location.coordinate).geoHashValue {
-                self.collectionRef.document(documentID).setData(["l": [lat, lon], "g": geoHash], mergeFields: ["g", "l"], completion: completion)
+                var data:[String:Any] = ["l": [lat, lon], "g": geoHash]
+                if addTimeStamp{data.updateValue(FieldValue.serverTimestamp(), forKey: "timestamp")}
+                self.collectionRef.document(documentID).setData(data, merge:true, completion: completion)
             }
             else {
                 print("GEOFIRESTORE ERROR: Couldn't calculate geohash.")

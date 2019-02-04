@@ -231,6 +231,7 @@ class DataService{
                             onFinish(false,"Error writing document data")
                             
                         } else {
+                            //geofire.setLocation(location: locaion, forDocumentWithID: filePath)
                             geofire.setLocation(location: locaion, forDocumentWithID: filePath, addTimeStamp: true, completion: nil)
                             onFinish(true,nil)
                         }
