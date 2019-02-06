@@ -29,7 +29,7 @@ class OnBoardInfoTwoVC: UIViewController {
     
     func facebooklogin(){
         let flogin = LoginManager()
-        flogin.logIn(readPermissions: [.publicProfile, .email, .userFriends], viewController: self) { (result) in
+        flogin.logIn(readPermissions: [.publicProfile, .email], viewController: self) { (result) in
             switch (result){
             case .cancelled:
                 Logger.log("User Cancelled")
