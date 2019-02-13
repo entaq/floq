@@ -211,20 +211,23 @@ class DataService{
                         print("Error uploading: \(error)")
                         return
                     }
+                    let coordinate = GeoPoint(coordinate: locaion.coordinate)
                     var docData: [String: Any] = [
                         "timestamp" : FieldValue.serverTimestamp(),
-                        Fields.followers.rawValue: [UserDefaults.uid]
-                        
+                        Fields.followers.rawValue: [UserDefaults.uid],
+                        Fields.coordinate.rawValue:coordinate
                     ]
                     docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                     print(docData, filePath)
                     batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
+                    
                     
                     let addata = [Fields.cliqCount.rawValue: count + 1]
                     batch.setData(addata, forDocument: self.userRef.document(uid), merge: true)
                     docData.removeValue(forKey: Fields.cliqname.rawValue)
                     docData.removeValue(forKey:  Fields.followers.rawValue)
                     docData.removeValue(forKey:  Fields.userEmail.rawValue)
+                    docData.removeValue(forKey: Fields.coordinate.rawValue)
                     batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
                     batch.commit(completion: { (err) in
                         if err != nil {
@@ -273,3 +276,6 @@ class DataService{
     
     
 }
+
+
+

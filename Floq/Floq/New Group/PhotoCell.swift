@@ -20,7 +20,7 @@ class PhotoCell: UICollectionViewCell {
     
     
     func configureCell(ref:StorageReference){
-        imageView.sd_setImage(with: ref, placeholderImage:.loading)
+        imageView.sd_setImage(with: ref, placeholderImage:nil)
         
     }
     

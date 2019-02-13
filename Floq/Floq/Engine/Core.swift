@@ -21,6 +21,7 @@ final public class CoreEngine:NSObject{
     var locationPoint:Observable<GeoPoint>{
         return geopointSubject.asObserver()
     }
+    public private (set) var currentLocation:CLLocation?
     private var isfetching = false
     public override init() {
         super.init()
@@ -32,6 +33,7 @@ final public class CoreEngine:NSObject{
     enum LocationError:Error{
         case unableToFindLocation
     }
+    
 }
 
 
@@ -57,6 +59,7 @@ extension CoreEngine:CLLocationManagerDelegate{
         guard let userLocation = locations.first else{
             return
         }
+        currentLocation = userLocation
         let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         if !isfetching{
            geopointSubject.onNext(point)
@@ -72,5 +75,7 @@ extension CoreEngine:CLLocationManagerDelegate{
     {
         print("Error \(error)")
     }
+    
+    
 }
 

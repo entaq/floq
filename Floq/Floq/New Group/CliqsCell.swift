@@ -146,7 +146,7 @@ class CliqsCell: UICollectionViewCell {
     func configureViewForSection(cliq:SectionableCliq){
         let cl = cliq.getFirstItem()
         let reference = Storage.floqPhotos.child(cl.item.photoID)
-        imageview.sd_setImage(with: reference, placeholderImage: .loading)
+        imageview.sd_setImage(with: reference, placeholderImage:nil)
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.sectionType.rawValue
         self.creator.isHidden = true

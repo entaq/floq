@@ -187,7 +187,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
     }
     
     func createLikeBar(){
-        imgv = UIImageView(image: UIImage.icon_like)
+        imgv = UIImageView(image: UIImage.icon_unlike)
         likelabel = UILabel(frame: .zero)
         view.addSubview(likebar)
         likebar.addSubview(imgv)
@@ -199,7 +199,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             likebar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             likebar.heightAnchor.constraint(equalToConstant: 60)
         ])
-        likebar.backgroundColor = .seafoamBlue
+        likebar.backgroundColor = .charcoal
         
         
         imgv.translatesAutoresizingMaskIntoConstraints = false
@@ -208,11 +208,11 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             imgv.heightAnchor.constraint(equalToConstant: 30),
             imgv.widthAnchor.constraint(equalToConstant: 30),
             imgv.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
-            imgv.leftAnchor.constraint(equalTo: likebar.leftAnchor, constant: 20)
+            imgv.rightAnchor.constraint(equalTo: likebar.rightAnchor, constant:-20)
         ])
         likelabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            likelabel.leftAnchor.constraint(equalTo: imgv.rightAnchor, constant: 16),
+            likelabel.rightAnchor.constraint(equalTo: imgv.leftAnchor, constant: -16),
             likelabel.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
             likelabel.heightAnchor.constraint(equalToConstant: 30)
         ])
@@ -267,6 +267,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         username = user.1
         likelabel.text = "\(user.2)"
         imgv.isUserInteractionEnabled = !user.3
+        imgv.image = user.3 ? .icon_like : .icon_unlike
     }
     
     
@@ -275,7 +276,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         //engine.likeAPhoto(cliqID: cliqID, id:id)
         UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
             self.imgv.transform = self.imgv.transform.scaledBy(x: 2, y: 2)
-            
+            self.imgv.image = .icon_like
         }) { (suc) in
             //
         }

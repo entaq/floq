@@ -129,6 +129,16 @@ class CliqEngine:NSObject{
             }})
     }
     
+    func inspectNearby(location:CLLocation){
+        let newNear = nearbyCliqs.compactMap { (cliq) -> FLCliqItem? in
+            if cliq.isNearby(location: location){
+                return cliq
+            }
+            return nil
+        }
+        self.nearbyCliqs = newNear
+    }
+    
     func addNearby(_ cliq:FLCliqItem){
         if nearbyCliqs.contains(cliq){
             if let oldcliq = getCliq(id: cliq.id){
@@ -139,6 +149,10 @@ class CliqEngine:NSObject{
             }else{return}
         }
         nearbyCliqs.append(cliq)
+        if core.currentLocation != nil{
+            inspectNearby(location: core.currentLocation!)
+        }
+        if nearbyCliqs.isEmpty{return}
         nearbyCliqs.sort { (a1, a2) -> Bool in
             return a1.item.timestamp > a2.item.timestamp
         }

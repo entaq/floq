@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestore
+import CoreLocation
 
 extension DocumentReference{
     func collection(_ ref:References)->CollectionReference{
@@ -21,6 +22,14 @@ extension DocumentSnapshot{
             return field
         }
         return ""
+    }
+    
+    func getLocation(_ id:Fields)->CLLocation?{
+        if let field = get(id.rawValue) as? GeoPoint{
+            let location = CLLocation(latitude: field.latitude, longitude: field.longitude)
+            return location
+        }
+        return nil
     }
     
     func getDate(_ id:Fields)->Date{
@@ -78,6 +87,14 @@ extension DocumentSnapshot{
     }
     
     
+}
+
+
+extension GeoPoint{
+    
+    convenience init(coordinate:CLLocationCoordinate2D){
+       self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
 }
 
 

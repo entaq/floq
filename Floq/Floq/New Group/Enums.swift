@@ -78,7 +78,10 @@ public enum Fields:String{
     case likers = "likers"
     case maxxedLikes = "maxxedL"
     case shardLikes = "shards"
-    
+    case longitude = "longitude"
+    case latitude = "latitude"
+    case coordinate = "coordinate"
+
 }
 
 public enum FLNotification:String{

@@ -38,7 +38,7 @@ class FullScreenCell: UICollectionViewCell {
     
     func setImage(_ photo:PhotoItem){
         
-        imageView.sd_setImage(with: storageRef.child(photo.photoID), placeholderImage: .loading)
+        imageView.sd_setImage(with: storageRef.child(photo.photoID), placeholderImage: nil)
     }
     
     @objc func selectPhoto(){

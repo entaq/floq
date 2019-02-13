@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
+		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
 		407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997F71FDCDF8900AAE42A /* ImageCell.swift */; };
@@ -42,13 +44,10 @@
 		C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */; };
 		C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */; };
 		C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */; };
-		C47A183321E811FF00E7A4AF /* PhotoEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A183221E811FF00E7A4AF /* PhotoEngineTests.swift */; };
 		C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D521A22DF500D3B0E6 /* DataService.swift */; };
 		C48A57D821A22E0900D3B0E6 /* CliqEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D721A22E0900D3B0E6 /* CliqEngine.swift */; };
 		C48A57DA21A22E4400D3B0E6 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48A57D921A22E4400D3B0E6 /* Enums.swift */; };
 		C48BEDA821F8F6EA00D0A4F7 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48BEDA721F8F6EA00D0A4F7 /* Core.swift */; };
-		C4A28E3621DFCA0500ADA02D /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A28E3521DFCA0500ADA02D /* FloqTests.swift */; };
-		C4A28E3E21DFCA4D00ADA02D /* FLCliqItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A28E3D21DFCA4D00ADA02D /* FLCliqItemTests.swift */; };
 		C4A28E4021E01D3000ADA02D /* ActiveSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A28E3F21E01D3000ADA02D /* ActiveSectionController.swift */; };
 		C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */; };
 		C4A28E4421E01EBB00ADA02D /* ActiveSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */; };
@@ -80,7 +79,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C4A28E3821DFCA0500ADA02D /* PBXContainerItemProxy */ = {
+		3872F63F2214874C00AC547E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40AA29B21E8891E900200A3F;
+			remoteInfo = Floq;
+		};
+		38B02E1E2214744D00DEEC21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
 			proxyType = 1;
@@ -91,6 +97,12 @@
 
 /* Begin PBXFileReference section */
 		057B0F75B8FF1CD316481054 /* Pods-Floq.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.debug.xcconfig"; sourceTree = "<group>"; };
+		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
+		3872F63E2214874C00AC547E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
+		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4054328B1FC9C82600725AF9 /* Floq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Floq.entitlements; sourceTree = "<group>"; };
 		406493811FDDAC3F00224DF8 /* PhotoSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSection.swift; sourceTree = "<group>"; };
@@ -131,15 +143,10 @@
 		C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoOneVC.swift; sourceTree = "<group>"; };
 		C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardInfoTwoVC.swift; sourceTree = "<group>"; };
 		C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOnBaordVC.swift; sourceTree = "<group>"; };
-		C47A183221E811FF00E7A4AF /* PhotoEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEngineTests.swift; sourceTree = "<group>"; };
 		C48A57D521A22DF500D3B0E6 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		C48A57D721A22E0900D3B0E6 /* CliqEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CliqEngine.swift; sourceTree = "<group>"; };
 		C48A57D921A22E4400D3B0E6 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		C48BEDA721F8F6EA00D0A4F7 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
-		C4A28E3321DFCA0500ADA02D /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4A28E3521DFCA0500ADA02D /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
-		C4A28E3721DFCA0500ADA02D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4A28E3D21DFCA4D00ADA02D /* FLCliqItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLCliqItemTests.swift; sourceTree = "<group>"; };
 		C4A28E3F21E01D3000ADA02D /* ActiveSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSectionController.swift; sourceTree = "<group>"; };
 		C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSectionCell.swift; sourceTree = "<group>"; };
 		C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActiveSectionCell.xib; sourceTree = "<group>"; };
@@ -171,6 +178,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3872F6372214874C00AC547E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38B02E162214744D00DEEC21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40AA29B01E8891E900200A3F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,16 +200,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C4A28E3021DFCA0500ADA02D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3872F63B2214874C00AC547E /* FloqUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3872F63C2214874C00AC547E /* FloqUITests.swift */,
+				3872F63E2214874C00AC547E /* Info.plist */,
+			);
+			path = FloqUITests;
+			sourceTree = "<group>";
+		};
+		38B02E1A2214744D00DEEC21 /* FloqTests */ = {
+			isa = PBXGroup;
+			children = (
+				38B02E1B2214744D00DEEC21 /* FloqTests.swift */,
+				38B02E1D2214744D00DEEC21 /* Info.plist */,
+			);
+			path = FloqTests;
+			sourceTree = "<group>";
+		};
 		40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				40AA29B51E8891E900200A3F /* Floq */,
-				C4A28E3421DFCA0500ADA02D /* FloqTests */,
+				38B02E1A2214744D00DEEC21 /* FloqTests */,
+				3872F63B2214874C00AC547E /* FloqUITests */,
 				40AA29B41E8891E900200A3F /* Products */,
 				DC970CADBD80A1EFC9A0A3CD /* Pods */,
 				C6C4421E77313EAEA9683D29 /* Frameworks */,
@@ -223,7 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				40AA29B31E8891E900200A3F /* Floq.app */,
-				C4A28E3321DFCA0500ADA02D /* FloqTests.xctest */,
+				38B02E192214744D00DEEC21 /* FloqTests.xctest */,
+				3872F63A2214874C00AC547E /* FloqUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -343,17 +377,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C4A28E3421DFCA0500ADA02D /* FloqTests */ = {
-			isa = PBXGroup;
-			children = (
-				C4A28E3521DFCA0500ADA02D /* FloqTests.swift */,
-				C4A28E3721DFCA0500ADA02D /* Info.plist */,
-				C4A28E3D21DFCA4D00ADA02D /* FLCliqItemTests.swift */,
-				C47A183221E811FF00E7A4AF /* PhotoEngineTests.swift */,
-			);
-			path = FloqTests;
-			sourceTree = "<group>";
-		};
 		C4A2A41E21A22910006DFE6E /* SectionControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +493,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3872F6392214874C00AC547E /* FloqUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3872F6432214874C00AC547E /* Build configuration list for PBXNativeTarget "FloqUITests" */;
+			buildPhases = (
+				3872F6362214874C00AC547E /* Sources */,
+				3872F6372214874C00AC547E /* Frameworks */,
+				3872F6382214874C00AC547E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3872F6402214874C00AC547E /* PBXTargetDependency */,
+			);
+			name = FloqUITests;
+			productName = FloqUITests;
+			productReference = 3872F63A2214874C00AC547E /* FloqUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		38B02E182214744D00DEEC21 /* FloqTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */;
+			buildPhases = (
+				38B02E152214744D00DEEC21 /* Sources */,
+				38B02E162214744D00DEEC21 /* Frameworks */,
+				38B02E172214744D00DEEC21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				38B02E1F2214744D00DEEC21 /* PBXTargetDependency */,
+			);
+			name = FloqTests;
+			productName = FloqTests;
+			productReference = 38B02E192214744D00DEEC21 /* FloqTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		40AA29B21E8891E900200A3F /* Floq */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40AA29C51E8891E900200A3F /* Build configuration list for PBXNativeTarget "Floq" */;
@@ -491,24 +550,6 @@
 			productReference = 40AA29B31E8891E900200A3F /* Floq.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C4A28E3221DFCA0500ADA02D /* FloqTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C4A28E3C21DFCA0500ADA02D /* Build configuration list for PBXNativeTarget "FloqTests" */;
-			buildPhases = (
-				C4A28E2F21DFCA0500ADA02D /* Sources */,
-				C4A28E3021DFCA0500ADA02D /* Frameworks */,
-				C4A28E3121DFCA0500ADA02D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C4A28E3921DFCA0500ADA02D /* PBXTargetDependency */,
-			);
-			name = FloqTests;
-			productName = FloqTests;
-			productReference = C4A28E3321DFCA0500ADA02D /* FloqTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -519,6 +560,16 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Arun Nagarajan";
 				TargetAttributes = {
+					3872F6392214874C00AC547E = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 40AA29B21E8891E900200A3F;
+					};
+					38B02E182214744D00DEEC21 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 40AA29B21E8891E900200A3F;
+					};
 					40AA29B21E8891E900200A3F = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Y86G6TS245;
@@ -536,12 +587,6 @@
 							};
 						};
 					};
-					C4A28E3221DFCA0500ADA02D = {
-						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = Y86G6TS245;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 40AA29B21E8891E900200A3F;
-					};
 				};
 			};
 			buildConfigurationList = 40AA29AE1E8891E900200A3F /* Build configuration list for PBXProject "Floq" */;
@@ -558,12 +603,27 @@
 			projectRoot = "";
 			targets = (
 				40AA29B21E8891E900200A3F /* Floq */,
-				C4A28E3221DFCA0500ADA02D /* FloqTests */,
+				38B02E182214744D00DEEC21 /* FloqTests */,
+				3872F6392214874C00AC547E /* FloqUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3872F6382214874C00AC547E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38B02E172214744D00DEEC21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40AA29B11E8891E900200A3F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,13 +637,6 @@
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
 				C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */,
 				C4D1E08A21D7894500C5ED9A /* FloqCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4A28E3121DFCA0500ADA02D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +764,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3872F6362214874C00AC547E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38B02E152214744D00DEEC21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40AA29AF1E8891E900200A3F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -775,23 +844,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C4A28E2F21DFCA0500ADA02D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C4A28E3621DFCA0500ADA02D /* FloqTests.swift in Sources */,
-				C4A28E3E21DFCA4D00ADA02D /* FLCliqItemTests.swift in Sources */,
-				C47A183321E811FF00E7A4AF /* PhotoEngineTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C4A28E3921DFCA0500ADA02D /* PBXTargetDependency */ = {
+		3872F6402214874C00AC547E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 40AA29B21E8891E900200A3F /* Floq */;
-			targetProxy = C4A28E3821DFCA0500ADA02D /* PBXContainerItemProxy */;
+			targetProxy = 3872F63F2214874C00AC547E /* PBXContainerItemProxy */;
+		};
+		38B02E1F2214744D00DEEC21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40AA29B21E8891E900200A3F /* Floq */;
+			targetProxy = 38B02E1E2214744D00DEEC21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -815,6 +879,104 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3872F6412214874C00AC547E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FloqUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Floq;
+			};
+			name = Debug;
+		};
+		3872F6422214874C00AC547E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FloqUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Floq;
+			};
+			name = Release;
+		};
+		38B02E212214744D00DEEC21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Pods/Firebase/CoreOnly/Sources/**";
+				INFOPLIST_FILE = FloqTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Floq.app/Floq";
+			};
+			name = Debug;
+		};
+		38B02E222214744D00DEEC21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Pods/Firebase/CoreOnly/Sources/**";
+				INFOPLIST_FILE = FloqTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Floq.app/Floq";
+			};
+			name = Release;
+		};
 		40AA29C31E8891E900200A3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -976,76 +1138,27 @@
 			};
 			name = Release;
 		};
-		C4A28E3A21DFCA0500ADA02D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y86G6TS245;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = FloqTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.floq.FloqTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Floq.app/Floq";
-			};
-			name = Debug;
-		};
-		C4A28E3B21DFCA0500ADA02D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y86G6TS245;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = FloqTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.floq.FloqTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Floq.app/Floq";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3872F6432214874C00AC547E /* Build configuration list for PBXNativeTarget "FloqUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3872F6412214874C00AC547E /* Debug */,
+				3872F6422214874C00AC547E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38B02E212214744D00DEEC21 /* Debug */,
+				38B02E222214744D00DEEC21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		40AA29AE1E8891E900200A3F /* Build configuration list for PBXProject "Floq" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1060,15 +1173,6 @@
 			buildConfigurations = (
 				40AA29C61E8891E900200A3F /* Debug */,
 				40AA29C71E8891E900200A3F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C4A28E3C21DFCA0500ADA02D /* Build configuration list for PBXNativeTarget "FloqTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C4A28E3A21DFCA0500ADA02D /* Debug */,
-				C4A28E3B21DFCA0500ADA02D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

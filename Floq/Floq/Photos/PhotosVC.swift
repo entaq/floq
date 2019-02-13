@@ -55,19 +55,16 @@ final class PhotosVC: UIViewController {
         floaty.buttonColor = .seafoamBlue
         floaty.plusColor = .white
         floaty.fabDelegate = self
-        view.addSubview(floaty)
+        
         if cliq == nil{
             DataService.main.getCliq(id: cliqID) { (cliq, err) in
                 if let cliq = cliq{
                     self.cliq = cliq
                     self.title = cliq.name
-                    self.floaty.isHidden = !cliq.isActive
                     self.userlistbutt.setAvatar(uid: cliq.creatorUid)
                     if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
                 }
             }
-        }else{
-            floaty.isHidden = !cliq!.isActive
         }
         navigationItem.hidesBackButton = false
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -76,7 +73,7 @@ final class PhotosVC: UIViewController {
         
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        
+        view.addSubview(floaty)
         photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (photos, errm) in
             if let items = photos {
                 

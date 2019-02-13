@@ -91,6 +91,10 @@ extension UIImage{
         return UIImage(named:"like")!
     }
     
+    public static var icon_unlike:UIImage{
+        return UIImage(named:"empty_like")!
+    }
+    
     func dataFromJPEG()-> Data?{
         var compression:CGFloat = 1
         if let data = jpegData(compressionQuality: compression){

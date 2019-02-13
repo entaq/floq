@@ -8,12 +8,14 @@
 
 import IGListKit
 import FirebaseFirestore
+import CoreLocation
 
 class FLCliqItem:ListDiffable, Equatable{
     
     enum Max:Int {
         case followers = 30
         case photos = 100
+        
     }
     
     func diffIdentifier() -> NSObjectProtocol {
@@ -57,8 +59,16 @@ class FLCliqItem:ListDiffable, Equatable{
     public private (set) var creatorUid:String
     public private (set) var followers: Set<String>
     public private (set) var isActive:Bool
-
+    private var location:CLLocation?
     public var joined:Bool
+    
+    func isNearby(location:CLLocation)-> Bool{
+        guard let loc = self.location else{return false}
+        if location.distance(from: loc) < 501{
+            return true
+        }
+        return false
+    }
     
     init(snapshot:DocumentSnapshot) {
         
@@ -77,6 +87,7 @@ class FLCliqItem:ListDiffable, Equatable{
         }
         isActive = timestamp.nextDay > Date()
         joined = followers.contains(UserDefaults.uid)
+        location = snapshot.getLocation(.coordinate)
         
     }
     
