@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
+		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
@@ -100,6 +101,7 @@
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
 		3872F63E2214874C00AC547E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				C4D1E09021D8ADDC00C5ED9A /* LoggerService.swift */,
 				C48A57D521A22DF500D3B0E6 /* DataService.swift */,
 				C416EC9521D623AB00ECEE2C /* CustomAlbum.swift */,
+				3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -675,9 +678,11 @@
 				"${BUILT_PRODUCTS_DIR}/DKPhotoGallery/DKPhotoGallery.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -702,9 +707,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKPhotoGallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -841,6 +848,7 @@
 				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
 				C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */,
+				3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1036,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Floq-Bridging-Header.h";
@@ -1080,6 +1090,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Floq-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -66,10 +66,17 @@ PODS:
     - FacebookCore (~> 0.4)
     - FBSDKCoreKit (~> 4.36)
     - FBSDKLoginKit (~> 4.36)
+  - FacebookShare (0.4.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.4)
+    - FBSDKCoreKit (~> 4.36)
+    - FBSDKShareKit (~> 4.36)
   - FBSDKCoreKit (4.36.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.36.0):
     - FBSDKCoreKit
+  - FBSDKShareKit (4.36.0):
+    - FBSDKCoreKit (~> 4.36.0)
   - Firebase (5.15.0):
     - Firebase/Core (= 5.15.0)
   - Firebase/Auth (5.15.0):
@@ -228,8 +235,10 @@ DEPENDENCIES:
   - Fabric (~> 1.9.0)
   - FacebookCore (= 0.4)
   - FacebookLogin (= 0.4)
+  - FacebookShare (= 0.4)
   - FBSDKCoreKit (= 4.36.0)
   - FBSDKLoginKit (= 4.36.0)
+  - FBSDKShareKit (= 4.36.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
@@ -253,8 +262,10 @@ SPEC REPOS:
     - Fabric
     - FacebookCore
     - FacebookLogin
+    - FacebookShare
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -296,8 +307,10 @@ SPEC CHECKSUMS:
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
   FacebookLogin: eb0f2251aca835a94d70a5f7e580edc46d1e1603
+  FacebookShare: ec48492ba748f971c6a13661963f7aae38140111
   FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
   FBSDKLoginKit: 8bccb6064708ab2f4251a7fc4e3b6d8d00ad91ba
+  FBSDKShareKit: 7090fdd55c39b03941efddb64c83a64ff6b3949f
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
@@ -329,6 +342,6 @@ SPEC CHECKSUMS:
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   TOCropViewController: 368d8df3ea43b62c3dc5a61f11b9048274d240bd
 
-PODFILE CHECKSUM: c5724a5e191224586f64dbaa2d8a1cd149f5c812
+PODFILE CHECKSUM: 827d8231aea0e8fa54f4fea09e8ed37ab39b5d68
 
 COCOAPODS: 1.5.3
