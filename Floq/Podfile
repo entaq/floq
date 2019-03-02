@@ -1,5 +1,5 @@
 target 'Floq' do
-  use_frameworks!
+    use_frameworks!
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
   pod 'FirebaseUI/Storage', '~> 5.0'
@@ -13,7 +13,7 @@ target 'Floq' do
   pod 'FBSDKLoginKit', '4.36.0'
   pod 'FacebookCore', '0.4'
   pod 'FacebookLogin', '0.4'
-  pod 'FacebookShare', '0.4'
+  #pod 'FacebookShare', '0.4'
   pod 'DKImagePickerController'
   pod 'Geofirestore'
   pod 'IGListKit'

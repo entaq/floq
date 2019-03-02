@@ -81,6 +81,7 @@ public enum Fields:String{
     case longitude = "longitude"
     case latitude = "latitude"
     case coordinate = "coordinate"
+    case appurl = "appurl"
 
 }
 

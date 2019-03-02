@@ -139,13 +139,14 @@ final class PhotosVC: UIViewController {
             }
             self.view.addSubview(activityIndicator)
             for asset in assets {
-                
+                var error:NSError?
                 asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]
                     
-                    
-                    
+                    print("This is original image Sixe: \(data?.jpegData(compressionQuality: 1)?.count ?? 0)")
+                    //let encdata = DataService.main.resizeImageForUpload(image: data!, error: &error)
+                    //print("This is transcoded image Sixe: \(encdata.data?.count ?? 0)")
                     let newMetadata = StorageMetadata()
                     let userName =  UserDefaults.username
                     

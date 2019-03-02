@@ -5,6 +5,7 @@
 //  Created by Shadrach Mensah on 16/02/2019.
 //  Copyright © 2019 Arun Nagarajan. All rights reserved.
 //
+/*
 import FacebookShare
 
 
@@ -63,6 +64,7 @@ class SocialShare:NSObject{
 
 
 
+
 extension ShareDialog{
     
 //    @discardableResult
@@ -77,3 +79,4 @@ extension ShareDialog{
 //        return shareDialog
 //    }
 }
+ */

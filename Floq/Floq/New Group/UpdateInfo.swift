@@ -14,6 +14,7 @@ public struct UpdateInfo{
     var leastSupport:Int
     var updateInfo:String
     var forcedInfo:String
+    var appUrl:URL?
     
     
     init(snap:DocumentSnapshot) {
@@ -21,6 +22,7 @@ public struct UpdateInfo{
         leastSupport = snap.getInt(.least)
         updateInfo = snap.getString(.info)
         forcedInfo = snap.getString(.forced)
+        appUrl = URL(string: snap.getString(.appurl))
     }
     
     func islessThanLeastSupport()->Bool{

@@ -203,10 +203,7 @@ class CliqEngine:NSObject{
         }
         query.addSnapshotListener { (querySnap, err) in
             if let query = querySnap{
-//                if self.lastSnapshot == nil && self.homeData.isEmpty{
-//                    //This is the first fetch
-//                    
-//                }
+
                 self.lastSnapshot = query.documents.last
                 for doc in query.documentChanges{
                     let cliq = FLCliqItem(snapshot: doc.document)
@@ -248,15 +245,6 @@ class CliqEngine:NSObject{
             ActiveSectionCliq = SectionableCliq(cliqs: [ac], type: .active)
             homeData.append(ActiveSectionCliq!)
             
-//            if ActiveSectionCliq != nil{
-//                if !homeData.contains(ActiveSectionCliq!){
-//                    let index = homeData.firstIndex(of: ActiveSectionCliq!)!
-//                    homeData.remove(at: index)
-//                }
-//                ActiveSectionCliq!.cliqs = [ac]
-//            }else{
-//
-//            }
         }
     }
     

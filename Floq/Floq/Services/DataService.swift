@@ -14,6 +14,7 @@ import CoreLocation
 import SDWebImage
 
 
+
 class DataService{
     
     private static let _main = DataService()
@@ -274,8 +275,38 @@ class DataService{
         }
     }
     
+//    func resizeImageForUpload(image:UIImage, error:inout NSError?)->ResultData{
+//        let encodeRequirement = EncodeRequirement(format: .jpeg, mode: .lossy, quality: 80)
+//        let transforms = Transformations()
+//        transforms.resizeRequirement = ResizeRequirement(mode: .exactOrLarger, targetSize: CGSize(width: 2048, height: 2048))
+//        
+//        let options = EncodeOptions(encodeRequirement: encodeRequirement, transformations: transforms, metadata: nil, configuration: nil, outputPixelSpecificationRequirement: nil)
+//        let data = Spectrum.shared.encodeImage(image, options: options, error: &error)
+//        return data
+//    }
+    
     
 }
 
 
-
+/**
+ FSPEncodeRequirement *encodeRequirement =
+ [FSPEncodeRequirement encodeRequirementWithFormat:FSPEncodedImageFormat.jpeg
+ mode:FSPEncodeRequirementModeLossy
+ quality:80];
+ 
+ FSPTransformations *transformations = [FSPTransformations new];
+ transformations.resizeRequirement =
+ [[FSPResizeRequirement alloc] initWithMode:FSPResizeRequirementModeExactOrSmaller
+ targetSize:CGSizeMake(2048, 2048)];
+ 
+ FSPEncodeOptions *options =
+ [FSPEncodeOptions encodeOptionsWithEncodeRequirement:encodeRequirement
+ transformations:transformations
+ metadata:nil
+ configuration:nil
+ outputPixelSpecificationRequirement:nil];
+ 
+ NSError *error;
+ FSPResultData *result = [FSPSpectrum.sharedInstance encodeImage:image options:options error:&error];
+ */

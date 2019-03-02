@@ -11,6 +11,7 @@ import UIKit
 
 class HomeOnBaordVC:UIViewController {
     
+    @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
     private var onBoardPage:UIPageViewController!
     
@@ -26,10 +27,17 @@ class HomeOnBaordVC:UIViewController {
         return UIStoryboard.main.instantiateViewController(withIdentifier: identifier)
     }
     
-    
+    func configureDevice(){
+        if UIScreen.main.bounds.height > 740{
+            topLayoutConstraint.constant = 60
+        }else{
+            topLayoutConstraint.constant = 30
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDevice()
         pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
         onBoardPage = 
             UIStoryboard.main.instantiateViewController(withIdentifier: OnBoardingPVC.identifier) as? OnBoardingPVC

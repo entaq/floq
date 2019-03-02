@@ -10,6 +10,8 @@ import UIKit
 import CoreLocation
 import Firebase
 
+
+
 class AddCliqVC: UIViewController {
 
     private var imageView:UIImageView!
@@ -39,10 +41,11 @@ class AddCliqVC: UIViewController {
     func setupViews(){
         
         self.view.backgroundColor = UIColor.white
-        let headerview = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 72)))
+        let headerview = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 80)))
         headerview.backgroundColor = UIColor(red: 41/255, green: 41/255, blue: 46/255, alpha: 1)
         titleLabel = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 30)))
-        titleLabel.center = headerview.center
+        titleLabel.center.x = headerview.center.x
+        titleLabel.center.y = 60
         titleLabel.backgroundColor = .clear
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
@@ -54,7 +57,7 @@ class AddCliqVC: UIViewController {
         headerview.addSubview(closebutt)
         headerview.addSubview(titleLabel)
         
-        let ibframe = CGRect(origin:CGPoint(x: 0, y: 72), size:CGSize(width: view.frame.width, height: view.frame.height * 0.35))
+        let ibframe = CGRect(origin:CGPoint(x: 0, y: 80), size:CGSize(width: view.frame.width, height: view.frame.height * 0.35))
         imageView = UIImageView(frame:ibframe)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -65,7 +68,7 @@ class AddCliqVC: UIViewController {
         imagebutt.addTarget(self, action: #selector(pickImagePressed(_:)), for: .touchUpInside)
         
         
-        let textviewbg = UIView(frame: CGRect(x: 0, y:72 + view.frame.height * 0.35,width: view.frame.width, height: 60))
+        let textviewbg = UIView(frame: CGRect(x: 0, y:80 + view.frame.height * 0.35,width: view.frame.width, height: 60))
         textviewbg.backgroundColor = UIColor(red: 78/255, green: 205/255, blue: 196/255, alpha: 1)
         textField = UITextField(frame: CGRect(x: 20, y: 10,width: view.frame.width, height: 40))
         textField.placeholder = "Give your cliq a name"

@@ -188,6 +188,7 @@ extension AppDelegate{
             if update.islessThanLeastSupport(){
                 guard let vc = UIStoryboard.main.instantiateViewController(withIdentifier: ForceUpdateVC.identifier) as? ForceUpdateVC else{return}
                 vc.info = update.forcedInfo
+                vc.url = update.appUrl
                 self.window?.rootViewController = vc
                 DispatchQueue.main.async {
                      self.window?.makeKeyAndVisible()
@@ -196,7 +197,7 @@ extension AppDelegate{
                 if update.notifyUpdate(){
                     let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, nil)
                     let action = UIAlertAction(title: "Update", style: .default, handler: { (action) in
-                        openAppStore()
+                        openAppStore(url:update.appUrl)
                     })
                     alert.addAction(action)
                     DispatchQueue.main.async {
@@ -250,8 +251,8 @@ var appUser:FLUser?{
 }
 
 
-func openAppStore(){
-    let url = URL(string: "itms-apps://itunes.apple.com/gh/app/streaker-odds-and-streaks/id1222312862?mt=8")!
+func openAppStore(url:URL?){
+    guard let url = url else {return}
     if UIApplication.shared.canOpenURL(url){
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }

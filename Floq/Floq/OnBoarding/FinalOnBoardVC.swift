@@ -18,8 +18,8 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nickNameText.layer.borderColor = UIColor.black.cgColor
-        nickNameText.layer.borderWidth = 1
+        //nickNameText.layer.borderColor = UIColor.black.cgColor
+        //nickNameText.layer.borderWidth = 1
         nickNameText.layer.cornerRadius = 4
         nickNameText.delegate = self
         
@@ -39,12 +39,14 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
         let navC = UINavigationController(rootViewController: HomeVC())
         if let appdel = UIApplication.shared.delegate as? AppDelegate{
             appdel.mainEngine = CliqEngine()
-            appdel.window?.rootViewController = UINavigationController(rootViewController: HomeVC())
-            appdel.window?.makeKeyAndVisible()
-            appdel.selfSync()
+            DispatchQueue.main.async {
+                appdel.window?.rootViewController = navC
+                appdel.window?.makeKeyAndVisible()
+                appdel.selfSync()
+            }
         }
         
-        self.present(navC, animated: true, completion: nil)
+        //self.present(navC, animated: true, completion: nil)
     }
     
     

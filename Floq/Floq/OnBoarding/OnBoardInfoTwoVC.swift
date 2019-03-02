@@ -58,9 +58,11 @@ class OnBoardInfoTwoVC: UIViewController {
                             if let appdel = UIApplication.shared.delegate as? AppDelegate{
                                 appdel.mainEngine = CliqEngine()
                                 let navC = UINavigationController(rootViewController: HomeVC())
-                                appdel.window?.rootViewController = navC
-                                appdel.window?.makeKeyAndVisible()
-                                appdel.selfSync()
+                                DispatchQueue.main.async {
+                                    appdel.window?.rootViewController = navC
+                                    appdel.window?.makeKeyAndVisible()
+                                    appdel.selfSync()
+                                }
                             }
                             
                         }else{

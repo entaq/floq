@@ -124,14 +124,14 @@ class PhotoFullScreenVC: UIViewController {
     }
     
     
-    func shareOnFaceBook(){
-        guard let cell = collectionView.visibleCells.first as? FullScreenCell,
-            let image = cell.imageView.image else {return}
-        let fbshare = SocialShare(platform: .facebook)
-        fbshare.share(image: image)
-        
-        
-    }
+//    func shareOnFaceBook(){
+//        guard let cell = collectionView.visibleCells.first as? FullScreenCell,
+//            let image = cell.imageView.image else {return}
+//        let fbshare = SocialShare(platform: .facebook)
+//        fbshare.share(image: image)
+//        
+//        
+//    }
     
     
     override func viewDidLayoutSubviews() {
