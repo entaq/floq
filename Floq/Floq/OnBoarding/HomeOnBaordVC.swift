@@ -11,6 +11,7 @@ import UIKit
 
 class HomeOnBaordVC:UIViewController {
     
+    @IBOutlet weak var fetherView: UIImageView!
     @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
     private var onBoardPage:UIPageViewController!
@@ -30,8 +31,10 @@ class HomeOnBaordVC:UIViewController {
     func configureDevice(){
         if UIScreen.main.bounds.height > 740{
             topLayoutConstraint.constant = 60
+            fetherView.image = UIImage(named: "Featherxlarge")
         }else{
             topLayoutConstraint.constant = 30
+            fetherView.image = UIImage(named: "featherLarge")
         }
     }
     

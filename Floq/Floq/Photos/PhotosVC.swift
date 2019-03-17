@@ -139,7 +139,7 @@ final class PhotosVC: UIViewController {
             }
             self.view.addSubview(activityIndicator)
             for asset in assets {
-                var error:NSError?
+                //var error:NSError?
                 asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]

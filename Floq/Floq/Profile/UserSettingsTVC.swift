@@ -7,6 +7,7 @@
 //
 
 import FirebaseAuth
+import SafariServices
 
 class UserSettingsTVC: UITableViewController {
     
@@ -31,7 +32,7 @@ class UserSettingsTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 5
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -41,16 +42,13 @@ class UserSettingsTVC: UITableViewController {
             openSettings()
             break
         case 1:
-            dummyAlert(title: "Terms of Service")
+            lauchWebView()
             break
         case 2:
-            dummyAlert(title: "Privacy Policy")
+             logout()
             break
         case 3:
-            logout()
-            break
-        case 4:
-           deactivateAccount()
+            deactivateAccount()
             break
         default:
            break
@@ -111,6 +109,26 @@ class UserSettingsTVC: UITableViewController {
         
     }
     
+    
+    func lauchWebView(){
+        
+        guard let url = URL(string: "https://jberkey78.github.io/floq-beta") else{return}
+        let controller:SFSafariViewController
+        if #available(iOS 11.0, *) {
+            let config = SFSafariViewController.Configuration()
+            config.barCollapsingEnabled = true
+            config.entersReaderIfAvailable = true
+            controller = SFSafariViewController(url: url, configuration: config)
+        } else {
+            // Fallback on earlier versions
+            controller = SFSafariViewController(url: url)
+        }
+        
+        controller.preferredControlTintColor = .white
+        controller.preferredBarTintColor = .seafoamBlue
+        present(controller, animated: true, completion: nil)
+
+    }
     
     /*
      Mock Function to produce dummy text
