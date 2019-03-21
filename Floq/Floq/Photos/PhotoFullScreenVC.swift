@@ -25,15 +25,37 @@ class PhotoFullScreenVC: UIViewController {
     var currentPhotoID:String?
     private var cliqID:String
     var isSelected = false
+    var inset:CGFloat = 30
     init(engine:PhotosEngine, selected index:Int, name:String, id:String){
         self.engine = engine
         self.selectedIndex = index
         cliqID = id
         floqname = name
         super.init(nibName: nil, bundle: nil)
+        runConfig()
+        
     }
     
-    
+    func runConfig(){
+        let handle = UIScreen.main.screenType()
+        
+        switch handle {
+        case .xmax_xr:
+            inset = 60
+            return
+        case .xs_x:
+            inset = 60
+            return
+        case .pluses:
+            inset = 30
+            return
+        case .eight_lower:
+            inset = 30
+        default:
+            inset = 30
+            return
+        }
+    }
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -145,7 +167,7 @@ class PhotoFullScreenVC: UIViewController {
         tapImage.numberOfTapsRequired = 1
         avatarImageview.isUserInteractionEnabled = true
         avatarImageview.addGestureRecognizer(tapImage)
-        avatarImageview.frame =  CGRect(x: self.view.center.x - 30, y: 30, width: 60, height: 60)
+        avatarImageview.frame =  CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
         avatarImageview.backgroundColor = UIColor.white
         avatarImageview.layer.cornerRadius = 30
         avatarImageview.layer.borderWidth = 2

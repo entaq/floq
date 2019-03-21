@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.47"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,9 +33,6 @@
                                             <constraint firstAttribute="height" constant="50" id="3E3-0B-3f8"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="featherLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iWJ-KM-js5">
-                                        <rect key="frame" x="20" y="482" width="110" height="330"/>
-                                    </imageView>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt">
                                         <rect key="frame" x="167.66666666666666" y="742" width="40" height="40"/>
                                         <constraints>
@@ -50,11 +47,9 @@
                                     <constraint firstItem="W9s-cQ-CWN" firstAttribute="centerX" secondItem="VMR-oF-j6v" secondAttribute="centerX" id="4eS-4f-ySL"/>
                                     <constraint firstAttribute="bottom" secondItem="W9s-cQ-CWN" secondAttribute="bottom" constant="120" id="5lF-Le-852"/>
                                     <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" id="BQw-Dj-7rC"/>
-                                    <constraint firstAttribute="bottom" secondItem="iWJ-KM-js5" secondAttribute="bottom" id="NDu-nT-Y9b"/>
                                     <constraint firstAttribute="trailing" secondItem="W9s-cQ-CWN" secondAttribute="trailing" id="aUc-hn-Ypt"/>
                                     <constraint firstItem="VMR-oF-j6v" firstAttribute="top" secondItem="Kp0-XW-W22" secondAttribute="top" constant="60" id="aYd-2S-pQH"/>
                                     <constraint firstAttribute="bottom" secondItem="xK5-D5-9nt" secondAttribute="bottom" constant="30" id="hYL-hx-jI4"/>
-                                    <constraint firstItem="iWJ-KM-js5" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" constant="20" id="lvt-B7-srs"/>
                                     <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" id="nPS-MD-p4K"/>
                                     <constraint firstItem="xK5-D5-9nt" firstAttribute="centerX" secondItem="Kp0-XW-W22" secondAttribute="centerX" id="zSR-DR-TpV"/>
                                 </constraints>
@@ -72,7 +67,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="fetherView" destination="iWJ-KM-js5" id="A2g-MV-fXQ"/>
                         <outlet property="pageControl" destination="xK5-D5-9nt" id="tk3-kx-g4w"/>
                         <outlet property="topLayoutConstraint" destination="aYd-2S-pQH" id="ZqV-IC-yGe"/>
                     </connections>
@@ -636,7 +630,6 @@ and wil not be shared with anyone.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="featherLarge" width="110" height="330"/>
         <image name="landscapeLineArt" width="375" height="64"/>
         <image name="logoFloq" width="167" height="74"/>
         <image name="signUpButton" width="250" height="60"/>
