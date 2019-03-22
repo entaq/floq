@@ -79,6 +79,9 @@ class CliqsCell: UICollectionViewCell {
         if cliq.joined{
             joinbutt.isEnabled = false
             joinbutt.setTitle("Joined", for: .normal)
+        }else{
+            joinbutt.isEnabled = true
+            joinbutt.setTitle("Join", for: .normal)
         }
     }
     func configureMemberAvatar(followers:Set<String>){

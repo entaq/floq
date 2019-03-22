@@ -32,7 +32,7 @@ class NearbyCliqsVC: UIViewController{
     convenience init(data:[FLCliqItem]) {
         self.init()
         
-        myCliqs = photoEngine.mycliqIds
+        //myCliqs = photoEngine.nearbyCliqs
     }
 
     
