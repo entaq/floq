@@ -66,6 +66,42 @@ export const photoAdded = functions.firestore
     return promise;
   });
 
+
+  export const joinedNotification = functions.firestore
+  .document(`${REF_FLOQS}/{cliqID}`)
+  .onUpdate(async (snap, context) => {
+    const updateCliq = snap.after;
+    let promise = Promise.resolve("Nothing");
+    const followers:Array<string> = updateCliq.get(FIELD_followers);
+    const followerID = followers[followers.length - 1];
+    const newfollower = await store.collection(REF_USERS).doc(followerID).get();
+    const username = newfollower.get(FIELD_username);
+    const cliqName = updateCliq.get(FIELD_cliqname);
+    const total = snap.before.get(FIELD_followers).length;
+    const cliqID = updateCliq.id
+    for (let i = 0; i < total; i++) {
+      const key = followers[i];
+      if (key !== followerID) {
+        const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
+        const token = tokenSnap.get(FIELD_instanceToken);
+
+        const message = {
+          notification: {
+            title: "New Follower",
+            body: `${username} just joined your cliq ${cliqName}. Check it out now !!`
+          },
+          data: {
+            cliqID: cliqID
+          },
+          token: token
+        };
+        console.log(`The payload is ${message}`);
+        promise = admin.messaging().send(message);
+      }
+    }
+
+  });
+
 export const analyticsOnCliqs = functions.firestore
   .document(`${REF_FLOQS}/{id}`)
   .onCreate(async (snap, context) => {
@@ -87,7 +123,7 @@ export const analyticsOnCliqs = functions.firestore
 
 export const testFunctionsWorks = functions.https.onRequest(
   async (request, response) => {
-    var alldocs = await store.collection(REF_FLOQS).get();
+    const alldocs = await store.collection(REF_FLOQS).get();
     let batch = store.batch();
     alldocs.forEach(element => {
       let data = element.data();
@@ -132,5 +168,4 @@ export const reAlignDatabase = functions.https.onRequest(
     });
 
   });
-
 
