@@ -126,7 +126,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else{
                 Logger.log(err)
                 DispatchQueue.main.async {
-                    let alert = UIAlertController.createDefaultAlert("OOPS!!", "Looks like you refused permissions to receives notifications for floq. Please reconsider if you or you can always change these in settings",.alert, "OK",.default, nil)
+                    let alert = UIAlertController.createDefaultAlert("OOPS 😳😳😳!!", "Looks like you refused permissions to receive notifications for Floq. Please enable notifications to fully enjoy Floq!. You can always change these in settings",.alert, "OK",.default, nil)
+                    alert.addAction(UIAlertAction(title: "Settings", style: .default){_ in UIApplication.openSettings()})
                     self.window?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
                 

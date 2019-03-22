@@ -21,7 +21,11 @@ class MyCliqsVC: UIViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
-        private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var collectionView:UICollectionView = {
+        let col = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        col.showsVerticalScrollIndicator = false
+        return col
+    }()
     
     init() {
         super.init(nibName: nil, bundle: nil)

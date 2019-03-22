@@ -175,7 +175,10 @@ class AddCliqVC: UIViewController {
         }
         
         guard let loc : CLLocation = location else {
-            present(UIAlertController.createDefaultAlert("INFO", "Unable to access current location. Please enable location services",.alert, "OK",.default, nil), animated: true, completion: nil)
+            let alert = UIAlertController.createDefaultAlert("INFO", "Unable to access current location. Please enable location services",.alert, "OK",.default, nil)
+            let settings = UIAlertAction(title: "Settings", style: .default){_ in UIApplication.openSettings()}
+            alert.addAction(settings)
+            present(alert, animated: true, completion: nil)
             return
         }
         let overlay = LoaderView(frame: self.view.frame)

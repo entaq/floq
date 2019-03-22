@@ -259,3 +259,18 @@ extension UIScreen{
         return .lowly
     }
 }
+
+
+extension UIApplication{
+    
+    class func openSettings(){
+        if let seturl = URL(string: UIApplication.openSettingsURLString){
+            if UIApplication.shared.canOpenURL(seturl){
+                UIApplication.shared.open(seturl, options: [:]) { (success) in
+                    print("Sucess")
+                }
+            }
+        }
+        
+    }
+}

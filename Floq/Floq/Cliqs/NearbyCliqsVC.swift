@@ -37,7 +37,11 @@ class NearbyCliqsVC: UIViewController{
 
     
 
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var collectionView:UICollectionView = {
+        let col = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        col.showsVerticalScrollIndicator = false
+        return col
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()

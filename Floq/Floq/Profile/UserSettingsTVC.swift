@@ -39,7 +39,7 @@ class UserSettingsTVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            openSettings()
+            UIApplication.openSettings()
             break
         case 1:
             lauchWebView()
@@ -98,16 +98,7 @@ class UserSettingsTVC: UITableViewController {
     }
     
     
-    func openSettings(){
-        if let seturl = URL(string: UIApplication.openSettingsURLString){
-            if UIApplication.shared.canOpenURL(seturl){
-                UIApplication.shared.open(seturl, options: [:]) { (success) in
-                    print("Sucess")
-                }
-            }
-        }
-        
-    }
+    
     
     
     func lauchWebView(){

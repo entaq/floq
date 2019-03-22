@@ -32,7 +32,12 @@ final class HomeVC : UIViewController {
     var myCliqCount:Int{
         return (UIApplication.shared.delegate as! AppDelegate).appUser?.cliqs ?? 0
     }
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    lazy var collectionView:UICollectionView = {
+        let col = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        col.showsVerticalScrollIndicator = false
+        return col
+    }()
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
