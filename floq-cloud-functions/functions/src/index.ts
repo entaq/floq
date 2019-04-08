@@ -4,7 +4,7 @@ import * as admin from "firebase-admin";
 const REF_FLOQS = "FLFLOQs";
 const REF_PHOTOS = "Photos";
 const REF_TOKENS = "FLTOKENS";
-const REF_USERS = "FLUSER"
+const REF_USERS = "FLUSER";
 const FIELD_fileID = "fileID";
 const FIELD_username = "userName";
 const FIELD_dateCreated = "dateCreated";
@@ -24,6 +24,8 @@ const FIELD_instanceToken = "instanceToken";
 const REF_ANALYTICS = "FLANALYTICS";
 const DOC_CLIQS = "Cliqs";
 const FIELD_COUNT = "count";
+const FIELD_FLAGGED = "flagged";
+const FIELD_FLAGGERS = "flaggers";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -66,19 +68,21 @@ export const photoAdded = functions.firestore
     return promise;
   });
 
-
-  export const joinedNotification = functions.firestore
+export const joinedNotification = functions.firestore
   .document(`${REF_FLOQS}/{cliqID}`)
   .onUpdate(async (snap, context) => {
     const updateCliq = snap.after;
     let promise = Promise.resolve("Nothing");
-    const followers:Array<string> = updateCliq.get(FIELD_followers);
+    const followers: Array<string> = updateCliq.get(FIELD_followers);
     const followerID = followers[followers.length - 1];
-    const newfollower = await store.collection(REF_USERS).doc(followerID).get();
+    const newfollower = await store
+      .collection(REF_USERS)
+      .doc(followerID)
+      .get();
     const username = newfollower.get(FIELD_username);
     const cliqName = updateCliq.get(FIELD_cliqname);
     const total = snap.before.get(FIELD_followers).length;
-    const cliqID = updateCliq.id
+    const cliqID = updateCliq.id;
     for (let i = 0; i < total; i++) {
       const key = followers[i];
       if (key !== followerID) {
@@ -99,7 +103,6 @@ export const photoAdded = functions.firestore
         promise = admin.messaging().send(message);
       }
     }
-
   });
 
 export const analyticsOnCliqs = functions.firestore
@@ -152,20 +155,48 @@ export const testFunctionsWorks = functions.https.onRequest(
 
 export const reAlignDatabase = functions.https.onRequest(
   async (request, response) => {
-    const batch = store.batch()
+    const batch = store.batch();
     const docs = await store.collection(REF_USERS).get();
-    for (const doc of docs.docs){
-      const id = doc.id
-      const mydocs = await store.collection(REF_FLOQS).where(FIELD_followers,"array-contains",id).get();
+    for (const doc of docs.docs) {
+      const id = doc.id;
+      const mydocs = await store
+        .collection(REF_FLOQS)
+        .where(FIELD_followers, "array-contains", id)
+        .get();
       const count = mydocs.size;
-      batch.update(doc.ref,{[FIELD_cliqCount]:count});
+      batch.update(doc.ref, { [FIELD_cliqCount]: count });
     }
-    
-    batch.commit().then(x => {
-      response.status(200).send(x);
-    }).catch(err => {
-      response.status(404).send(err);
-    });
 
-  });
+    batch
+      .commit()
+      .then(x => {
+        response.status(200).send(x);
+      })
+      .catch(err => {
+        response.status(404).send(err);
+      });
+  }
+);
 
+export const reAlignFlaggingFaults = functions.https.onRequest(
+  async (request, response) => {
+    const batch = store.batch();
+    const cliqs = await store.collection(REF_FLOQS).get();
+
+    for (const doc of cliqs.docs) {
+      const id = doc.id;
+      const photos = await store
+        .collection(REF_FLOQS)
+        .doc(id)
+        .collection(REF_PHOTOS)
+        .get();
+      photos.docs.forEach(element => {
+        const update = { [FIELD_FLAGGED]: false, [FIELD_FLAGGERS]: [] };
+        batch.update(element.ref, update);
+      });
+    }
+
+    const resp = await batch.commit();
+    response.status(200).send(resp);
+  }
+);
