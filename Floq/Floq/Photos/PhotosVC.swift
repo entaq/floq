@@ -153,7 +153,7 @@ final class PhotosVC: UIViewController {
                     newMetadata.customMetadata = [
                         Fields.fileID.rawValue : filePath,
                         Fields.username.rawValue : userName,
-                        Fields.userUID.rawValue: Auth.auth().currentUser!.uid
+                        Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
                     ]
                     let fid = self.cliq?.id ?? self.cliqID
                     

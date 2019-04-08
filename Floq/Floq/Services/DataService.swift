@@ -229,6 +229,8 @@ class DataService{
                     docData.removeValue(forKey:  Fields.followers.rawValue)
                     docData.removeValue(forKey:  Fields.userEmail.rawValue)
                     docData.removeValue(forKey: Fields.coordinate.rawValue)
+                    docData.updateValue(false, forKey: Fields.flagged.rawValue)
+                    docData.updateValue([], forKey: Fields.flaggers.rawValue)
                     batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
                     batch.commit(completion: { (err) in
                         if err != nil {

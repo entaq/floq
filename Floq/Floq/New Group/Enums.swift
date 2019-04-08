@@ -52,6 +52,8 @@ enum References:String{
 }
 
 public enum Fields:String{
+    
+    case flagged, flaggers
     case fileID = "fileID"
     case cliqID = "cliqID"
     case username = "userName"

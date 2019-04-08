@@ -95,6 +95,11 @@ extension UIImage{
         return UIImage(named:"empty_like")!
     }
     
+    public static var icon_flag:UIImage{
+        return UIImage(named: "flag")!
+        
+    }
+    
     func dataFromJPEG()-> Data?{
         var compression:CGFloat = 1
         if let data = jpegData(compressionQuality: compression){

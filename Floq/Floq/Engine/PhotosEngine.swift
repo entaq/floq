@@ -8,6 +8,7 @@
 
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 
 class PhotosEngine:NSObject{
@@ -60,9 +61,20 @@ class PhotosEngine:NSObject{
         }
     }
     
+    func flagPhoto(photoID:String,cliqId:String, handler:@escaping CompletionHandlers.storage){
+        guard let id = Auth.auth().currentUser?.uid else {return}
+        floqRef.document(cliqId).collection(.photos).document(photoID).updateData([Fields.flagged.rawValue: true, Fields.flaggers.rawValue:FieldValue.arrayUnion([id])]) { (err) in
+            if let err = err {
+                handler(false,err.localizedDescription)
+            }else{
+                handler(true,nil)
+            }
+        }
+    }
+    
     func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.photogrids){
-        
-        floqRef.document(cliqDocumentID).collection(References.photos.rawValue)
+        guard let id = Auth.auth().currentUser?.uid else {return}
+        floqRef.document(cliqDocumentID).collection(References.photos.rawValue).whereField(Fields.flaggers.rawValue, arrayContains: id)
             .addSnapshotListener { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     print("Error fetching snapshots: \(error!)")
@@ -223,7 +235,9 @@ class PhotosEngine:NSObject{
                     return
                 }
                 var docData: [String: Any] = [
-                    Fields.timestamp.rawValue : FieldValue.serverTimestamp()
+                    Fields.timestamp.rawValue : FieldValue.serverTimestamp(),
+                    Fields.flagged.rawValue:false,
+                    Fields.flaggers.rawValue:[]
                 ]
                 docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                 print(docData, filePath)

@@ -12,12 +12,21 @@ import FirebaseStorage
 
 
 class PhotoFullScreenVC: UIViewController {
+    
+    lazy var flag:UIImageView = {
+        let view = UIImageView(image: .icon_flag)
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
 
     var engine:PhotosEngine!
     var likelabel:UILabel!
     var likebar:UIView  = UIView(frame: .zero)
     var selectedIndex:Int = 0
     var imgv:UIImageView!
+    
     var floqname:String
     var userUid:String?
     var username:String?
@@ -235,6 +244,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         view.addSubview(likebar)
         likebar.addSubview(imgv)
         likebar.addSubview(likelabel)
+        likebar.addSubview(flag)
         likebar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             likebar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -259,6 +269,14 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             likelabel.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
             likelabel.heightAnchor.constraint(equalToConstant: 30)
         ])
+        flag.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            flag.leadingAnchor.constraint(equalTo: likebar.leadingAnchor, constant: 20),
+            flag.heightAnchor.constraint(equalToConstant: 30),
+            flag.widthAnchor.constraint(equalToConstant: 20),
+            flag.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
+            
+        ])
         likelabel.textColor = .white
         likelabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         likelabel.backgroundColor = .clear
@@ -267,7 +285,33 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         let tap = UITapGestureRecognizer(target: self, action: #selector(AnimateImage(_:)))
         tap.numberOfTapsRequired = 1
         imgv.addGestureRecognizer(tap)
+        flag.isUserInteractionEnabled = true
+        let ftap = UITapGestureRecognizer(target: self, action: #selector(flagPressed(_:)))
+        ftap.numberOfTapsRequired = 1
+        flag.addGestureRecognizer(ftap)
         
+    }
+    
+    @objc func flagPressed(_ recognizer: UITapGestureRecognizer){
+       let alert = UIAlertController.createDefaultAlert("Flag this image as abusive or inappropriate?", "By flagging this image it will be removed from the 'cliq' and the administrators of the app will review the content and permanently remove any images and users associated with it if found to be agains the End User Agreement.",.alert, "Cancel",.cancel, nil)
+        let flag = UIAlertAction(title: "Report", style: .destructive) { _ in
+            let loader = LoaderView(frame: UIScreen.main.bounds)
+            self.flagAPhoto(view: loader)
+        }
+        
+        alert.addAction(flag)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func flagAPhoto(view:LoaderView){
+        guard let id = currentPhotoID else {return}
+        engine.flagPhoto(photoID: id, cliqId: cliqID) { (success, errM) in
+            view.removeFromSuperview()
+            if (success){
+                let alert = UIAlertController.createDefaultAlert("Success", "Content eas succesfully reported",.alert, "OK",.default, nil)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
 }
