@@ -18,7 +18,10 @@ class PhotosEngine:NSObject{
         return allphotos
     }
     
-    
+    private var _photoGrids:[GridPhotoItem] = []
+    var photoGrids:[GridPhotoItem]{
+        return _photoGrids
+    }
     
     private var floqRef:CollectionReference{
         return Firestore.database.collection(References.floqs.rawValue)
@@ -65,23 +68,33 @@ class PhotosEngine:NSObject{
         guard let id = Auth.auth().currentUser?.uid else {return}
         floqRef.document(cliqId).collection(.photos).document(photoID).updateData([Fields.flagged.rawValue: true, Fields.flaggers.rawValue:FieldValue.arrayUnion([id])]) { (err) in
             if let err = err {
+                
                 handler(false,err.localizedDescription)
             }else{
+                self.allphotos.removeAll{$0.absoluteID == photoID}
+                self.generateGridItems()
                 handler(true,nil)
             }
         }
     }
     
-    func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.photogrids){
+    func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
-        floqRef.document(cliqDocumentID).collection(References.photos.rawValue).whereField(Fields.flaggers.rawValue, arrayContains: id)
+        floqRef.document(cliqDocumentID).collection(References.photos.rawValue)
             .addSnapshotListener { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     print("Error fetching snapshots: \(error!)")
-                    onFinish(nil,"Error fetching snapshots: \(error!)")
+                    onFinish(false,"Error fetching snapshots: \(error?.localizedDescription ?? "Unknown Error")")
                     return
                 }
-                snapshot.documentChanges.forEach { diff in
+                let changes = snapshot.documentChanges.filter({ (dc) -> Bool in
+                    if let flaggers = dc.document.getArray(.flaggers) as? [String]{
+                        return !flaggers.contains(id)
+                    }
+                    return true
+                })
+                
+                changes.forEach { diff in
                     if (diff.type == .added) {
                         
                         let photoItem = PhotoItem(doc: diff.document)
@@ -90,8 +103,8 @@ class PhotosEngine:NSObject{
                             self.allphotos.sort(by: { (i1, i2) -> Bool in
                                 return i1.timestamp > i2.timestamp
                             })
-                            let grid = self.generateGridItems(new: self.allPhotos)
-                            onFinish(grid, nil)
+                            self.generateGridItems()
+                            onFinish(true, nil)
                         }
                     }else if diff.type == .modified{
                         let id = diff.document.documentID
@@ -215,15 +228,15 @@ class PhotosEngine:NSObject{
         }
     }
     
-    func generateGridItems(new:[PhotoItem])->[GridPhotoItem]{
+    func generateGridItems(){
         var grids:[GridPhotoItem] = []
         
-        let chuncked = new.chunked(into: 4)
+        let chuncked = allPhotos.chunked(into: 4)
         for chunk in chuncked{
             let grid = GridPhotoItem(items: chunk)
             grids.append(grid)
         }
-        return grids
+        _photoGrids = grids
     }
     
     

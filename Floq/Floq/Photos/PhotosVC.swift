@@ -74,13 +74,8 @@ final class PhotosVC: UIViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         view.addSubview(floaty)
-        photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (photos, errm) in
-            if let items = photos {
-                
-                self.data = items
-                self.adapter.reloadData(completion: nil)
-                
-            }
+        photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (success, errm) in
+            if success{self.adapter.reloadData(completion: nil)}
         }
         
     }
@@ -92,6 +87,7 @@ final class PhotosVC: UIViewController {
             if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
         }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        adapter.reloadData(completion: nil)
     }
     
     
@@ -184,7 +180,7 @@ extension PhotosVC:ListAdapterDataSource{
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         
-        return data as [ListDiffable]
+        return photoEngine.photoGrids as [ListDiffable]
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

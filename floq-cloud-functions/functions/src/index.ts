@@ -181,22 +181,26 @@ export const reAlignDatabase = functions.https.onRequest(
 export const reAlignFlaggingFaults = functions.https.onRequest(
   async (request, response) => {
     const batch = store.batch();
-    const cliqs = await store.collection(REF_FLOQS).get();
+    try {
+      const cliqs = await store.collection(REF_FLOQS).get();
 
-    for (const doc of cliqs.docs) {
-      const id = doc.id;
-      const photos = await store
-        .collection(REF_FLOQS)
-        .doc(id)
-        .collection(REF_PHOTOS)
-        .get();
-      photos.docs.forEach(element => {
-        const update = { [FIELD_FLAGGED]: false, [FIELD_FLAGGERS]: [] };
-        batch.update(element.ref, update);
-      });
+      for (const doc of cliqs.docs) {
+        const id = doc.id;
+        const photos = await store
+          .collection(REF_FLOQS)
+          .doc(id)
+          .collection(REF_PHOTOS)
+          .get();
+        photos.docs.forEach(element => {
+          const update = { [FIELD_FLAGGED]: false, [FIELD_FLAGGERS]: [] };
+          batch.update(element.ref, update);
+        });
+      }
+
+      const resp = await batch.commit();
+      response.status(200).send(resp);
+    } catch (err) {
+      console.log(`Error occurred with: ${err}`);
     }
-
-    const resp = await batch.commit();
-    response.status(200).send(resp);
   }
 );

@@ -198,15 +198,21 @@ class PhotoFullScreenVC: UIViewController {
         adapter.dataSource = self
         
         adapter.reloadData(completion: nil)
-        let obj = engine.allPhotos[selectedIndex]
-        adapter.collectionViewDelegate = self
-        adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
+        moveToNext()
         NotificationCenter.set(observer: self, selector: #selector(reload), name: .modified)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         avatarImageview.removeFromSuperview()
+    }
+    
+    func moveToNext(_ index:Int? = nil){
+        let index = index ?? selectedIndex
+        guard (index < engine.allPhotos.endIndex) else{return}
+        let obj = engine.allPhotos[index]
+        adapter.collectionViewDelegate = self
+        adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
     }
 }
 
@@ -310,7 +316,20 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             if (success){
                 let alert = UIAlertController.createDefaultAlert("Success", "Content eas succesfully reported",.alert, "OK",.default, nil)
                 self.present(alert, animated: true, completion: nil)
+                self.reload()
             }
+        }
+    }
+    
+    func resetPhotos(){
+        if engine.allPhotos.isEmpty{
+            navigationController?.popViewController(animated: true)
+            return
+        }
+        if selectedIndex < engine.allPhotos.endIndex{
+            moveToNext()
+        }else{
+            moveToNext(engine.allPhotos.endIndex - 1)
         }
     }
     
