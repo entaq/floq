@@ -247,6 +247,31 @@ class DataService{
         }
     }
     
+    func blockUser(id:String,completion:@escaping CompletionHandlers.storage){
+       let batch = store.batch()
+        batch.setData([Fields.blockingList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
+        batch.setData([Fields.blockedList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(id), merge: true)
+        batch.commit(){ err in
+            if let err = err{
+                completion(false,err.localizedDescription)
+            }else{
+                completion(true,nil)
+            }
+        }
+    }
+    func unBlockUser(id:String,completion:@escaping CompletionHandlers.storage){
+        let batch = store.batch()
+        batch.setData([Fields.blockingList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
+        batch.setData([Fields.blockedList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(id), merge: true)
+        batch.commit(){ err in
+            if let err = err{
+                completion(false,err.localizedDescription)
+            }else{
+                completion(true,nil)
+            }
+        }
+    }
+    
     func synchronizeSelf(handler:@escaping CompletionHandlers.dataservice){
         userRef.document(UserDefaults.uid).addSnapshotListener { (doc, err) in
             guard let snap = doc, let _ = doc?.data() else {return}

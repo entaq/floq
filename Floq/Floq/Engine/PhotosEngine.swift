@@ -228,9 +228,14 @@ class PhotosEngine:NSObject{
         }
     }
     
+    func filterForBlock(){
+        guard let user = appUser else {return}
+        allphotos = allphotos.filter{!user.isBlocked(user: $0.userUid)}
+    }
+    
     func generateGridItems(){
         var grids:[GridPhotoItem] = []
-        
+        filterForBlock()
         let chuncked = allPhotos.chunked(into: 4)
         for chunk in chuncked{
             let grid = GridPhotoItem(items: chunk)

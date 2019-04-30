@@ -16,14 +16,9 @@ class UserListVC: UITableViewController {
         super.viewDidLoad()
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         title = "Cliq Details"
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
 
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -56,13 +51,28 @@ class UserListVC: UITableViewController {
         return "Cliq created on \(cliq.item.timestamp.toStringwith(.month_day_year)) by \(cliq.item.user)"
     }
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let item = list[indexPath.row]
+        if item.0 == UserDefaults.uid{return false}
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (ac, indexpath) in
+            let id = self.list[indexpath.row].0
+            DataService.main.blockUser(id: id, completion: { (success, err) in
+                if success{
+                    print("User blocked")
+                }else{
+                    print("Error occurred blocking: \(err ?? "Unknown")")
+                }
+            })
+        }
+        return [blockAction]
+    }
 
     /*
     // Override to support editing the table view.

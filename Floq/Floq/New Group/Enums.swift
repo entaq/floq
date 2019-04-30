@@ -49,6 +49,7 @@ enum References:String{
     case likes = "LIKES"
     case requestLikeShard = "LikesShard"
     
+    
 }
 
 public enum Fields:String{
@@ -84,7 +85,8 @@ public enum Fields:String{
     case latitude = "latitude"
     case coordinate = "coordinate"
     case appurl = "appurl"
-
+    case blockedList = "blocklist"
+    case blockingList = "blockinglist"
 }
 
 public enum FLNotification:String{

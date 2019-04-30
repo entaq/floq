@@ -22,7 +22,7 @@ class App extends Component {
                 component={UserIsNotAuthenticated(Login)}
               />
               <Route
-                component={UserIsAuthenticated(AuthenticatedCatedLayout)}
+                component={UserIsAuthenticated(AuthenticatedContainerLayout)}
               />
             </Switch>
           </div>
@@ -36,7 +36,7 @@ class App extends Component {
 //   return <Login />;
 // };
 
-const AuthenticatedCatedLayout = () => {
+const AuthenticatedContainerLayout = () => {
   return (
     <div>
       <AppNavBar />
