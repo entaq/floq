@@ -16,12 +16,13 @@ class EULAVC: UIViewController {
     @IBOutlet weak var optionsView:UIView!
     @IBOutlet weak var backButt: UIButton!
     
+    @IBOutlet weak var loader: UIView!
     @IBOutlet weak var declineButt: UIButton!
     @IBOutlet weak var acceptButt: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loader.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -61,6 +62,8 @@ class EULAVC: UIViewController {
     
     func facebooklogin(){
         let flogin = LoginManager()
+        flogin.logOut()
+        self.loader.isHidden = false
         flogin.logIn(readPermissions: [.publicProfile, .email], viewController: self) { (result) in
             switch (result){
             case .cancelled:
@@ -70,6 +73,7 @@ class EULAVC: UIViewController {
                 Logger.log(err)
                 break
             case .success(grantedPermissions: _, declinedPermissions:  _, token: let token):
+                
                 self.facebookLogCompletion(token: token)
                 break
             }
@@ -78,10 +82,13 @@ class EULAVC: UIViewController {
     
     
     func facebookLogCompletion(token:AccessToken){
+        
         let credential = FacebookAuthProvider.credential(withAccessToken: token.authenticationToken)
+        
         Auth.auth().signInAndRetrieveData(with: credential) { (data, err) in
             if (data != nil && err == nil){
                 if let user = data?.user{
+                    
                     DataService.main.isRegistered(uid: user.uid, handler: { (exists, username) in
                         if exists{
                             self.saveUserdata(user: user)
@@ -91,6 +98,7 @@ class EULAVC: UIViewController {
                                 appdel.mainEngine = CliqEngine()
                                 let navC = UINavigationController(rootViewController: HomeVC())
                                 DispatchQueue.main.async {
+                                    self.loader.removeFromSuperview()
                                     appdel.window?.rootViewController = navC
                                     appdel.window?.makeKeyAndVisible()
                                     appdel.selfSync()

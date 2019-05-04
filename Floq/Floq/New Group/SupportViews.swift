@@ -43,6 +43,10 @@ class LoaderView:UIView{
     var label:UILabel!
     override init(frame: CGRect) {
         super.init(frame:frame)
+        initialize()
+    }
+    
+    func initialize(){
         backgroundColor = UIColor.darkText
         alpha = 0.75
         activity = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
@@ -81,6 +85,11 @@ class LoaderView:UIView{
         
         addSubview(label)
         activity.startAnimating()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        initialize()
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
