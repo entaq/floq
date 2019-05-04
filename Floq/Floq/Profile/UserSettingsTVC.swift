@@ -32,7 +32,7 @@ class UserSettingsTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -45,9 +45,12 @@ class UserSettingsTVC: UITableViewController {
             lauchWebView()
             break
         case 2:
-             logout()
+            launchEula()
             break
         case 3:
+             logout()
+            break
+        case 4:
             deactivateAccount()
             break
         default:
@@ -55,6 +58,12 @@ class UserSettingsTVC: UITableViewController {
         }
     }
     
+    func launchEula(){
+        if let eula = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
+            (eula.topViewController as? EULAVC)?.hidesOptions = true
+            present(eula, animated: true, completion: nil)
+        }
+    }
     
     
     func deactivateAccount(){
@@ -103,7 +112,7 @@ class UserSettingsTVC: UITableViewController {
     
     func lauchWebView(){
         
-        guard let url = URL(string: "https://jberkey78.github.io/floq-beta") else{return}
+        guard let url = URL(string: "https://jberkey78.github.io/floq/") else{return}
         let controller:SFSafariViewController
         if #available(iOS 11.0, *) {
             let config = SFSafariViewController.Configuration()
