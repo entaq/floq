@@ -11,13 +11,20 @@ import UIKit
 
 class UserListCell: UITableViewCell {
 
+    @IBOutlet weak var blockLable: UILabel!
     @IBOutlet weak var countlabel: UILabel!
     @IBOutlet weak var namelable:UILabel!
     @IBOutlet weak var imgview:UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        blockLable.isHidden = true
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        blockLable.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,6 +37,7 @@ class UserListCell: UITableViewCell {
         namelable.text = name
         imgview.setAvatar(uid: id)
         countlabel.text = "\(count)"
+        blockLable.isHidden = (appUser != nil) ? !appUser!.isBlocked(user: id) : true
     }
 
 }

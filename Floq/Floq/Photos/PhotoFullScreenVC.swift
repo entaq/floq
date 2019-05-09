@@ -105,7 +105,8 @@ class PhotoFullScreenVC: UIViewController {
         
     }
     
-    @objc func reload(){
+    @objc func reload(id:String){
+        engine.generateGridItems(photoId:id)
         adapter.reloadData(completion: nil)
     }
     
@@ -293,7 +294,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             if (success){
                 let alert = UIAlertController.createDefaultAlert("Success", "Content eas succesfully reported",.alert, "OK",.default, nil)
                 self.present(alert, animated: true, completion: nil)
-                self.reload()
+                self.reload(id: id)
             }
         }
     }

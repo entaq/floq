@@ -24,7 +24,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8vk-EY-uwZ">
                                 <rect key="frame" x="16" y="104" width="343" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">FLOQ App End User License Agreement
+                                <string key="text">FLOQ App End User License Agreement
 
 This End User License Agreement (“Agreement”) is between you and FLOQ and governs use of this app made available through the Apple App Store. By installing the FLOQ App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the FLOQ App.
 
@@ -46,7 +46,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
 
 8. Product Claims FLOQ, not Apple, is responsible for addressing any claims by you relating to the FLOQ App or use of it, including, but not limited to: (i) any product liability claim; (ii) any claim that the FLOQ App fails to conform to any applicable legal or regulatory requirement; and (iii) any claim arising under consumer protection or similar legislation. Nothing in this Agreement shall be deemed an admission that you may have such claims.
 
-9. Third Party Intellectual Property Claims FLOQ shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the FLOQ App. To the extent FLOQ is required to provide indemnification by applicable law, FLOQ, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the FLOQ App or your use of it infringes any third party intellectual property right.</mutableString>
+9. Third Party Intellectual Property Claims FLOQ shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the FLOQ App. To the extent FLOQ is required to provide indemnification by applicable law, FLOQ, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the FLOQ App or your use of it infringes any third party intellectual property right.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -612,8 +612,16 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6NS-nY-aiW">
+                                            <rect key="frame" x="265.66666666666669" y="14" width="48.333333333333314" height="15.666666666666664"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                                            <color key="textColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="ZGg-zB-iXM" firstAttribute="leading" secondItem="6NS-nY-aiW" secondAttribute="trailing" constant="16" id="7X7-fG-w0b"/>
+                                        <constraint firstItem="6NS-nY-aiW" firstAttribute="centerY" secondItem="1YO-Zr-un6" secondAttribute="centerY" id="IDB-6M-OKO"/>
                                         <constraint firstItem="WS9-e4-2bq" firstAttribute="leading" secondItem="1YO-Zr-un6" secondAttribute="leading" constant="16" id="UlL-vF-4qi"/>
                                         <constraint firstItem="ZGg-zB-iXM" firstAttribute="centerY" secondItem="1YO-Zr-un6" secondAttribute="centerY" id="e5K-li-R44"/>
                                         <constraint firstItem="WS9-e4-2bq" firstAttribute="centerY" secondItem="1YO-Zr-un6" secondAttribute="centerY" id="kz3-OT-03c"/>
@@ -623,6 +631,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="blockLable" destination="6NS-nY-aiW" id="lNE-mt-i7o"/>
                                     <outlet property="countlabel" destination="ZGg-zB-iXM" id="4VK-iB-lbc"/>
                                     <outlet property="imgview" destination="WS9-e4-2bq" id="wEa-7u-61g"/>
                                     <outlet property="namelable" destination="HzX-nN-iOl" id="ALq-zg-f7p"/>

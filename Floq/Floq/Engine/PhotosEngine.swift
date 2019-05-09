@@ -235,19 +235,29 @@ class PhotosEngine:NSObject{
         }
     }
     
-    func filterForBlock(id:String? = nil){
+    func filterForBlock(id:String? = nil, photoId:String? = nil){
         guard let user = appUser else {return}
         if let id = id{
-            allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id}
+            if let pid = photoId{
+                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.absoluteID != pid}
+            }else{
+               allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id}
+            }
+            
         }else{
-           allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid)}
+            if let pid = photoId{
+                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.absoluteID != pid}
+            }else{
+                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid)}
+            }
+           
         }
         
     }
     
-    func generateGridItems(id:String? = nil){
+    func generateGridItems(id:String? = nil, photoId:String? = nil){
         var grids:[GridPhotoItem] = []
-        filterForBlock(id:id)
+        filterForBlock(id:id, photoId:photoId)
         
         let chuncked = allPhotos.chunked(into: 4)
         for chunk in chuncked{

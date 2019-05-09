@@ -82,10 +82,10 @@ final class PhotosVC: UIViewController {
     }
     
     @objc func invalidatePhoto(_ notification:Notification){
-        if let id = notification.userInfo?[.info] as? String{
-            photoEngine.generateGridItems(id:id)
-            adapter.reloadData(completion: nil)
-        }
+        let id = notification.userInfo?[.info] as? String
+        photoEngine.generateGridItems(id:id)
+        adapter.reloadData(completion: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

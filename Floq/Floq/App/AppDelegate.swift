@@ -216,6 +216,7 @@ extension AppDelegate{
         DataService.main.synchronizeSelf { (user, err) in
             guard let user = user as? FLUser else{return}
             self.appUser = user
+            self.isSyncng = false
         }
         isSyncng = true
     }

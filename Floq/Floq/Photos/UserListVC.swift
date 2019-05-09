@@ -68,22 +68,27 @@ class UserListVC: UITableViewController {
                 
                 DataService.main.unBlockUser(id: id, completion: { (success, err) in
                     if success{
-                        Subscription.main.post(suscription: .invalidatePhotos, object: id)
+                        Subscription.main.post(suscription: .invalidatePhotos, object: nil)
+                        tableView.reloadData()
                     }else{
                         print("Error occurred blocking: \(err ?? "Unknown")")
                     }
                 })
+            
             }
+            blockAction.backgroundColor = .seafoamBlue
         }else{
             blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (ac, indexpath) in
                 
                 DataService.main.blockUser(id: id, completion: { (success, err) in
                     if success{
                         Subscription.main.post(suscription: .invalidatePhotos, object: id)
+                        tableView.reloadData()
                     }else{
                         print("Error occurred blocking: \(err ?? "Unknown")")
                     }
                 })
+                
             }
         }
             
