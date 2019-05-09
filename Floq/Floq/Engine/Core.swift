@@ -10,23 +10,21 @@ import FirebaseFirestore
 import FirebaseStorage
 
 import CoreLocation
-import RxSwift
+
 
 final public class CoreEngine:NSObject{
     
-    private var geopointSubject = PublishSubject<GeoPoint>()
+    
     public let RADIUS = 0.5
     private var locationManager:CLLocationManager?
-    private var disposer:DisposeBag!
-    var locationPoint:Observable<GeoPoint>{
-        return geopointSubject.asObserver()
-    }
+    
+    var locationPoint:GeoPoint!
     public private (set) var currentLocation:CLLocation?
     private var isfetching = false
     public override init() {
         super.init()
         locationManager = CLLocationManager()
-        disposer = DisposeBag()
+        
     }
 
     
@@ -62,7 +60,7 @@ extension CoreEngine:CLLocationManagerDelegate{
         currentLocation = userLocation
         let point  = GeoPoint(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         if !isfetching{
-           geopointSubject.onNext(point)
+           Subscription.main.post(suscription: .geoPointUpdated, object: point)
             isfetching = true
         }
         locationManager?.stopUpdatingLocation()

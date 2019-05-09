@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import Geofirestore
 import CoreLocation
-import RxSwift
+
 
 class CliqEngine:NSObject{
     
@@ -19,7 +19,6 @@ class CliqEngine:NSObject{
     private var query:GFSQuery?
     private let MAX_IDs = 15
     private var isFetchingMine = false
-    private let bag = DisposeBag()
     public private (set) var mycliqIds:Set<String> = []
     public private (set) var activeCliq:FLCliqItem?
     public private (set) var nearbyCliqs:[FLCliqItem] = []
@@ -42,15 +41,23 @@ class CliqEngine:NSObject{
         super.init()
         core = CoreEngine()
         homeData = []
-        let locationSub = core.locationPoint.share()
-        locationSub.subscribe(onNext: { (point) in
-            self.geoPoint = point
-            self.listenForCliqsAt(geopoint: point)
-        }) {
-            
-            }.disposed(by: bag)
+        subscribeTo(subscription: .geoPointUpdated, selector: #selector(locationUpdated(_:)))
+//        let locationSub = core.locationPoint.share()
+//        locationSub.subscribe(onNext: { (point) in
+//            self.geoPoint = point
+//            self.listenForCliqsAt(geopoint: point)
+//        }) {
+//
+//            }.disposed(by: bag)
         
         start()
+    }
+    
+    @objc func locationUpdated(_ notif:Notification){
+        if let point = notif.userInfo?[.info] as? GeoPoint{
+            self.geoPoint = point
+            listenForCliqsAt(geopoint: point)
+        }
     }
     
     private var storage:Storage{

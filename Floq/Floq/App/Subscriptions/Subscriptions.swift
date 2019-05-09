@@ -13,7 +13,7 @@ class Subscription{
     
     enum Name:String {
         
-        case invalidatePhotos,invalidateCliq
+        case invalidatePhotos,invalidateCliq,geoPointUpdated
     }
 
     private static let _main = Subscription()

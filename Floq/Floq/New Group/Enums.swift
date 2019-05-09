@@ -28,7 +28,7 @@ enum ImageSizes:Int{
 }
 
 enum Update:Int{
-    case current = 3
+    case current = 4
     case leastSupport = 0
 }
 
