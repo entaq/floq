@@ -15,8 +15,8 @@ class FLUser{
     public private (set) var username:String!
     public private (set) var profileImg:URL?
     public private (set) var cliqs:Int
-    public private (set) var blockingList:Set<String> = []
-    public private (set) var blockedList:Set<String> = []
+    public private (set) var myblockingList:Set<String> = []
+    public private (set) var blockedMeList:Set<String> = []
  
     
     init(uid:String, username:String?,profUrl:URL?,cliqs:Int) {
@@ -31,11 +31,11 @@ class FLUser{
     }
     
     func hasBlocked(user id:String)->Bool{
-        return blockingList.contains(id)
+        return myblockingList.contains(id)
     }
     
     func isBlocked(user id:String)->Bool{
-        return blockedList.contains(id) || blockingList.contains(id)
+        return blockedMeList.contains(id) || myblockingList.contains(id)
     }
     
     init(snap:DocumentSnapshot) {
@@ -43,11 +43,11 @@ class FLUser{
         uid = snap.documentID
         cliqs = snap.getInt(.cliqCount)
         profileImg = URL(string: snap.getString(.profileImg))
-        if let arr = snap.getArray(.blockedList) as? [String]{
-            blockedList = Set(arr)
+        if let arr = snap.getArray(.blockedMeList) as? [String]{
+            blockedMeList = Set(arr)
         }
-        if let arr = snap.getArray(.blockingList) as? [String]{
-            blockingList = Set(arr)
+        if let arr = snap.getArray(.myblockingList) as? [String]{
+            myblockingList = Set(arr)
         }
         
     }

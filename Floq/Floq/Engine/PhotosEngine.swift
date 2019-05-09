@@ -12,8 +12,13 @@ import FirebaseAuth
 
 
 class PhotosEngine:NSObject{
+    
+    
+    
+    private var _internalPhotoContainer:[PhotoItem] = []
     static let MAXX_LIKES = 34000
     private var allphotos:[PhotoItem] = []
+    
     var allPhotos:[PhotoItem]{
         return allphotos
     }
@@ -29,7 +34,7 @@ class PhotosEngine:NSObject{
     
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
-        let all = allPhotos.compactMap { item -> [String:String] in
+        let all = _internalPhotoContainer.compactMap { item -> [String:String] in
             return [item.userUid:item.user]
         }
         
@@ -52,17 +57,19 @@ class PhotosEngine:NSObject{
         return index
     }
     
-    func storeAllPhotos(_ data:[PhotoItem]){
-        guard !allphotos.isEmpty else {
-            allphotos = data
-            return
-        }
-        for item in data {
-            if !allphotos.contains(item){
-                allphotos.append(item)
-            }
-        }
-    }
+//    func storeAllPhotos(_ data:[PhotoItem]){
+//        guard !allphotos.isEmpty else {
+//            allphotos = data
+//            return
+//        }
+//        for item in data {
+//            if !allphotos.contains(item){
+//                allphotos.append(item)
+//            }
+//        }
+//    }
+    
+    
     
     func flagPhoto(photoID:String,cliqId:String, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
@@ -98,9 +105,9 @@ class PhotosEngine:NSObject{
                     if (diff.type == .added) {
                         
                         let photoItem = PhotoItem(doc: diff.document)
-                        if !self.allphotos.contains(photoItem) {
-                            self.allphotos.append(photoItem)
-                            self.allphotos.sort(by: { (i1, i2) -> Bool in
+                        if !self._internalPhotoContainer.contains(photoItem) {
+                            self._internalPhotoContainer.append(photoItem)
+                            self._internalPhotoContainer.sort(by: { (i1, i2) -> Bool in
                                 return i1.timestamp > i2.timestamp
                             })
                             self.generateGridItems()
@@ -108,12 +115,12 @@ class PhotosEngine:NSObject{
                         }
                     }else if diff.type == .modified{
                         let id = diff.document.documentID
-                        self.allphotos.first(where: { (item) -> Bool in
+                        self._internalPhotoContainer.first(where: { (item) -> Bool in
                             return item.absoluteID == id
                         })?.makeChanges(diff.document)
                         self.post(.modified)
                     }else if diff.type == .removed{
-                        self.allphotos.removeAll(where: { (photo) -> Bool in
+                        self._internalPhotoContainer.removeAll(where: { (photo) -> Bool in
                             return photo.photoID == diff.document.documentID
                         })
                         
@@ -228,14 +235,20 @@ class PhotosEngine:NSObject{
         }
     }
     
-    func filterForBlock(){
+    func filterForBlock(id:String? = nil){
         guard let user = appUser else {return}
-        allphotos = allphotos.filter{!user.isBlocked(user: $0.userUid)}
+        if let id = id{
+            allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id}
+        }else{
+           allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid)}
+        }
+        
     }
     
-    func generateGridItems(){
+    func generateGridItems(id:String? = nil){
         var grids:[GridPhotoItem] = []
-        filterForBlock()
+        filterForBlock(id:id)
+        
         let chuncked = allPhotos.chunked(into: 4)
         for chunk in chuncked{
             let grid = GridPhotoItem(items: chunk)

@@ -249,8 +249,8 @@ class DataService{
     
     func blockUser(id:String,completion:@escaping CompletionHandlers.storage){
        let batch = store.batch()
-        batch.setData([Fields.blockingList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
-        batch.setData([Fields.blockedList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(id), merge: true)
+        batch.setData([Fields.myblockingList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
+        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(id), merge: true)
         batch.commit(){ err in
             if let err = err{
                 completion(false,err.localizedDescription)
@@ -261,8 +261,8 @@ class DataService{
     }
     func unBlockUser(id:String,completion:@escaping CompletionHandlers.storage){
         let batch = store.batch()
-        batch.setData([Fields.blockingList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
-        batch.setData([Fields.blockedList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(id), merge: true)
+        batch.setData([Fields.myblockingList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
+        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(id), merge: true)
         batch.commit(){ err in
             if let err = err{
                 completion(false,err.localizedDescription)

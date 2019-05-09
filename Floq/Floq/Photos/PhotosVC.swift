@@ -50,6 +50,7 @@ final class PhotosVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        subscribeTo(subscription: .invalidatePhotos, selector: #selector(invalidatePhoto(_:)))
         collectionView.backgroundColor = .globalbackground
         floaty = Floaty()
         floaty.buttonColor = .seafoamBlue
@@ -78,6 +79,13 @@ final class PhotosVC: UIViewController {
             if success{self.adapter.reloadData(completion: nil)}
         }
         
+    }
+    
+    @objc func invalidatePhoto(_ notification:Notification){
+        if let id = notification.userInfo?[.info] as? String{
+            photoEngine.generateGridItems(id:id)
+            adapter.reloadData(completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -171,6 +179,10 @@ final class PhotosVC: UIViewController {
         
     }
     
+    
+    deinit {
+        unsubscribe()
+    }
     
 }
 

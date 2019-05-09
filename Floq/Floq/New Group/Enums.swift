@@ -85,8 +85,8 @@ public enum Fields:String{
     case latitude = "latitude"
     case coordinate = "coordinate"
     case appurl = "appurl"
-    case blockedList = "blocklist"
-    case blockingList = "blockinglist"
+    case blockedMeList = "blockedMelist"
+    case myblockingList = "myblockinglist"
 }
 
 public enum FLNotification:String{

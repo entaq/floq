@@ -124,31 +124,8 @@ class PhotoFullScreenVC: UIViewController {
             if let image = cell.imageView.image{
                 
                let sheet = UIActivityViewController(activityItems: [" -Shared from Floq App",image], applicationActivities: [])
-                present(sheet, animated: true) {
-                    //
-                }
+                present(sheet, animated: true) {}
                 
-//                let sheet = UIAlertController.createDefaultAlert("Save Photo", "",.actionSheet, "cancel",.cancel, nil)
-//                let action = UIAlertAction(title: "Save", style: .default) { (ac) in
-//                    let album = CustomPhotoAlbum(album: self.floqname)
-//                    album.save(image: image, handler:{ (success, err) in
-//                        if success{
-//                            self.present(UIAlertController.createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
-//                        }else{
-//                            self.present(UIAlertController.createDefaultAlert("ERROR", "Photo could not be saved: ++\(err ?? "Unknown Error")",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
-//                        }
-//                    })
-//
-//                }
-//                let shareAction = UIAlertAction(title: "Share on Facebook", style: .default) { (ac) in
-//                    self.shareOnFaceBook()
-//                }
-//                sheet.addAction(action)
-//                sheet.addAction(shareAction)
-//                present(sheet, animated: true, completion: nil)
-//            }else{
-//                //present(createDefaultAlert("INFO", "Photo succesfully saved 🎉🎉🎊",.alert, "Dismiss",.cancel, nil), animated:true, completion: nil)
-//            }
             }
         }
         

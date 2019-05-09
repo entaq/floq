@@ -61,16 +61,33 @@ class UserListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (ac, indexpath) in
-            let id = self.list[indexpath.row].0
-            DataService.main.blockUser(id: id, completion: { (success, err) in
-                if success{
-                    print("User blocked")
-                }else{
-                    print("Error occurred blocking: \(err ?? "Unknown")")
-                }
-            })
+        let id = self.list[indexPath.row].0
+        let blockAction:UITableViewRowAction
+        if appUser != nil && appUser!.hasBlocked(user: id){
+           blockAction = UITableViewRowAction(style: .normal, title: "Unblock") { (ac, indexpath) in
+                
+                DataService.main.unBlockUser(id: id, completion: { (success, err) in
+                    if success{
+                        Subscription.main.post(suscription: .invalidatePhotos, object: id)
+                    }else{
+                        print("Error occurred blocking: \(err ?? "Unknown")")
+                    }
+                })
+            }
+        }else{
+            blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (ac, indexpath) in
+                
+                DataService.main.blockUser(id: id, completion: { (success, err) in
+                    if success{
+                        Subscription.main.post(suscription: .invalidatePhotos, object: id)
+                    }else{
+                        print("Error occurred blocking: \(err ?? "Unknown")")
+                    }
+                })
+            }
         }
+            
+        
         return [blockAction]
     }
 
