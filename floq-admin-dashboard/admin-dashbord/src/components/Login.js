@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import appicon from "./appicon.png";
+import appicon from "../img/appicon.png";
 import TextFieldGroup from "./TextinputGroup";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -47,7 +47,7 @@ class Login extends Component {
       <div className="login">
         <div className="container">
           <div className="row-fluid">
-            <div className="col-md-6 m-auto">
+            <div className="col-md-8 col-lg-6 col-xl-6 col-sm-10 m-auto">
               <h3 className="display-5 text-center text-white">
                 Floq Admin Dashboard
               </h3>

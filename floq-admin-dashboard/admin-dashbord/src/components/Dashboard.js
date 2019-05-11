@@ -4,7 +4,10 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Home Sweet Home</h1>
+        <div className="container-fluid">
+          <div className="row" />
+          <h1>HELLO</h1>
+        </div>
       </div>
     );
   }

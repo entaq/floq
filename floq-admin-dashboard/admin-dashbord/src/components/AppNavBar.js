@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect, withFirestore } from "react-redux-firebase";
 import PropTypes from "prop-types";
+import icon from "../img/feather.png";
 
 class AppNavBar extends Component {
   state = {
@@ -85,7 +86,13 @@ class AppNavBar extends Component {
       >
         <div className="container">
           <Link to="/" className="navbar-brand">
-            <h3>FLOQ</h3>
+            <img
+              src={icon}
+              alt="floq Logo"
+              className="d-inline-block align-top"
+              width="20"
+              height="50"
+            />
           </Link>
 
           <button
@@ -102,7 +109,7 @@ class AppNavBar extends Component {
               {isAuthenticated ? (
                 <li>
                   <Link to="/" className="nav-link">
-                    Dashboard
+                    <h3 className="display-5 text-white">FLOQ</h3>
                   </Link>
                 </li>
               ) : null}
@@ -110,16 +117,17 @@ class AppNavBar extends Component {
             {isAuthenticated ? (
               <ul className="navbar-nav ml-auto">
                 <li>
+                  <Link to="/flagged" className="nav-link">
+                    Issues
+                  </Link>
+                </li>
+                <li>
                   <Link to="/settings" className="nav-link">
                     Users
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a
-                    href="/#"
-                    className="nav-link"
-                    onClick={this.onLogoutClick}
-                  >
+                  <a href="#" className="nav-link" onClick={this.onLogoutClick}>
                     Logout
                   </a>{" "}
                 </li>

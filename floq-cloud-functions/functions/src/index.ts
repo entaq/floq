@@ -1,10 +1,13 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { print } from "util";
 
 const REF_FLOQS = "FLFLOQs";
 const REF_PHOTOS = "Photos";
+const REF_FLPHOTOS = "FLPHOTOS";
 const REF_TOKENS = "FLTOKENS";
 const REF_USERS = "FLUSER";
+const FIELD_CLIQ_ID = "cliqID";
 const FIELD_fileID = "fileID";
 const FIELD_username = "userName";
 const FIELD_dateCreated = "dateCreated";
@@ -204,3 +207,50 @@ export const reAlignFlaggingFaults = functions.https.onRequest(
     }
   }
 );
+
+export const flattenPhotosFromCliqs = functions.https.onRequest(
+  async (request, response) => {
+    const batch = store.batch();
+    try {
+      const allCliqs = await store.collection(REF_FLOQS).get();
+      for (const doc of allCliqs.docs) {
+        const id = doc.id;
+        const photos = await store
+          .collection(REF_FLOQS)
+          .doc(id)
+          .collection(REF_PHOTOS)
+          .get();
+        photos.docs.forEach(x => {
+          let data = x.data();
+          data[FIELD_CLIQ_ID] = id;
+          const ref = store.collection(REF_FLPHOTOS).doc(x.id);
+          batch.set(ref, data, { merge: true });
+        });
+      }
+
+      const resp = batch.commit();
+      response.status(200).send(resp);
+    } catch (e) {
+      console.log(`Error coccurred with sig: ${e}`);
+      response.status(500).send(e);
+    }
+  }
+);
+
+export const alignOldPhotoSchematoNew = functions.firestore
+  .document(`${REF_FLOQS}/{cliqId}/${REF_PHOTOS}/{photoId}`)
+  .onCreate(async (snap, context) => {
+    try {
+      const id = context.params.id;
+      const data = snap.data();
+      data[FIELD_CLIQ_ID] = id;
+      const op = store
+        .collection(REF_FLPHOTOS)
+        .doc(snap.id)
+        .set(data, { merge: true });
+      return Promise.resolve(op);
+    } catch (e) {
+      console.log(`Error occurred with sig: ${e}`);
+      return Promise.reject(e);
+    }
+  });

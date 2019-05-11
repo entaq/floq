@@ -7,6 +7,7 @@ import store from "./store";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import AppNavBar from "./components/AppNavBar";
+import Flagged from "./components/flagged/Flagged";
 
 console.log(store);
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
                 path="/login"
                 component={UserIsNotAuthenticated(Login)}
               />
+
               <Route
                 component={UserIsAuthenticated(AuthenticatedContainerLayout)}
               />
@@ -41,6 +43,7 @@ const AuthenticatedContainerLayout = () => {
     <div>
       <AppNavBar />
       <Route exact path="/" component={Dashboard} />
+      <Route exact path="/flagged" component={Flagged} />
     </div>
   );
 };
