@@ -8,7 +8,7 @@
 
 import IGListKit
 import Firebase
-import Floaty
+
 import CoreLocation
 import Geofirestore
 

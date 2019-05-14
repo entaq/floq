@@ -32,6 +32,10 @@ class PhotosEngine:NSObject{
         return Firestore.database.collection(References.floqs.rawValue)
     }
     
+    private var photoRef:CollectionReference{
+        return Firestore.database.collection(References.photos.rawValue)
+    }
+    
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
         let all = _internalPhotoContainer.compactMap { item -> [String:String] in
@@ -87,7 +91,7 @@ class PhotosEngine:NSObject{
     
     func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
-        floqRef.document(cliqDocumentID).collection(References.photos.rawValue)
+        photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID)
             .addSnapshotListener { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     print("Error fetching snapshots: \(error!)")
@@ -152,7 +156,7 @@ class PhotosEngine:NSObject{
         guard photo != nil else {return}
         if photo!.Liked(){return}
         let uid = UserDefaults.uid
-        let ref = floqRef.document(cliqID).collection(.photos).document(id)
+        let ref = photoRef.document(id)
         
         Firestore.database.runTransaction({ (transaction, errroP) -> Any? in
             let doc:DocumentSnapshot
@@ -283,9 +287,8 @@ class PhotosEngine:NSObject{
                 docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                 print(docData, filePath)
                 
-                self.floqRef.document(id)
-                    .collection(References.photos.rawValue).document(filePath)
-                    .setData(docData) { err in
+                self.photoRef.document(filePath)
+                    .setData(docData,merge:true) { err in
                         if let err = err {
                             onFinish(false,err.localizedDescription)
                             print("Error writing document: \(err)")

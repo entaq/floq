@@ -39,18 +39,23 @@ class UserSettingsTVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            UIApplication.openSettings()
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "\(BlockedUsersVC.self)") as? BlockedUsersVC{
+                navigationController?.pushViewController(vc, animated: true)
+            }
             break
         case 1:
-            lauchWebView()
+            UIApplication.openSettings()
             break
         case 2:
-            launchEula()
+            lauchWebView()
             break
         case 3:
-             logout()
+            launchEula()
             break
         case 4:
+             logout()
+            break
+        case 5:
             deactivateAccount()
             break
         default:

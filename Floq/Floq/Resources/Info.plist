@@ -49,11 +49,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>loq is a location based photo sharing app, having access to your camera will make it easier for you to upload photos to the app.</string>
+	<string>Floq is a location based photo sharing app, having access to your camera will make it easier for you to upload photos to the app.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow Floq to use your location. Location data will not be shared to any other third party</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>floq is a location based photo sharing app, your location is required to create and find shared albums near you.</string>
+	<string>Floq is a location based photo sharing app, your location is required to create and find shared albums near you.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Allow Floq to access your Photo Library to save photos from your cliqs</string>
 	<key>NSPhotoLibraryUsageDescription</key>

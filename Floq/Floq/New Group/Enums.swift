@@ -24,7 +24,8 @@ enum ImageSizes:Int{
     case supermax = 32000000
     case max = 16000000
     case medium = 8000000
-    case min = 4000000
+    case minlg = 4000000
+    case min = 1000000
 }
 
 enum Update:Int{
@@ -38,7 +39,7 @@ enum References:String{
     case users = "FLUSER"
     case floqs = "FLFLOQs"
     case flocations = "FLLocations"
-    case photos = "Photos"
+    case photos = "FLPHOTOS"
     case myCliqs = "Cliqs"
     case userProfilePhotos = "ProfilePhotos"
     case followers = "Followers"

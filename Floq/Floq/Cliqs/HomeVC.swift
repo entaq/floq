@@ -9,7 +9,7 @@
 import UIKit
 import IGListKit
 import Firebase
-import Floaty
+
 import CoreLocation
 import SDWebImage
 import Geofirestore

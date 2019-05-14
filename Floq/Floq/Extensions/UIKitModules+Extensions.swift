@@ -104,19 +104,23 @@ extension UIImage{
         var compression:CGFloat = 1
         if let data = jpegData(compressionQuality: compression){
             if data.count < ImageSizes.min.rawValue{
-                compression = 1
+                compression = 0.6
                 return jpegData(compressionQuality: compression)
             }
-            if data.count < ImageSizes.medium.rawValue{
-                compression = 0.8
-                return jpegData(compressionQuality: compression)
-            }
-            if data.count < ImageSizes.max.rawValue{
+            if data.count < ImageSizes.minlg.rawValue{
                 compression = 0.5
                 return jpegData(compressionQuality: compression)
             }
+            if data.count < ImageSizes.medium.rawValue{
+                compression = 0.4
+                return jpegData(compressionQuality: compression)
+            }
+            if data.count < ImageSizes.max.rawValue{
+                compression = 0.2
+                return jpegData(compressionQuality: compression)
+            }
             
-            compression = 0.3
+            compression = 0.1
             return jpegData(compressionQuality: compression)
             
         }

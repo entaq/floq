@@ -14,31 +14,31 @@ PODS:
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - DKCamera (1.6.4)
-  - DKImagePickerController (4.1.2):
-    - DKImagePickerController/Camera (= 4.1.2)
-    - DKImagePickerController/Core (= 4.1.2)
-    - DKImagePickerController/ImageDataManager (= 4.1.2)
-    - DKImagePickerController/InlineCamera (= 4.1.2)
-    - DKImagePickerController/PhotoEditor (= 4.1.2)
-    - DKImagePickerController/PhotoGallery (= 4.1.2)
-    - DKImagePickerController/Resource (= 4.1.2)
-  - DKImagePickerController/Camera (4.1.2):
+  - DKImagePickerController (4.1.3):
+    - DKImagePickerController/Camera (= 4.1.3)
+    - DKImagePickerController/Core (= 4.1.3)
+    - DKImagePickerController/ImageDataManager (= 4.1.3)
+    - DKImagePickerController/InlineCamera (= 4.1.3)
+    - DKImagePickerController/PhotoEditor (= 4.1.3)
+    - DKImagePickerController/PhotoGallery (= 4.1.3)
+    - DKImagePickerController/Resource (= 4.1.3)
+  - DKImagePickerController/Camera (4.1.3):
     - DKCamera
     - DKImagePickerController/Core
-  - DKImagePickerController/Core (4.1.2):
+  - DKImagePickerController/Core (4.1.3):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
-  - DKImagePickerController/ImageDataManager (4.1.2)
-  - DKImagePickerController/InlineCamera (4.1.2):
+  - DKImagePickerController/ImageDataManager (4.1.3)
+  - DKImagePickerController/InlineCamera (4.1.3):
     - DKCamera
     - DKImagePickerController/Core
-  - DKImagePickerController/PhotoEditor (4.1.2):
+  - DKImagePickerController/PhotoEditor (4.1.3):
     - DKImagePickerController/Core
     - TOCropViewController (~> 2.4)
-  - DKImagePickerController/PhotoGallery (4.1.2):
+  - DKImagePickerController/PhotoGallery (4.1.3):
     - DKImagePickerController/Core
     - DKPhotoGallery
-  - DKImagePickerController/Resource (4.1.2)
+  - DKImagePickerController/Resource (4.1.3)
   - DKPhotoGallery (0.0.11):
     - DKPhotoGallery/Core (= 0.0.11)
     - DKPhotoGallery/Model (= 0.0.11)
@@ -150,7 +150,6 @@ PODS:
     - Firebase/Storage (~> 5.0)
     - SDWebImage (~> 4.0)
   - FLAnimatedImage (1.0.12)
-  - Floaty (4.0.1)
   - GeoFire (3.0.0):
     - Firebase/Database (~> 5.0)
   - Geofirestore (1.2.0):
@@ -234,7 +233,6 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - FirebaseUI/Storage (~> 5.0)
-  - Floaty (~> 4.0.0)
   - Geofirestore
   - IGListKit
 
@@ -265,7 +263,6 @@ SPEC REPOS:
     - FirebaseStorage
     - FirebaseUI
     - FLAnimatedImage
-    - Floaty
     - GeoFire
     - Geofirestore
     - GoogleAppMeasurement
@@ -285,7 +282,7 @@ SPEC CHECKSUMS:
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   DKCamera: 61fa47629a39354e5111bca1fe96695de020dcb9
-  DKImagePickerController: 358ebcd5ce87db8863ec4b8dea651c67baca36e0
+  DKImagePickerController: 7c8c788a17251dfbcf4920c5f042d55c3b900d68
   DKPhotoGallery: e5fc53899345c26af4374503dd249caabac7d26a
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
@@ -306,7 +303,6 @@ SPEC CHECKSUMS:
   FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
   FirebaseUI: 09519bf436a055cd696bf68687d624423150e4c0
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   GeoFire: e3ae6f4be3f2466c3467ef6c1c203db3af935c59
   Geofirestore: ad548ea5e3c1ae595c746c7b796df5534d8202f3
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
@@ -321,6 +317,6 @@ SPEC CHECKSUMS:
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   TOCropViewController: 368d8df3ea43b62c3dc5a61f11b9048274d240bd
 
-PODFILE CHECKSUM: f531897fcc79f6f7eb5f1397354d946eb5d38833
+PODFILE CHECKSUM: bf2025f343df21058c09923f6c276fb124a2c4dd
 
 COCOAPODS: 1.5.3

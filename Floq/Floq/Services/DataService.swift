@@ -231,7 +231,7 @@ class DataService{
                     docData.removeValue(forKey: Fields.coordinate.rawValue)
                     docData.updateValue(false, forKey: Fields.flagged.rawValue)
                     docData.updateValue([], forKey: Fields.flaggers.rawValue)
-                    batch.setData(docData, forDocument:self.floqRef.document(filePath).collection(References.photos.rawValue).document("\(tpath)") , merge: true)
+                    batch.setData(docData, forDocument:self.store.collection(References.photos.rawValue).document("\(tpath)") , merge: true)
                     batch.commit(completion: { (err) in
                         if err != nil {
                             onFinish(false,"Error writing document data")
@@ -287,6 +287,26 @@ class DataService{
                 let update = UpdateInfo(snap: snapshot)
                 handler(update,nil)
             }
+        }
+    }
+    
+    
+    func getBlockedUsers(handler:@escaping (_ users:[FLUser])->()){
+        guard let blocked = appUser?.myblockingList else {return}
+        let dispatch = DispatchGroup()
+        var users = [FLUser]()
+        blocked.forEach{
+            dispatch.enter()
+            userRef.document($0).getDocument(completion: { (snap, err) in
+                let user = (snap != nil && snap!.exists) ? FLUser(snap: snap!) : nil
+                if let user = user{
+                    users.append(user)
+                }
+                dispatch.leave()
+            })
+        }
+        dispatch.notify(queue: .main) {
+            handler(users)
         }
     }
     

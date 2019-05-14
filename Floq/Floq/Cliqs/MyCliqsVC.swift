@@ -7,7 +7,7 @@
 //
 
 import IGListKit
-import Floaty
+
 
 class MyCliqsVC: UIViewController {
     
