@@ -52,6 +52,16 @@ class DataService{
         return store.collection(References.users.rawValue)
     }
     
+    func getPhotoItem(id:String,handler:@escaping (_ photo:PhotoItem?)->()){
+        store.collection(.photos).document(id).getDocument { (document, err) in
+            if let doc = document{
+                guard doc.exists else {handler(nil);return}
+                let item = PhotoItem(doc: doc)
+                handler(item)
+            }
+        }
+    }
+    
     
     func setUser(user:FLUser, handler:@escaping CompletionHandlers.dataservice){
         let data = [Fields.username.rawValue: user.username, Fields.dateCreated.rawValue:Date(),Fields.profileImg.rawValue:user.profileImg?.absoluteString ?? "",Fields.cliqCount.rawValue:0] as [String:Any]
@@ -250,7 +260,7 @@ class DataService{
     func blockUser(id:String,completion:@escaping CompletionHandlers.storage){
        let batch = store.batch()
         batch.setData([Fields.myblockingList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
-        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayUnion([id])], forDocument: userRef.document(id), merge: true)
+        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayUnion([UserDefaults.uid])], forDocument: userRef.document(id), merge: true)
         batch.commit(){ err in
             if let err = err{
                 completion(false,err.localizedDescription)
@@ -262,7 +272,7 @@ class DataService{
     func unBlockUser(id:String,completion:@escaping CompletionHandlers.storage){
         let batch = store.batch()
         batch.setData([Fields.myblockingList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(UserDefaults.uid), merge:true)
-        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayRemove([id])], forDocument: userRef.document(id), merge: true)
+        batch.setData([Fields.blockedMeList.rawValue:FieldValue.arrayRemove([UserDefaults.uid])], forDocument: userRef.document(id), merge: true)
         batch.commit(){ err in
             if let err = err{
                 completion(false,err.localizedDescription)

@@ -24,6 +24,7 @@ final class PhotoItem: ListDiffable, Equatable {
     public private (set) var likers:Likers
     public private (set) var shards:Shards
     public private (set) var likesUpdated:Bool = false
+    public private (set) var flagged:Bool = false
     
     init(id:String,photoID: String, user: String, timestamp:Date,uid:String, likes:Int = 0) {
         absoluteID = id
@@ -44,6 +45,7 @@ final class PhotoItem: ListDiffable, Equatable {
         user = doc.getString(.username)
         timestamp = doc.getDate(.timestamp)
         userUid = doc.getString(.userUID)
+        flagged = doc.getBoolena(.flagged)
         likes = doc.getInt(.likes)
         likers = doc.getArray(.likers) as? Likers ?? []
         shards = doc.getDictionary(.shardLikes) as? Shards ?? [:]

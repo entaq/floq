@@ -70,6 +70,14 @@ class FLCliqItem:ListDiffable, Equatable{
         return false
     }
     
+    func getPhotoItem(id:String){
+        DataService.main.getPhotoItem(id: id) { (photo) in
+            if let photo = photo{
+                self.item = photo
+            }
+        }
+    }
+    
     init(snapshot:DocumentSnapshot) {
         
         id = snapshot.documentID
@@ -88,6 +96,7 @@ class FLCliqItem:ListDiffable, Equatable{
         isActive = timestamp.nextDay > Date()
         joined = followers.contains(UserDefaults.uid)
         location = snapshot.getLocation(.coordinate)
+        getPhotoItem(id: id)
         
     }
     

@@ -42,14 +42,6 @@ class CliqEngine:NSObject{
         core = CoreEngine()
         homeData = []
         subscribeTo(subscription: .geoPointUpdated, selector: #selector(locationUpdated(_:)))
-//        let locationSub = core.locationPoint.share()
-//        locationSub.subscribe(onNext: { (point) in
-//            self.geoPoint = point
-//            self.listenForCliqsAt(geopoint: point)
-//        }) {
-//
-//            }.disposed(by: bag)
-        
         start()
     }
     

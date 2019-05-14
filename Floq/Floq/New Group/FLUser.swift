@@ -34,6 +34,10 @@ class FLUser{
         return myblockingList.contains(id)
     }
     
+    func hasBlockedMe(user id:String)->Bool{
+        return blockedMeList.contains(id)
+    }
+    
     func isBlocked(user id:String)->Bool{
         return blockedMeList.contains(id) || myblockingList.contains(id)
     }

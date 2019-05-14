@@ -38,7 +38,14 @@ class PhotosEngine:NSObject{
     
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
-        let all = _internalPhotoContainer.compactMap { item -> [String:String] in
+        let all = _internalPhotoContainer.compactMap { item -> [String:String]?  in
+            if let user = appUser{
+                if user.hasBlockedMe(user: item.userUid){
+                    return nil
+                }else{
+                    return [item.userUid:item.user]
+                }
+            }
             return [item.userUid:item.user]
         }
         
@@ -51,7 +58,7 @@ class PhotosEngine:NSObject{
         
         let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
             return (value.key,value.value.0, value.value.1)
-        }
+            }
         
         return stup
     }

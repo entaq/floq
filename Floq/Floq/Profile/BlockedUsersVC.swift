@@ -86,6 +86,9 @@ class BlockedUsersVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if users.isEmpty{
+            return "You have no user on your block list"
+        }
         return "Swipe left to unblock a user"
     }
     
