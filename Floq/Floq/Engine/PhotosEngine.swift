@@ -82,18 +82,24 @@ class PhotosEngine:NSObject{
     
     
     
-    func flagPhoto(photoID:String,cliqId:String, handler:@escaping CompletionHandlers.storage){
+    func flagPhoto(photoID:String,cliqID:String? = nil, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
-        floqRef.document(cliqId).collection(.photos).document(photoID).updateData([Fields.flagged.rawValue: true, Fields.flaggers.rawValue:FieldValue.arrayUnion([id])]) { (err) in
+        let batch = Firestore.database.batch()
+        if let cliq = cliqID{
+            batch.updateData([Fields.flaggers.rawValue:FieldValue.arrayUnion([id])], forDocument: floqRef.document(cliq))
+        }
+        batch.updateData([Fields.flagged.rawValue: true, Fields.flaggers.rawValue:FieldValue.arrayUnion([id])], forDocument: photoRef.document(photoID))
+        batch.commit(completion: { (err) in
             if let err = err {
                 
                 handler(false,err.localizedDescription)
+    
             }else{
-                self.allphotos.removeAll{$0.absoluteID == photoID}
+                self.allphotos.removeAll{$0.id == photoID}
                 self.generateGridItems()
                 handler(true,nil)
             }
-        }
+        })
     }
     
     func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.storage){
@@ -127,12 +133,12 @@ class PhotosEngine:NSObject{
                     }else if diff.type == .modified{
                         let id = diff.document.documentID
                         self._internalPhotoContainer.first(where: { (item) -> Bool in
-                            return item.absoluteID == id
+                            return item.id == id
                         })?.makeChanges(diff.document)
                         self.post(.modified)
                     }else if diff.type == .removed{
                         self._internalPhotoContainer.removeAll(where: { (photo) -> Bool in
-                            return photo.photoID == diff.document.documentID
+                            return photo.fileID == diff.document.documentID
                         })
                         
                     }
@@ -141,10 +147,10 @@ class PhotosEngine:NSObject{
     }
     
     func getExtraLikes(id:String){
-        guard let photo = allphotos.first(where: {$0.absoluteID == id}) else{return}
+        guard let photo = allphotos.first(where: {$0.id == id}) else{return}
         if photo.likesUpdated {return}
         if photo.shards.count > 0{
-            photo.reference.collection(.likes).getDocuments { (query, err) in
+            photoRef.document(id).collection(.likes).getDocuments { (query, err) in
                 guard let query = query else{return}
                 var likes = PhotoItem.Likers()
                 for doc in query.documents{
@@ -159,7 +165,7 @@ class PhotosEngine:NSObject{
     }
     
     func likeAPhoto(cliqID:String,id:String){
-        let photo = allphotos.first {return $0.absoluteID == id}
+        let photo = allphotos.first {return $0.id == id}
         guard photo != nil else {return}
         if photo!.Liked(){return}
         let uid = UserDefaults.uid
@@ -250,14 +256,14 @@ class PhotosEngine:NSObject{
         guard let user = appUser else {return}
         if let id = id{
             if let pid = photoId{
-                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.absoluteID != pid}
+                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.id != pid}
             }else{
                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id}
             }
             
         }else{
             if let pid = photoId{
-                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.absoluteID != pid}
+                allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.id != pid}
             }else{
                 allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid)}
             }

@@ -26,20 +26,19 @@ class PhotoFullScreenVC: UIViewController {
     var likebar:UIView  = UIView(frame: .zero)
     var selectedIndex:Int = 0
     var imgv:UIImageView!
+    private var photoFileID:String?
+    private var cliq:FLCliqItem?
     
-    var floqname:String
     var userUid:String?
     var username:String?
     var total:Int!
     var currentPhotoID:String?
-    private var cliqID:String
     var isSelected = false
     var inset:CGFloat = 30
-    init(engine:PhotosEngine, selected index:Int, name:String, id:String){
+    init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem){
         self.engine = engine
         self.selectedIndex = index
-        cliqID = id
-        floqname = name
+        self.cliq = cliq
         super.init(nibName: nil, bundle: nil)
         runConfig()
         
@@ -288,10 +287,12 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
     }
     
     func flagAPhoto(view:LoaderView){
-        guard let id = currentPhotoID else {return}
-        engine.flagPhoto(photoID: id, cliqId: cliqID) { (success, errM) in
+        guard let id = currentPhotoID, let cliq = self.cliq else {return}
+        let cliqID = (cliq.fileID == photoFileID!) ? cliq.id : nil
+        engine.flagPhoto(photoID: id, cliqID: cliqID) { (success, errM) in
             view.removeFromSuperview()
             if (success){
+                Subscription.main.post(suscription: .photoFlagged, object:self.photoFileID ?? "" )
                 let alert = UIAlertController.createDefaultAlert("Success", "Content eas succesfully reported",.alert, "OK",.default, nil)
                 self.present(alert, animated: true, completion: nil)
                 self.reload(id: id)
@@ -343,9 +344,10 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         }
     }
     
-    func willDisplayPhoto(with reference: StorageReference, for user: (String, String,Int,Bool), _ photoId: String) {
+    func willDisplayPhoto(with reference: StorageReference, for user: (String, String,Int,Bool), _ photoId: String, fileId:String) {
         currentPhotoID = photoId
         engine.getExtraLikes(id: photoId)
+        photoFileID = fileId
         userUid = user.0
         avatarImageview.sd_setImage(with: reference, placeholderImage: UIImage.placeholder)
         username = user.1
@@ -371,12 +373,13 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             
         }
         if let photo = engine.allPhotos.first(where: { (item) -> Bool in
-            return item.absoluteID == currentPhotoID!
+            return item.id == currentPhotoID!
         }){
             if !photo.likers.contains(UserDefaults.uid){
                 
                 likelabel.text = "\(photo.likes + 1)"
                 imgv.isUserInteractionEnabled = false
+                guard let cliqID = cliq?.id else {return}
                 engine.likeAPhoto(cliqID: cliqID, id: currentPhotoID!)
             }
         }
@@ -399,12 +402,13 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             
         }
         if let photo = engine.allPhotos.first(where: { (item) -> Bool in
-            return item.absoluteID == currentPhotoID!
+            return item.id == currentPhotoID!
         }){
             if !photo.likers.contains(UserDefaults.uid){
                 
                 likelabel.text = "\(photo.likes + 1)"
                 imgv.isUserInteractionEnabled = false
+                guard let cliqID = cliq?.id else {return}
                 engine.likeAPhoto(cliqID: cliqID, id: currentPhotoID!)
             }
         }

@@ -12,36 +12,38 @@ final class PhotoItem: ListDiffable, Equatable {
     typealias Likers = [String]
     typealias Shards = [String:Bool]
     static func ==(lhs: PhotoItem, rhs: PhotoItem) -> Bool {
-        return lhs.photoID == rhs.photoID && lhs.user == rhs.user
+        return lhs.fileID == rhs.fileID && lhs.user == rhs.user
     }
-    var reference:DocumentReference!
-    let photoID: String
+    var id:String
+    let fileID: String
     let user: String
     let timestamp:Date
     let userUid:String
-    let absoluteID:String
+    let cliqID:String
+    
     public private (set) var likes:Int
     public private (set) var likers:Likers
     public private (set) var shards:Shards
     public private (set) var likesUpdated:Bool = false
     public private (set) var flagged:Bool = false
     
-    init(id:String,photoID: String, user: String, timestamp:Date,uid:String, likes:Int = 0) {
-        absoluteID = id
-        self.photoID = photoID
+    init(id:String,cliq:String, photoID: String, user: String, timestamp:Date,uid:String, likes:Int = 0) {
+        self.id = id
+        self.fileID = photoID
         self.user = user
         self.timestamp = timestamp
         self.userUid = uid
         self.likes = likes
         likers = []
         shards = [:]
+        cliqID = cliq
         
     }
     
     init(doc:DocumentSnapshot){
-        reference = doc.reference
-        photoID = doc.getString(.fileID)
-        absoluteID = doc.documentID
+        id = doc.documentID
+        fileID = doc.getString(.fileID)
+        cliqID = doc.getString(.cliqID)
         user = doc.getString(.username)
         timestamp = doc.getDate(.timestamp)
         userUid = doc.getString(.userUID)
@@ -82,7 +84,7 @@ final class PhotoItem: ListDiffable, Equatable {
     // MARK: ListDiffable
     
     func diffIdentifier() -> NSObjectProtocol {
-        return photoID as NSObjectProtocol
+        return fileID as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {

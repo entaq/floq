@@ -39,7 +39,7 @@ final class GridPhotoSection: ListSectionController {
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         if let cell = collectionContext?.dequeueReusableCell(withNibName:String(describing: PhotoCell.self), bundle: Bundle.main, for: self, at: index) as? PhotoCell {
             let photoItem = gridItem?.items[index]
-            let reference = storageRef.child(photoItem?.photoID ?? "")
+            let reference = storageRef.child(photoItem?.fileID ?? "")
             cell.configureCell(ref: reference)
             return cell
         }

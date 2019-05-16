@@ -42,6 +42,7 @@ class CliqEngine:NSObject{
         core = CoreEngine()
         homeData = []
         subscribeTo(subscription: .geoPointUpdated, selector: #selector(locationUpdated(_:)))
+        subscribeTo(subscription: .photoFlagged, selector: #selector(listenForFlagged(_:)))
         start()
     }
     
@@ -50,6 +51,11 @@ class CliqEngine:NSObject{
             self.geoPoint = point
             listenForCliqsAt(geopoint: point)
         }
+    }
+    
+    @objc func listenForFlagged(_ notification:Notification){
+        guard let id = notification.userInfo?[.info] as? String else {return}
+        //myCliqs.forEach{if $0.fileID == id{$0.shouldFlagCover = true}}
     }
     
     private var storage:Storage{
@@ -153,7 +159,7 @@ class CliqEngine:NSObject{
         }
         if nearbyCliqs.isEmpty{return}
         nearbyCliqs.sort { (a1, a2) -> Bool in
-            return a1.item.timestamp > a2.item.timestamp
+            return a1.timestamp > a2.timestamp
         }
         if nearbyScliq != nil{
             if homeData.contains(nearbyScliq!){
@@ -254,7 +260,7 @@ class CliqEngine:NSObject{
             return sec.sectionType == .mine
         }
         if myCliqs.isEmpty{return}
-        myCliqs.sort {return $0.item.timestamp > $1.item.timestamp}
+        myCliqs.sort {return $0.timestamp > $1.timestamp}
         mySectionalCliqs = SectionableCliq(cliqs: myCliqs, type: .mine,count:count)
         homeData.append(mySectionalCliqs!)
         

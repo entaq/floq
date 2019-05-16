@@ -50,10 +50,10 @@ class UserListVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if list.isEmpty{
-           return "Cliq created on \(cliq.item.timestamp.toStringwith(.month_day_year)) by \(cliq.item.user)"
+           return "Cliq created on \(cliq.timestamp.toStringwith(.month_day_year)) by \(cliq.creatorName)"
         }
         return """
-        Cliq created on \(cliq.item.timestamp.toStringwith(.month_day_year)) by \(cliq.item.user)
+        Cliq created on \(cliq.timestamp.toStringwith(.month_day_year)) by \(cliq.creatorName)
         
         You can block users and their content by swiping left on their user name, this action can be undone.
         """

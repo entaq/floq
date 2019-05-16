@@ -55,7 +55,7 @@ class CliqsCell: UICollectionViewCell {
     func configureView(cliq:FLCliqItem, key:keys?) {
         self.cliq = cliq
         numberOfCliqslbl.isHidden = true
-        let reference = Storage.floqPhotos.child(cliq.item.photoID)
+        let reference = Storage.floqPhotos.child(cliq.fileID)
         imageview.sd_setImage(with: reference, placeholderImage: nil)
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.name
@@ -69,7 +69,7 @@ class CliqsCell: UICollectionViewCell {
             configureMemberAvatar(followers: cliq.followers)
             break
         case .near:
-            self.creator.text = cliq.item.user
+            self.creator.text = cliq.creatorName
             avi.setAvatar(uid: cliq.creatorUid)
             break
         default:
@@ -148,11 +148,11 @@ class CliqsCell: UICollectionViewCell {
     
     func configureViewForSection(cliq:SectionableCliq){
         let cl = cliq.getFirstItem()
-        if cl.item.flagged{
-            let reference = Storage.floqPhotos.child(cl.item.photoID)
-            imageview.sd_setImage(with: reference, placeholderImage:nil)
-        }else{
+        if cl.hasFlagged(){
             imageview.backgroundColor = .seafoamBlue
+        }else{
+            let reference = Storage.floqPhotos.child(cl.fileID)
+            imageview.sd_setImage(with: reference, placeholderImage:nil)
         }
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.sectionType.rawValue

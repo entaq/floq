@@ -13,7 +13,7 @@ import FirebaseStorage
 
 protocol FullScreenScetionDelegate:class {
     
-    func willDisplayPhoto(with reference:StorageReference, for user:(String,String,Int,Bool), _ photoId:String)
+    func willDisplayPhoto(with reference:StorageReference, for user:(String,String,Int,Bool), _ photoId:String, fileId:String)
     func willDisplayIndex(_ index:Int)
     func photoWasLiked(id:String?)
     func photoWasSelected()
@@ -27,7 +27,7 @@ final class FullScreenPhotoSection: ListSectionController,PhotoLikedDelegate {
     
     
     func photoWasLiked() {
-        delegate?.photoWasLiked(id:photo?.photoID)
+        delegate?.photoWasLiked(id:photo?.fileID)
     }
     
     private var photo:PhotoItem?
@@ -77,7 +77,7 @@ extension FullScreenPhotoSection: ListDisplayDelegate{
         if let photo = photo{
             let reference = Storage.reference(.userProfilePhotos).child(photo.userUid)
            
-            delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user,photo.likes,photo.hasliked()), photo.absoluteID)
+            delegate?.willDisplayPhoto(with: reference, for:(photo.userUid,photo.user,photo.likes,photo.hasliked()), photo.id,fileId: photo.fileID)
         }
     }
     
