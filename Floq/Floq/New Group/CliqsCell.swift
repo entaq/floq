@@ -53,10 +53,15 @@ class CliqsCell: UICollectionViewCell {
     }
     
     func configureView(cliq:FLCliqItem, key:keys?) {
+        if cliq.hasFlagged(){
+            imageview.backgroundColor = .seafoamBlue
+        }else{
+            let reference = Storage.floqPhotos.child(cliq.fileID)
+            imageview.sd_setImage(with: reference, placeholderImage: nil)
+        }
         self.cliq = cliq
         numberOfCliqslbl.isHidden = true
-        let reference = Storage.floqPhotos.child(cliq.fileID)
-        imageview.sd_setImage(with: reference, placeholderImage: nil)
+        
         containerView.sendSubviewToBack(imageview)
         self.title.text = cliq.name
         guard let key = key else{return}
