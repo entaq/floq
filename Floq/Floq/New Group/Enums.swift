@@ -29,7 +29,7 @@ enum ImageSizes:Int{
 }
 
 enum Update:Int{
-    case current = 5
+    case current = 7
     case leastSupport = 0
 }
 
@@ -142,6 +142,7 @@ struct Info{
 
 
 enum DateFormats:String{
+    
     case short_t = "MM-dd-yyyy HH:mm"
     case shirt_nt = "MM/dd/yyyy"
     case year_month = "MMMM yyyy"

@@ -20,9 +20,8 @@ export default class Flagged extends Component {
       .firestore()
       .collection(REF_FLPHOTOS)
       .where(FIELD_FLAGGED, "==", true)
-      .get()
-      .then(query => {
-        const data = query.docs;
+      .onSnapshot(queries => {
+        const data = queries.docs;
         console.log(data);
         this.setState({ data });
       });
@@ -38,7 +37,9 @@ export default class Flagged extends Component {
         </div>
         <div className="row">
           {data.map(doc => {
-            return <FlaggedCard key={doc.id} content={doc.data()} />;
+            const data = doc.data();
+            data.id = doc.id;
+            return <FlaggedCard key={doc.id} content={data} />;
           })}
         </div>
       </div>

@@ -230,7 +230,8 @@ class DataService{
                     ]
                     docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                     print(docData, filePath)
-                    batch.setData(docData, forDocument: self.floqRef.document(filePath), merge: true)
+                    let cliqID = self.floqRef.document(filePath)
+                    batch.setData(docData, forDocument: cliqID, merge: true)
                     
                     
                     let addata = [Fields.cliqCount.rawValue: count + 1]
@@ -241,6 +242,7 @@ class DataService{
                     docData.removeValue(forKey: Fields.coordinate.rawValue)
                     docData.updateValue(false, forKey: Fields.flagged.rawValue)
                     docData.updateValue([], forKey: Fields.flaggers.rawValue)
+                    docData.updateValue(cliqID.documentID, forKey: Fields.cliqID.rawValue)
                     batch.setData(docData, forDocument:self.store.collection(References.photos.rawValue).document("\(tpath)") , merge: true)
                     batch.commit(completion: { (err) in
                         if err != nil {

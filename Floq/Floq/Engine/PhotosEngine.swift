@@ -295,7 +295,8 @@ class PhotosEngine:NSObject{
                 var docData: [String: Any] = [
                     Fields.timestamp.rawValue : FieldValue.serverTimestamp(),
                     Fields.flagged.rawValue:false,
-                    Fields.flaggers.rawValue:[]
+                    Fields.flaggers.rawValue:[],
+                    Fields.cliqID.rawValue:id
                 ]
                 docData.merge(newMetadata.customMetadata!, uniquingKeysWith: { (_, new) in new })
                 print(docData, filePath)

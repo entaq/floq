@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { exctractCliqName, REF_PHOTOBUCKET } from "../../services/database";
+import {
+  exctractCliqName,
+  REF_PHOTOBUCKET,
+  deleteFlagged,
+  unflagPhoto
+} from "../../services/database";
 import * as firebase from "firebase";
 import placeholder from "../../img/17.jpg";
 
@@ -19,10 +24,36 @@ class FlaggedCard extends Component {
         .ref(`${REF_PHOTOBUCKET}/${fileID}`)
         .getDownloadURL()
         .then(x => {
-          console.log("The props are " + x);
           this.setState({ img: x });
         });
     }
+  }
+
+  imageClicked() {
+    const { img } = this.state;
+    if (img) {
+      window.open("", "_blank").document.write(
+        `<img width="80%" 
+          height="80%" style="object-fit : contain" 
+          src=${img} alt="Reported">`
+      );
+    }
+  }
+
+  deleteFlagged() {
+    const { cliqID, fileID, userID, id } = this.props.content;
+    console.log(this.props.content);
+
+    deleteFlagged(id, userID, cliqID, fileID).then(x => {
+      alert("Removed succesfully");
+    });
+  }
+
+  unflagPhoto() {
+    const { id } = this.props.content;
+    unflagPhoto(id).then(x => {
+      alert("Unflagged");
+    });
   }
 
   componentWillReceiveProps(nextProps) {}
@@ -37,12 +68,17 @@ class FlaggedCard extends Component {
               src={this.state.img}
               alt="REported Image"
               className="card-img-top"
+              height="350px"
+              style={{ objectFit: "cover" }}
+              onClick={this.imageClicked.bind(this)}
             />
           ) : (
             <img
               src={placeholder}
               alt="REported Image"
               className="card-img-top"
+              height="350px"
+              style={{ objectFit: "cover" }}
             />
           )}
           <div className="card-body">
@@ -61,10 +97,16 @@ class FlaggedCard extends Component {
           </div>
 
           <div className="card-footer">
-            <a href="#" className=" btn btn-primary card-link float-left">
+            <a
+              onClick={this.unflagPhoto.bind(this)}
+              className=" btn btn-primary card-link text-white float-left"
+            >
               Unflag Photo
             </a>
-            <a href="#" className="btn btn-danger card-link float-right">
+            <a
+              onClick={this.deleteFlagged.bind(this)}
+              className="btn btn-danger card-link text-white float-right"
+            >
               Delete Photo
             </a>
           </div>
