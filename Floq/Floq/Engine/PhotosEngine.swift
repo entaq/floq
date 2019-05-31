@@ -135,7 +135,7 @@ class PhotosEngine:NSObject{
                         self._internalPhotoContainer.first(where: { (item) -> Bool in
                             return item.id == id
                         })?.makeChanges(diff.document)
-                        self.post(.modified)
+                        self.post(.reloadPhotos)
                     }else if diff.type == .removed{
                         self._internalPhotoContainer.removeAll(where: { (photo) -> Bool in
                             return photo.fileID == diff.document.documentID
@@ -314,7 +314,7 @@ class PhotosEngine:NSObject{
             })
     }
     
-    func post(_ name:FLNotification){
-        NotificationCenter.post(name: name)
+    func post(_ name:Subscription.Name){
+        Subscription.main.post(suscription: name, object: nil)
     }
 }

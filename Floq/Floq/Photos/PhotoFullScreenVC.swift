@@ -104,7 +104,12 @@ class PhotoFullScreenVC: UIViewController {
         
     }
     
-    @objc func reload(id:String){
+    @objc func reloadPhotos(){
+         adapter.reloadData(completion: nil)
+    }
+    
+    
+    func reload(id:String){
         engine.generateGridItems(photoId:id)
         adapter.reloadData(completion: nil)
     }
@@ -176,7 +181,7 @@ class PhotoFullScreenVC: UIViewController {
         
         adapter.reloadData(completion: nil)
         moveToNext()
-        NotificationCenter.set(observer: self, selector: #selector(reload), name: .modified)
+        subscribeTo(subscription: .reloadPhotos, selector: #selector(reloadPhotos))
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -293,7 +298,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             view.removeFromSuperview()
             if (success){
                 Subscription.main.post(suscription: .photoFlagged, object:self.photoFileID ?? "" )
-                let alert = UIAlertController.createDefaultAlert("Success", "Content eas succesfully reported",.alert, "OK",.default, nil)
+                let alert = UIAlertController.createDefaultAlert("Success", "Content was succesfully reported",.alert, "OK",.default, nil)
                 self.present(alert, animated: true, completion: nil)
                 self.reload(id: id)
             }

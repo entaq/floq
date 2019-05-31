@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = .barTint
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
+        watchForUpdateChanges()
         
         return true
         
@@ -46,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         isSyncng = false
-        isWatching = false
+        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -59,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
             //mainEngine.start()
-            watchForUpdateChanges()
             selfSync()
         }
     }
@@ -183,7 +183,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
 extension AppDelegate{
     
     func watchForUpdateChanges(){
-        if isWatching{return}
+        let last = UserDefaults.standard.double(forKey: Fields.lastChecked.rawValue)
+        let now = Date().timeIntervalSinceReferenceDate
+        if (now - last > WEEK_SECONDS) {}else {return}
         DataService.main.listenForUpdates { (update, err) in
             guard let update = update as? UpdateInfo else {return}
             if update.islessThanLeastSupport(){
@@ -196,7 +198,7 @@ extension AppDelegate{
                 }
             }else{
                 if update.notifyUpdate(){
-                    let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, nil)
+                    let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, {_ in UserDefaults.standard.setValue(Date().timeIntervalSinceReferenceDate, forKey: Fields.lastChecked.rawValue)})
                     let action = UIAlertAction(title: "Update", style: .default, handler: { (action) in
                         openAppStore(url:update.appUrl)
                     })

@@ -29,9 +29,12 @@ enum ImageSizes:Int{
 }
 
 enum Update:Int{
-    case current = 7
-    case leastSupport = 0
+    case current = 9
+    case leastSupport = 8
+    
 }
+
+let WEEK_SECONDS:Double = 604800
 
 
 
@@ -88,6 +91,7 @@ public enum Fields:String{
     case appurl = "appurl"
     case blockedMeList = "blockedMelist"
     case myblockingList = "myblockinglist"
+    case lastChecked = "lastChecked"
 }
 
 public enum FLNotification:String{
