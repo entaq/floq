@@ -13,6 +13,8 @@
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
+		38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF258F22DCCA2D008BEDDF /* FLComments.swift */; };
+		38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259122DD4FD1008BEDDF /* CommentEngine.swift */; };
 		38CFAB162288B8AD00D40330 /* FloatyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB0F2288B8A900D40330 /* FloatyWindow.swift */; };
 		38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB102288B8AA00D40330 /* FloatyItem.swift */; };
 		38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB112288B8AA00D40330 /* Floaty.swift */; };
@@ -118,6 +120,8 @@
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CF258F22DCCA2D008BEDDF /* FLComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLComments.swift; sourceTree = "<group>"; };
+		38CF259122DD4FD1008BEDDF /* CommentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEngine.swift; sourceTree = "<group>"; };
 		38CFAB0F2288B8A900D40330 /* FloatyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyWindow.swift; sourceTree = "<group>"; };
 		38CFAB102288B8AA00D40330 /* FloatyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyItem.swift; sourceTree = "<group>"; };
 		38CFAB112288B8AA00D40330 /* Floaty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floaty.swift; sourceTree = "<group>"; };
@@ -378,6 +382,7 @@
 				C48BEDA721F8F6EA00D0A4F7 /* Core.swift */,
 				C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */,
 				C42D00F221FCF318007065DF /* Floq-Bridging-Header.h */,
+				38CF259122DD4FD1008BEDDF /* CommentEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -454,6 +459,7 @@
 				40FED65E1FDE0E4800EC5974 /* PhotoItem.swift */,
 				C4D1E09421DA7E2E00C5ED9A /* SectionableCliq.swift */,
 				C43B8D5422006B30003B7A00 /* UpdateInfo.swift */,
+				38CF258F22DCCA2D008BEDDF /* FLComments.swift */,
 			);
 			name = Model;
 			path = "New Group";
@@ -874,12 +880,14 @@
 				C434C50B21DBA9DB003333A1 /* FIRStorage+Extensions.swift in Sources */,
 				C4D1E09921DB98D200C5ED9A /* UserSettingsTVC.swift in Sources */,
 				C43B8D57220073EB003B7A00 /* NotificationAlertView.swift in Sources */,
+				38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */,
 				C4A2A42421A22A10006DFE6E /* GridPhotoSection.swift in Sources */,
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
 				C48A57D821A22E0900D3B0E6 /* CliqEngine.swift in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,
+				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,

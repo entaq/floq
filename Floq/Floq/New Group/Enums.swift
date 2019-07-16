@@ -29,8 +29,8 @@ enum ImageSizes:Int{
 }
 
 enum Update:Int{
-    case current = 9
-    case leastSupport = 8
+    case current = 11
+    case leastSupport = 9
     
 }
 
@@ -52,6 +52,7 @@ enum References:String{
     case updateDoc = "Updates"
     case likes = "LIKES"
     case requestLikeShard = "LikesShard"
+    case comment = "FLComments"
     
     
 }

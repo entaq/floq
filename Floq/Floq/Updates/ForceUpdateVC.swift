@@ -24,7 +24,13 @@ class ForceUpdateVC: UIViewController {
     }
     
     @IBAction func updatePressed(_ sender: Any) {
+        //let url = URL(string: "itms-apps://itunes.apple.com/us/app/id1003110219")!
         openAppStore(url:url)
     }
     
 }
+
+//"itms-apps://itunes.apple.com/app/id1024941703"
+//https://itunes.apple.com/us/app/floq/id1003110219?ls=1&mt=8
+//1003110219
+//"itms-apps://itunes.apple.com/us/app/id1003110219"

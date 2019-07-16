@@ -29,7 +29,15 @@ public struct UpdateInfo{
         return leastSupport > Update.leastSupport.rawValue
     }
     
-    func notifyUpdate()-> Bool{
-        return current > Update.current.rawValue
+    var notifyUpdate:Bool{
+        let notify =  current > Update.current.rawValue
+        let last = UserDefaults.standard.double(forKey: Fields.lastChecked.rawValue)
+        let now = Date().timeIntervalSinceReferenceDate
+        if last == 0 {
+            return notify
+        }else{
+           return now - last > WEEK_SECONDS && notify
+        }
+        
     }
 }

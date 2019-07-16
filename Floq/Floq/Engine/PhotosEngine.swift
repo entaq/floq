@@ -17,6 +17,7 @@ class PhotosEngine:NSObject{
     
     private var _internalPhotoContainer:[PhotoItem] = []
     static let MAXX_LIKES = 34000
+    
     private var allphotos:[PhotoItem] = []
     
     var allPhotos:[PhotoItem]{

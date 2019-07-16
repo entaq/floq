@@ -125,11 +125,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
             }else{
                 Logger.log(err)
-                DispatchQueue.main.async {
+                /*DispatchQueue.main.async {
                     let alert = UIAlertController.createDefaultAlert("OOPS 😳😳😳!!", "Looks like you refused permissions to receive notifications for Floq. Please enable notifications to fully enjoy Floq!. You can always change these in settings",.alert, "OK",.default, nil)
                     alert.addAction(UIAlertAction(title: "Settings", style: .default){_ in UIApplication.openSettings()})
                     self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
+                }*/
                 
             }
         }
@@ -183,9 +183,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
 extension AppDelegate{
     
     func watchForUpdateChanges(){
-        let last = UserDefaults.standard.double(forKey: Fields.lastChecked.rawValue)
-        let now = Date().timeIntervalSinceReferenceDate
-        if (now - last > WEEK_SECONDS) {}else {return}
+        
         DataService.main.listenForUpdates { (update, err) in
             guard let update = update as? UpdateInfo else {return}
             if update.islessThanLeastSupport(){
@@ -197,9 +195,10 @@ extension AppDelegate{
                      self.window?.makeKeyAndVisible()
                 }
             }else{
-                if update.notifyUpdate(){
+                if update.notifyUpdate{
                     let alert = UIAlertController.createDefaultAlert("Update",update.updateInfo,.alert, "Cancel",.cancel, {_ in UserDefaults.standard.setValue(Date().timeIntervalSinceReferenceDate, forKey: Fields.lastChecked.rawValue)})
                     let action = UIAlertAction(title: "Update", style: .default, handler: { (action) in
+                        UserDefaults.standard.setValue(Date().timeIntervalSinceReferenceDate, forKey: Fields.lastChecked.rawValue)
                         openAppStore(url:update.appUrl)
                     })
                     alert.addAction(action)

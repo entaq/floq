@@ -109,6 +109,14 @@ extension UserDefaults{
         standard.set(value, forKey: field.rawValue)
     }
     
+//    class var getlastUpdate:Double{
+//        let last = standard.double(forKey: Fields.lastChecked.rawValue)
+//        if last < 1 {
+//            return Date().timeIntervalSinceReferenceDate + WEEK_SECONDS
+//            
+//        }else{return last}
+//    }
+    
     public class func invalidateUserData(){
         standard.removeObject(forKey: Fields.username.rawValue)
         standard.removeObject(forKey: Fields.uid.rawValue)

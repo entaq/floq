@@ -86,6 +86,75 @@ extension DocumentSnapshot{
         return false
     }
     
+    func getString(_ id:String)->String{
+        if let field = get(id) as? String{
+            return field
+        }
+        return ""
+    }
+    
+    func getLocation(_ id:String)->CLLocation?{
+        if let field = get(id) as? GeoPoint{
+            let location = CLLocation(latitude: field.latitude, longitude: field.longitude)
+            return location
+        }
+        return nil
+    }
+    
+    func getDate(_ id:String)->Date{
+        
+        if let field = get(id) as? Timestamp{
+            return field.dateValue()
+        }
+        return Date()
+        
+        
+    }
+    
+    func getArray(_ id:String)->[Any]{
+        if let field = get(id) as? [Any]{
+            return field
+        }
+        return []
+    }
+    
+    func getDictionary(_ id:String)->Aliases.dictionary{
+        if let field = get(id) as? Aliases.dictionary{
+            return field
+        }
+        return [:]
+        
+    }
+    
+    func getDouble(id:String)->Double{
+        if let field = get(id) as? Double{
+            return field
+        }
+        return 0.000001
+    }
+    
+    func getInt(_ id:String)->Int{
+        if let field = get(id) as? Int{
+            return field
+        }
+        return 0
+    }
+    
+    func getInt64(_ id:String)->Int64{
+        if let field = get(id) as? Int64{
+            return field
+        }
+        return 0
+    }
+    
+    
+    func getBoolena(_ id:String)->Bool{
+        if let field = get(id) as? Bool{
+            return field
+        }
+        return false
+    }
+    
     
 }
 

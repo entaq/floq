@@ -127,6 +127,59 @@ export const analyticsOnCliqs = functions.firestore
       });
   });
 
+/**
+ * Analytics
+ */
+
+export const incrementUsers = functions.firestore
+  .document(`${REF_USERS}/{id}`)
+  .onCreate(async (snap, context) => {
+    const currentCount = await store
+      .collection(REF_ANALYTICS)
+      .doc("Users")
+      .get();
+    const count = currentCount.get("count");
+    const resp = await store
+      .collection(REF_ANALYTICS)
+      .doc("Users")
+      .update({ count: count + 1 });
+    return resp;
+  });
+
+export const decrementUsers = functions.firestore
+  .document(`${REF_USERS}/{id}`)
+  .onDelete(async (snap, context) => {
+    const currentCount = await store
+      .collection(REF_ANALYTICS)
+      .doc("Users")
+      .get();
+    const count = currentCount.get("count");
+    const resp = await store
+      .collection(REF_ANALYTICS)
+      .doc("Users")
+      .update({ count: count - 1 });
+    return resp;
+  });
+
+export const countPhotos = functions.firestore
+  .document(`${REF_FLPHOTOS}/{id}`)
+  .onCreate(async (snap, context) => {
+    const currentCount = await store
+      .collection(REF_ANALYTICS)
+      .doc("Photos")
+      .get();
+    const count = currentCount.get("count");
+    const resp = await store
+      .collection(REF_ANALYTICS)
+      .doc("Photos")
+      .update({ count: count + 1 });
+    return resp;
+  });
+
+/**
+ * Tests and database maintenance
+ */
+
 export const testFunctionsWorks = functions.https.onRequest(
   async (request, response) => {
     const alldocs = await store.collection(REF_FLOQS).get();
