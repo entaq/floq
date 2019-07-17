@@ -20,6 +20,18 @@ class PhotoFullScreenVC: UIViewController {
         view.isUserInteractionEnabled = true
         return view
     }()
+    
+    private var initialFrame:CGRect!
+    private var initialAvatarFrame:CGRect!
+    private var commentShowing = false
+    
+    private lazy var commentIcon:UIButton = { [unowned self] by in
+        let button = UIButton(frame: .zero)
+        button.setTitle("Comment", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(commentTapped(_:)), for: .touchUpInside)
+        return button
+    }(())
 
     var engine:PhotosEngine!
     var likelabel:UILabel!
@@ -136,6 +148,28 @@ class PhotoFullScreenVC: UIViewController {
         
     }
     
+    @objc func commentTapped(_ sender: UIButton){
+        if commentShowing{
+            commentShowing = false
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
+                self.collectionView.frame = self.initialFrame
+                self.avatarImageview.frame = self.initialAvatarFrame
+                self.avatarImageview.layer.cornerRadius = 30
+            }, completion: nil)
+        }else{
+            commentShowing = true
+            let x = view.frame.width - 100
+            let y =  (self.collectionView.frame.size.height - 10 (UIScreen.main.bounds.height * 0.4))
+            let newAvatrFrame = CGRect(x:x, y:y , width: 80, height: 80)
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
+                self.collectionView.frame.size.height -= (UIScreen.main.bounds.height * 0.4)
+                self.avatarImageview.layer.cornerRadius = 40
+                self.avatarImageview.frame = newAvatrFrame
+                //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
+            }, completion: nil)
+        }
+    }
+    
     
 //    func shareOnFaceBook(){
 //        guard let cell = collectionView.visibleCells.first as? FullScreenCell,
@@ -158,9 +192,9 @@ class PhotoFullScreenVC: UIViewController {
         tapImage.numberOfTapsRequired = 1
         avatarImageview.isUserInteractionEnabled = true
         avatarImageview.addGestureRecognizer(tapImage)
-        avatarImageview.frame =  CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
+        avatarImageview.frame = initialAvatarFrame
         avatarImageview.backgroundColor = UIColor.white
-        avatarImageview.layer.cornerRadius = 30
+        avatarImageview.layer.cornerRadius = avatarImageview.frame.width / 2
         avatarImageview.layer.borderWidth = 2
         avatarImageview.image = .placeholder
         avatarImageview.layer.borderColor = UIColor.white.cgColor
@@ -173,7 +207,9 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.frame = CGRect(x: 0, y: -60, width: view.bounds.width, height: view.bounds.height + 60)
+        initialFrame = CGRect(x: 0, y: -60, width: view.bounds.width, height: view.bounds.height + 60)
+        initialAvatarFrame = CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
+        collectionView.frame = initialFrame
         setAvatarView()
         collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView
@@ -233,6 +269,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         likebar.addSubview(imgv)
         likebar.addSubview(likelabel)
         likebar.addSubview(flag)
+        likebar.addSubview(commentIcon)
         likebar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             likebar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -249,7 +286,8 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             imgv.heightAnchor.constraint(equalToConstant: 30),
             imgv.widthAnchor.constraint(equalToConstant: 30),
             imgv.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
-            imgv.rightAnchor.constraint(equalTo: likebar.rightAnchor, constant:-20)
+            //imgv.rightAnchor.constraint(equalTo: likebar.rightAnchor, constant:-20)
+            imgv.centerXAnchor.constraint(equalTo: likebar.centerXAnchor, constant: 0)
         ])
         likelabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -264,6 +302,13 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             flag.widthAnchor.constraint(equalToConstant: 20),
             flag.centerYAnchor.constraint(equalTo: likebar.centerYAnchor),
             
+        ])
+        commentIcon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            commentIcon.trailingAnchor.constraint(equalTo: likebar.trailingAnchor, constant: -12),
+            commentIcon.centerYAnchor.constraint(equalTo: likebar.centerYAnchor, constant: 0),
+            commentIcon.widthAnchor.constraint(equalToConstant: 100),
+            commentIcon.heightAnchor.constraint(equalToConstant: 30)
         ])
         likelabel.textColor = .white
         likelabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)

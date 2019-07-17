@@ -13,7 +13,7 @@ class CommentEngine:NSObject{
     typealias Comments = Array<Comment>
     typealias CommentSet = Set<Comment>
     typealias Completion = (_ error:Error?) -> ()
-    private var _internalComments:CommentSet
+    private var _internalComments:CommentSet = []
     private var photoId:String
     private var commentsCollection:CollectionReference{
         return Firestore.firestore().collection(.comment)
@@ -21,8 +21,9 @@ class CommentEngine:NSObject{
     
     
     init(photo id:String) {
-        super.init()
         photoId = id
+        super.init()
+        
     }
     
     var comments:Comments{
@@ -40,6 +41,10 @@ class CommentEngine:NSObject{
         }
     }
     
-    func postAComment(_ comment:Comment.Raw)
+    func postAComment(_ comment:Comment.Raw, completion:@escaping Completion){
+        commentsCollection.document().setData(comment.data() as [String : Any], merge: true) { err in
+            completion(err)
+        }
+    }
     
 }
