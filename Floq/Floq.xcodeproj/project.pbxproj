@@ -15,6 +15,9 @@
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
 		38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF258F22DCCA2D008BEDDF /* FLComments.swift */; };
 		38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259122DD4FD1008BEDDF /* CommentEngine.swift */; };
+		38CF259522DFA34E008BEDDF /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259422DFA34E008BEDDF /* CommentsVC.swift */; };
+		38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259622DFA46D008BEDDF /* CommentCell.swift */; };
+		38CF259922DFA46D008BEDDF /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38CF259722DFA46D008BEDDF /* CommentCell.xib */; };
 		38CFAB162288B8AD00D40330 /* FloatyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB0F2288B8A900D40330 /* FloatyWindow.swift */; };
 		38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB102288B8AA00D40330 /* FloatyItem.swift */; };
 		38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB112288B8AA00D40330 /* Floaty.swift */; };
@@ -122,6 +125,9 @@
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38CF258F22DCCA2D008BEDDF /* FLComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLComments.swift; sourceTree = "<group>"; };
 		38CF259122DD4FD1008BEDDF /* CommentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEngine.swift; sourceTree = "<group>"; };
+		38CF259422DFA34E008BEDDF /* CommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
+		38CF259622DFA46D008BEDDF /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		38CF259722DFA46D008BEDDF /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		38CFAB0F2288B8A900D40330 /* FloatyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyWindow.swift; sourceTree = "<group>"; };
 		38CFAB102288B8AA00D40330 /* FloatyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyItem.swift; sourceTree = "<group>"; };
 		38CFAB112288B8AA00D40330 /* Floaty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floaty.swift; sourceTree = "<group>"; };
@@ -253,6 +259,14 @@
 				38B02E1D2214744D00DEEC21 /* Info.plist */,
 			);
 			path = FloqTests;
+			sourceTree = "<group>";
+		};
+		38CF259322DFA318008BEDDF /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				38CF259422DFA34E008BEDDF /* CommentsVC.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		38CFAAB42288B44800D40330 /* Frameworks */ = {
@@ -486,6 +500,8 @@
 				C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */,
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
+				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
+				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
 			);
 			name = Views;
 			path = "New Group";
@@ -494,6 +510,7 @@
 		C4A2A42221A22959006DFE6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				38CF259322DFA318008BEDDF /* Comments */,
 				C49F793321FF17DE00E92512 /* Updates */,
 				C49F793221FF174F00E92512 /* Profile */,
 				C49F793121FF173000E92512 /* Photos */,
@@ -722,6 +739,7 @@
 				C4A28E4421E01EBB00ADA02D /* ActiveSectionCell.xib in Resources */,
 				C4A2A43021A22C21006DFE6E /* cliqCells.xib in Resources */,
 				40AA29BE1E8891E900200A3F /* Assets.xcassets in Resources */,
+				38CF259922DFA46D008BEDDF /* CommentCell.xib in Resources */,
 				C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */,
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
 				C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */,
@@ -890,6 +908,7 @@
 				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
+				38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
 				38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */,
 				38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */,
@@ -931,6 +950,7 @@
 				C4A2A43821A22C4A006DFE6E /* PhotoCell.swift in Sources */,
 				40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */,
 				C4D4F8C721FA4B3A00A26797 /* PhotosEngine.swift in Sources */,
+				38CF259522DFA34E008BEDDF /* CommentsVC.swift in Sources */,
 				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,

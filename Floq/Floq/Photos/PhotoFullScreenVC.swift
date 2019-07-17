@@ -76,6 +76,13 @@ class PhotoFullScreenVC: UIViewController {
             return
         }
     }
+    
+    private lazy var commentContainer:UIView = {
+        let container = UIView(frame: .zero)
+        container.backgroundColor = .white
+        container.clipsToBounds = true
+        return container
+    }()
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,6 +102,18 @@ class PhotoFullScreenVC: UIViewController {
         return imgv
     }()
     
+    private lazy var hideCommentIcon:UIImageView = {[unowned self] by in
+        let img =  UIImageView.init(frame:.zero)
+        img.contentMode = .scaleAspectFill
+        img.isUserInteractionEnabled = true
+        img.image = #imageLiteral(resourceName: "group")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(collapseComment(_:)))
+        tap.numberOfTapsRequired = 1
+        img.addGestureRecognizer(tap)
+        img.isHidden = true
+        return img
+    }(())
+    
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -110,7 +129,9 @@ class PhotoFullScreenVC: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let butt = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         navigationItem.rightBarButtonItem = butt
+        view.addSubview(commentContainer)
         view.addSubview(collectionView)
+        view.addSubview(hideCommentIcon)
         createLikeBar()
         collectionView.isPagingEnabled = true
         
@@ -148,6 +169,10 @@ class PhotoFullScreenVC: UIViewController {
         
     }
     
+    @objc func collapseComment(_ recognizer:UITapGestureRecognizer){
+        
+    }
+    
     @objc func commentTapped(_ sender: UIButton){
         if commentShowing{
             commentShowing = false
@@ -155,16 +180,18 @@ class PhotoFullScreenVC: UIViewController {
                 self.collectionView.frame = self.initialFrame
                 self.avatarImageview.frame = self.initialAvatarFrame
                 self.avatarImageview.layer.cornerRadius = 30
+                self.hideCommentIcon.isHidden = true
             }, completion: nil)
         }else{
             commentShowing = true
             let x = view.frame.width - 100
-            let y =  (self.collectionView.frame.size.height - 10 (UIScreen.main.bounds.height * 0.4))
+            let y =  (self.collectionView.frame.size.height - (UIScreen.main.bounds.height * 0.4)) - 10
             let newAvatrFrame = CGRect(x:x, y:y , width: 80, height: 80)
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
                 self.collectionView.frame.size.height -= (UIScreen.main.bounds.height * 0.4)
                 self.avatarImageview.layer.cornerRadius = 40
                 self.avatarImageview.frame = newAvatrFrame
+                self.hideCommentIcon.isHidden = false
                 //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
             }, completion: nil)
         }
@@ -209,7 +236,11 @@ class PhotoFullScreenVC: UIViewController {
         super.viewWillAppear(animated)
         initialFrame = CGRect(x: 0, y: -60, width: view.bounds.width, height: view.bounds.height + 60)
         initialAvatarFrame = CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
+        let cy = view.bounds.height * 0.6 - 35
+        commentContainer.frame = CGRect(x: 0, y: cy, width: view.bounds.width, height: (UIScreen.main.bounds.height * 0.4))
         collectionView.frame = initialFrame
+        let y = (self.collectionView.frame.size.height / 2) - 20
+        hideCommentIcon.frame = CGRect(x: 12, y: y, width: 30, height: 30)
         setAvatarView()
         collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView
