@@ -29,6 +29,8 @@ struct Comment {
         photoID = snapshot.getString(Keys.photoID.rawValue)
     }
     
+    
+    
 }
 
 
@@ -76,5 +78,29 @@ extension Comment{
 }
 
 
+
+
+extension Comment{
+    
+    fileprivate init(body:String,user:String){
+        id  = appUser!.uid
+        reference = nil
+        self.body = body
+        timestamp = Date()
+        commentor = user
+        commentorID = appUser!.uid
+        photoID = ""
+    }
+    
+    struct MockData{
+        var comments = [
+            Comment(body: "Back in my early years in school, we had a mathematic topic called Number bases, the first time I was introduced to it, it bewildered. I found it interesting ", user: "Eric ball"),
+            Comment(body: "What do I mean by this? Computer science engineers and systems architecture designers are able to express everything in binary and silicon transistors can also hold binary data by virtue of the existence of voltage coursing through it or the nonexistence. Put this two together and we have our modern computer infrastructure", user: "Taco Bell"),
+            Comment(body: "O yeah we were short of numbers so we had to borrow some alphabets.", user: "Saurik"),
+            Comment(body: "The great thing about hex is that it allows gargantuan numbers to be rewritten in a not so intimidating format. Take this number for an example : 737369261 will map to 2BF35CAD in the hexadecimal format. Notice the length doesn’t change by much, yeah but you can appreciate the aesthetics in the hex and hex (hence) the “not so intimidating reference I made. Now I want you to try this exercise, try memorizing both numbers. You will appreciatetge existence of the alphabet in there as it is easier to memorize. “2bf-thirty five-card” is much simpler than 737- u already lost me friend. The best thing about the hex system is when @compare with the binary is the the brutal length reduction. Binary : 11110000000000001111101001101110 will map to F000FA6E. Wow who could have seen that “one one one one O O O O O O O O O O O O one one one one one O one O O - please u lost me already” could be made easier for computer programmers? Well system architects did and placed a hex on it🤣🤣🤣. And we got “foofage”. Evidently Hex system reduces binary number length vigorously with impunity as a shorthand for wringing binary. ", user: "Long Con")
+        
+        ]
+    }
+}
 
 

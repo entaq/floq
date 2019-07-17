@@ -13,9 +13,14 @@ class CommentsVC: UIViewController {
     private lazy var tableView:UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.backgroundColor = .clear
-        table.separatorStyle = .none
+        table.separatorStyle = .singleLine
+        table.isScrollEnabled = true
+        table.alwaysBounceVertical = true
+        table.register(UINib(nibName: "\(CommentCell.self)", bundle: nil), forCellReuseIdentifier: "\(CommentCell.self)")
         return table
     }()
+    
+    private var comments:[Comment] = Comment.MockData().comments
     
     init(){
         super.init(nibName: nil, bundle: nil)
@@ -31,6 +36,13 @@ class CommentsVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.frame = view.frame
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -42,4 +54,33 @@ class CommentsVC: UIViewController {
     }
     */
 
+}
+
+
+
+extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(CommentCell.self)", for: indexPath) as? CommentCell{
+            let comment = comments[indexPath.row]
+            cell.configure(comment)
+            return cell
+        }
+        return CommentCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let comment = comments[indexPath.row]
+        let width = tableView.frame.width - 62
+        let txtheight = comment.body.height(withConstrainedWidth: width, font: .systemFont(ofSize: 13, weight: .regular))
+        return txtheight + 40
+    }
 }

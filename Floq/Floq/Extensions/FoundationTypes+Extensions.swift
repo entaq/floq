@@ -6,7 +6,7 @@
 //  Copyright © 2018 Arun Nagarajan. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 extension Dictionary where Key == String{
@@ -135,4 +135,27 @@ extension NotificationCenter{
     class func set(observer:Any, selector:Selector, name:FLNotification,_ object:Any? = nil){
         self.default.addObserver(observer, selector: selector, name: NSNotification.Name(name.rawValue), object: object)
     }
+}
+
+
+extension String {
+    static var empty:String{
+        return ""
+    }
+    
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return ceil(boundingBox.height)
+    }
+    
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
+    }
+    
+    
 }

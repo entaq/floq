@@ -10,8 +10,14 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
+    @IBOutlet weak var timelbl: UILabel!
+    @IBOutlet weak var commentlable: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        profileImageView.clipsToBounds = true
+        profileImageView.layer.cornerRadius = 15
         // Initialization code
     }
 
@@ -19,6 +25,12 @@ class CommentCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(_ comment:Comment){
+       usernameLabel.text = comment.commentor
+        profileImageView.setAvatar(uid: comment.commentorID)
+        commentlable.text = comment.body
     }
     
 }

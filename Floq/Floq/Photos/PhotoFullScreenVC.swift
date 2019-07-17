@@ -181,7 +181,8 @@ class PhotoFullScreenVC: UIViewController {
                 self.avatarImageview.frame = self.initialAvatarFrame
                 self.avatarImageview.layer.cornerRadius = 30
                 self.hideCommentIcon.isHidden = true
-            }, completion: nil)
+            }, completion: {_ in if let child = self.children.first(where: { v -> Bool in return type(of: v) == CommentsVC.self}){child.removeFrom()
+            }})
         }else{
             commentShowing = true
             let x = view.frame.width - 100
@@ -193,7 +194,11 @@ class PhotoFullScreenVC: UIViewController {
                 self.avatarImageview.frame = newAvatrFrame
                 self.hideCommentIcon.isHidden = false
                 //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
-            }, completion: nil)
+            }, completion: { _ in
+                let vc = CommentsVC()
+                vc.view.frame.size = self.commentContainer.frame.size
+                self.add(vc, to: self.commentContainer)
+            })
         }
     }
     
