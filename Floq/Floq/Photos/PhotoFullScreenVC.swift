@@ -13,6 +13,8 @@ import FirebaseStorage
 
 class PhotoFullScreenVC: UIViewController {
     
+    
+    
     lazy var flag:UIImageView = {
         let view = UIImageView(image: .icon_flag)
         view.contentMode = .scaleAspectFit
@@ -102,6 +104,9 @@ class PhotoFullScreenVC: UIViewController {
         return imgv
     }()
     
+    
+    //public private (set) lazy var a:Stream = {[unowned self] by in return .init()}(())
+    
     private lazy var hideCommentIcon:UIImageView = {[unowned self] by in
         let img =  UIImageView.init(frame:.zero)
         img.contentMode = .scaleAspectFill
@@ -170,36 +175,41 @@ class PhotoFullScreenVC: UIViewController {
     }
     
     @objc func collapseComment(_ recognizer:UITapGestureRecognizer){
-        
+        resetViews()
     }
     
     @objc func commentTapped(_ sender: UIButton){
-        if commentShowing{
-            commentShowing = false
-            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
-                self.collectionView.frame = self.initialFrame
-                self.avatarImageview.frame = self.initialAvatarFrame
-                self.avatarImageview.layer.cornerRadius = 30
-                self.hideCommentIcon.isHidden = true
-            }, completion: {_ in if let child = self.children.first(where: { v -> Bool in return type(of: v) == CommentsVC.self}){child.removeFrom()
-            }})
-        }else{
-            commentShowing = true
-            let x = view.frame.width - 100
-            let y =  (self.collectionView.frame.size.height - (UIScreen.main.bounds.height * 0.4)) - 10
-            let newAvatrFrame = CGRect(x:x, y:y , width: 80, height: 80)
-            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
-                self.collectionView.frame.size.height -= (UIScreen.main.bounds.height * 0.4)
-                self.avatarImageview.layer.cornerRadius = 40
-                self.avatarImageview.frame = newAvatrFrame
-                self.hideCommentIcon.isHidden = false
-                //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
-            }, completion: { _ in
-                let vc = CommentsVC()
-                vc.view.frame.size = self.commentContainer.frame.size
-                self.add(vc, to: self.commentContainer)
-            })
-        }
+        showCommentAnimation()
+    }
+    
+    func resetViews(){
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
+            self.collectionView.frame = self.initialFrame
+            self.avatarImageview.frame = self.initialAvatarFrame
+            self.avatarImageview.layer.cornerRadius = 30
+            self.hideCommentIcon.isHidden = true
+            self.likebar.isHidden = false
+        }, completion: {_ in if let child = self.children.first(where: { v -> Bool in return type(of: v) == CommentsVC.self}){child.removeFrom()
+        }})
+    }
+    
+    func showCommentAnimation(){
+        let newf = CGRect(x: 0, y: -60, width: view.bounds.width, height: UIScreen.height * 0.55)
+        let x = view.frame.width - 100
+        //let y =  (self.collectionView.frame.size.height - (UIScreen.hei)) - 10
+        let newAvatrFrame = CGRect(x:x, y:(newf.maxY + 40) , width: 80, height: 80)
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
+            self.collectionView.frame = newf//.size.height -= (UIScreen.main.bounds.height * 0.4)
+            self.avatarImageview.layer.cornerRadius = 40
+            self.avatarImageview.frame = newAvatrFrame
+            self.hideCommentIcon.isHidden = false
+            self.likebar.isHidden = true
+            //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
+        }, completion: { _ in
+            let vc = CommentsVC()
+            vc.view.frame.size = self.commentContainer.frame.size
+            self.add(vc, to: self.commentContainer)
+        })
     }
     
     
@@ -239,12 +249,12 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initialFrame = CGRect(x: 0, y: -60, width: view.bounds.width, height: view.bounds.height + 60)
+        initialFrame = CGRect(x: 0, y: -60, width: view.bounds.width, height: UIScreen.height)
         initialAvatarFrame = CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
-        let cy = view.bounds.height * 0.6 - 35
-        commentContainer.frame = CGRect(x: 0, y: cy, width: view.bounds.width, height: (UIScreen.main.bounds.height * 0.4))
+        let cy = (UIScreen.height * 0.55) - 60
+        commentContainer.frame = CGRect(x: 0, y: cy, width: view.bounds.width, height: UIScreen.height * 0.45)
         collectionView.frame = initialFrame
-        let y = (self.collectionView.frame.size.height / 2) - 20
+        let y = UIScreen.height * 0.50 - 60
         hideCommentIcon.frame = CGRect(x: 12, y: y, width: 30, height: 30)
         setAvatarView()
         collectionView.backgroundColor = .globalbackground
@@ -515,4 +525,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         }
     }
 }
+
+
+
 

@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1yV-4Z-fuk">
-                        <rect key="frame" x="8" y="14.5" width="30" height="30"/>
+                        <rect key="frame" x="8" y="15" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="45G-C8-yyd"/>
                             <constraint firstAttribute="height" constant="30" id="6m2-CS-IEQ"/>
@@ -48,7 +48,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="pKV-rH-3dB" secondAttribute="trailing" constant="12" id="JtW-eH-Oit"/>
-                    <constraint firstItem="1yV-4Z-fuk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TzO-6e-n8K"/>
+                    <constraint firstItem="1yV-4Z-fuk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="PDR-7L-L63"/>
                     <constraint firstAttribute="trailing" secondItem="JnC-cV-1zO" secondAttribute="trailing" constant="12" id="UOc-iQ-2nc"/>
                     <constraint firstItem="pKV-rH-3dB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="V69-cN-xDa"/>
                     <constraint firstItem="pFP-q7-KaR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="cyy-Dx-thN"/>

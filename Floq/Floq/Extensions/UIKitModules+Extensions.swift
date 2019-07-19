@@ -283,3 +283,18 @@ extension UIApplication{
         
     }
 }
+
+
+extension UIScreen{
+    static var height:CGFloat{
+        return main.bounds.height
+    }
+    
+    static var width:CGFloat{
+        return main.bounds.width
+    }
+    
+    static var bound:CGRect{
+        return main.bounds
+    }
+}

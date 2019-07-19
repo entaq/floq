@@ -20,6 +20,16 @@ class CommentsVC: UIViewController {
         return table
     }()
     
+    private lazy var commentTextBox:UITextField = {
+        let textField = UITextField(frame: .zero)
+        textField.font = .systemFont(ofSize: 14, weight: .regular)
+        textField.textColor = .darkGray
+        textField.placeholder = "Comment..."
+        textField.borderStyle = .line
+        textField.backgroundColor = .red
+        return textField
+    }()
+    
     private var comments:[Comment] = Comment.MockData().comments
     
     init(){
@@ -33,12 +43,14 @@ class CommentsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
+        view.addSubview(commentTextBox)
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.frame = view.frame
+        tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - 35))
+        commentTextBox.frame = CGRect(x: 0, y: view.frame.height - 35, width: view.frame.width, height: 35)
         tableView.delegate = self
         tableView.dataSource = self
     }
