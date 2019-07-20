@@ -28,6 +28,7 @@ class CommentCell: UITableViewCell {
     }
     
     func configure(_ comment:Comment){
+        timelbl.text = comment.timestamp.localize()
        usernameLabel.text = comment.commentor
         profileImageView.setAvatar(uid: comment.commentorID)
         commentlable.text = comment.body

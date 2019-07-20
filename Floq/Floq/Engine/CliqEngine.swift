@@ -63,23 +63,17 @@ class CliqEngine:NSObject{
     }
     
     private var geofire:GeoFirestore{
-        return GeoFirestore(collectionRef: database.collection(References.flocations.rawValue))
+        return GeoFirestore(collectionRef: Firestore.database.collection(References.flocations.rawValue))
     }
     
     private var userRef:CollectionReference{
-        return database.collection(.users)
+        return Firestore.database.collection(.users)
     }
     
-    private var database:Firestore{
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        return db
-    }
+
     
     private var floqRef:CollectionReference{
-        return database.collection(References.floqs.rawValue)
+        return Firestore.database.collection(References.floqs.rawValue)
     }
     
     func start(){
@@ -119,7 +113,7 @@ class CliqEngine:NSObject{
     
     
     private func getNearbyDocument(id:String){
-        self.database.collection(References.floqs.rawValue).document(id).addSnapshotListener({ (snapshot, error) in
+        Firestore.database.collection(References.floqs.rawValue).document(id).addSnapshotListener({ (snapshot, error) in
             if error == nil && snapshot != nil {
                 guard snapshot!.exists else {
                     return

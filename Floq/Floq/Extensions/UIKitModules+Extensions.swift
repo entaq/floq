@@ -306,3 +306,27 @@ extension UIScreen{
         return main.bounds
     }
 }
+
+
+extension Date{
+    
+    func localize()->String{
+        let interval = Date().timeIntervalSince(self)
+        if interval < 60{
+            return "\(Int(interval))s"
+        }
+        if interval < 3600{
+            return "\(Int(interval / 60))m"
+        }
+        if interval < (3600 * 24){
+            return "\(Int(interval / (3600)))h"
+        }
+        
+        if interval < (3600 * 24 * 7){
+           return "\(Int(interval / (3600 * 24 )))d"
+        }
+        
+        return self.toStringwith(.month_day_year)
+    
+    }
+}

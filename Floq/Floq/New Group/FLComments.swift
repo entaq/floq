@@ -43,6 +43,9 @@ extension Comment{
 
 extension Comment:Hashable, Equatable{
     
+    static func == (lhs: Comment, rhs: Comment) -> Bool{
+       return lhs.id == rhs.id
+    }
 }
 
 extension Comment{
@@ -70,6 +73,7 @@ extension Comment{
                 Keys.timestamp.rawValue:FieldValue.serverTimestamp(),
                 Keys.commentor.rawValue:commentor,
                 Keys.commentorID.rawValue: commentorID,
+                Keys.photoID.rawValue:self.photoID
             ]
         }
     }

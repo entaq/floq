@@ -13,7 +13,7 @@ class CommentsVC: UIViewController {
     private lazy var tableView:UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.backgroundColor = .clear
-        table.separatorStyle = .singleLine
+        table.separatorStyle = .none
         table.isScrollEnabled = true
         table.alwaysBounceVertical = true
         table.register(UINib(nibName: "\(CommentCell.self)", bundle: nil), forCellReuseIdentifier: "\(CommentCell.self)")
@@ -23,17 +23,16 @@ class CommentsVC: UIViewController {
     
     var photoID:String!
     private var engine: CommentEngine!
-    
+    var exhausted = false
     var hasNotch:Bool = false
     
     private lazy var commentView:UIButton = { [unowned self] by in
        let view = UIButton(frame: .zero)
         view.backgroundColor = .seafoamBlue
         view.addTarget(self, action: #selector(commentPressed(_:)), for: .touchUpInside)
-        view.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        view.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
         view.setTitleColor(.white, for: .normal)
-        view.setTitle("Comment...", for: .normal)
-        view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right:  0)
+        view.setTitle("Add Comment", for: .normal)
         return view
     }(())
     
@@ -65,7 +64,20 @@ class CommentsVC: UIViewController {
         view.addSubview(tableView)
         view.addSubview(commentView)
         layout()
+        watchComments()
         // Do any additional setup after loading the view.
+    }
+    
+    
+    func watchComments(){
+        engine.watchForComments { (err) in
+            if err != nil{
+                SmartAlertView(text: err!.localizedDescription).show(5)
+            }else{
+                self.tableView.reloadData()
+                self.exhausted = self.engine.exhausted
+            }
+        }
     }
     
     func layout(){
@@ -83,6 +95,7 @@ class CommentsVC: UIViewController {
             $0.trailing == view.trailingAnchor
             $0.bottom == commentView.topAnchor
         }
+        commentView.titleEdgeInsets = hasNotch ? UIEdgeInsets(top: 0, left: 0, bottom: 20, right:  0) : UIEdgeInsets.zero
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,19 +134,36 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
         return 1
     }
     
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mock.comments.count + 1
+        if engine.comments.isEmpty{
+            let view = UIView(frame: .zero)
+            view.backgroundColor = .white
+            let activity = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
+            activity.style = .whiteLarge
+            activity.tintColor = .seafoamBlue
+            view.addSubview(activity)
+            tableView.backgroundView = view
+            activity.center = view.center
+            activity.startAnimating()
+        }
+        if exhausted{
+            return engine.comments.count
+        }else{
+            return engine.comments.count + 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == mock.comments.endIndex{
+        if indexPath.row == engine.comments.endIndex{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(LoadMoreCells.self)", for: indexPath) as? LoadMoreCells{
                 cell.reset()
                 return cell
             }
         }
         if let cell = tableView.dequeueReusableCell(withIdentifier: "\(CommentCell.self)", for: indexPath) as? CommentCell{
-            let comment = mock.comments[indexPath.row]
+            let comment = engine.comments[indexPath.row]
             cell.configure(comment)
             return cell
         }
@@ -141,23 +171,20 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == mock.comments.endIndex{
+        if indexPath.row == engine.comments.endIndex{
             return 40
         }
-        let comment = mock.comments[indexPath.row]
+        let comment = engine.comments[indexPath.row]
         let width = tableView.frame.width - 62
         let txtheight = comment.body.height(withConstrainedWidth: width, font: .systemFont(ofSize: 13, weight: .regular))
         return txtheight + 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == mock.comments.endIndex{
+        if indexPath.row == engine.comments.endIndex{
             if let cell = tableView.cellForRow(at: indexPath) as? LoadMoreCells{
                 cell.pressed()
-                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(5)) {
-                    self.mock.makeDuplicate()
-                    self.tableView.reloadData()
-                }
+                watchComments()
             }
         }
     }

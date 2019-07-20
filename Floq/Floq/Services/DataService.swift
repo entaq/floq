@@ -29,11 +29,7 @@ class DataService{
     public static var profileIDs:Set<String> = []
     
     private var store:Firestore{
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        return db
+        return Firestore.database
     }
     
     

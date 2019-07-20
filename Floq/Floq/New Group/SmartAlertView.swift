@@ -44,13 +44,13 @@ class SmartAlertView: UIView {
         }
     }
     
-    func show(){
+    func show(_ timeout:Int = 4){
         if let view = UIApplication.shared.keyWindow{
             view.addSubview(self)
             UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 80
             }) { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(4), execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(timeout), execute: {
                     UIView.animate(withDuration: 0.6, animations: {
                         self.frame.origin.y = -100
                     }){_ in self.removeFromSuperview()}
