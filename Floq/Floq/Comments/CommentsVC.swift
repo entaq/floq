@@ -21,6 +21,9 @@ class CommentsVC: UIViewController {
         return table
     }()
     
+    var photoID:String!
+    private var engine: CommentEngine!
+    
     var hasNotch:Bool = false
     
     private lazy var commentView:UIButton = { [unowned self] by in
@@ -46,8 +49,9 @@ class CommentsVC: UIViewController {
     
     private var mock:Comment.MockData = Comment.MockData()
     
-    init(){
+    init(id:String){
         super.init(nibName: nil, bundle: nil)
+        photoID = id
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,6 +60,7 @@ class CommentsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        engine = CommentEngine(photo: photoID)
         view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(commentView)
@@ -161,10 +166,23 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
 
 //FOr testing Remove at integration Testing
 
-extension CommentsVC:CommentTestProtocol{
+extension CommentsVC:CommentProtocol{
     func didPost(_ comment: String) {
-        mock.appendComment(body: comment)
-        tableView.reloadData()
+        
+        SmartAlertView(text: "Sending comment....").show()
+        //return
+        if let _ = appUser{
+            let raw = Comment.Raw(ref: nil, body: comment, photoID: photoID)
+            engine.postAComment(raw) { (err) in
+                if err != nil{
+                   SmartAlertView(text: err!.localizedDescription).show()
+                }else{
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+        
     }
     
     

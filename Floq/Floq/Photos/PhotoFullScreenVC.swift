@@ -234,7 +234,7 @@ class PhotoFullScreenVC: UIViewController {
             self.likebar.isHidden = true
             //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
         }, completion: { _ in
-            let vc = CommentsVC()
+            let vc = CommentsVC(id:self.currentPhotoID!)
             vc.view.frame.size = self.commentContainer.frame.size
             vc.hasNotch = (self._AREA_INSET > 1) ? true : false
             self.add(vc, to: self.commentContainer)

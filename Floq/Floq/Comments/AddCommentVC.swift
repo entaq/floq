@@ -9,7 +9,7 @@
 import UIKit
 
 //@for testing
-protocol CommentTestProtocol:class {
+protocol CommentProtocol:class {
     func didPost(_ comment:String)
 }
 
@@ -22,7 +22,7 @@ class AddCommentVC: UIViewController {
         return view
     }()
     
-    weak var delegate:CommentTestProtocol?
+    weak var delegate:CommentProtocol?
     
     private lazy var textView:UITextView = {
         let view = UITextView(frame: .zero)
