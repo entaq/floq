@@ -154,7 +154,8 @@ class PhotoFullScreenVC: UIViewController {
     @objc func swipedUp(_ recognizer:UISwipeGestureRecognizer){
         if commentShowing{
            let newframe = CGRect(x: 0, y: -60, width: view.bounds.width, height: 0)
-            let newFrameTable = CGRect(x: 0, y: -60, width: view.bounds.width, height: UIScreen.height)
+            let newFrameTable = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.frame.height)
+            avatarImageview.isHidden = true
             UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseInOut, animations: {
                 self.collectionView.frame = newframe
                 self.commentContainer.frame = newFrameTable
@@ -204,6 +205,7 @@ class PhotoFullScreenVC: UIViewController {
     
     func resetViews(){
         commentShowing = false
+        if avatarImageview.isHidden { avatarImageview.isHidden = false }
         
         avatatFrame = CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: {
@@ -211,9 +213,11 @@ class PhotoFullScreenVC: UIViewController {
             self.avatarImageview.frame = self.avatatFrame
             self.avatarImageview.layer.cornerRadius = 30
             self.hideCommentIcon.isHidden = true
+            self.commentContainer.frame = CGRect(x: 0, y: (UIScreen.height * 0.55) - 60, width: self.view.bounds.width, height: (UIScreen.height * 0.45) - self._AREA_INSET)
             self.likebar.isHidden = false
         }, completion: {_ in if let child = self.children.first(where: { v -> Bool in return type(of: v) == CommentsVC.self}){child.removeFrom()
         }})
+        reloadPhotos()
     }
     
     func showCommentAnimation(){
@@ -252,7 +256,7 @@ class PhotoFullScreenVC: UIViewController {
         initialFrame = CGRect(x: 0, y: -60, width: view.bounds.width, height: UIScreen.height)
         avatatFrame = CGRect(x: self.view.center.x - 30, y: inset, width: 60, height: 60)
         let cy = (UIScreen.height * 0.55) - 60
-        commentContainer.frame = CGRect(x: 0, y: cy, width: view.bounds.width, height: (UIScreen.height * 0.45))
+        commentContainer.frame = CGRect(x: 0, y: cy, width: view.bounds.width, height: (UIScreen.height * 0.45) - _AREA_INSET)
         collectionView.frame = initialFrame
         let y = UIScreen.height * 0.50 - 60
         hideCommentIcon.frame = CGRect(x: 12, y: y, width: 30, height: 30)

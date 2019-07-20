@@ -17,6 +17,7 @@ class CommentsVC: UIViewController {
         table.isScrollEnabled = true
         table.alwaysBounceVertical = true
         table.register(UINib(nibName: "\(CommentCell.self)", bundle: nil), forCellReuseIdentifier: "\(CommentCell.self)")
+        table.register(UINib(nibName: "\(LoadMoreCells.self)", bundle: nil), forCellReuseIdentifier: "\(LoadMoreCells.self)")
         return table
     }()
     
@@ -29,7 +30,7 @@ class CommentsVC: UIViewController {
         view.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         view.setTitleColor(.white, for: .normal)
         view.setTitle("Comment...", for: .normal)
-        view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 40, right:  0)
+        view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right:  0)
         return view
     }(())
     
@@ -70,12 +71,19 @@ class CommentsVC: UIViewController {
             $0.trailing == view.trailingAnchor
             $0.height |=| (60 + inset)
         }
+        
+        tableView.layout{
+            $0.top == view.topAnchor
+            $0.leading == view.leadingAnchor
+            $0.trailing == view.trailingAnchor
+            $0.bottom == commentView.topAnchor
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let inset:CGFloat = hasNotch ? 40 : 0
-        tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - (60 + inset)))
+        //let inset:CGFloat = hasNotch ? 40 : 0
+        //tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - (60 + inset)))
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -109,10 +117,16 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mock.comments.count
+        return mock.comments.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == mock.comments.endIndex{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(LoadMoreCells.self)", for: indexPath) as? LoadMoreCells{
+                cell.reset()
+                return cell
+            }
+        }
         if let cell = tableView.dequeueReusableCell(withIdentifier: "\(CommentCell.self)", for: indexPath) as? CommentCell{
             let comment = mock.comments[indexPath.row]
             cell.configure(comment)
@@ -122,10 +136,25 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == mock.comments.endIndex{
+            return 40
+        }
         let comment = mock.comments[indexPath.row]
         let width = tableView.frame.width - 62
         let txtheight = comment.body.height(withConstrainedWidth: width, font: .systemFont(ofSize: 13, weight: .regular))
         return txtheight + 40
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == mock.comments.endIndex{
+            if let cell = tableView.cellForRow(at: indexPath) as? LoadMoreCells{
+                cell.pressed()
+                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(5)) {
+                    self.mock.makeDuplicate()
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
 }
 

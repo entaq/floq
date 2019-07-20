@@ -14,6 +14,8 @@
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
 		3877A9FB22E34177007FBCE3 /* Opereators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F822E34177007FBCE3 /* Opereators.swift */; };
+		3877A9FE22E3536A007FBCE3 /* LoadMoreCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */; };
+		3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
@@ -126,6 +128,8 @@
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
 		3877A9F722E34177007FBCE3 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		3877A9F822E34177007FBCE3 /* Opereators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opereators.swift; sourceTree = "<group>"; };
+		3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCells.swift; sourceTree = "<group>"; };
+		3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCells.xib; sourceTree = "<group>"; };
 		387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersVC.swift; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -522,6 +526,8 @@
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
 				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
 				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
+				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
+				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
 			);
 			name = Views;
 			path = "New Group";
@@ -764,6 +770,7 @@
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
 				C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */,
 				C4D1E08A21D7894500C5ED9A /* FloqCell.xib in Resources */,
+				3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,6 +917,7 @@
 				38CFAB192288B8AD00D40330 /* FloatyDelegate.swift in Sources */,
 				C48BEDA821F8F6EA00D0A4F7 /* Core.swift in Sources */,
 				40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */,
+				3877A9FE22E3536A007FBCE3 /* LoadMoreCells.swift in Sources */,
 				38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */,
 				C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */,
 				C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */,

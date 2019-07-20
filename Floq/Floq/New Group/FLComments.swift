@@ -105,6 +105,13 @@ extension Comment{
             let comment = Comment(body: body, user: "Gerold Dayne")
             comments.append(comment)
         }
+        
+        mutating func makeDuplicate(){
+            let comments = self.comments
+            self.comments.append(contentsOf: comments)
+            self.comments.append(contentsOf: comments)
+            
+        }
     }
 }
 
