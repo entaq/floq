@@ -10,6 +10,10 @@
 		38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802275F227D33F0004C3DF6 /* EULAVC.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
+		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
+		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
+		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
+		3877A9FB22E34177007FBCE3 /* Opereators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F822E34177007FBCE3 /* Opereators.swift */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
@@ -118,6 +122,10 @@
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
 		3872F63E2214874C00AC547E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
+		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
+		3877A9F722E34177007FBCE3 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		3877A9F822E34177007FBCE3 /* Opereators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opereators.swift; sourceTree = "<group>"; };
 		387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersVC.swift; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +260,16 @@
 			path = FloqUITests;
 			sourceTree = "<group>";
 		};
+		3877A9F522E34177007FBCE3 /* AutoLayoutDSL */ = {
+			isa = PBXGroup;
+			children = (
+				3877A9F622E34177007FBCE3 /* LayoutProperty.swift */,
+				3877A9F722E34177007FBCE3 /* Protocols.swift */,
+				3877A9F822E34177007FBCE3 /* Opereators.swift */,
+			);
+			path = AutoLayoutDSL;
+			sourceTree = "<group>";
+		};
 		38B02E1A2214744D00DEEC21 /* FloqTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				38CF259422DFA34E008BEDDF /* CommentsVC.swift */,
+				3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -272,6 +291,7 @@
 		38CFAAB42288B44800D40330 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3877A9F522E34177007FBCE3 /* AutoLayoutDSL */,
 				38CFAB0E2288B89A00D40330 /* Floaty */,
 			);
 			path = Frameworks;
@@ -915,8 +935,10 @@
 				C434C50F21DBEB48003333A1 /* FirebaseAuth+Extensions.swift in Sources */,
 				C48A57DA21A22E4400D3B0E6 /* Enums.swift in Sources */,
 				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
+				3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */,
+				3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */,
 				40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */,
 				C41EBFB021E145430094EBC6 /* LoginVC.swift in Sources */,
 				C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */,
@@ -934,6 +956,7 @@
 				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
+				3877A9FB22E34177007FBCE3 /* Opereators.swift in Sources */,
 				C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */,
 				C4A2A42C21A22B5E006DFE6E /* GridPhotoItem.swift in Sources */,
 				C40FC38F21DE552400CD39A8 /* ProfileImageVC.swift in Sources */,
@@ -955,6 +978,7 @@
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
+				3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */,
 				C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */,
 				3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */,
 			);

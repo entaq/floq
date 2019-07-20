@@ -36,6 +36,8 @@ extension UIViewController{
     public class var identifier:String{
         return String(describing: self)
     }
+    
+    
 }
 
 extension UIView{
@@ -51,6 +53,12 @@ extension UIView{
         label.center = view.center
         view.addSubview(label)
         return view
+    }
+    
+    func layout(_ invalidatePrevious:Bool = false,using closure:(LayoutProxy) -> Void){
+        if invalidatePrevious{removeConstraints(self.constraints)}
+        translatesAutoresizingMaskIntoConstraints = false
+        closure(LayoutProxy(view:self))
     }
 }
 

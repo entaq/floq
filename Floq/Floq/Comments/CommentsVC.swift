@@ -20,6 +20,19 @@ class CommentsVC: UIViewController {
         return table
     }()
     
+    var hasNotch:Bool = false
+    
+    private lazy var commentView:UIButton = { [unowned self] by in
+       let view = UIButton(frame: .zero)
+        view.backgroundColor = .seafoamBlue
+        view.addTarget(self, action: #selector(commentPressed(_:)), for: .touchUpInside)
+        view.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        view.setTitleColor(.white, for: .normal)
+        view.setTitle("Comment...", for: .normal)
+        view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 40, right:  0)
+        return view
+    }(())
+    
     private lazy var commentTextBox:UITextField = {
         let textField = UITextField(frame: .zero)
         textField.font = .systemFont(ofSize: 14, weight: .regular)
@@ -30,7 +43,7 @@ class CommentsVC: UIViewController {
         return textField
     }()
     
-    private var comments:[Comment] = Comment.MockData().comments
+    private var mock:Comment.MockData = Comment.MockData()
     
     init(){
         super.init(nibName: nil, bundle: nil)
@@ -42,17 +55,36 @@ class CommentsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(tableView)
-        view.addSubview(commentTextBox)
+        view.addSubview(commentView)
+        layout()
         // Do any additional setup after loading the view.
+    }
+    
+    func layout(){
+        let inset:CGFloat = hasNotch ? 40 : 0
+        commentView.layout{
+            $0.bottom == view.bottomAnchor
+            $0.leading == view.leadingAnchor
+            $0.trailing == view.trailingAnchor
+            $0.height |=| (60 + inset)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - 35))
-        commentTextBox.frame = CGRect(x: 0, y: view.frame.height - 35, width: view.frame.width, height: 35)
+        let inset:CGFloat = hasNotch ? 40 : 0
+        tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - (60 + inset)))
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    
+    @objc func commentPressed(_ sender:UIButton){
+        let commentvc = AddCommentVC(hasNotch)
+        commentvc.delegate = self
+        parent?.present(commentvc, animated: true, completion: nil)
     }
     
 
@@ -77,12 +109,12 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return mock.comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "\(CommentCell.self)", for: indexPath) as? CommentCell{
-            let comment = comments[indexPath.row]
+            let comment = mock.comments[indexPath.row]
             cell.configure(comment)
             return cell
         }
@@ -90,9 +122,22 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let comment = comments[indexPath.row]
+        let comment = mock.comments[indexPath.row]
         let width = tableView.frame.width - 62
         let txtheight = comment.body.height(withConstrainedWidth: width, font: .systemFont(ofSize: 13, weight: .regular))
         return txtheight + 40
     }
+}
+
+
+//FOr testing Remove at integration Testing
+
+extension CommentsVC:CommentTestProtocol{
+    func didPost(_ comment: String) {
+        mock.appendComment(body: comment)
+        tableView.reloadData()
+    }
+    
+    
+    
 }
