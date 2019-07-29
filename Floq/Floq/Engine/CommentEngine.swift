@@ -13,13 +13,13 @@ class CommentEngine:NSObject{
     
     
     typealias Comments = Array<Comment>
-    typealias CommentSet = Set<Comment>
     typealias Completion = (_ error:Error?) -> ()
     
-    private var _QUERY_LIMIT = 20
-    private var _internalComments:CommentSet = []
+    private var _QUERY_LIMIT = 2
+    private var _internalComments:Comments = []
     private var photoId:String
     private var lastSnapshot:DocumentSnapshot?
+    private var listener:ListenerRegistration?
     private var commentsCollection:CollectionReference{
         return Firestore.database.collection(.comment)
     }
@@ -32,8 +32,12 @@ class CommentEngine:NSObject{
         
     }
     
+    func removeListener(){
+        listener?.remove()
+    }
+    
     var comments:Comments{
-        return _internalComments .sorted{$0.timestamp > $1.timestamp}
+        return _internalComments.sorted{$0.timestamp > $1.timestamp}
     }
     
     func watchForComments(completion:@escaping Completion){
@@ -45,13 +49,17 @@ class CommentEngine:NSObject{
             query = commentsCollection.whereField(Comment.Keys.photoID.rawValue, isEqualTo: photoId).order(by: Comment.Keys.timestamp.rawValue, descending: true).start(afterDocument: last).limit(to: _QUERY_LIMIT)
         }
         
-        query.addSnapshotListener { (querySnap, error) in
+        
+        
+        listener = query.addSnapshotListener { (querySnap, error) in
             guard let docs = querySnap?.documents else {return}
             self.lastSnapshot = docs.last
-            if docs.count < 20 {self.exhausted = true}
-            docs.forEach{let comment = Comment(snapshot: $0)
+            if docs.count < self._QUERY_LIMIT {self.exhausted = true}
+            docs.forEach{
+                if ($0.get(Comment.Keys.timestamp.rawValue) == nil){return}
+                let comment = Comment(snapshot: $0)
                 if !self._internalComments.contains(comment){
-                    self._internalComments.insert(comment)
+                    self._internalComments.append(comment)
                 }
             }
             completion(error)
@@ -62,6 +70,10 @@ class CommentEngine:NSObject{
         commentsCollection.document().setData(comment.data() as [String : Any], merge: true) { err in
             completion(err)
         }
+    }
+    
+    deinit {
+        listener?.remove()
     }
     
 }

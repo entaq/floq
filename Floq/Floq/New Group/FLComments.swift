@@ -41,7 +41,7 @@ extension Comment{
 }
 
 
-extension Comment:Hashable, Equatable{
+extension Comment:Equatable{
     
     static func == (lhs: Comment, rhs: Comment) -> Bool{
        return lhs.id == rhs.id

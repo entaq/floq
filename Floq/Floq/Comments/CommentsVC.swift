@@ -21,20 +21,22 @@ class CommentsVC: UIViewController {
         return table
     }()
     
+    private var keyboardoffset:CGFloat = 0
+    private var tap:UITapGestureRecognizer?
     var photoID:String!
     private var engine: CommentEngine!
     var exhausted = false
     var hasNotch:Bool = false
     
-    private lazy var commentView:UIButton = { [unowned self] by in
-       let view = UIButton(frame: .zero)
-        view.backgroundColor = .seafoamBlue
-        view.addTarget(self, action: #selector(commentPressed(_:)), for: .touchUpInside)
-        view.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
-        view.setTitleColor(.white, for: .normal)
-        view.setTitle("Add Comment", for: .normal)
-        return view
-    }(())
+//    private lazy var commentView:UIButton = { [unowned self] by in
+//       let view = UIButton(frame: .zero)
+//        view.backgroundColor = .seafoamBlue
+//        view.addTarget(self, action: #selector(commentPressed(_:)), for: .touchUpInside)
+//        view.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
+//        view.setTitleColor(.white, for: .normal)
+//        view.setTitle("Add Comment", for: .normal)
+//        return view
+//    }(())
     
     private lazy var commentTextBox:UITextField = {
         let textField = UITextField(frame: .zero)
@@ -46,11 +48,19 @@ class CommentsVC: UIViewController {
         return textField
     }()
     
+    private lazy var commentInput:CommentsInputView = { [unowned self] by in
+        let view = CommentsInputView(frame: .zero)
+        view.isHidden = false
+        view.delegate = self
+        return view
+    }(())
+    
     private var mock:Comment.MockData = Comment.MockData()
     
-    init(id:String){
+    init(id:String, _ hasNotch:Bool){
         super.init(nibName: nil, bundle: nil)
         photoID = id
+        self.hasNotch = hasNotch
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,13 +69,27 @@ class CommentsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Comments"
         engine = CommentEngine(photo: photoID)
         view.backgroundColor = .white
         view.addSubview(tableView)
-        view.addSubview(commentView)
+        view.addSubview(commentInput)
         layout()
         watchComments()
+        tableView.delegate = self
+        tableView.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        view.addSubview(commentInput)
+        tap = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        tap?.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap!)
         // Do any additional setup after loading the view.
+    }
+    
+    
+    @objc func tapped(_ recognizer:UITapGestureRecognizer){
+        commentInput.textView.resignFirstResponder()
     }
     
     
@@ -74,36 +98,43 @@ class CommentsVC: UIViewController {
             if err != nil{
                 SmartAlertView(text: err!.localizedDescription).show(5)
             }else{
-                self.tableView.reloadData()
                 self.exhausted = self.engine.exhausted
+                self.tableView.reloadData()
+                
             }
         }
     }
     
     func layout(){
-        let inset:CGFloat = hasNotch ? 40 : 0
-        commentView.layout{
-            $0.bottom == view.bottomAnchor
-            $0.leading == view.leadingAnchor
-            $0.trailing == view.trailingAnchor
-            $0.height |=| (60 + inset)
-        }
+        let inset:CGFloat = hasNotch ? 20 : 0
+//        commentView.layout{
+//            $0.bottom == view.bottomAnchor
+//            $0.leading == view.leadingAnchor
+//            $0.trailing == view.trailingAnchor
+//            $0.height |=| (60 + inset)
+//        }
+        //let offset = view.frame.origin.y
+        commentInput.frame = CGRect(x: 12, y: view.bounds.height - (40 + 88 + inset) , width: UIScreen.width - 24, height: 38)
         
         tableView.layout{
             $0.top == view.topAnchor
             $0.leading == view.leadingAnchor
             $0.trailing == view.trailingAnchor
-            $0.bottom == commentView.topAnchor
+            $0.bottom == commentInput.topAnchor
         }
-        commentView.titleEdgeInsets = hasNotch ? UIEdgeInsets(top: 0, left: 0, bottom: 20, right:  0) : UIEdgeInsets.zero
+        //commentView.titleEdgeInsets = hasNotch ? UIEdgeInsets(top: 0, left: 0, bottom: 20, right:  0) : UIEdgeInsets.zero
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        commentInput.textView.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //let inset:CGFloat = hasNotch ? 40 : 0
         //tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - (60 + inset)))
-        tableView.delegate = self
-        tableView.dataSource = self
+
     }
     
     
@@ -111,6 +142,31 @@ class CommentsVC: UIViewController {
         let commentvc = AddCommentVC(hasNotch)
         commentvc.delegate = self
         parent?.present(commentvc, animated: true, completion: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification){
+        if let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue{
+            let height = value.cgRectValue.height
+            UIView.animate(withDuration: 0.8) {
+                self.commentInput.frame.origin.y -= height
+            }
+            if let tap = tap{
+                view.addGestureRecognizer(tap)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification){
+        if let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue{
+            let height = value.cgRectValue.height
+            keyboardoffset = height
+            UIView.animate(withDuration: 0.8) {
+                self.commentInput.frame.origin.y += height
+            }
+            if let tap = tap{
+                view.removeGestureRecognizer(tap)
+            }
+        }
     }
     
 
@@ -212,6 +268,35 @@ extension CommentsVC:CommentProtocol{
         
     }
     
+    
+    
+}
+
+
+extension CommentsVC:CommentInputViewDelegate{
+    
+    func shouldAdjustFrame(_ increased:Bool) {
+        //print("Offset is: \(offset)")
+        commentInput.frame.size.height += increased ? 20 : -20
+        commentInput.frame.origin.y += increased ? -20 : 20
+        //commentInput.frame.origin.y = view.frame.height - (keyboardoffset + offset)
+    }
+    
+    func postTapped(_ text: String) {
+        if let _ = appUser{
+            commentInput.textView.text = ""
+            commentInput.textViewDidChange(commentInput.textView)
+            let raw = Comment.Raw(ref: nil, body: text, photoID: photoID)
+            engine.postAComment(raw) { (err) in
+                if err != nil{
+                    SmartAlertView(text: err!.localizedDescription).show()
+                }else{
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+    }
     
     
 }

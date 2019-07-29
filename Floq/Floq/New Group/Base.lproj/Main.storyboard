@@ -76,9 +76,9 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5J-aG-bzC">
-                                        <rect key="frame" x="149" y="22" width="77" height="36"/>
+                                        <rect key="frame" x="172.66666666666666" y="22" width="30" height="36"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <state key="normal" title="Go Back">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>

@@ -29,8 +29,9 @@ class PhotoFullScreenVC: UIViewController {
     
     private lazy var commentIcon:UIButton = { [unowned self] by in
         let button = UIButton(frame: .zero)
-        button.setTitle("Comment", for: .normal)
+        //button.setTitle("Comment", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.setImage(#imageLiteral(resourceName: "comments_white"), for: .normal)
         button.addTarget(self, action: #selector(commentTapped(_:)), for: .touchUpInside)
         return button
     }(())
@@ -200,7 +201,10 @@ class PhotoFullScreenVC: UIViewController {
     }
     
     @objc func commentTapped(_ sender: UIButton){
-        showCommentAnimation()
+        //showCommentAnimation()
+        guard let id = currentPhotoID else {return}
+        let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func resetViews(){
@@ -234,9 +238,8 @@ class PhotoFullScreenVC: UIViewController {
             self.likebar.isHidden = true
             //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
         }, completion: { _ in
-            let vc = CommentsVC(id:self.currentPhotoID!)
+            let vc = CommentsVC(id:self.currentPhotoID!,(self._AREA_INSET > 1) ? true : false)
             vc.view.frame.size = self.commentContainer.frame.size
-            vc.hasNotch = (self._AREA_INSET > 1) ? true : false
             self.add(vc, to: self.commentContainer)
         })
     }
@@ -392,7 +395,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
             commentIcon.trailingAnchor.constraint(equalTo: likebar.trailingAnchor, constant: -12),
             commentIcon.centerYAnchor.constraint(equalTo: likebar.centerYAnchor, constant: 0),
             commentIcon.widthAnchor.constraint(equalToConstant: 100),
-            commentIcon.heightAnchor.constraint(equalToConstant: 30)
+            commentIcon.heightAnchor.constraint(equalToConstant: 40)
         ])
         likelabel.textColor = .white
         likelabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)

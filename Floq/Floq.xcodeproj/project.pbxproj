@@ -20,6 +20,7 @@
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
+		38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */; };
 		38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF258F22DCCA2D008BEDDF /* FLComments.swift */; };
 		38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259122DD4FD1008BEDDF /* CommentEngine.swift */; };
 		38CF259522DFA34E008BEDDF /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259422DFA34E008BEDDF /* CommentsVC.swift */; };
@@ -137,6 +138,7 @@
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentsInputView copy.swift"; sourceTree = "<group>"; };
 		38CF258F22DCCA2D008BEDDF /* FLComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLComments.swift; sourceTree = "<group>"; };
 		38CF259122DD4FD1008BEDDF /* CommentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEngine.swift; sourceTree = "<group>"; };
 		38CF259422DFA34E008BEDDF /* CommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
 				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
+				38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -963,6 +966,7 @@
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
 				C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */,
+				38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */,
 				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
 				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
