@@ -15,7 +15,7 @@ class CommentEngine:NSObject{
     typealias Comments = Array<Comment>
     typealias Completion = (_ error:Error?) -> ()
     
-    private var _QUERY_LIMIT = 2
+    private var _QUERY_LIMIT = 20
     private var _internalComments:Comments = []
     private var photoId:String
     private var lastSnapshot:DocumentSnapshot?
@@ -37,6 +37,7 @@ class CommentEngine:NSObject{
     }
     
     var comments:Comments{
+        
         return _internalComments.sorted{$0.timestamp > $1.timestamp}
     }
     

@@ -28,7 +28,13 @@ class CommentsVC: UIViewController {
     var exhausted = false
     var hasNotch:Bool = false
     private var originalTextFrame:CGRect = .zero
-    //var currentY:CGFloat = 0
+    var ___frame:CGRect?{
+        didSet{
+            if oldValue == nil && ___frame != nil{
+                originalTextFrame = ___frame!
+            }
+        }
+    }
     
 //    private lazy var commentView:UIButton = { [unowned self] by in
 //       let view = UIButton(frame: .zero)
@@ -153,7 +159,7 @@ class CommentsVC: UIViewController {
             UIView.animate(withDuration: 0.8, animations: {
                 self.commentInput.frame.origin.y -= height
                 
-                }){_ in self.originalTextFrame = self.commentInput.frame }
+                }){_ in self.___frame = self.commentInput.frame }
             if let tap = tap{
                 view.addGestureRecognizer(tap)
             }
