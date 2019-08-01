@@ -62,7 +62,7 @@ class CommentsInputView: UIView {
         clipsToBounds = true
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1
-        height =  Int(textView.text.height(withConstrainedWidth: bounds.width, font: font))
+        height =  Int(textView.text.height(withConstrainedWidth: bounds.width, font: font)) - 56
     }
     
     
@@ -111,8 +111,11 @@ extension CommentsInputView:UITextViewDelegate{
             postButton.setTitleColor(.seafoamBlue, for: .normal)
             label.isHidden = true
         }
-        let textHieght = textView.text.height(withConstrainedWidth: bounds.width, font: font)
-        if Int(textHieght) != height {
+        let textHieght = textView.text.height(withConstrainedWidth: bounds.width - 56, font: font)
+        if textHieght < 21 {
+           height = Int(textHieght)
+        }
+        if Int(textHieght) != height  {
             
             delegate?.shouldAdjustFrame(Int(textHieght) > height)
             height = Int(textHieght)

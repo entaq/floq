@@ -27,6 +27,8 @@ class CommentsVC: UIViewController {
     private var engine: CommentEngine!
     var exhausted = false
     var hasNotch:Bool = false
+    private var originalTextFrame:CGRect = .zero
+    //var currentY:CGFloat = 0
     
 //    private lazy var commentView:UIButton = { [unowned self] by in
 //       let view = UIButton(frame: .zero)
@@ -106,7 +108,7 @@ class CommentsVC: UIViewController {
     }
     
     func layout(){
-        let inset:CGFloat = hasNotch ? 20 : 0
+        let inset:CGFloat = hasNotch ? 20 : -10
 //        commentView.layout{
 //            $0.bottom == view.bottomAnchor
 //            $0.leading == view.leadingAnchor
@@ -147,9 +149,11 @@ class CommentsVC: UIViewController {
     @objc func keyboardWillShow(_ notification:Notification){
         if let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue{
             let height = value.cgRectValue.height
-            UIView.animate(withDuration: 0.8) {
+      
+            UIView.animate(withDuration: 0.8, animations: {
                 self.commentInput.frame.origin.y -= height
-            }
+                
+                }){_ in self.originalTextFrame = self.commentInput.frame }
             if let tap = tap{
                 view.addGestureRecognizer(tap)
             }
@@ -194,15 +198,23 @@ extension CommentsVC:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if engine.comments.isEmpty{
-            let view = UIView(frame: .zero)
-            view.backgroundColor = .white
-            let activity = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
-            activity.style = .whiteLarge
-            activity.tintColor = .seafoamBlue
-            view.addSubview(activity)
-            tableView.backgroundView = view
-            activity.center = view.center
-            activity.startAnimating()
+//            let view = UIView(frame: .zero)
+//            view.backgroundColor = .white
+//            let activity = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
+//            activity.style = .whiteLarge
+//            activity.tintColor = .seafoamBlue
+//            view.addSubview(activity)
+//            tableView.backgroundView = view
+//            activity.center = view.center
+//            activity.startAnimating()
+            let lable = UILabel(frame: tableView.frame)
+            lable.text = "Be the first to comment..."
+            lable.textAlignment = .center
+            lable.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            lable.textColor = .darkGray
+            tableView.backgroundView = lable
+        }else{
+            tableView.backgroundView = nil
         }
         if exhausted{
             return engine.comments.count
@@ -284,6 +296,8 @@ extension CommentsVC:CommentInputViewDelegate{
     
     func postTapped(_ text: String) {
         if let _ = appUser{
+            
+            commentInput.frame = CGRect(origin: originalTextFrame.origin, size: CGSize(width: originalTextFrame.width, height: 38))
             commentInput.textView.text = ""
             commentInput.textViewDidChange(commentInput.textView)
             let raw = Comment.Raw(ref: nil, body: text, photoID: photoID)

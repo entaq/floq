@@ -16,6 +16,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = 15
         // Initialization code

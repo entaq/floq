@@ -188,7 +188,7 @@ class PhotoFullScreenVC: UIViewController {
         if let cell = collectionView.visibleCells.first as? FullScreenCell{
             if let image = cell.imageView.image{
                 
-               let sheet = UIActivityViewController(activityItems: [" -Shared from Floq App",image], applicationActivities: [])
+               let sheet = UIActivityViewController(activityItems: [image, " -Shared from Floq App",], applicationActivities: [])
                 present(sheet, animated: true) {}
                 
             }

@@ -45,20 +45,10 @@
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4M-zN-Veo">
-                        <rect key="frame" x="0.0" y="213" width="320" height="0.5"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="soh-qY-Hmf"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="N4M-zN-Veo" secondAttribute="bottom" id="1H9-05-Sbc"/>
-                    <constraint firstAttribute="trailing" secondItem="N4M-zN-Veo" secondAttribute="trailing" id="3zB-Bb-Hov"/>
                     <constraint firstAttribute="trailing" secondItem="pKV-rH-3dB" secondAttribute="trailing" constant="12" id="JtW-eH-Oit"/>
                     <constraint firstItem="1yV-4Z-fuk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="PDR-7L-L63"/>
-                    <constraint firstItem="N4M-zN-Veo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QBl-sW-uJg"/>
                     <constraint firstAttribute="trailing" secondItem="JnC-cV-1zO" secondAttribute="trailing" constant="12" id="UOc-iQ-2nc"/>
                     <constraint firstItem="pKV-rH-3dB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="V69-cN-xDa"/>
                     <constraint firstItem="pFP-q7-KaR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="cyy-Dx-thN"/>

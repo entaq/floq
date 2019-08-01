@@ -292,6 +292,11 @@
 			children = (
 				38CF259422DFA34E008BEDDF /* CommentsVC.swift */,
 				3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */,
+				38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */,
+				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
+				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
+				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
+				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -528,12 +533,7 @@
 				C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */,
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
-				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
-				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
-				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
-				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
-				38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -706,6 +706,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				de,
@@ -1258,7 +1259,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
@@ -1284,7 +1285,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
