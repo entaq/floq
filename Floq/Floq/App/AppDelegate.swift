@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appUser:FLUser?
     var isSyncng = false
     var isWatching = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
@@ -40,10 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
+    
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         isSyncng = false
@@ -143,10 +146,17 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let info = notification.request.content.userInfo
         let title = notification.request.content.title
         let body = notification.request.content.body
         let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
+        if let type = info["type"] as? String, let cliq = info[Fields.cliqID.rawValue] as? String, let photo = info[Fields.photoID.rawValue] as? String{
+            if type == AlertSystem.Types.COMMENT_ADDED{
+                mainEngine.setHighlight(data: (cliq,photo))
+            }
+        }
         showInAppAlert(title: title, body: body, id: id)
+        
         completionHandler(.sound)
     }
     

@@ -1,10 +1,12 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { print } from "util";
+import { COMMENT_ADDED } from "./Alerts";
 
 const REF_FLOQS = "FLFLOQs";
 const REF_PHOTOS = "Photos";
 const REF_FLPHOTOS = "FLPHOTOS";
+const REF_COMMENTS = "FLComments";
 const REF_TOKENS = "FLTOKENS";
 const REF_USERS = "FLUSER";
 const FIELD_CLIQ_ID = "cliqID";
@@ -21,6 +23,7 @@ const FIELD_latestCliq = "latestCliq";
 const FIELD_cliqCount = "cliqCount";
 const FIELD_dateJoined = "dateJoined";
 const FIELD_followers = "followers";
+const FIELD_PHOTOID = "photoID";
 const FIELD_deleted = "deleted";
 const FIELD_dateDeleted = "dateDeleted";
 const FIELD_instanceToken = "instanceToken";
@@ -29,6 +32,8 @@ const DOC_CLIQS = "Cliqs";
 const FIELD_COUNT = "count";
 const FIELD_FLAGGED = "flagged";
 const FIELD_FLAGGERS = "flaggers";
+const FIELD_COMMENTOR_ID = "commentorID";
+const FIELD_COMMENTOR = "commentor";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -174,6 +179,47 @@ export const countPhotos = functions.firestore
       .doc("Photos")
       .update({ count: count + 1 });
     return resp;
+  });
+
+export const notifyForComment = functions.firestore
+  .document(`${REF_COMMENTS}/{id}`)
+  .onCreate(async (snap, context) => {
+    const cliqID = snap.get(FIELD_CLIQ_ID);
+    const photoID = snap.get(FIELD_PHOTOID);
+    const cliq = await store
+      .collection(REF_FLOQS)
+      .doc(cliqID)
+      .get();
+    const posterID = snap.get(FIELD_COMMENTOR_ID);
+    const cliqName = snap.get(FIELD_cliqname);
+    let promise = Promise.resolve("Nothing");
+    const commentor = snap.get(FIELD_COMMENTOR);
+    const followers = cliq.get(FIELD_followers);
+    const total = followers.length;
+
+    for (let i = 0; i < total; i++) {
+      const key = followers[i];
+      if (key !== posterID) {
+        const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
+        const token = tokenSnap.get(FIELD_instanceToken);
+
+        const message = {
+          notification: {
+            title: "New Comment",
+            body: `${commentor} just added a new comment to ${cliqName} Cliq`
+          },
+          data: {
+            cliqID: cliqID,
+            photoID: photoID,
+            type: COMMENT_ADDED
+          },
+          token: token
+        };
+        console.log(`The payload is ${message}`);
+        promise = admin.messaging().send(message);
+      }
+    }
+    return promise;
   });
 
 /**

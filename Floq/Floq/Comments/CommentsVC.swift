@@ -22,6 +22,7 @@ class CommentsVC: UIViewController {
     }()
     
     private var keyboardoffset:CGFloat = 0
+    private var cliqID:String!
     private var tap:UITapGestureRecognizer?
     var photoID:String!
     private var engine: CommentEngine!
@@ -65,10 +66,11 @@ class CommentsVC: UIViewController {
     
     private var mock:Comment.MockData = Comment.MockData()
     
-    init(id:String, _ hasNotch:Bool){
+    init(id:String, _ hasNotch:Bool, cliqID:String){
         super.init(nibName: nil, bundle: nil)
         photoID = id
         self.hasNotch = hasNotch
+        self.cliqID = cliqID
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -273,7 +275,7 @@ extension CommentsVC:CommentProtocol{
         SmartAlertView(text: "Sending comment....").show()
         //return
         if let _ = appUser{
-            let raw = Comment.Raw(ref: nil, body: comment, photoID: photoID)
+            let raw = Comment.Raw(ref: nil, body: comment, photoID: photoID,cliqID: cliqID)
             engine.postAComment(raw) { (err) in
                 if err != nil{
                    SmartAlertView(text: err!.localizedDescription).show()
@@ -306,7 +308,7 @@ extension CommentsVC:CommentInputViewDelegate{
             commentInput.frame = CGRect(origin: originalTextFrame.origin, size: CGSize(width: originalTextFrame.width, height: 38))
             commentInput.textView.text = ""
             commentInput.textViewDidChange(commentInput.textView)
-            let raw = Comment.Raw(ref: nil, body: text, photoID: photoID)
+            let raw = Comment.Raw(ref: nil, body: text, photoID: photoID, cliqID: cliqID)
             engine.postAComment(raw) { (err) in
                 if err != nil{
                     SmartAlertView(text: err!.localizedDescription).show()

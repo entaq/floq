@@ -18,6 +18,7 @@ struct Comment {
     public let commentor:String
     public let commentorID:String
     public let photoID:String
+    public let cliqID:String
     
     init(snapshot:DocumentSnapshot) {
         id = snapshot.documentID
@@ -27,6 +28,7 @@ struct Comment {
         commentor = snapshot.getString(Keys.commentor.rawValue)
         commentorID = snapshot.getString(Keys.commentorID.rawValue)
         photoID = snapshot.getString(Keys.photoID.rawValue)
+        cliqID = snapshot.getString(Keys.cliqID.rawValue)
     }
     
     
@@ -36,7 +38,7 @@ struct Comment {
 
 extension Comment{
     public enum Keys:String{
-        case id, reference, body, timestamp, commentor, commentorID, photoID
+        case id, reference, body, timestamp, commentor, commentorID, photoID, cliqID
     }
 }
 
@@ -57,13 +59,15 @@ extension Comment{
         private  let commentor:String
         private  let commentorID:String
         private  let photoID:String
+        private let cliqID:String
         
-        init(ref:String?,body:String, photoID:String){
+        init(ref:String?,body:String, photoID:String, cliqID:String){
             reference = ref
             self.body = body
             commentor = appUser!.username
             self.photoID = photoID
             commentorID = appUser!.uid
+            self.cliqID = cliqID
         }
         
         public func data()->[String:Any?]{
@@ -73,7 +77,8 @@ extension Comment{
                 Keys.timestamp.rawValue:FieldValue.serverTimestamp(),
                 Keys.commentor.rawValue:commentor,
                 Keys.commentorID.rawValue: commentorID,
-                Keys.photoID.rawValue:self.photoID
+                Keys.photoID.rawValue:self.photoID,
+                Keys.cliqID.rawValue:self.cliqID
             ]
         }
     }
@@ -94,6 +99,7 @@ extension Comment{
         commentor = user
         commentorID = appUser!.uid
         photoID = ""
+        cliqID = ""
     }
     
     struct MockData{

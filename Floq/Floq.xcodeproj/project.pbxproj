@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802275F227D33F0004C3DF6 /* EULAVC.swift */; };
+		3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3815C8442302FA0800A8ABEC /* Alerts.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
@@ -122,6 +123,7 @@
 /* Begin PBXFileReference section */
 		057B0F75B8FF1CD316481054 /* Pods-Floq.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.debug.xcconfig"; sourceTree = "<group>"; };
 		3802275F227D33F0004C3DF6 /* EULAVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAVC.swift; sourceTree = "<group>"; };
+		3815C8442302FA0800A8ABEC /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = ../../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/Subscriptions/Alerts.swift; sourceTree = "<group>"; };
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				383352212282E80600DA6857 /* Subscriptions.swift */,
+				3815C8442302FA0800A8ABEC /* Alerts.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -985,6 +988,7 @@
 				38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */,
 				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
+				3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */,
 				C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */,
 				40A1F74120F2F80F00DDA0B1 /* HomeVC.swift in Sources */,
 				C4A2A43821A22C4A006DFE6E /* PhotoCell.swift in Sources */,

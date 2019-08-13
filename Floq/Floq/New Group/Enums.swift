@@ -93,6 +93,7 @@ public enum Fields:String{
     case blockedMeList = "blockedMelist"
     case myblockingList = "myblockinglist"
     case lastChecked = "lastChecked"
+    case  photoID
 }
 
 public enum FLNotification:String{

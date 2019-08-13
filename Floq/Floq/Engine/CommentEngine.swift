@@ -41,6 +41,8 @@ class CommentEngine:NSObject{
         return _internalComments.sorted{$0.timestamp > $1.timestamp}
     }
     
+    
+    
     func watchForComments(completion:@escaping Completion){
         let query:Query
         if _internalComments.isEmpty{
