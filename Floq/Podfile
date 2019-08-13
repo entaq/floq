@@ -1,13 +1,23 @@
 target 'Floq' do
-  use_frameworks!
-  pod 'FirebaseUI'
-  pod 'Firebase'
-  
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-
+    use_frameworks!
+  pod 'FirebaseUI/Storage', '~> 5.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
+  pod 'FBSDKShareKit','4.36.0'
+  pod 'FBSDKCoreKit', '4.36.0'
+  pod 'FBSDKLoginKit', '4.36.0'
+  pod 'FacebookCore', '0.4'
+  pod 'FacebookLogin', '0.4'
+  #pod 'FacebookShare', '0.4'
   pod 'DKImagePickerController'
+  pod 'Geofirestore'
   pod 'IGListKit'
-  pod 'Floaty', '~> 4.0.0' # Use version 4.0.0 for Swift 4.0
-  pod 'Eureka'
+  pod 'Fabric', '~> 1.9.0'
+  pod 'Crashlytics', '~> 3.12.0'
+  #pod 'Floaty', '~> 4.0.0' # Use version 4.0.0 for Swift 4.0
+ 
 end
+
