@@ -53,6 +53,7 @@ enum References:String{
     case likes = "LIKES"
     case requestLikeShard = "LikesShard"
     case comment = "FLComments"
+    case commentSubscription = "FLCommentSubscriptions"
     
     
 }

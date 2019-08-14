@@ -70,6 +70,11 @@ class CommentEngine:NSObject{
     }
     
     func postAComment(_ comment:Comment.Raw, completion:@escaping Completion){
+        let batch = Firestore.database.batch()
+        let reference = commentsCollection.document()
+        let subscriptionRef = Firestore.database.collection(.commentSubscription).document(comment.cliqID)
+        let subData = [comment.photoID:FieldValue]
+        batch.setData(<#T##data: [String : Any]##[String : Any]#>, forDocument: <#T##DocumentReference#>, merge: <#T##Bool#>)
         commentsCollection.document().setData(comment.data() as [String : Any], merge: true) { err in
             completion(err)
         }

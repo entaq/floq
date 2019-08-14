@@ -58,8 +58,8 @@ extension Comment{
         private  let body:String
         private  let commentor:String
         private  let commentorID:String
-        private  let photoID:String
-        private let cliqID:String
+        public  let photoID:String
+        public  let cliqID:String
         
         init(ref:String?,body:String, photoID:String, cliqID:String){
             reference = ref
