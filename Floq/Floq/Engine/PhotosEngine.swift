@@ -13,8 +13,16 @@ import FirebaseAuth
 
 class PhotosEngine:NSObject{
     
+    override init() {
+        fatalError("Use init(cliq:String")
+    }
     
+    init(cliq:String){
+        self.cliq = cliq
+        super.init()
+    }
     
+    private var cliq:String!
     private var _internalPhotoContainer:[PhotoItem] = []
     static let MAXX_LIKES = 34000
     
@@ -36,6 +44,9 @@ class PhotosEngine:NSObject{
     private var photoRef:CollectionReference{
         return Firestore.database.collection(References.photos.rawValue)
     }
+    
+    
+    
     
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
@@ -81,7 +92,13 @@ class PhotosEngine:NSObject{
 //        }
 //    }
     
-
+    
+    func subscribeToCommentsupdates(){
+        Firestore.database.collection(.commentSubscription).document(cliq).addSnapshotListener { (snap, error) in
+            guard let snap = snap else {return}
+            
+        }
+    }
     
     func flagPhoto(photoID:String,cliqID:String? = nil, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}

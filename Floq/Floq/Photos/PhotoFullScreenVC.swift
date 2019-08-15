@@ -146,7 +146,7 @@ class PhotoFullScreenVC: UIViewController {
         collectionView.isPagingEnabled = true
         setup()
         addSwipeUpGesture()
-        
+        subscribeTo(subscription: .newHighlight, selector: #selector(listenForCMTsubscription(_:)))
     }
     
     func addSwipeUpGesture(){
@@ -205,6 +205,11 @@ class PhotoFullScreenVC: UIViewController {
     
     @objc func commentTapped(_ sender: UIButton){
         //showCommentAnimation()
+        if currentPhotoID != nil{
+           CMTSubscription().endHightlightFor(currentPhotoID!)
+            //Remove highlight
+        }
+        
         guard let id = currentPhotoID else {return}
         let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false,cliqID: cliqID)
         navigationController?.pushViewController(vc, animated: true)
@@ -452,6 +457,10 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         }
     }
     
+    deinit {
+        unsubscribe()
+    }
+    
 }
 
 
@@ -560,6 +569,8 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     
     
     
+    
+    
     @objc func tappedAvatar(_ tapGestureRecognizer:UITapGestureRecognizer){
         if let id  = userUid{
             
@@ -570,6 +581,21 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     }
 }
 
+
+// Mark : - CMTSUbscription
+
+extension PhotoFullScreenVC{
+    
+    @objc func listenForCMTsubscription(_ notification:Notification){
+        guard let id = notification.userInfo?[.info] as? String, let photoID = currentPhotoID else {return}
+        if id == cliqID{
+            let photo = CMTSubscription().fetchPhotoSub(id: photoID)
+            if photo?.canBroadcast ?? false{
+                //Perform highlight
+            }
+        }
+    }
+}
 
 
 

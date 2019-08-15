@@ -72,9 +72,9 @@ class CommentEngine:NSObject{
     #warning("Use Transactions in the future")
     func postAComment(_ comment:Comment.Raw, completion:@escaping Completion){
         let batch = Firestore.database.batch()
-        let reference = commentsCollection.document()
+        //let reference = commentsCollection.document()
         let subscriptionRef = Firestore.database.collection(.commentSubscription).document(comment.cliqID)
-        let subData:[String:Any] = ["\(comment.photoID).\(Fields.count.rawValue)":FieldValue.increment(Int64(1)), "\(comment.photoID).\(Fields.ts.rawValue)":FieldValue.serverTimestamp(), Fields.cliqComments.rawValue:FieldValue.increment(Int64(1))]
+        let subData:[String:Any] = ["\(comment.photoID).\(Fields.count.rawValue)":FieldValue.increment(Int64(1)), "\(comment.photoID).\(Fields.ts.rawValue)":Date().unix_ts, Fields.cliqComments.rawValue:FieldValue.increment(Int64(1))]
         batch.setData(subData, forDocument: subscriptionRef, merge: true)
         batch.setData(comment.data() as [String : Any], forDocument: commentsCollection.document(), merge: true)
         batch.commit() { err in

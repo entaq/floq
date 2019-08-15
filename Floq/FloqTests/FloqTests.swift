@@ -24,6 +24,7 @@ class FloqTests: XCTestCase {
 
     func testExample() {
         XCTAssert(4 == 10, "Wrong Assertion")
+        
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
