@@ -27,7 +27,7 @@ final class PhotosVC: UIViewController {
     private var floaty:Floaty!
     private var cliq:FLCliqItem?
     private var cliqID:String!
-    var photoEngine = PhotosEngine()
+    var photoEngine:PhotosEngine!
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -41,6 +41,7 @@ final class PhotosVC: UIViewController {
     init(cliq:FLCliqItem? , id:String){
         self.cliq = cliq
         self.cliqID = id
+        photoEngine = PhotosEngine(cliq: id)
         super.init(nibName: nil, bundle: nil)
     }
     

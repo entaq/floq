@@ -28,6 +28,7 @@
 		388D51C72305CEB500BF6BCE /* Floq.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 388D51C52305CEB500BF6BCE /* Floq.xcdatamodeld */; };
 		388D51C92305D03300BF6BCE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51C82305D03300BF6BCE /* Persistence.swift */; };
 		388D51FC2305D13900BF6BCE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FB2305D13900BF6BCE /* CoreDataStack.swift */; };
+		388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FD2305EC4A00BF6BCE /* CommentButton.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
 		38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */; };
@@ -164,6 +165,7 @@
 		388D51C62305CEB500BF6BCE /* Floq.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Floq.xcdatamodel; sourceTree = "<group>"; };
 		388D51C82305D03300BF6BCE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Persistence.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/Persistence.swift; sourceTree = "<group>"; };
 		388D51FB2305D13900BF6BCE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CoreDataStack.swift; sourceTree = "<group>"; };
+		388D51FD2305EC4A00BF6BCE /* CommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/CommentButton.swift"; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
+				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -1011,6 +1014,7 @@
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
 				C48A57D821A22E0900D3B0E6 /* CliqEngine.swift in Sources */,
+				388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */,
 				388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,

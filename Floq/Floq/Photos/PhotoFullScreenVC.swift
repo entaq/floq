@@ -27,11 +27,9 @@ class PhotoFullScreenVC: UIViewController {
     private var avatatFrame:CGRect!
     private var commentShowing = false
     
-    private lazy var commentIcon:UIButton = { [unowned self] by in
-        let button = UIButton(frame: .zero)
+    private lazy var commentIcon:CommentButton = { [unowned self] by in
+        let button = CommentButton(frame: .zero)
         //button.setTitle("Comment", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setImage(#imageLiteral(resourceName: "comments_white"), for: .normal)
         button.addTarget(self, action: #selector(commentTapped(_:)), for: .touchUpInside)
         return button
     }(())
@@ -207,7 +205,7 @@ class PhotoFullScreenVC: UIViewController {
         //showCommentAnimation()
         if currentPhotoID != nil{
            CMTSubscription().endHightlightFor(currentPhotoID!)
-            //Remove highlight
+            commentIcon.broadcast = false
         }
         
         guard let id = currentPhotoID else {return}
@@ -327,6 +325,10 @@ class PhotoFullScreenVC: UIViewController {
         adapter.collectionViewDelegate = self
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
     }
+    
+    deinit {
+        unsubscribe()
+    }
 }
 
 
@@ -402,8 +404,8 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         NSLayoutConstraint.activate([
             commentIcon.trailingAnchor.constraint(equalTo: likebar.trailingAnchor, constant: -12),
             commentIcon.centerYAnchor.constraint(equalTo: likebar.centerYAnchor, constant: 0),
-            commentIcon.widthAnchor.constraint(equalToConstant: 100),
-            commentIcon.heightAnchor.constraint(equalToConstant: 40)
+            commentIcon.widthAnchor.constraint(equalToConstant: 40),
+            commentIcon.heightAnchor.constraint(equalToConstant: 30)
         ])
         likelabel.textColor = .white
         likelabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
@@ -457,9 +459,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         }
     }
     
-    deinit {
-        unsubscribe()
-    }
+    
     
 }
 
@@ -591,7 +591,7 @@ extension PhotoFullScreenVC{
         if id == cliqID{
             let photo = CMTSubscription().fetchPhotoSub(id: photoID)
             if photo?.canBroadcast ?? false{
-                //Perform highlight
+                commentIcon.broadcast = true
             }
         }
     }
