@@ -33,7 +33,7 @@ extension Storage{
             ref.putData(data!, metadata: nil) { (meta, err) in
                 
                 if err == nil{
-                    let cache = SDImageCache.shared()
+                    let cache = SDImageCache.shared
                     cache.removeImage(forKey: ref.fullPath, withCompletion: {
                         cache.store(image, forKey: ref.fullPath, completion: nil)
                     })
@@ -54,7 +54,7 @@ extension SDImageCache{
     class func invalidateProfiles(){
         let prof = DataService.profileIDs
         for p in prof{
-            shared().removeImage(forKey: Storage.profilePhotos.child(p).fullPath, withCompletion: nil)
+            shared.removeImage(forKey: Storage.profilePhotos.child(p).fullPath, withCompletion: nil)
         }
     }
 }

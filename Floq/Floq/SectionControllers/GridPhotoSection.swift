@@ -40,7 +40,7 @@ final class GridPhotoSection: ListSectionController {
         if let cell = collectionContext?.dequeueReusableCell(withNibName:String(describing: PhotoCell.self), bundle: Bundle.main, for: self, at: index) as? PhotoCell {
             let photoItem = gridItem?.items[index]
             let reference = storageRef.child(photoItem?.fileID ?? "")
-            cell.configureCell(ref: reference)
+            cell.configureCell(ref: reference, photoID: photoItem!.id)
             return cell
         }
         return ImageCell()

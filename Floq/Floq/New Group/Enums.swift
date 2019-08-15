@@ -60,7 +60,7 @@ enum References:String{
 
 public enum Fields:String{
     
-    case flagged, flaggers
+    case flagged, flaggers, cliqComments
     case fileID = "fileID"
     case cliqID = "cliqID"
     case username = "userName"
@@ -95,6 +95,8 @@ public enum Fields:String{
     case myblockingList = "myblockinglist"
     case lastChecked = "lastChecked"
     case  photoID
+    case count
+    case ts
 }
 
 public enum FLNotification:String{

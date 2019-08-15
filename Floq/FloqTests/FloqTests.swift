@@ -11,6 +11,8 @@ import XCTest
 
 
 class FloqTests: XCTestCase {
+    
+    var commentEngine:CommentEngine!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,6 +23,7 @@ class FloqTests: XCTestCase {
     }
 
     func testExample() {
+        XCTAssert(4 == 10, "Wrong Assertion")
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

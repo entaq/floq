@@ -45,6 +45,7 @@ class CommentEngine:NSObject{
     
     func watchForComments(completion:@escaping Completion){
         let query:Query
+        
         if _internalComments.isEmpty{
             query = commentsCollection.whereField(Comment.Keys.photoID.rawValue, isEqualTo: photoId).limit(to: _QUERY_LIMIT).order(by: Comment.Keys.timestamp.rawValue, descending: true)
         }else{
@@ -68,14 +69,15 @@ class CommentEngine:NSObject{
             completion(error)
         }
     }
-    
+    #warning("Use Transactions in the future")
     func postAComment(_ comment:Comment.Raw, completion:@escaping Completion){
         let batch = Firestore.database.batch()
         let reference = commentsCollection.document()
         let subscriptionRef = Firestore.database.collection(.commentSubscription).document(comment.cliqID)
-        let subData = [comment.photoID:FieldValue]
-        batch.setData(<#T##data: [String : Any]##[String : Any]#>, forDocument: <#T##DocumentReference#>, merge: <#T##Bool#>)
-        commentsCollection.document().setData(comment.data() as [String : Any], merge: true) { err in
+        let subData:[String:Any] = ["\(comment.photoID).\(Fields.count.rawValue)":FieldValue.increment(Int64(1)), "\(comment.photoID).\(Fields.ts.rawValue)":FieldValue.serverTimestamp(), Fields.cliqComments.rawValue:FieldValue.increment(Int64(1))]
+        batch.setData(subData, forDocument: subscriptionRef, merge: true)
+        batch.setData(comment.data() as [String : Any], forDocument: commentsCollection.document(), merge: true)
+        batch.commit() { err in
             completion(err)
         }
     }
@@ -83,5 +85,7 @@ class CommentEngine:NSObject{
     deinit {
         listener?.remove()
     }
+    
+    
     
 }

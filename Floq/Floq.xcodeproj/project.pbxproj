@@ -19,6 +19,12 @@
 		3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */; };
 		3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
+		388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51AB230575F700BF6BCE /* Geofirestore.swift */; };
+		388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B42305825000BF6BCE /* GFBase32Utils.m */; };
+		388D51C02305825000BF6BCE /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B62305825000BF6BCE /* GeoFire.m */; };
+		388D51C12305825000BF6BCE /* GFGeoHashQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B72305825000BF6BCE /* GFGeoHashQuery.m */; };
+		388D51C22305825000BF6BCE /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B82305825000BF6BCE /* GFQuery.m */; };
+		388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B92305825000BF6BCE /* GFGeoHash.m */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
 		38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */; };
@@ -136,6 +142,22 @@
 		3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCells.xib; sourceTree = "<group>"; };
 		3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlertView.swift; sourceTree = "<group>"; };
 		387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersVC.swift; sourceTree = "<group>"; };
+		388D51AB230575F700BF6BCE /* Geofirestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofirestore.swift; sourceTree = "<group>"; };
+		388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
+		388D51B02305824F00BF6BCE /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
+		388D51B12305824F00BF6BCE /* GFGeoHashQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFGeoHashQuery.h; sourceTree = "<group>"; };
+		388D51B22305824F00BF6BCE /* GFGeoHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFGeoHash.h; sourceTree = "<group>"; };
+		388D51B32305825000BF6BCE /* GFQuery+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GFQuery+Private.h"; sourceTree = "<group>"; };
+		388D51B42305825000BF6BCE /* GFBase32Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFBase32Utils.m; sourceTree = "<group>"; };
+		388D51B52305825000BF6BCE /* GeoFire+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire+Private.h"; sourceTree = "<group>"; };
+		388D51B62305825000BF6BCE /* GeoFire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFire.m; sourceTree = "<group>"; };
+		388D51B72305825000BF6BCE /* GFGeoHashQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQuery.m; sourceTree = "<group>"; };
+		388D51B82305825000BF6BCE /* GFQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFQuery.m; sourceTree = "<group>"; };
+		388D51B92305825000BF6BCE /* GFGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHash.m; sourceTree = "<group>"; };
+		388D51BB2305825000BF6BCE /* GFRegionQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
+		388D51BC2305825000BF6BCE /* GeoFire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoFire.h; sourceTree = "<group>"; };
+		388D51BD2305825000BF6BCE /* GFQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFQuery.h; sourceTree = "<group>"; };
+		388D51BE2305825000BF6BCE /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
@@ -281,6 +303,53 @@
 			path = AutoLayoutDSL;
 			sourceTree = "<group>";
 		};
+		388D51AA230575E100BF6BCE /* Geofirestore */ = {
+			isa = PBXGroup;
+			children = (
+				388D51AD2305824F00BF6BCE /* GeoFire */,
+				388D51AB230575F700BF6BCE /* Geofirestore.swift */,
+			);
+			path = Geofirestore;
+			sourceTree = "<group>";
+		};
+		388D51AD2305824F00BF6BCE /* GeoFire */ = {
+			isa = PBXGroup;
+			children = (
+				388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */,
+				388D51AF2305824F00BF6BCE /* Implementation */,
+				388D51BA2305825000BF6BCE /* API */,
+			);
+			path = GeoFire;
+			sourceTree = "<group>";
+		};
+		388D51AF2305824F00BF6BCE /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				388D51B02305824F00BF6BCE /* GFBase32Utils.h */,
+				388D51B12305824F00BF6BCE /* GFGeoHashQuery.h */,
+				388D51B22305824F00BF6BCE /* GFGeoHash.h */,
+				388D51B32305825000BF6BCE /* GFQuery+Private.h */,
+				388D51B42305825000BF6BCE /* GFBase32Utils.m */,
+				388D51B52305825000BF6BCE /* GeoFire+Private.h */,
+				388D51B62305825000BF6BCE /* GeoFire.m */,
+				388D51B72305825000BF6BCE /* GFGeoHashQuery.m */,
+				388D51B82305825000BF6BCE /* GFQuery.m */,
+				388D51B92305825000BF6BCE /* GFGeoHash.m */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		388D51BA2305825000BF6BCE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				388D51BB2305825000BF6BCE /* GFRegionQuery.h */,
+				388D51BC2305825000BF6BCE /* GeoFire.h */,
+				388D51BD2305825000BF6BCE /* GFQuery.h */,
+				388D51BE2305825000BF6BCE /* GFCircleQuery.h */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		38B02E1A2214744D00DEEC21 /* FloqTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +376,7 @@
 		38CFAAB42288B44800D40330 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				388D51AA230575E100BF6BCE /* Geofirestore */,
 				3877A9F522E34177007FBCE3 /* AutoLayoutDSL */,
 				38CFAB0E2288B89A00D40330 /* Floaty */,
 			);
@@ -653,7 +723,6 @@
 				40AA29B01E8891E900200A3F /* Frameworks */,
 				40AA29B11E8891E900200A3F /* Resources */,
 				78428CF0718D5AF6743417FC /* [CP] Embed Pods Frameworks */,
-				006B310CC01366A8466EFF74 /* [CP] Copy Pods Resources */,
 				C4A28E4521E0323500ADA02D /* ShellScript */,
 			);
 			buildRules = (
@@ -787,39 +856,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		006B310CC01366A8466EFF74 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		78428CF0718D5AF6743417FC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/DKCamera/DKCamera.framework",
 				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/DKPhotoGallery/DKPhotoGallery.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
@@ -828,7 +879,7 @@
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/TOCropViewController/TOCropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageFLPlugin/SDWebImageFLPlugin.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -837,13 +888,13 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKCamera.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKPhotoGallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
@@ -852,7 +903,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TOCropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageFLPlugin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -860,7 +911,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B57EA2233D44F7AC23ABD8A2 /* [CP] Check Pods Manifest.lock */ = {
@@ -922,6 +973,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */,
 				C400093122072C16004B6067 /* UIImage+Gif.swift in Sources */,
 				C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */,
 				38CFAB192288B8AD00D40330 /* FloatyDelegate.swift in Sources */,
@@ -941,17 +993,21 @@
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
 				C48A57D821A22E0900D3B0E6 /* CliqEngine.swift in Sources */,
+				388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,
 				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */,
+				388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
+				388D51C22305825000BF6BCE /* GFQuery.m in Sources */,
 				38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */,
 				38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */,
 				C434C50F21DBEB48003333A1 /* FirebaseAuth+Extensions.swift in Sources */,
 				C48A57DA21A22E4400D3B0E6 /* Enums.swift in Sources */,
+				388D51C02305825000BF6BCE /* GeoFire.m in Sources */,
 				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
 				3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
@@ -984,6 +1040,7 @@
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
+				388D51C12305825000BF6BCE /* GFGeoHashQuery.m in Sources */,
 				C4A944FB2204EE3000D40C44 /* Firestore+Extensions.swift in Sources */,
 				38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */,
 				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,

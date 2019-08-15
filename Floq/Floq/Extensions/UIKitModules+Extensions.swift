@@ -75,7 +75,7 @@ extension UIImage{
     
     public static var myphoto:UIImage{
         let ref = Storage.profilePhotos.child(UserDefaults.uid)
-        let img = SDImageCache.shared().imageFromCache(forKey: ref.fullPath)
+        let img = SDImageCache.shared.imageFromCache(forKey: ref.fullPath)
         return img ?? .placeholder
     }
     

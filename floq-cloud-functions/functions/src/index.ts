@@ -2,38 +2,29 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { print } from "util";
 import { COMMENT_ADDED } from "./Alerts";
-
-const REF_FLOQS = "FLFLOQs";
-const REF_PHOTOS = "Photos";
-const REF_FLPHOTOS = "FLPHOTOS";
-const REF_COMMENTS = "FLComments";
-const REF_TOKENS = "FLTOKENS";
-const REF_USERS = "FLUSER";
-const FIELD_CLIQ_ID = "cliqID";
-const FIELD_fileID = "fileID";
-const FIELD_username = "userName";
-const FIELD_dateCreated = "dateCreated";
-const FIELD_timestamp = "timestamp";
-const FIELD_cliqname = "cliqName";
-const FIELD_uid = "uid";
-const FIELD_profileImg = "profileUrl";
-const FIELD_userUID = "userID";
-const FIELD_userEmail = "userEmail";
-const FIELD_latestCliq = "latestCliq";
-const FIELD_cliqCount = "cliqCount";
-const FIELD_dateJoined = "dateJoined";
-const FIELD_followers = "followers";
-const FIELD_PHOTOID = "photoID";
-const FIELD_deleted = "deleted";
-const FIELD_dateDeleted = "dateDeleted";
-const FIELD_instanceToken = "instanceToken";
-const REF_ANALYTICS = "FLANALYTICS";
-const DOC_CLIQS = "Cliqs";
-const FIELD_COUNT = "count";
-const FIELD_FLAGGED = "flagged";
-const FIELD_FLAGGERS = "flaggers";
-const FIELD_COMMENTOR_ID = "commentorID";
-const FIELD_COMMENTOR = "commentor";
+import {
+  REF_ANALYTICS,
+  REF_COMMENTS,
+  REF_FLOQS,
+  REF_FLPHOTOS,
+  REF_PHOTOS,
+  REF_TOKENS,
+  REF_USERS,
+  FIELD_userUID,
+  FIELD_CLIQ_ID,
+  FIELD_COMMENTOR,
+  FIELD_FLAGGED,
+  FIELD_FLAGGERS,
+  FIELD_followers,
+  FIELD_username,
+  FIELD_cliqname,
+  FIELD_instanceToken,
+  FIELD_COUNT,
+  DOC_CLIQS,
+  FIELD_COMMENTOR_ID,
+  FIELD_PHOTOID,
+  FIELD_cliqCount
+} from "./Constants";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -186,14 +177,17 @@ export const notifyForComment = functions.firestore
   .onCreate(async (snap, context) => {
     const cliqID = snap.get(FIELD_CLIQ_ID);
     const photoID = snap.get(FIELD_PHOTOID);
+    const posterID = snap.get(FIELD_COMMENTOR_ID);
+    const commentor = snap.get(FIELD_COMMENTOR);
+
     const cliq = await store
       .collection(REF_FLOQS)
       .doc(cliqID)
       .get();
-    const posterID = snap.get(FIELD_COMMENTOR_ID);
-    const cliqName = snap.get(FIELD_cliqname);
+
+    const cliqName = cliq.get(FIELD_cliqname);
     let promise = Promise.resolve("Nothing");
-    const commentor = snap.get(FIELD_COMMENTOR);
+
     const followers = cliq.get(FIELD_followers);
     const total = followers.length;
 

@@ -9,7 +9,7 @@
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-import Geofirestore
+
 import CoreLocation
 import SDWebImage
 
@@ -89,12 +89,12 @@ class DataService{
     
     
     func getAndStoreProfileImg(imgUrl:URL,uid:String){
-        let downloader = SDWebImageDownloader.shared()
+        let downloader = SDWebImageDownloader.shared
         downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
                 print("Image Succesfully Saved from facebool")
                 let ef = Storage.reference(.userProfilePhotos).child(uid)
-                SDImageCache.shared().store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
+                SDImageCache.shared.store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
                 ef.putData(image.pngData() ?? data!)
             }
         }

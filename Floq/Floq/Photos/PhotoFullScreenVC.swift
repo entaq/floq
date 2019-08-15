@@ -50,11 +50,14 @@ class PhotoFullScreenVC: UIViewController {
     var currentPhotoID:String?
     var isSelected = false
     var inset:CGFloat = 30
-    init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem){
+    private var cliqID:String
+    init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem,cliqID:String){
         self.engine = engine
         self.selectedIndex = index
         self.cliq = cliq
+        self.cliqID = cliqID
         super.init(nibName: nil, bundle: nil)
+        
         runConfig()
         
     }
@@ -203,7 +206,7 @@ class PhotoFullScreenVC: UIViewController {
     @objc func commentTapped(_ sender: UIButton){
         //showCommentAnimation()
         guard let id = currentPhotoID else {return}
-        let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false)
+        let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false,cliqID: cliqID)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -238,7 +241,7 @@ class PhotoFullScreenVC: UIViewController {
             self.likebar.isHidden = true
             //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
         }, completion: { _ in
-            let vc = CommentsVC(id:self.currentPhotoID!,(self._AREA_INSET > 1) ? true : false)
+            let vc = CommentsVC(id:self.currentPhotoID!,(self._AREA_INSET > 1) ? true : false,cliqID: self.cliqID)
             vc.view.frame.size = self.commentContainer.frame.size
             self.add(vc, to: self.commentContainer)
         })

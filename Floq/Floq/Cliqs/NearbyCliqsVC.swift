@@ -10,7 +10,7 @@ import IGListKit
 import Firebase
 
 import CoreLocation
-import Geofirestore
+
 
 
 

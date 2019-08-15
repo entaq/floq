@@ -348,11 +348,9 @@ open class DKAssetGroupDetailVC: UIViewController,
         case .changed:
             self.onSwipingChanged(location: location)
             self.startAutoScrollingIfNeeded(location: location)
-        case .ended:
+        case .ended, .cancelled, .failed:
             fallthrough
-        case .cancelled:
-            fallthrough
-        case .failed:
+        @unknown default:
             self.swipingIndexPathes.removeAll()
             self.fromIndexPath = nil
             self.endAutoScrolling()
@@ -399,7 +397,7 @@ open class DKAssetGroupDetailVC: UIViewController,
         let minLocationY = collectionView.contentOffset.y
         let maxLocationY = collectionView.bounds.height + collectionView.contentOffset.y
 
-        debugPrint("minLocationY:\(minLocationY) maxLocationY:\(maxLocationY) current:\(location.y)")
+//        debugPrint("minLocationY:\(minLocationY) maxLocationY:\(maxLocationY) current:\(location.y)")
 
         let locationY = min(max(location.y, minLocationY), maxLocationY)
 
@@ -571,7 +569,7 @@ open class DKAssetGroupDetailVC: UIViewController,
     // MARK: - UICollectionViewDelegate, UICollectionViewDataSource methods
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		guard let selectedGroupId = self.selectedGroupId else { return 0 }
+		guard let selectedGroupId = self.selectedGroupId else { return self.hidesCamera ? 0 : 1 }
 
         guard let group = imagePickerController?.groupDataManager.fetchGroup(with: selectedGroupId) else {
             assertionFailure("Expect group")
@@ -686,10 +684,10 @@ open class DKAssetGroupDetailVC: UIViewController,
 
         let addedAssets = addedRects
             .flatMap { rect in collectionView.indexPathsForElements(in: rect, self.hidesCamera) }
-            .flatMap { indexPath in imagePickerController.groupDataManager.fetchPHAsset(group, index: indexPath.item) }
+            .compactMap { indexPath in imagePickerController.groupDataManager.fetchPHAsset(group, index: indexPath.item) }
         let removedAssets = removedRects
             .flatMap { rect in collectionView.indexPathsForElements(in: rect, self.hidesCamera) }
-            .flatMap { indexPath in imagePickerController.groupDataManager.fetchPHAsset(group, index: indexPath.item) }
+            .compactMap { indexPath in imagePickerController.groupDataManager.fetchPHAsset(group, index: indexPath.item) }
 
         // Update the assets the PHCachingImageManager is caching.
         getImageDataManager().startCachingAssets(for: addedAssets,
@@ -796,7 +794,7 @@ open class DKAssetGroupDetailVC: UIViewController,
 
         for removedAsset in assets {
             if imagePickerController.contains(asset: removedAsset) {
-                imagePickerController.deselect(asset: removedAsset)
+                imagePickerController.removeSelection(asset: removedAsset)
             }
         }
 	}
