@@ -21,7 +21,10 @@ class CommentButton: UIButton {
     private lazy var notif:UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .orangeRed
-        view.clipsToBounds = true
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
         //view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -53,7 +56,7 @@ class CommentButton: UIButton {
             image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             notif.topAnchor.constraint(equalTo: topAnchor, constant: -7.5),
-            notif.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 7.5),
+            notif.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2.5),
             notif.heightAnchor.constraint(equalToConstant: 15),
             notif.widthAnchor.constraint(equalToConstant: 15)
         ])
