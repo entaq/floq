@@ -25,14 +25,14 @@ class CommentButton: UIButton {
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.8
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        //view.isHidden = true
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     var broadcast:Bool = false{
         didSet{
-            //notif.isHidden = !broadcast
+            notif.isHidden = !broadcast
         }
     }
     

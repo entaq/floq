@@ -29,8 +29,5 @@ export const FIELD_FLAGGED = "flagged";
 export const FIELD_FLAGGERS = "flaggers";
 export const FIELD_COMMENTOR_ID = "commentorID";
 export const FIELD_COMMENTOR = "commentor";
-export const REF_CSubscriptions = "FLCommentSubscriptions"
-export const FIELD_CLIQ_CMT_TOTAL = "cliqComments"
-
-"
-
+export const REF_CSubscriptions = "FLCommentSubscriptions";
+export const FIELD_CLIQ_CMT_TOTAL = "cliqComments";

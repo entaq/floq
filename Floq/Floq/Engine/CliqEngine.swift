@@ -225,7 +225,7 @@ class CliqEngine:NSObject{
                 self.updateMyCliqsSection()
                 self.post(name: .myCliqsUpdated)
                 self.isFetchingMine = false
-                self.subscribeToCommentsupdates()
+                //self.subscribeToCommentsupdates()
                 
             }
         }

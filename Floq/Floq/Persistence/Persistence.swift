@@ -52,8 +52,8 @@ public struct CMTSubscription{
                     let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
                     photo.photoID = key
                     if let val = val as? [String:Any]{
-                        photo.count = val[Fields.count.rawValue] as! Int64
-                        photo.lastTimestamp = val[Fields.ts.rawValue] as! Int64
+                        photo.count = Int64(val[Fields.count.rawValue] as! Int)
+                        photo.lastTimestamp = Int64(val[Fields.ts.rawValue] as! Int)
                         photo.canBroadcast = true
                     }
                     cliqsub!.addToPhotoSubscriptions(photo)
@@ -66,7 +66,7 @@ public struct CMTSubscription{
     
     func fetchCliqSub(_ id:String)->CMTCliqSubscription?{
         let req = NSFetchRequest<NSFetchRequestResult>(entityName: "\(CMTCliqSubscription.self)")
-        let sortdesc = NSSortDescriptor(key: nil, ascending: true)
+        let sortdesc = NSSortDescriptor(key:"cliqID", ascending: true)
         req.sortDescriptors = [sortdesc]
         let pred = NSPredicate(format: "%K = %@", "cliqID", id)
         req.predicate = pred
@@ -81,16 +81,23 @@ public struct CMTSubscription{
         return nil
     }
     
+    
+
+    
     func fetchPhotoSub(id:String)->CMTPhotoSubscription?{
         let req = NSFetchRequest<NSFetchRequestResult>(entityName: "\(CMTPhotoSubscription.self)")
-        let sortdesc = NSSortDescriptor(key: nil, ascending: true)
+        let sortdesc = NSSortDescriptor(key:"photoID" , ascending: true)
         req.sortDescriptors = [sortdesc]
         let pred = NSPredicate(format: "%K = %@", "photoID", id)
         req.predicate = pred
         
         do {
-            let photo = try stack.context.fetch(req) as? [CMTPhotoSubscription]
-            return photo?.first
+            let photo = try stack.context.fetch(req)
+            if photo.isEmpty{
+                return nil
+            }else{
+                return photo.first as? CMTPhotoSubscription
+            }
         } catch let err {
             print(err.localizedDescription)
             
@@ -108,4 +115,33 @@ public struct CMTSubscription{
         photo.canBroadcast = false
         stack.saveContext()
     }
+    
 }
+
+/*
+ 
+class CustomSnapshot:DocumentSnapshot{
+    
+    override func data() -> [String : Any]? {
+        return [Fields.count.rawValue:10,
+            "xxxxx":[
+                "ts":124567345,
+                "count":122
+            ],
+            "xyxxx":[
+                "ts":234567,
+                "count":23
+            ]
+        ]
+        
+    }
+    
+    override var documentID: String{
+        return "Amama"
+    }
+    
+    init(id:String){
+        
+    }
+}
+ */

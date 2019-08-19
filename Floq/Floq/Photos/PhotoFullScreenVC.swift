@@ -144,7 +144,7 @@ class PhotoFullScreenVC: UIViewController {
         collectionView.isPagingEnabled = true
         setup()
         addSwipeUpGesture()
-        subscribeTo(subscription: .newHighlight, selector: #selector(listenForCMTsubscription(_:)))
+        subscribeTo(subscription: .cmt_photo_notify, selector: #selector(listenForCommentAddedNotification(_:)))
     }
     
     func addSwipeUpGesture(){
@@ -203,9 +203,8 @@ class PhotoFullScreenVC: UIViewController {
     
     @objc func commentTapped(_ sender: UIButton){
         //showCommentAnimation()
-        if currentPhotoID != nil{
-           CMTSubscription().endHightlightFor(currentPhotoID!)
-            commentIcon.broadcast = false
+        if currentPhotoID != nil && commentIcon.broadcast{
+           PhotoNotification().endNotifying(currentPhotoID!)
         }
         
         guard let id = currentPhotoID else {return}
@@ -472,8 +471,14 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             
             UIView.animate(withDuration: 0.5) {
                 self.navigationController?.navigationBar.alpha = 1
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 1
+                if #available(iOS 13, *){
+                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
+                        window.windowScene?.statusBarManager
+                    }
+                }else{
+                    let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                    statusBar?.alpha = 1
+                }
                 
                 self.avatarImageview.alpha = 1
                 self.likebar.alpha = 1
@@ -483,8 +488,18 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         }else{
             UIView.animate(withDuration: 0.5) {
                 self.navigationController?.navigationBar.alpha = 0
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 0
+                
+                if #available(iOS 13.0, *) {
+                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
+                         window.windowScene?.statusBarManager
+                    }
+                   
+                } else {
+                    let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                    statusBar?.alpha = 0
+                }
+            
+                
                 self.avatarImageview.alpha = 0
                 self.likebar.alpha = 0
                 self.collectionView.backgroundColor = .black
@@ -503,6 +518,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         likelabel.text = "\(user.2)"
         imgv.isUserInteractionEnabled = !user.3
         imgv.image = user.3 ? .icon_like : .icon_unlike
+        checkNotifiable(id: photoId)
     }
     
     
@@ -593,6 +609,20 @@ extension PhotoFullScreenVC{
             if photo?.canBroadcast ?? false{
                 commentIcon.broadcast = true
             }
+        }
+    }
+    
+    @objc func listenForCommentAddedNotification(_ notification:Notification){
+        guard let id = notification.userInfo?[.info] as? String else {return}
+        checkNotifiable(id: id)
+    }
+    
+    func checkNotifiable(id:String){
+        let notifier = PhotoNotification()
+        if let notif = notifier.fetchExistingNotication(id){
+            commentIcon.broadcast = notif.notify
+        }else{
+            commentIcon.broadcast = false
         }
     }
 }

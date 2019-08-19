@@ -13,18 +13,19 @@ class PhotoCell: UICollectionViewCell {
 
     @IBOutlet weak var alertIcon: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    var subscription = CMTSubscription()
+    let notifier = PhotoNotification()
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
         //subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
         self.layer.cornerRadius = 3
-        alertIcon.clipsToBounds = true
+        alertIcon.backgroundColor = .orangeRed
+        //alertIcon.clipsToBounds = true
         alertIcon.isHidden = true
-        alertIcon.layer.cornerRadius = 2.5
-        alertIcon.layer.shadowColor = UIColor.darkGray.cgColor
-        alertIcon.layer.shadowOpacity = 0.6
-        alertIcon.layer.shadowRadius = 2
+        alertIcon.layer.cornerRadius = 5
+        alertIcon.layer.shadowColor = UIColor.black.cgColor
+        alertIcon.layer.shadowOpacity = 0.9
+        alertIcon.layer.shadowRadius = 3
         alertIcon.layer.shadowOffset = CGSize(width: 0, height: 2)
         
         // Initialization code
@@ -33,6 +34,10 @@ class PhotoCell: UICollectionViewCell {
     override var isSelected: Bool{
         didSet{
             guard let id = photoID else {return}
+            if !alertIcon.isHidden{
+                notifier.endNotifying(id)
+                alertIcon.isHidden = true
+            }
             //subscription.endHightlightFor(id)
             //alertIcon.isHidden = true
         }
@@ -49,18 +54,22 @@ class PhotoCell: UICollectionViewCell {
     func configureCell(ref:StorageReference,photoID:String){
         self.photoID = photoID
         imageView.sd_setImage(with: ref, placeholderImage:nil)
-        
+        notify(photoID)
     }
     
     
-    @objc func canHighlight(_ notification:Notification){
-        guard let id = photoID else {return}
-        let photo = subscription.fetchPhotoSub(id: id)
-        if photo?.canBroadcast ?? false{
+    func notify(_ id:String){
+        let notify = notifier.fetchExistingNotication(id)
+        if notify?.notify ?? false{
             alertIcon.isHidden = false
         }else{
             alertIcon.isHidden = true
         }
+    }
+    
+    @objc func canHighlight(_ notification:Notification){
+        guard let id = photoID else {return}
+        notify(id)
 //        if (UIApplication.shared.delegate as? AppDelegate)?.mainEngine.canHiglight(photo: id) ?? false{
 //            alertIcon.isHidden = false
 //        }else{

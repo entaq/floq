@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
         watchForUpdateChanges()
-        
+        //let sub = CMTSubscription()
+        //sub.fetchALl()
         return true
         
     }
@@ -156,10 +157,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
         let body = notification.request.content.body
         let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         if let type = info["type"] as? String, let cliq = info[Fields.cliqID.rawValue] as? String, let photo = info[Fields.photoID.rawValue] as? String{
-            if type == AlertSystem.Types.COMMENT_ADDED{
-                print(info)
-                //mainEngine.setHighlight(data: (cliq,photo))
-            }
+            let notifier = PhotoNotification()
+            notifier.saveNotification(id: photo, cliq: cliq)
         }
         showInAppAlert(title: title, body: body, id: id)
         

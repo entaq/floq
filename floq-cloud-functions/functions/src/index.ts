@@ -193,7 +193,7 @@ export const notifyForComment = functions.firestore
 
     for (let i = 0; i < total; i++) {
       const key = followers[i];
-      if (key !== posterID) {
+      if (key) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
         const token = tokenSnap.get(FIELD_instanceToken);
 
