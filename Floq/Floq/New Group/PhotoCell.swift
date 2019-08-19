@@ -17,7 +17,7 @@ class PhotoCell: UICollectionViewCell {
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
-        subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
+        //subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
         self.layer.cornerRadius = 3
         alertIcon.clipsToBounds = true
         alertIcon.isHidden = true
@@ -33,8 +33,8 @@ class PhotoCell: UICollectionViewCell {
     override var isSelected: Bool{
         didSet{
             guard let id = photoID else {return}
-            subscription.endHightlightFor(id)
-            alertIcon.isHidden = true
+            //subscription.endHightlightFor(id)
+            //alertIcon.isHidden = true
         }
     }
     

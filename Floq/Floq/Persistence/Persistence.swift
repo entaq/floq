@@ -72,8 +72,8 @@ public struct CMTSubscription{
         req.predicate = pred
         
         do {
-            let cliq = try stack.context.fetch(req) as! [CMTCliqSubscription]
-            return cliq.first
+            let cliq = try stack.context.fetch(req) as? [CMTCliqSubscription]
+            return cliq?.first
         } catch let err {
             print(err.localizedDescription)
             
@@ -89,8 +89,8 @@ public struct CMTSubscription{
         req.predicate = pred
         
         do {
-            let photo = try stack.context.fetch(req) as! [CMTPhotoSubscription]
-            return photo.first
+            let photo = try stack.context.fetch(req) as? [CMTPhotoSubscription]
+            return photo?.first
         } catch let err {
             print(err.localizedDescription)
             

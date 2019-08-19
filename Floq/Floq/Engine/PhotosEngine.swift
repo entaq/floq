@@ -93,12 +93,7 @@ class PhotosEngine:NSObject{
 //    }
     
     
-    func subscribeToCommentsupdates(){
-        Firestore.database.collection(.commentSubscription).document(cliq).addSnapshotListener { (snap, error) in
-            guard let snap = snap else {return}
-            
-        }
-    }
+
     
     func flagPhoto(photoID:String,cliqID:String? = nil, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
