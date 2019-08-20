@@ -122,6 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //Print succesfully
                 InstanceID.instanceID().instanceID(handler: { (result, err) in
                     if let result = result{
+                        if UserDefaults.instanceToken != ""{return}
                         DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
                             if success{
                                 UserDefaults.set(result.token, for: .instanceToken)
@@ -254,10 +255,14 @@ extension AppDelegate{
             if id == ""{return}
             if let nav = self.window?.rootViewController as? UINavigationController{
                 
-                nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+                DispatchQueue.main.async{
+                    nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+                }
             }
         }
-        window?.rootViewController?.view.addSubview(alert)
+        DispatchQueue.main.async{ [weak self] in
+            self?.window?.rootViewController?.view.addSubview(alert)
+        }
     }
 
     

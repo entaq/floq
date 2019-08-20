@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -176,12 +174,6 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="logoFloq" translatesAutoresizingMaskIntoConstraints="NO" id="VMR-oF-j6v">
                                         <rect key="frame" x="104" y="60" width="167" height="74"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscapeLineArt" translatesAutoresizingMaskIntoConstraints="NO" id="W9s-cQ-CWN">
-                                        <rect key="frame" x="0.0" y="642" width="375" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="3E3-0B-3f8"/>
-                                        </constraints>
-                                    </imageView>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt">
                                         <rect key="frame" x="167.66666666666666" y="742" width="40" height="40"/>
                                         <constraints>
@@ -190,16 +182,21 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </constraints>
                                         <color key="currentPageIndicatorTintColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flamingoGroupCopy" translatesAutoresizingMaskIntoConstraints="NO" id="W9s-cQ-CWN">
+                                        <rect key="frame" x="12" y="427" width="351" height="355"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="355" id="Vo9-hQ-bwC"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="W9s-cQ-CWN" firstAttribute="centerX" secondItem="VMR-oF-j6v" secondAttribute="centerX" id="4eS-4f-ySL"/>
-                                    <constraint firstAttribute="bottom" secondItem="W9s-cQ-CWN" secondAttribute="bottom" constant="120" id="5lF-Le-852"/>
-                                    <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" id="BQw-Dj-7rC"/>
-                                    <constraint firstAttribute="trailing" secondItem="W9s-cQ-CWN" secondAttribute="trailing" id="aUc-hn-Ypt"/>
+                                    <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" constant="12" id="Eul-sB-D0M"/>
                                     <constraint firstItem="VMR-oF-j6v" firstAttribute="top" secondItem="Kp0-XW-W22" secondAttribute="top" constant="60" id="aYd-2S-pQH"/>
+                                    <constraint firstAttribute="trailing" secondItem="W9s-cQ-CWN" secondAttribute="trailing" constant="12" id="cHl-tZ-HVI"/>
                                     <constraint firstAttribute="bottom" secondItem="xK5-D5-9nt" secondAttribute="bottom" constant="30" id="hYL-hx-jI4"/>
-                                    <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" id="nPS-MD-p4K"/>
+                                    <constraint firstItem="VMR-oF-j6v" firstAttribute="centerX" secondItem="Kp0-XW-W22" secondAttribute="centerX" id="uJY-Qb-nJ1"/>
+                                    <constraint firstAttribute="bottom" secondItem="W9s-cQ-CWN" secondAttribute="bottom" constant="30" id="wrA-oK-AeZ"/>
                                     <constraint firstItem="xK5-D5-9nt" firstAttribute="centerX" secondItem="Kp0-XW-W22" secondAttribute="centerX" id="zSR-DR-TpV"/>
                                 </constraints>
                             </view>
@@ -465,14 +462,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                             <tableViewSection headerTitle="SETTINGS" id="g5G-uS-2co">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Notifs" id="69n-u9-aCL">
-                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="69n-u9-aCL" id="0YE-7Z-Raw">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocked Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcO-bJ-eU2">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="111" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="111" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -485,14 +482,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Notifs" id="CqY-9G-tvk">
-                                        <rect key="frame" x="0.0" y="99.333333333333343" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="99.333332061767578" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CqY-9G-tvk" id="Myb-5o-19A">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-zf-Xti">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="97" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="97" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -505,14 +502,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="TnW-d4-oKj">
-                                        <rect key="frame" x="0.0" y="143.33333333333334" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="143.33333206176758" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TnW-d4-oKj" id="0Xk-r9-zKV">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twE-Jn-Yna">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="106" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="106" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -525,14 +522,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="r3I-SE-YYB">
-                                        <rect key="frame" x="0.0" y="187.33333333333334" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="187.33333206176758" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r3I-SE-YYB" id="Myk-Uu-pS2">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End User License Agreement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxG-ZV-Uzn">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="221.66666666666666" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="221.66666666666666" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -545,14 +542,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="FYq-5x-ULt">
-                                        <rect key="frame" x="0.0" y="231.33333333333334" width="375" height="44.000000000000028"/>
+                                        <rect key="frame" x="0.0" y="231.33333206176758" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FYq-5x-ULt" id="3GT-Nk-wmm">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foN-N2-ZVA">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="61" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="61" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -565,14 +562,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="eaI-SW-56q">
-                                        <rect key="frame" x="0.0" y="275.33333333333337" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="275.33333206176758" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eaI-SW-56q" id="gTW-za-kJ6">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deactivate Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHP-hd-9UK">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="150" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="150" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -607,10 +604,10 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserListCell" id="0po-f2-7D3" customClass="UserListCell" customModule="Floq" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333332061767578" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0po-f2-7D3" id="1YO-Zr-un6">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="347.66666666666669" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shadrach" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HzX-nN-iOl">
@@ -627,13 +624,13 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGg-zB-iXM">
-                                            <rect key="frame" x="330" y="11.333333333333336" width="11" height="21"/>
+                                            <rect key="frame" x="336.66666666666669" y="11.333333333333336" width="11" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6NS-nY-aiW">
-                                            <rect key="frame" x="265.66666666666669" y="14" width="48.333333333333314" height="15.666666666666664"/>
+                                            <rect key="frame" x="272.33333333333331" y="14" width="48.333333333333314" height="15.666666666666664"/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                                             <color key="textColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -736,10 +733,10 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="TVZ-oD-cbD">
-                                <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333332061767578" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TVZ-oD-cbD" id="dO5-mO-4PO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -878,7 +875,7 @@ and wil not be shared with anyone.</string>
     <resources>
         <image name="eulaaccept" width="360" height="120"/>
         <image name="euladecline" width="387" height="120"/>
-        <image name="landscapeLineArt" width="375" height="64"/>
+        <image name="flamingoGroupCopy" width="319" height="320"/>
         <image name="logoFloq" width="167" height="74"/>
         <image name="signUpButton" width="250" height="60"/>
     </resources>

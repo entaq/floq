@@ -38,7 +38,7 @@ class HomeOnBaordVC:UIViewController {
     }
     
     func configureDevice(){
-        view.addSubview(fetherView)
+        //view.addSubview(fetherView)
         configScale()
         if UIScreen.main.bounds.height > 740{
             topLayoutConstraint.constant = 60
@@ -92,12 +92,12 @@ class HomeOnBaordVC:UIViewController {
         super.viewDidLayoutSubviews()
         onBoardPage.view.frame = CGRect(x:0, y:0, width:self.view.frame.size.width, height:self.view.frame.size.height)
         let height = view.bounds.height * heightScale
-        NSLayoutConstraint.activate([
+        /*NSLayoutConstraint.activate([
             fetherView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             fetherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             fetherView.heightAnchor.constraint(equalToConstant: height),
             fetherView.widthAnchor.constraint(equalToConstant: height * scale)
-        ])
+        ])*/
     }
     
 

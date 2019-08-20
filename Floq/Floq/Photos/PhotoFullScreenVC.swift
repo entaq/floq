@@ -473,7 +473,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
                 self.navigationController?.navigationBar.alpha = 1
                 if #available(iOS 13, *){
                     if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
-                        window.windowScene?.statusBarManager
+                        //window.windowScene?.statusBarManager
                     }
                 }else{
                     let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
@@ -491,7 +491,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
                 
                 if #available(iOS 13.0, *) {
                     if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
-                         window.windowScene?.statusBarManager
+                         //window.windowScene?.statusBarManager
                     }
                    
                 } else {
