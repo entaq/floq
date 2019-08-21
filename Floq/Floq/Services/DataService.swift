@@ -155,8 +155,10 @@ class DataService{
     
     func saveNewUserInstanceToken(token:String, complete:@escaping CompletionHandlers.storage){
         
-        if let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            store.collection(.tokenRefs).document(uid).setData([Fields.instanceToken.rawValue:token,Fields.dateCreated.rawValue:Date()], merge: true) { (err) in
+        if let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue), let deviceID = UIDevice.current.identifierForVendor{
+            let data = [deviceID.uuidString:[Fields.instanceToken.rawValue:token,Fields.dateCreated.rawValue:Date()]]
+            store.collection(.tokenRefs).document(uid)
+                .setData(data, merge: true) { (err) in
                 if let err = err {
                     complete(false,err.localizedDescription)
                 }else{

@@ -48,20 +48,36 @@ export const photoAdded = functions.firestore
       const key = followers[i];
       if (key !== posterID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
-        const token = tokenSnap.get(FIELD_instanceToken);
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            tokens.push(tok);
+          }
+        } // tokenSnap.get(FIELD_instanceToken);
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "Photo Added!!",
+              body: `A new photo was added to ${cliqName} album by ${username}. Check it out now !!`
+            },
+            data: {
+              cliqID: cliqID
+            },
+            token: x
+          };
+          messages.push(message);
+        });
 
-        const message = {
-          notification: {
-            title: "Photo Added!!",
-            body: `A new photo was added to ${cliqName} album by ${username}. Check it out now !!`
-          },
-          data: {
-            cliqID: cliqID
-          },
-          token: token
-        };
-        console.log(`The payload is ${message}`);
-        promise = admin.messaging().send(message);
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
       }
     }
     return promise;
@@ -86,21 +102,42 @@ export const joinedNotification = functions.firestore
       const key = followers[i];
       if (key !== followerID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
-        const token = tokenSnap.get(FIELD_instanceToken);
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            tokens.push(tok);
+          }
+        }
 
-        const message = {
-          notification: {
-            title: "New Follower",
-            body: `${username} just joined your cliq ${cliqName}. Check it out now !!`
-          },
-          data: {
-            cliqID: cliqID
-          },
-          token: token
-        };
-        console.log(`The payload is ${message}`);
-        promise = admin.messaging().send(message);
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "New Follower",
+              body: `${username} just joined your cliq ${cliqName}. Check it out now !!`
+            },
+            data: {
+              cliqID: cliqID
+            },
+            token: x
+          };
+          messages.push(message);
+        });
+
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
+
+        // console.log(`The payload is ${message}`);
+        // promise = admin.messaging().send(message);
       }
+      return promise;
     }
   });
 
@@ -195,22 +232,39 @@ export const notifyForComment = functions.firestore
       const key = followers[i];
       if (key) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
-        const token = tokenSnap.get(FIELD_instanceToken);
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            tokens.push(tok);
+          }
+        }
 
-        const message = {
-          notification: {
-            title: "New Comment",
-            body: `${commentor} just added a new comment to ${cliqName} Cliq`
-          },
-          data: {
-            cliqID: cliqID,
-            photoID: photoID,
-            type: COMMENT_ADDED
-          },
-          token: token
-        };
-        console.log(`The payload is ${message}`);
-        promise = admin.messaging().send(message);
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "New Comment",
+              body: `${commentor} just added a new comment to ${cliqName} Cliq`
+            },
+            data: {
+              cliqID: cliqID,
+              photoID: photoID,
+              type: COMMENT_ADDED
+            },
+            token: x
+          };
+          messages.push(message);
+        });
+
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
       }
     }
     return promise;

@@ -11,7 +11,6 @@
 		380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380FFE0C230B03A500DD306A /* PhotoNotication.swift */; };
 		3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3815C8442302FA0800A8ABEC /* Alerts.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
-		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
@@ -138,8 +137,6 @@
 		3815C8442302FA0800A8ABEC /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = ../../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/Subscriptions/Alerts.swift; sourceTree = "<group>"; };
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
-		3872F63E2214874C00AC547E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
 		3877A9F722E34177007FBCE3 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -294,15 +291,6 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
-		3872F63B2214874C00AC547E /* FloqUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3872F63C2214874C00AC547E /* FloqUITests.swift */,
-				3872F63E2214874C00AC547E /* Info.plist */,
-			);
-			path = FloqUITests;
-			sourceTree = "<group>";
-		};
 		3877A9F522E34177007FBCE3 /* AutoLayoutDSL */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,7 +430,6 @@
 			children = (
 				40AA29B51E8891E900200A3F /* Floq */,
 				38B02E1A2214744D00DEEC21 /* FloqTests */,
-				3872F63B2214874C00AC547E /* FloqUITests */,
 				40AA29B41E8891E900200A3F /* Products */,
 				DC970CADBD80A1EFC9A0A3CD /* Pods */,
 				C6C4421E77313EAEA9683D29 /* Frameworks */,
@@ -980,7 +967,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1348,11 +1334,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1374,10 +1361,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
