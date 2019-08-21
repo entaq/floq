@@ -163,3 +163,11 @@ extension String {
     
     
 }
+
+
+
+extension Int{
+    static var largest:Int{
+        return Int(INT64_MAX)
+    }
+}

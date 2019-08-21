@@ -26,7 +26,7 @@ class PhotoFullScreenVC: UIViewController {
     private var initialFrame:CGRect!
     private var avatatFrame:CGRect!
     private var commentShowing = false
-    
+    private var holderIndex = 0
     private lazy var commentIcon:CommentButton = { [unowned self] by in
         let button = CommentButton(frame: .zero)
         //button.setTitle("Comment", for: .normal)
@@ -52,6 +52,7 @@ class PhotoFullScreenVC: UIViewController {
     init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem,cliqID:String){
         self.engine = engine
         self.selectedIndex = index
+        self.holderIndex = index
         self.cliq = cliq
         self.cliqID = cliqID
         super.init(nibName: nil, bundle: nil)
@@ -210,6 +211,7 @@ class PhotoFullScreenVC: UIViewController {
         guard let id = currentPhotoID else {return}
         let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false,cliqID: cliqID)
         navigationController?.pushViewController(vc, animated: true)
+        selectedIndex = Int.largest
     }
     
     func resetViews(){
@@ -304,7 +306,12 @@ class PhotoFullScreenVC: UIViewController {
         adapter.dataSource = self
         
         adapter.reloadData(completion: nil)
-        moveToNext()
+        if selectedIndex < engine.allPhotos.count{
+            moveToNext()
+        }else{
+            selectedIndex = holderIndex
+        }
+        
         subscribeTo(subscription: .reloadPhotos, selector: #selector(reloadPhotos))
     }
 
@@ -318,6 +325,7 @@ class PhotoFullScreenVC: UIViewController {
     
     
     func moveToNext(_ index:Int? = nil){
+
         let index = index ?? selectedIndex
         guard (index < engine.allPhotos.endIndex) else{return}
         let obj = engine.allPhotos[index]

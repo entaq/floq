@@ -153,20 +153,27 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let info = notification.request.content.userInfo
+        //let info = notification.request.content.userInfo
+        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         let title = notification.request.content.title
         let body = notification.request.content.body
-        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
-        if let type = info["type"] as? String, let cliq = info[Fields.cliqID.rawValue] as? String, let photo = info[Fields.photoID.rawValue] as? String{
-            let notifier = PhotoNotification()
-            notifier.saveNotification(id: photo, cliq: cliq)
-        }
+        saveNotif(notification)
         showInAppAlert(title: title, body: body, id: id)
         
         completionHandler(.sound)
     }
     
+    func saveNotif(_ notification:UNNotification){
+        let info = notification.request.content.userInfo
+        
+        if let type = info["type"] as? String, let cliq = info[Fields.cliqID.rawValue] as? String, let photo = info[Fields.photoID.rawValue] as? String{
+            let notifier = PhotoNotification()
+            notifier.saveNotification(id: photo, cliq: cliq)
+        }
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        saveNotif(response.notification)
         print("Will Present the response: \(response.notification.request.content.userInfo.description)")
         let id = response.notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         if let nav = window?.rootViewController as? UINavigationController{
