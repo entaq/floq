@@ -17,7 +17,7 @@ class PhotoCell: UICollectionViewCell {
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
-        //subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
+        subscribeTo(subscription: .cmt_photo_notify, selector: #selector(canHighlight(_:)))
         self.layer.cornerRadius = 3
         alertIcon.backgroundColor = .orangeRed
         //alertIcon.clipsToBounds = true
@@ -68,8 +68,10 @@ class PhotoCell: UICollectionViewCell {
     }
     
     @objc func canHighlight(_ notification:Notification){
-        guard let id = photoID else {return}
-        notify(id)
+        guard let id = notification.userInfo?[.info] as? String, let pid = photoID else {return}
+        if id == pid{
+            notify(id)
+        }
 //        if (UIApplication.shared.delegate as? AppDelegate)?.mainEngine.canHiglight(photo: id) ?? false{
 //            alertIcon.isHidden = false
 //        }else{

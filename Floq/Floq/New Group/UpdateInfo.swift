@@ -26,11 +26,11 @@ public struct UpdateInfo{
     }
     
     func islessThanLeastSupport()->Bool{
-        return leastSupport > Update.leastSupport.rawValue
+        return leastSupport > Update.leastSupport
     }
     
     var notifyUpdate:Bool{
-        let notify =  current > Update.current.rawValue
+        let notify =  current > Update.current
         let last = UserDefaults.standard.double(forKey: Fields.lastChecked.rawValue)
         let now = Date().timeIntervalSinceReferenceDate
         if last == 0 {

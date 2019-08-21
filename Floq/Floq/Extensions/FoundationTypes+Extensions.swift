@@ -101,6 +101,10 @@ extension UserDefaults{
         return standard.string(forKey: Fields.instanceToken.rawValue) ?? ""
     }
     
+    public class var updatedtoken:Bool{
+        return standard.bool(forKey: "updatedtoken")
+    }
+    
     public class var username:String{
         return standard.string(forKey: Fields.username.rawValue)!
     }

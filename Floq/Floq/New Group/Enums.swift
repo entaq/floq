@@ -28,9 +28,9 @@ enum ImageSizes:Int{
     case min = 1000000
 }
 
-enum Update:Int{
-    case current = 11
-    case leastSupport = 9
+enum Update{
+    static let current = 12
+    static let leastSupport = 9
     
 }
 
@@ -78,6 +78,7 @@ public enum Fields:String{
     case deleted = "deleted"
     case dateDeleted = "dateDeleted"
     case instanceToken = "instanceToken"
+    case updatedtoken
     case savedInstance =  "savedInstance"
     case current = "current"
     case info = "info"

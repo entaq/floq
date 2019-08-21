@@ -177,10 +177,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     }
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         let prevTok = UserDefaults.instanceToken
-        if prevTok != fcmToken{
+        if prevTok != fcmToken || !UserDefaults.updatedtoken{
             DataService.main.saveNewUserInstanceToken(token: fcmToken) { (success, err) in
                 if success{
                     UserDefaults.set(fcmToken, for: .instanceToken)
+                    UserDefaults.set(true, for: .updatedtoken)
                 }else{
                     Logger.log(err)
                 }

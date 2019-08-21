@@ -57,7 +57,9 @@ export const photoAdded = functions.firestore
           }
           if (typeof tokdata[t_key] === "object") {
             const tok = tokdata[t_key][FIELD_instanceToken];
-            tokens.push(tok);
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
           }
         } // tokenSnap.get(FIELD_instanceToken);
         const messages = [];
@@ -111,7 +113,9 @@ export const joinedNotification = functions.firestore
           }
           if (typeof tokdata[t_key] === "object") {
             const tok = tokdata[t_key][FIELD_instanceToken];
-            tokens.push(tok);
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
           }
         }
 
@@ -133,12 +137,14 @@ export const joinedNotification = functions.firestore
         messages.forEach(message => {
           promise = admin.messaging().send(message);
         });
-
+        return promise;
         // console.log(`The payload is ${message}`);
         // promise = admin.messaging().send(message);
       }
       return promise;
     }
+
+    return promise;
   });
 
 export const analyticsOnCliqs = functions.firestore
@@ -241,9 +247,12 @@ export const notifyForComment = functions.firestore
           }
           if (typeof tokdata[t_key] === "object") {
             const tok = tokdata[t_key][FIELD_instanceToken];
-            tokens.push(tok);
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
           }
         }
+        console.log(!`The tokens are : ${tokens}`);
 
         const messages = [];
         tokens.forEach(x => {
@@ -260,6 +269,7 @@ export const notifyForComment = functions.firestore
             token: x
           };
           messages.push(message);
+          console.log(`Token is is: ${x}`);
         });
 
         messages.forEach(message => {
