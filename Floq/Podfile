@@ -3,6 +3,7 @@ target 'Floq' do
   pod 'FirebaseUI/Storage'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'Firebase/Messaging'

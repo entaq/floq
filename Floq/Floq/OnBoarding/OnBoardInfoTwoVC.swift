@@ -10,6 +10,7 @@ import UIKit
 
 class OnBoardInfoTwoVC: UIViewController {
 
+    @IBOutlet weak var googleSignIn: UIButton!
     @IBOutlet weak var loginButt: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,9 +19,24 @@ class OnBoardInfoTwoVC: UIViewController {
     }
     
 
+    @IBAction func googleSignInPressed(_ sender: UIButton) {
+        if let eulavc = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
+            if let eu = eulavc.viewControllers.first as? EULAVC{
+                eu.signInMethod = .google
+                present(eulavc, animated: true, completion: nil)
+            }
+            
+        }
+    }
     @IBAction func didPressLogin(_ sender: Any) {
         if let eulavc = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
-            present(eulavc, animated: true, completion: nil)
+            //eulavc.method = .facebook
+            if let eu = eulavc.viewControllers.first as? EULAVC{
+                eu.signInMethod = .facebook
+                present(eulavc, animated: true, completion: nil)
+            }
+            
+            
         }
     }
     

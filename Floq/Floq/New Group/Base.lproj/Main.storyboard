@@ -188,12 +188,21 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                             <constraint firstAttribute="height" constant="355" id="Vo9-hQ-bwC"/>
                                         </constraints>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="featherLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nix-Ns-8ed">
+                                        <rect key="frame" x="8" y="412" width="150" height="400"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="Zvo-kw-khG"/>
+                                            <constraint firstAttribute="width" constant="150" id="rJx-m3-9E4"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="W9s-cQ-CWN" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" constant="12" id="Eul-sB-D0M"/>
+                                    <constraint firstItem="nix-Ns-8ed" firstAttribute="leading" secondItem="Kp0-XW-W22" secondAttribute="leading" constant="8" id="X7L-xE-pIl"/>
                                     <constraint firstItem="VMR-oF-j6v" firstAttribute="top" secondItem="Kp0-XW-W22" secondAttribute="top" constant="60" id="aYd-2S-pQH"/>
                                     <constraint firstAttribute="trailing" secondItem="W9s-cQ-CWN" secondAttribute="trailing" constant="12" id="cHl-tZ-HVI"/>
+                                    <constraint firstAttribute="bottom" secondItem="nix-Ns-8ed" secondAttribute="bottom" id="dq5-3t-pZw"/>
                                     <constraint firstAttribute="bottom" secondItem="xK5-D5-9nt" secondAttribute="bottom" constant="30" id="hYL-hx-jI4"/>
                                     <constraint firstItem="VMR-oF-j6v" firstAttribute="centerX" secondItem="Kp0-XW-W22" secondAttribute="centerX" id="uJY-Qb-nJ1"/>
                                     <constraint firstAttribute="bottom" secondItem="W9s-cQ-CWN" secondAttribute="bottom" constant="30" id="wrA-oK-AeZ"/>
@@ -213,7 +222,9 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="flamimgoGroup" destination="W9s-cQ-CWN" id="1hs-Pm-fq7"/>
                         <outlet property="pageControl" destination="xK5-D5-9nt" id="tk3-kx-g4w"/>
+                        <outlet property="secondFeatherView" destination="nix-Ns-8ed" id="oCi-RZ-Z7q"/>
                         <outlet property="topLayoutConstraint" destination="aYd-2S-pQH" id="ZqV-IC-yGe"/>
                     </connections>
                 </viewController>
@@ -247,48 +258,65 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                 <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign-in or sign-up with Facebook" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59O-qo-y9K">
-                                <rect key="frame" x="37" y="184.66666666666666" width="301" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in or Register now." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59O-qo-y9K">
+                                <rect key="frame" x="37" y="184.66666666666666" width="301" height="25.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQr-Tn-H75">
-                                <rect key="frame" x="62.666666666666657" y="228.66666666666663" width="249.99999999999997" height="60"/>
+                                <rect key="frame" x="62.666666666666657" y="230" width="249.99999999999997" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="D5N-ZW-7M0"/>
+                                    <constraint firstAttribute="height" constant="40" id="D5N-ZW-7M0"/>
                                     <constraint firstAttribute="width" constant="250" id="ot8-Nt-SFC"/>
                                 </constraints>
-                                <state key="normal" image="signUpButton"/>
+                                <state key="normal" image="facebookButton"/>
                                 <connections>
                                     <action selector="didPressLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zsg-VK-7wy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floq uses Facebook to create your account. It's fast, easy and secure" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4c-dW-l7U">
-                                <rect key="frame" x="37" y="300.66666666666669" width="301" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4c-dW-l7U">
+                                <rect key="frame" x="37" y="342" width="301" height="33.666666666666686"/>
+                                <string key="text">floq uses Facebook or Google to create your
+account.  It’s fast, easy, and secure</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7P-s4-jXv">
+                                <rect key="frame" x="62.666666666666657" y="286" width="249.99999999999997" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="b95-gN-7hy"/>
+                                    <constraint firstAttribute="height" constant="40" id="yry-MW-Smw"/>
+                                </constraints>
+                                <state key="normal" image="googleButton"/>
+                                <connections>
+                                    <action selector="didPressLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b88-WG-Zhx"/>
+                                    <action selector="googleSignInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EQ2-j7-egP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="T4c-dW-l7U" firstAttribute="top" secondItem="dQr-Tn-H75" secondAttribute="bottom" constant="12" id="0D2-PE-m94"/>
                             <constraint firstItem="dQr-Tn-H75" firstAttribute="top" secondItem="59O-qo-y9K" secondAttribute="bottom" constant="20" id="0c7-4C-8fP"/>
+                            <constraint firstItem="T4c-dW-l7U" firstAttribute="top" secondItem="R7P-s4-jXv" secondAttribute="bottom" constant="16" id="1JU-DF-pJM"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="4EG-s5-Mp4"/>
                             <constraint firstItem="T4c-dW-l7U" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="4OB-ef-g9X"/>
                             <constraint firstItem="dZ9-mr-X0u" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="90" id="Bkb-5A-DEp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dZ9-mr-X0u" secondAttribute="trailing" constant="21" id="GiI-8G-ECc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="T4c-dW-l7U" secondAttribute="trailing" constant="21" id="Kdf-se-hvh"/>
+                            <constraint firstItem="R7P-s4-jXv" firstAttribute="top" secondItem="dQr-Tn-H75" secondAttribute="bottom" constant="16" id="KjB-T3-zLZ"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="top" secondItem="dZ9-mr-X0u" secondAttribute="bottom" constant="16" id="buR-CQ-PAF"/>
                             <constraint firstItem="dZ9-mr-X0u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="liI-ao-pcY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="59O-qo-y9K" secondAttribute="trailing" constant="21" id="m97-I7-hXd"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="og6-qy-fgM"/>
                             <constraint firstItem="dQr-Tn-H75" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qEm-qR-lXi"/>
+                            <constraint firstItem="R7P-s4-jXv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sFI-QO-B4a"/>
                             <constraint firstItem="dZ9-mr-X0u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wMV-XC-EET"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="googleSignIn" destination="R7P-s4-jXv" id="pLa-OD-igO"/>
                         <outlet property="loginButt" destination="dQr-Tn-H75" id="JKz-nA-26N"/>
                     </connections>
                 </viewController>
@@ -875,8 +903,10 @@ and wil not be shared with anyone.</string>
     <resources>
         <image name="eulaaccept" width="360" height="120"/>
         <image name="euladecline" width="387" height="120"/>
+        <image name="facebookButton" width="214" height="44"/>
+        <image name="featherLarge" width="110" height="330"/>
         <image name="flamingoGroupCopy" width="319" height="320"/>
+        <image name="googleButton" width="214" height="44"/>
         <image name="logoFloq" width="167" height="74"/>
-        <image name="signUpButton" width="250" height="60"/>
     </resources>
 </document>

@@ -11,6 +11,8 @@ import UIKit
 
 class HomeOnBaordVC:UIViewController {
     
+    @IBOutlet weak var flamimgoGroup: UIImageView!
+    @IBOutlet weak var secondFeatherView: UIImageView!
     lazy var fetherView: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.contentMode = .scaleAspectFit
@@ -75,6 +77,7 @@ class HomeOnBaordVC:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         App.setDomain(.Onboarding)
+        secondFeatherView.isHidden = true
         configureDevice()
         pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
         fetherView.translatesAutoresizingMaskIntoConstraints = false
@@ -156,6 +159,13 @@ extension HomeOnBaordVC:UIPageViewControllerDataSource,UIPageViewControllerDeleg
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let vc = previousViewControllers.first!
         let index = pages.index(of: vc)
+        if index! == 0{
+            secondFeatherView.isHidden = true
+            flamimgoGroup.isHidden = false
+        }else{
+            flamimgoGroup.isHidden = true
+            secondFeatherView.isHidden = false
+        }
         pageControl.currentPage = index!
     }
     

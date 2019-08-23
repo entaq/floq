@@ -11,14 +11,21 @@ import FirebaseAuth
 import FacebookCore
 import FacebookLogin
 import FirebaseInstanceID
+import GoogleSignIn
 
 class EULAVC: UIViewController {
+    
+    enum SignInMethod{
+        case facebook, google
+    }
     @IBOutlet weak var optionsView:UIView!
     @IBOutlet weak var backButt: UIButton!
     
     @IBOutlet weak var loader: UIView!
     @IBOutlet weak var declineButt: UIButton!
     @IBOutlet weak var acceptButt: UIButton!
+    
+    var signInMethod:SignInMethod!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +64,16 @@ class EULAVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func acceptEULA(_ sender: UIButton){
-        facebooklogin()
+        let sheet = UIAlertController(title: "Sign In Options", message: "Please choose a sign in method", preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Sign In with Google", style: .default, handler: { _ in
+            GIDSignIn.sharedInstance()?.delegate = self
+            
+            GIDSignIn.sharedInstance()?.signIn()
+        }))
+        
+        sheet.addAction(UIAlertAction(title: "Facebook", style: .default, handler: { _ in
+            self.facebooklogin()
+        }))
     }
     
     
@@ -85,7 +101,11 @@ class EULAVC: UIViewController {
     func facebookLogCompletion(token:AccessToken){
         
         let credential = FacebookAuthProvider.credential(withAccessToken: token.authenticationToken)
+        signInWith(credential)
         
+    }
+    
+    func signInWith(_ credential:AuthCredential){
         Auth.auth().signInAndRetrieveData(with: credential) { (data, err) in
             if (data != nil && err == nil){
                 if let user = data?.user{
@@ -131,4 +151,27 @@ class EULAVC: UIViewController {
         }
     }
 
+}
+
+
+
+extension EULAVC:GIDSignInDelegate{
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Google SigIn Error: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let auth = user.authentication else {return}
+        let cred = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+        
+        signInWith(cred)
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        let alert = UIAlertController.createDefaultAlert("Authentication Error", "Unable to sign in with Google Account",.alert, "OK",.default, nil)
+        present(alert, animated: true, completion: nil)
+    }
 }

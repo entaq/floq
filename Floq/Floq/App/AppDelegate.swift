@@ -11,6 +11,7 @@ import FacebookCore
 import SDWebImage
 import UserNotifications
 import AVFoundation
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance()?.delegate = self
         UNUserNotificationCenter.current().delegate = self
         if (UserDefaults.standard.string(forKey: Fields.uid.rawValue) != nil){
             application.registerForRemoteNotifications()
@@ -82,7 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        if SDKApplicationDelegate.shared.application(app, open: url, options: options){
+            return true
+        }
+        return GIDSignIn.sharedInstance()?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:]) ?? true
     }
     
    
@@ -274,6 +280,38 @@ extension AppDelegate{
         }
     }
 
+    
+}
+
+
+extension AppDelegate:GIDSignInDelegate{
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Google SigIn Error: \(error.localizedDescription)")
+            return
+        }
+        
+//        guard let auth = user.authentication else {return}
+//        let cred = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+//        
+//        Auth.auth().signIn(with: cred) { res, err in
+//            if let err = err{
+//                print("Error Authenticating with Firebase: \(err.localizedDescription)")
+//                return
+//            }
+//            if let data = res{
+//                
+//            }
+//        }
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        let alert = UIAlertController.createDefaultAlert("Authentication Error", "Unable to sign in with Google Account",.alert, "OK",.default, nil)
+        window?.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+    
     
 }
 
