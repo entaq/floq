@@ -64,16 +64,23 @@ class EULAVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func acceptEULA(_ sender: UIButton){
-        let sheet = UIAlertController(title: "Sign In Options", message: "Please choose a sign in method", preferredStyle: .actionSheet)
-        sheet.addAction(UIAlertAction(title: "Sign In with Google", style: .default, handler: { _ in
+        if signInMethod == .google{
             GIDSignIn.sharedInstance()?.delegate = self
             
             GIDSignIn.sharedInstance()?.signIn()
-        }))
-        
-        sheet.addAction(UIAlertAction(title: "Facebook", style: .default, handler: { _ in
-            self.facebooklogin()
-        }))
+        }else{
+            facebooklogin()
+        }
+//        let sheet = UIAlertController(title: "Sign In Options", message: "Please choose a sign in method", preferredStyle: .actionSheet)
+//        sheet.addAction(UIAlertAction(title: "Sign In with Google", style: .default, handler: { _ in
+//            GIDSignIn.sharedInstance()?.delegate = self
+//
+//            GIDSignIn.sharedInstance()?.signIn()
+//        }))
+//
+//        sheet.addAction(UIAlertAction(title: "Facebook", style: .default, handler: { _ in
+//            self.facebooklogin()
+//        }))
     }
     
     
