@@ -14,6 +14,7 @@ class BlockedUsersVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //tableView.isEditing = true
         //tableView.allowsSelectionDuringEditing = true
         DataService.main.getBlockedUsers { (users) in
@@ -25,6 +26,12 @@ class BlockedUsersVC: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        App.setDomain(.BlockedUsers)
     }
 
     // MARK: - Table view data source

@@ -14,9 +14,15 @@ class UserListVC: UITableViewController {
     var cliq:FLCliqItem!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         title = "Cliq Details"
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        App.setDomain(.UserList)
     }
 
 

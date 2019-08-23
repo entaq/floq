@@ -24,6 +24,7 @@ class AddCliqVC: UIViewController {
     private var imagePicker:UIImagePickerController?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
        navigationItem.title = "Create Cliq"
         setupViews()
         setupLocation()
@@ -42,6 +43,11 @@ class AddCliqVC: UIViewController {
         image.image = #imageLiteral(resourceName: "otherNearbyUsersC")
         return image
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        App.setDomain(.AddCliq)
+    }
     
     
     func setupViews(){

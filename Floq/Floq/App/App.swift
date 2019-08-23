@@ -11,12 +11,20 @@ import Foundation
 struct App {
     
     enum Domain{
-        case Home, AddCliq,Profile,BlockedUsers,Eula,My_Cliqs,Nearby,Photos,FullScreenPhoto,Comment
+        case Home, AddCliq,Profile,BlockedUsers,Eula,My_Cliqs,Nearby,Photos,FullScreenPhoto,Comment, UserList, Onboarding, FinalOnboard
     }
     
     static var user:FLUser?{
         return (UIApplication.shared.delegate as! AppDelegate).appUser
     }
     
-    static var currentDomain:Domain = .Home
+    static private var _currentDomain:Domain = .Home
+    
+    static func setDomain(_ domain:Domain){
+        _currentDomain = domain
+    }
+    
+    static var currentDomain:Domain{
+        return _currentDomain
+    }
 }

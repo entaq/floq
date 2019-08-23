@@ -80,6 +80,7 @@ class CommentsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Comments"
+        App.setDomain(.Comment)
         engine = CommentEngine(photo: photoID)
         view.backgroundColor = .white
         view.addSubview(tableView)
@@ -142,6 +143,7 @@ class CommentsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        App.setDomain(.Comment)
         //let inset:CGFloat = hasNotch ? 40 : 0
         //tableView.frame = CGRect(origin: view.frame.origin, size: CGSize(width: view.frame.width, height: view.frame.height - (60 + inset)))
 

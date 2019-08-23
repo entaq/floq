@@ -133,6 +133,7 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         total = engine.allPhotos.count
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -300,6 +301,7 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        App.setDomain(.FullScreenPhoto)
         setAvatarView()
         collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView

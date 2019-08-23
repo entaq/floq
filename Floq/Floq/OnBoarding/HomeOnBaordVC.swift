@@ -74,6 +74,7 @@ class HomeOnBaordVC:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.Onboarding)
         configureDevice()
         pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
         fetherView.translatesAutoresizingMaskIntoConstraints = false

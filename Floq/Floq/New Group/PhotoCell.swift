@@ -17,7 +17,7 @@ class PhotoCell: UICollectionViewCell {
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
-        subscribeTo(subscription: .cmt_photo_notify, selector: #selector(canHighlight(_:)))
+        subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
         self.layer.cornerRadius = 3
         alertIcon.backgroundColor = .orangeRed
         //alertIcon.clipsToBounds = true

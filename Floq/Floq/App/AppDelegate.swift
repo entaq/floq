@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
         print("Memory Warning, Release resources")
+        SDImageCache.shared.clearMemory()
     }
     
     
@@ -157,7 +158,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
         let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         let title = notification.request.content.title
         let body = notification.request.content.body
-        saveNotif(notification)
+        //saveNotif(notification)
         showInAppAlert(title: title, body: body, id: id)
         
         completionHandler(.sound)

@@ -22,6 +22,7 @@ class EULAVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.Eula)
         loader.isHidden = true
         // Do any additional setup after loading the view.
     }

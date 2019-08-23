@@ -15,6 +15,7 @@ public struct CMTSubscription{
     private let stack = CoreDataStack.stack
     
     func save(_ snap:DocumentSnapshot){
+        var ids:[String] = []
         var cliqsub:CMTCliqSubscription?
         let id = snap.documentID
         cliqsub = fetchCliqSub(id)
@@ -28,7 +29,16 @@ public struct CMTSubscription{
                         let ts = Int64(Date().unix_ts)
                         let count = Int64(val as! Int)
                         photo?.lastTimestamp = ts
-                        photo?.canBroadcast = photo!.count != count
+                        if photo!.count != count{
+                            if App.currentDomain == .Comment{
+                              photo?.canBroadcast = false
+                            }else{
+                                photo?.canBroadcast = true
+                                ids.append(key)
+                            }
+                            
+                        }
+                        
                         photo?.count = count
                         
                     }else{
@@ -36,8 +46,14 @@ public struct CMTSubscription{
                         photo.photoID = key
                         photo.lastTimestamp = Int64(Date().unix_ts)
                         photo.count = Int64(val as! Int)
-                        photo.canBroadcast = true
+                        if App.currentDomain == .Comment{
+                            photo.canBroadcast = false
+                        }else{
+                             photo.canBroadcast = true
+                            ids.append(key)
+                        }
                         cliqsub?.addToPhotoSubscriptions(photo)
+                        
                     }
                 }
             }
@@ -56,11 +72,13 @@ public struct CMTSubscription{
                     photo.count = Int64(val as! Int)
                     photo.canBroadcast = true
                     cliqsub!.addToPhotoSubscriptions(photo)
+                    ids.append(key)
                 }
             }
         }
         stack.saveContext()
-        broadcast(id: snap.documentID)
+        ids.forEach{broadcast(id: $0)}
+        //broadcast(id: snap.documentID)
     }
     
     func fetchCliqSub(_ id:String)->CMTCliqSubscription?{

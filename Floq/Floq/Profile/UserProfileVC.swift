@@ -26,6 +26,7 @@ class UserProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         userID = UserDefaults.uid
         
@@ -39,6 +40,11 @@ class UserProfileVC: UIViewController {
         }
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        App.setDomain(.Profile)
     }
     
 

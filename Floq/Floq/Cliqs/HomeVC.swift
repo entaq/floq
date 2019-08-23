@@ -46,6 +46,7 @@ final class HomeVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let app = UIApplication.shared.delegate as? AppDelegate{
             app.registerRemoteNotifs(app: UIApplication.shared)
         }
@@ -58,6 +59,7 @@ final class HomeVC : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = "Floq"
+        App.setDomain(.Home)
         globalEngine.setMostActive()
         updateData()
         

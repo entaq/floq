@@ -18,6 +18,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.FinalOnboard)
         //nickNameText.layer.borderColor = UIColor.black.cgColor
         //nickNameText.layer.borderWidth = 1
         nickNameText.layer.cornerRadius = 4

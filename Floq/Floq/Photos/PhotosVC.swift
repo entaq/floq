@@ -52,6 +52,7 @@ final class PhotosVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         subscribeTo(subscription: .invalidatePhotos, selector: #selector(invalidatePhoto(_:)))
         collectionView.backgroundColor = .globalbackground
         floaty = Floaty()
@@ -96,6 +97,7 @@ final class PhotosVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        App.setDomain(.Photos)
         self.title = cliq?.name ?? ""
         if let cliq = self.cliq{
             if cliq.isActive && cliq.isMember(){UserDefaults.setLatest(cliq.id)}
