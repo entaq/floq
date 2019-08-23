@@ -19,7 +19,7 @@
     </entity>
     <elements>
         <element name="CMTCliqSubscription" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
         <element name="CMTPhotoNotication" positionX="-63" positionY="45" width="128" height="88"/>
+        <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
     </elements>
 </model>

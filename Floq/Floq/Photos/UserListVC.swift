@@ -71,7 +71,7 @@ class UserListVC: UITableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let id = self.list[indexPath.row].0
         let blockAction:UITableViewRowAction
-        if appUser != nil && appUser!.hasBlocked(user: id){
+        if App.user != nil && App.user!.hasBlocked(user: id){
            blockAction = UITableViewRowAction(style: .normal, title: "Unblock") { (ac, indexpath) in
                 
                 DataService.main.unBlockUser(id: id, completion: { (success, err) in

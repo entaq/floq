@@ -13,7 +13,7 @@ class PhotoCell: UICollectionViewCell {
 
     @IBOutlet weak var alertIcon: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    let notifier = PhotoNotification()
+    let notifier = CMTSubscription()
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,17 +31,17 @@ class PhotoCell: UICollectionViewCell {
         // Initialization code
     }
     
-    override var isSelected: Bool{
-        didSet{
-            guard let id = photoID else {return}
-            if !alertIcon.isHidden{
-                notifier.endNotifying(id)
-                alertIcon.isHidden = true
-            }
-            //subscription.endHightlightFor(id)
-            //alertIcon.isHidden = true
-        }
-    }
+//    override var isSelected: Bool{
+//        didSet{
+//            guard let id = photoID else {return}
+//            if !alertIcon.isHidden{
+//                notifier.endNotifying(id)
+//                alertIcon.isHidden = true
+//            }
+//            //subscription.endHightlightFor(id)
+//            //alertIcon.isHidden = true
+//        }
+//    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -59,8 +59,8 @@ class PhotoCell: UICollectionViewCell {
     
     
     func notify(_ id:String){
-        let notify = notifier.fetchExistingNotication(id)
-        if notify?.notify ?? false{
+        let notify = notifier.fetchPhotoSub(id: id)
+        if notify?.canBroadcast ?? false{
             alertIcon.isHidden = false
         }else{
             alertIcon.isHidden = true

@@ -19,23 +19,24 @@ public struct CMTSubscription{
         let id = snap.documentID
         cliqsub = fetchCliqSub(id)
         if (cliqsub != nil){
-            cliqsub!.count = snap.getInt64(.count)
+            cliqsub!.count = snap.getInt64(.cliqComments)
             if let photos = snap.data(){
                 for (key, val) in photos{
+                    if key == Fields.cliqComments.rawValue {continue}
                     let photo = fetchPhotoSub(id: key)
                     if photo != nil{
-                        let ts = (val as! [String:Any])[Fields.ts.rawValue] as! Int64
-                        photo?.canBroadcast = photo!.lastTimestamp < ts
+                        let ts = Int64(Date().unix_ts)
+                        let count = Int64(val as! Int)
                         photo?.lastTimestamp = ts
-                        photo?.count = (val as! [String:Any])[Fields.ts.rawValue] as! Int64
+                        photo?.canBroadcast = photo!.count != count
+                        photo?.count = count
+                        
                     }else{
                         let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
                         photo.photoID = key
-                        if let val = val as? [String:Any]{
-                            photo.count = val[Fields.count.rawValue] as! Int64
-                            photo.lastTimestamp = val[Fields.ts.rawValue] as! Int64
-                            photo.canBroadcast = true
-                        }
+                        photo.lastTimestamp = Int64(Date().unix_ts)
+                        photo.count = Int64(val as! Int)
+                        photo.canBroadcast = true
                         cliqsub?.addToPhotoSubscriptions(photo)
                     }
                 }
@@ -48,14 +49,12 @@ public struct CMTSubscription{
             
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.count.rawValue {continue}
+                    if key == Fields.cliqComments.rawValue {continue}
                     let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
                     photo.photoID = key
-                    if let val = val as? [String:Any]{
-                        photo.count = Int64(val[Fields.count.rawValue] as! Int)
-                        photo.lastTimestamp = Int64(val[Fields.ts.rawValue] as! Int)
-                        photo.canBroadcast = true
-                    }
+                    photo.lastTimestamp = Int64(Date().unix_ts)
+                    photo.count = Int64(val as! Int)
+                    photo.canBroadcast = true
                     cliqsub!.addToPhotoSubscriptions(photo)
                 }
             }

@@ -302,7 +302,7 @@ class DataService{
     
     
     func getBlockedUsers(handler:@escaping (_ users:[FLUser])->()){
-        guard let blocked = appUser?.myblockingList else {return}
+        guard let blocked = App.user?.myblockingList else {return}
         let dispatch = DispatchGroup()
         var users = [FLUser]()
         blocked.forEach{

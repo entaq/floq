@@ -36,6 +36,12 @@ class AddCliqVC: UIViewController {
         
     }
     
+    private var infoImage:UIImageView = {
+        let image = UIImageView(frame: .zero)
+        image.contentMode = .scaleAspectFit
+        image.image = #imageLiteral(resourceName: "otherNearbyUsersC")
+        return image
+    }()
     
     
     func setupViews(){
@@ -79,13 +85,13 @@ class AddCliqVC: UIViewController {
         textField.delegate = self
         textviewbg.addSubview(textField)
         
-        let infolabel = UILabel(frame: CGRect(x:0,y:132 + view.frame.height * 0.35, width: view.frame.width, height: 60))
-        infolabel.backgroundColor = .clear
-        infolabel.numberOfLines = 2
-        infolabel.textAlignment = .center
-        infolabel.textColor = UIColor(red: 132/255, green: 149/255, blue: 165/255, alpha: 1)
-        infolabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-        infolabel.text = "Other nearby users can find this cliq"
+//        let infolabel = UILabel(frame: CGRect(x:0,y:132 + view.frame.height * 0.35, width: view.frame.width, height: 60))
+//        infolabel.backgroundColor = .clear
+//        infolabel.numberOfLines = 2
+//        infolabel.textAlignment = .center
+//        infolabel.textColor = UIColor(red: 132/255, green: 149/255, blue: 165/255, alpha: 1)
+//        infolabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+//        infolabel.text = "Other nearby users can find this cliq"
         
         createButton = UIButton(frame: CGRect(x: 50, y: view.frame.height - 120, width: view.frame.width - 100, height: 80))
         
@@ -98,8 +104,14 @@ class AddCliqVC: UIViewController {
         view.addSubview(imageView)
         view.addSubview(imagebutt)
         view.addSubview(textviewbg)
-        view.addSubview(infolabel)
+        view.addSubview(infoImage)
         view.addSubview(createButton)
+        infoImage.layout{
+            $0.top == textviewbg.bottomAnchor + 16
+            $0.leading == view.leadingAnchor + 12
+            $0.trailing == view.trailingAnchor - 12
+            $0.height |=| 140
+        }
     }
     
     

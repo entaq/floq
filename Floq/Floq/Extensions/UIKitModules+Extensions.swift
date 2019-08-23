@@ -236,7 +236,7 @@ extension Date{
     }
     
     public var nextDay:Date{
-        let BASE = 3600 * 24
+        let BASE = 3600 * 12
         return addingTimeInterval(TimeInterval(BASE))
     }
 

@@ -274,7 +274,7 @@ extension CommentsVC:CommentProtocol{
         
         SmartAlertView(text: "Sending comment....").show()
         //return
-        if let _ = appUser{
+        if let _ = App.user{
             let raw = Comment.Raw(ref: nil, body: comment, photoID: photoID,cliqID: cliqID)
             engine.postAComment(raw) { (err) in
                 if err != nil{
@@ -303,7 +303,7 @@ extension CommentsVC:CommentInputViewDelegate{
     }
     
     func postTapped(_ text: String) {
-        if let _ = appUser{
+        if let _ = App.user{
             
             commentInput.frame = CGRect(origin: originalTextFrame.origin, size: CGSize(width: originalTextFrame.width, height: 38))
             commentInput.textView.text = ""

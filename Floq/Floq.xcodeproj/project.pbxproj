@@ -11,6 +11,8 @@
 		380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380FFE0C230B03A500DD306A /* PhotoNotication.swift */; };
 		3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3815C8442302FA0800A8ABEC /* Alerts.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
+		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
+		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
@@ -44,6 +46,7 @@
 		38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB132288B8AC00D40330 /* FloatyManager.swift */; };
 		38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */; };
 		38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB152288B8AD00D40330 /* FloatyViewController.swift */; };
+		38F03D6923103A85008FEC83 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03D6823103A85008FEC83 /* App.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
 		407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997F71FDCDF8900AAE42A /* ImageCell.swift */; };
@@ -136,6 +139,8 @@
 		380FFE0C230B03A500DD306A /* PhotoNotication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoNotication.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/PhotoNotication.swift; sourceTree = "<group>"; };
 		3815C8442302FA0800A8ABEC /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = ../../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/Subscriptions/Alerts.swift; sourceTree = "<group>"; };
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
+		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
+		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 		38CFAB132288B8AC00D40330 /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
 		38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draggable.swift"; sourceTree = "<group>"; };
 		38CFAB152288B8AD00D40330 /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
+		38F03D6823103A85008FEC83 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/App.swift; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4054328B1FC9C82600725AF9 /* Floq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Floq.entitlements; sourceTree = "<group>"; };
 		406493811FDDAC3F00224DF8 /* PhotoSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSection.swift; sourceTree = "<group>"; };
@@ -617,6 +623,7 @@
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
 				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
+				3852F802230ED91200082B31 /* PhotoEmptyView.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -641,6 +648,7 @@
 			children = (
 				383352202282E80600DA6857 /* Subscriptions */,
 				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
+				38F03D6823103A85008FEC83 /* App.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -648,6 +656,7 @@
 		C4A6FAA5220197C900D3F789 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3852F804230EE73100082B31 /* flickr.gif */,
 				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
 				40AA29C21E8891E900200A3F /* Info.plist */,
 				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
@@ -854,6 +863,7 @@
 				C4A28E4421E01EBB00ADA02D /* ActiveSectionCell.xib in Resources */,
 				C4A2A43021A22C21006DFE6E /* cliqCells.xib in Resources */,
 				40AA29BE1E8891E900200A3F /* Assets.xcassets in Resources */,
+				3852F805230EE73100082B31 /* flickr.gif in Resources */,
 				38CF259922DFA46D008BEDDF /* CommentCell.xib in Resources */,
 				C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */,
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
@@ -991,6 +1001,7 @@
 				3877A9FE22E3536A007FBCE3 /* LoadMoreCells.swift in Sources */,
 				388D51C72305CEB500BF6BCE /* Floq.xcdatamodeld in Sources */,
 				38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */,
+				38F03D6923103A85008FEC83 /* App.swift in Sources */,
 				C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */,
 				C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */,
 				383352222282E80600DA6857 /* Subscriptions.swift in Sources */,
@@ -1044,6 +1055,7 @@
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
 				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
+				3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */,
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
 				3877A9FB22E34177007FBCE3 /* Opereators.swift in Sources */,
 				C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */,

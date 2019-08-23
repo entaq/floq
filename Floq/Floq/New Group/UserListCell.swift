@@ -37,7 +37,7 @@ class UserListCell: UITableViewCell {
         namelable.text = name
         imgview.setAvatar(uid: id)
         countlabel.text = "\(count)"
-        blockLable.isHidden = (appUser != nil) ? !appUser!.hasBlocked(user: id) : true
+        blockLable.isHidden = (App.user != nil) ? App.user!.hasBlocked(user: id) : true
     }
 
 }

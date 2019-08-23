@@ -255,7 +255,7 @@ class CliqEngine:NSObject{
     
     
     func updateMyCliqsSection(){
-        let count = appUser?.cliqs
+        let count = App.user?.cliqs
         homeData.removeAll { (sec) -> Bool in
             return sec.sectionType == .mine
         }

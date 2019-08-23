@@ -205,7 +205,7 @@ class PhotoFullScreenVC: UIViewController {
     @objc func commentTapped(_ sender: UIButton){
         //showCommentAnimation()
         if currentPhotoID != nil && commentIcon.broadcast{
-           PhotoNotification().endNotifying(currentPhotoID!)
+           CMTSubscription().endHightlightFor(currentPhotoID!)
         }
         
         guard let id = currentPhotoID else {return}
@@ -626,9 +626,9 @@ extension PhotoFullScreenVC{
     }
     
     func checkNotifiable(id:String){
-        let notifier = PhotoNotification()
-        if let notif = notifier.fetchExistingNotication(id){
-            commentIcon.broadcast = notif.notify
+        let notifier = CMTSubscription()
+        if let notif = notifier.fetchPhotoSub(id:id){
+            commentIcon.broadcast = notif.canBroadcast
         }else{
             commentIcon.broadcast = false
         }

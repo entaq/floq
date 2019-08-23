@@ -64,9 +64,9 @@ extension Comment{
         init(ref:String?,body:String, photoID:String, cliqID:String){
             reference = ref
             self.body = body
-            commentor = appUser!.username
+            commentor = App.user!.username
             self.photoID = photoID
-            commentorID = appUser!.uid
+            commentorID = App.user!.uid
             self.cliqID = cliqID
         }
         
@@ -92,12 +92,12 @@ extension Comment{
 extension Comment{
     
     fileprivate init(body:String,user:String){
-        id  = appUser!.uid
+        id  = App.user!.uid
         reference = nil
         self.body = body
         timestamp = Date()
         commentor = user
-        commentorID = appUser!.uid
+        commentorID = App.user!.uid
         photoID = ""
         cliqID = ""
     }

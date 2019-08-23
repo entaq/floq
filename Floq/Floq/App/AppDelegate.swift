@@ -277,9 +277,9 @@ extension AppDelegate{
 }
 
 
-var appUser:FLUser?{
-    return (UIApplication.shared.delegate as! AppDelegate).appUser
-}
+
+
+
 
 
 func openAppStore(url:URL?){

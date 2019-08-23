@@ -17,6 +17,7 @@ protocol PhotoLikedDelegate:class {
 
 class FullScreenCell: UICollectionViewCell {
     
+    @IBOutlet weak var scrollVIiew: UIScrollView!
     private var storageRef:StorageReference{
         return Storage.floqPhotos
     }
@@ -24,6 +25,9 @@ class FullScreenCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        scrollVIiew.delegate = self
+        scrollVIiew.minimumZoomScale = 1
+        scrollVIiew.maximumZoomScale = 4
         imageView.clipsToBounds = true
         let Tap = UITapGestureRecognizer(target: self, action: #selector(selectPhoto))
         Tap.numberOfTapsRequired = 1
@@ -52,4 +56,9 @@ class FullScreenCell: UICollectionViewCell {
 }
 
 
-
+extension FullScreenCell:UIScrollViewDelegate{
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+}

@@ -28,6 +28,7 @@ final class PhotosVC: UIViewController {
     private var cliq:FLCliqItem?
     private var cliqID:String!
     var photoEngine:PhotosEngine!
+    private var canShowEmpty = false
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -77,7 +78,11 @@ final class PhotosVC: UIViewController {
         adapter.dataSource = self
         view.addSubview(floaty)
         photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (success, errm) in
-            if success{self.adapter.reloadData(completion: nil)}
+            if success{
+                self.canShowEmpty = true
+                self.adapter.reloadData(completion: nil)
+                
+            }
         }
         
     }
@@ -203,16 +208,20 @@ extension PhotosVC:ListAdapterDataSource{
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        let uiview = UIView(frame: view.frame)
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
-        label.numberOfLines = 10
-        label.textAlignment = .center
-        label.textColor = UIColor.black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.text = "Oops, this cliq is empty, try adding some photos"
-        label.center = uiview.center
-        uiview.addSubview(label)
-        return uiview
+        if canShowEmpty{
+            let uiview = UIView(frame: view.frame)
+            let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))
+            label.numberOfLines = 10
+            label.textAlignment = .center
+            label.textColor = UIColor.black
+            label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            label.text = "Oops, this cliq is empty, try adding some photos"
+            label.center = uiview.center
+            uiview.addSubview(label)
+            return uiview
+        }
+        let loaderView = PhotoEmptyView(frame: view.frame)
+        return loaderView
     }
 }
 
