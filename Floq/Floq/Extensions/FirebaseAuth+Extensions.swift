@@ -9,6 +9,8 @@
 import FirebaseAuth
 import FacebookCore
 import FacebookLogin
+import SDWebImage
+import GoogleSignIn
 
 
 extension Auth{
@@ -17,6 +19,8 @@ extension Auth{
       
         do{
             try auth().signOut()
+            GIDSignIn.sharedInstance()?.signOut()
+            SDImageCache.shared.removeImageFromDisk(forKey: UserDefaults.uid)
              UserDefaults.invalidateUserData()
             completion(true,nil)
         }catch let err{
@@ -26,7 +30,7 @@ extension Auth{
     
     class func deActivateAccount(_ completion:@escaping CompletionHandlers.storage){
         let credemtial = FacebookAuthProvider.credential(withAccessToken: AccessToken.current?.authenticationToken ?? "")
-        auth().signInAndRetrieveData(with: credemtial) { (data, err) in
+        auth().signIn(with: credemtial) { (data, err) in
             if let err = err{
                 completion(false,err.localizedDescription)
             }else{

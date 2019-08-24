@@ -11,19 +11,27 @@ import FacebookCore
 import SDWebImage
 import UserNotifications
 import AVFoundation
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+
     
     var window: UIWindow?
     var mainEngine:CliqEngine!
     var appUser:FLUser?
     var isSyncng = false
     var isWatching = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance()?.delegate = self
         UNUserNotificationCenter.current().delegate = self
         if (UserDefaults.standard.string(forKey: Fields.uid.rawValue) != nil){
             application.registerForRemoteNotifications()
@@ -35,15 +43,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
         watchForUpdateChanges()
-        
+        //let sub = CMTSubscription()
+        //sub.fetchALl()
         return true
         
     }
+    
+    
+    
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        print("Memory Warning, Release resources")
+        SDImageCache.shared.clearMemory()
+    }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
+    
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         isSyncng = false
@@ -67,12 +86,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
-        SDImageCache.shared().clearMemory()
+        SDImageCache.shared.clearMemory()
     }
     
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        switch App.signInMethod {
+        case .facebook:
+            return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        case .google:
+            return GIDSignIn.sharedInstance()?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:]) ?? false
+        default:
+            return false
+        }
+        
+        
     }
     
    
@@ -113,6 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //Print succesfully
                 InstanceID.instanceID().instanceID(handler: { (result, err) in
                     if let result = result{
+                        if UserDefaults.instanceToken != ""{return}
                         DataService.main.saveNewUserInstanceToken(token: result.token, complete: { (success, err) in
                             if success{
                                 UserDefaults.set(result.token, for: .instanceToken)
@@ -134,6 +163,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
        app.registerForRemoteNotifications()
+        
+        
     }
 }
 
@@ -143,14 +174,27 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        //let info = notification.request.content.userInfo
+        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         let title = notification.request.content.title
         let body = notification.request.content.body
-        let id = notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
+        //saveNotif(notification)
         showInAppAlert(title: title, body: body, id: id)
+        
         completionHandler(.sound)
     }
     
+    func saveNotif(_ notification:UNNotification){
+        let info = notification.request.content.userInfo
+        
+        if let type = info["type"] as? String, let cliq = info[Fields.cliqID.rawValue] as? String, let photo = info[Fields.photoID.rawValue] as? String{
+            let notifier = PhotoNotification()
+            notifier.saveNotification(id: photo, cliq: cliq)
+        }
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        saveNotif(response.notification)
         print("Will Present the response: \(response.notification.request.content.userInfo.description)")
         let id = response.notification.request.content.userInfo[Fields.cliqID.rawValue] as? String ?? ""
         if let nav = window?.rootViewController as? UINavigationController{
@@ -161,10 +205,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate, MessagingDelegate{
     }
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         let prevTok = UserDefaults.instanceToken
-        if prevTok != fcmToken{
+        if prevTok != fcmToken || !UserDefaults.updatedtoken{
             DataService.main.saveNewUserInstanceToken(token: fcmToken) { (success, err) in
                 if success{
                     UserDefaults.set(fcmToken, for: .instanceToken)
+                    UserDefaults.set(true, for: .updatedtoken)
                 }else{
                     Logger.log(err)
                 }
@@ -239,19 +284,55 @@ extension AppDelegate{
             if id == ""{return}
             if let nav = self.window?.rootViewController as? UINavigationController{
                 
-                nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+                DispatchQueue.main.async{
+                    nav.pushViewController(PhotosVC(cliq: nil, id: id), animated: true)
+                }
             }
         }
-        window?.rootViewController?.view.addSubview(alert)
+        DispatchQueue.main.async{ [weak self] in
+            self?.window?.rootViewController?.view.addSubview(alert)
+        }
     }
 
     
 }
 
 
-var appUser:FLUser?{
-    return (UIApplication.shared.delegate as! AppDelegate).appUser
+extension AppDelegate:GIDSignInDelegate{
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Google SigIn Error: \(error.localizedDescription)")
+            return
+        }
+        
+//        guard let auth = user.authentication else {return}
+//        let cred = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+//        
+//        Auth.auth().signIn(with: cred) { res, err in
+//            if let err = err{
+//                print("Error Authenticating with Firebase: \(err.localizedDescription)")
+//                return
+//            }
+//            if let data = res{
+//                
+//            }
+//        }
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        let alert = UIAlertController.createDefaultAlert("Authentication Error", "Unable to sign in with Google Account",.alert, "OK",.default, nil)
+        window?.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
+
+
+
+
+
 
 
 func openAppStore(url:URL?){

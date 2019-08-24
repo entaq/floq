@@ -18,6 +18,7 @@ struct Comment {
     public let commentor:String
     public let commentorID:String
     public let photoID:String
+    public let cliqID:String
     
     init(snapshot:DocumentSnapshot) {
         id = snapshot.documentID
@@ -27,6 +28,7 @@ struct Comment {
         commentor = snapshot.getString(Keys.commentor.rawValue)
         commentorID = snapshot.getString(Keys.commentorID.rawValue)
         photoID = snapshot.getString(Keys.photoID.rawValue)
+        cliqID = snapshot.getString(Keys.cliqID.rawValue)
     }
     
     
@@ -36,12 +38,12 @@ struct Comment {
 
 extension Comment{
     public enum Keys:String{
-        case id, reference, body, timestamp, commentor, commentorID, photoID
+        case id, reference, body, timestamp, commentor, commentorID, photoID, cliqID
     }
 }
 
 
-extension Comment:Hashable, Equatable{
+extension Comment:Equatable{
     
     static func == (lhs: Comment, rhs: Comment) -> Bool{
        return lhs.id == rhs.id
@@ -56,14 +58,16 @@ extension Comment{
         private  let body:String
         private  let commentor:String
         private  let commentorID:String
-        private  let photoID:String
+        public  let photoID:String
+        public  let cliqID:String
         
-        init(ref:String?,body:String, photoID:String){
+        init(ref:String?,body:String, photoID:String, cliqID:String){
             reference = ref
             self.body = body
-            commentor = appUser!.username
+            commentor = App.user!.username
             self.photoID = photoID
-            commentorID = appUser!.uid
+            commentorID = App.user!.uid
+            self.cliqID = cliqID
         }
         
         public func data()->[String:Any?]{
@@ -73,7 +77,8 @@ extension Comment{
                 Keys.timestamp.rawValue:FieldValue.serverTimestamp(),
                 Keys.commentor.rawValue:commentor,
                 Keys.commentorID.rawValue: commentorID,
-                Keys.photoID.rawValue:self.photoID
+                Keys.photoID.rawValue:self.photoID,
+                Keys.cliqID.rawValue:self.cliqID
             ]
         }
     }
@@ -87,13 +92,14 @@ extension Comment{
 extension Comment{
     
     fileprivate init(body:String,user:String){
-        id  = appUser!.uid
+        id  = App.user!.uid
         reference = nil
         self.body = body
         timestamp = Date()
         commentor = user
-        commentorID = appUser!.uid
+        commentorID = App.user!.uid
         photoID = ""
+        cliqID = ""
     }
     
     struct MockData{

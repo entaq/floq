@@ -11,8 +11,13 @@ import FirebaseAuth
 import FacebookCore
 import FacebookLogin
 import FirebaseInstanceID
+import GoogleSignIn
 
 class EULAVC: UIViewController {
+    
+    enum SignInMethod{
+        case facebook, google, none
+    }
     @IBOutlet weak var optionsView:UIView!
     @IBOutlet weak var backButt: UIButton!
     
@@ -20,8 +25,11 @@ class EULAVC: UIViewController {
     @IBOutlet weak var declineButt: UIButton!
     @IBOutlet weak var acceptButt: UIButton!
     
+    var signInMethod:SignInMethod!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.Eula)
         loader.isHidden = true
         // Do any additional setup after loading the view.
     }
@@ -56,7 +64,26 @@ class EULAVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func acceptEULA(_ sender: UIButton){
-        facebooklogin()
+        
+        App.setMethod(signInMethod)
+        if signInMethod == .google{
+            GIDSignIn.sharedInstance()?.delegate = self
+            GIDSignIn.sharedInstance()?.uiDelegate = self
+            GIDSignIn.sharedInstance()?.signIn()
+            self.loader.isHidden = false
+        }else{
+            facebooklogin()
+        }
+//        let sheet = UIAlertController(title: "Sign In Options", message: "Please choose a sign in method", preferredStyle: .actionSheet)
+//        sheet.addAction(UIAlertAction(title: "Sign In with Google", style: .default, handler: { _ in
+//            GIDSignIn.sharedInstance()?.delegate = self
+//
+//            GIDSignIn.sharedInstance()?.signIn()
+//        }))
+//
+//        sheet.addAction(UIAlertAction(title: "Facebook", style: .default, handler: { _ in
+//            self.facebooklogin()
+//        }))
     }
     
     
@@ -84,8 +111,13 @@ class EULAVC: UIViewController {
     func facebookLogCompletion(token:AccessToken){
         
         let credential = FacebookAuthProvider.credential(withAccessToken: token.authenticationToken)
+        signInWith(credential)
         
-        Auth.auth().signInAndRetrieveData(with: credential) { (data, err) in
+    }
+    
+    func signInWith(_ credential:AuthCredential){
+        
+        Auth.auth().signIn(with: credential) { (data, err) in
             if (data != nil && err == nil){
                 if let user = data?.user{
                     
@@ -123,7 +155,18 @@ class EULAVC: UIViewController {
     
     func saveUserdata(user:User){
         let userID = AccessToken.current?.userId ?? ""
-        let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        var url:URL?
+        if App.signInMethod == .facebook{
+            url  = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        }else{
+            //url    URL    "https://lh3.googleusercontent.com/a-/AAuE7mDiAkODg80e2iUUY05fnyWJFrWjBSON3x-X082qEQ=s96-c"
+            url = user.photoURL
+            if let sized = url?.absoluteString{
+                let newurlstring = sized.replacingOccurrences(of: "s96-c", with: "s400-c")
+                url = URL(string: newurlstring)
+                
+            }
+        }
         DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
@@ -131,3 +174,30 @@ class EULAVC: UIViewController {
     }
 
 }
+
+
+
+extension EULAVC:GIDSignInDelegate{
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error{
+            print("Google SigIn Error: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let auth = user.authentication else {return}
+        let cred = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+        
+        signInWith(cred)
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        let alert = UIAlertController.createDefaultAlert("Authentication Error", "Unable to sign in with Google Account",.alert, "OK",.default, nil)
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+
+
+extension EULAVC:GIDSignInUIDelegate{}

@@ -13,13 +13,13 @@ class CommentEngine:NSObject{
     
     
     typealias Comments = Array<Comment>
-    typealias CommentSet = Set<Comment>
     typealias Completion = (_ error:Error?) -> ()
     
     private var _QUERY_LIMIT = 20
-    private var _internalComments:CommentSet = []
+    private var _internalComments:Comments = []
     private var photoId:String
     private var lastSnapshot:DocumentSnapshot?
+    private var listener:ListenerRegistration?
     private var commentsCollection:CollectionReference{
         return Firestore.database.collection(.comment)
     }
@@ -32,12 +32,20 @@ class CommentEngine:NSObject{
         
     }
     
-    var comments:Comments{
-        return _internalComments .sorted{$0.timestamp > $1.timestamp}
+    func removeListener(){
+        listener?.remove()
     }
+    
+    var comments:Comments{
+        
+        return _internalComments.sorted{$0.timestamp > $1.timestamp}
+    }
+    
+    
     
     func watchForComments(completion:@escaping Completion){
         let query:Query
+        
         if _internalComments.isEmpty{
             query = commentsCollection.whereField(Comment.Keys.photoID.rawValue, isEqualTo: photoId).limit(to: _QUERY_LIMIT).order(by: Comment.Keys.timestamp.rawValue, descending: true)
         }else{
@@ -45,23 +53,39 @@ class CommentEngine:NSObject{
             query = commentsCollection.whereField(Comment.Keys.photoID.rawValue, isEqualTo: photoId).order(by: Comment.Keys.timestamp.rawValue, descending: true).start(afterDocument: last).limit(to: _QUERY_LIMIT)
         }
         
-        query.addSnapshotListener { (querySnap, error) in
+        
+        
+        listener = query.addSnapshotListener { (querySnap, error) in
             guard let docs = querySnap?.documents else {return}
             self.lastSnapshot = docs.last
-            if docs.count < 20 {self.exhausted = true}
-            docs.forEach{let comment = Comment(snapshot: $0)
+            if docs.count < self._QUERY_LIMIT {self.exhausted = true}
+            docs.forEach{
+                if ($0.get(Comment.Keys.timestamp.rawValue) == nil){return}
+                let comment = Comment(snapshot: $0)
                 if !self._internalComments.contains(comment){
-                    self._internalComments.insert(comment)
+                    self._internalComments.append(comment)
                 }
             }
             completion(error)
         }
     }
-    
+    #warning("Use Transactions in the future")
     func postAComment(_ comment:Comment.Raw, completion:@escaping Completion){
-        commentsCollection.document().setData(comment.data() as [String : Any], merge: true) { err in
+        let batch = Firestore.database.batch()
+        //let reference = commentsCollection.document()
+        let subscriptionRef = Firestore.database.collection(.commentSubscription).document(comment.cliqID)
+        let subData:[String:Any] = [comment.photoID:FieldValue.increment(Int64(1)), Fields.cliqComments.rawValue:FieldValue.increment(Int64(1))]
+        batch.setData(subData, forDocument: subscriptionRef, merge: true)
+        batch.setData(comment.data() as [String : Any], forDocument: commentsCollection.document(), merge: true)
+        batch.commit() { err in
             completion(err)
         }
     }
+    
+    deinit {
+        listener?.remove()
+    }
+    
+    
     
 }

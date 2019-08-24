@@ -10,7 +10,7 @@ import IGListKit
 import Firebase
 
 import CoreLocation
-import Geofirestore
+
 
 
 
@@ -76,6 +76,7 @@ class NearbyCliqsVC: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "Near Me"
+        App.setDomain(.Nearby)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

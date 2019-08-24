@@ -1,34 +1,30 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { print } from "util";
-
-const REF_FLOQS = "FLFLOQs";
-const REF_PHOTOS = "Photos";
-const REF_FLPHOTOS = "FLPHOTOS";
-const REF_TOKENS = "FLTOKENS";
-const REF_USERS = "FLUSER";
-const FIELD_CLIQ_ID = "cliqID";
-const FIELD_fileID = "fileID";
-const FIELD_username = "userName";
-const FIELD_dateCreated = "dateCreated";
-const FIELD_timestamp = "timestamp";
-const FIELD_cliqname = "cliqName";
-const FIELD_uid = "uid";
-const FIELD_profileImg = "profileUrl";
-const FIELD_userUID = "userID";
-const FIELD_userEmail = "userEmail";
-const FIELD_latestCliq = "latestCliq";
-const FIELD_cliqCount = "cliqCount";
-const FIELD_dateJoined = "dateJoined";
-const FIELD_followers = "followers";
-const FIELD_deleted = "deleted";
-const FIELD_dateDeleted = "dateDeleted";
-const FIELD_instanceToken = "instanceToken";
-const REF_ANALYTICS = "FLANALYTICS";
-const DOC_CLIQS = "Cliqs";
-const FIELD_COUNT = "count";
-const FIELD_FLAGGED = "flagged";
-const FIELD_FLAGGERS = "flaggers";
+import { COMMENT_ADDED } from "./Alerts";
+import {
+  REF_ANALYTICS,
+  REF_COMMENTS,
+  REF_FLOQS,
+  REF_FLPHOTOS,
+  REF_PHOTOS,
+  REF_TOKENS,
+  REF_USERS,
+  FIELD_userUID,
+  FIELD_CLIQ_ID,
+  FIELD_COMMENTOR,
+  FIELD_FLAGGED,
+  FIELD_FLAGGERS,
+  FIELD_followers,
+  FIELD_username,
+  FIELD_cliqname,
+  FIELD_instanceToken,
+  FIELD_COUNT,
+  DOC_CLIQS,
+  FIELD_COMMENTOR_ID,
+  FIELD_PHOTOID,
+  FIELD_cliqCount
+} from "./Constants";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -52,20 +48,38 @@ export const photoAdded = functions.firestore
       const key = followers[i];
       if (key !== posterID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
-        const token = tokenSnap.get(FIELD_instanceToken);
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
+          }
+        } // tokenSnap.get(FIELD_instanceToken);
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "Photo Added!!",
+              body: `A new photo was added to ${cliqName} album by ${username}. Check it out now !!`
+            },
+            data: {
+              cliqID: cliqID
+            },
+            token: x
+          };
+          messages.push(message);
+        });
 
-        const message = {
-          notification: {
-            title: "Photo Added!!",
-            body: `A new photo was added to ${cliqName} album by ${username}. Check it out now !!`
-          },
-          data: {
-            cliqID: cliqID
-          },
-          token: token
-        };
-        console.log(`The payload is ${message}`);
-        promise = admin.messaging().send(message);
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
       }
     }
     return promise;
@@ -90,22 +104,47 @@ export const joinedNotification = functions.firestore
       const key = followers[i];
       if (key !== followerID) {
         const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
-        const token = tokenSnap.get(FIELD_instanceToken);
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
+          }
+        }
 
-        const message = {
-          notification: {
-            title: "New Follower",
-            body: `${username} just joined your cliq ${cliqName}. Check it out now !!`
-          },
-          data: {
-            cliqID: cliqID
-          },
-          token: token
-        };
-        console.log(`The payload is ${message}`);
-        promise = admin.messaging().send(message);
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "New Follower",
+              body: `${username} just joined your cliq ${cliqName}. Check it out now !!`
+            },
+            data: {
+              cliqID: cliqID
+            },
+            token: x
+          };
+          messages.push(message);
+        });
+
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
+        return promise;
+        // console.log(`The payload is ${message}`);
+        // promise = admin.messaging().send(message);
       }
+      return promise;
     }
+
+    return promise;
   });
 
 export const analyticsOnCliqs = functions.firestore
@@ -174,6 +213,71 @@ export const countPhotos = functions.firestore
       .doc("Photos")
       .update({ count: count + 1 });
     return resp;
+  });
+
+export const notifyForComment = functions.firestore
+  .document(`${REF_COMMENTS}/{id}`)
+  .onCreate(async (snap, context) => {
+    const cliqID = snap.get(FIELD_CLIQ_ID);
+    const photoID = snap.get(FIELD_PHOTOID);
+    const posterID = snap.get(FIELD_COMMENTOR_ID);
+    const commentor = snap.get(FIELD_COMMENTOR);
+
+    const cliq = await store
+      .collection(REF_FLOQS)
+      .doc(cliqID)
+      .get();
+
+    const cliqName = cliq.get(FIELD_cliqname);
+    let promise = Promise.resolve("Nothing");
+
+    const followers = cliq.get(FIELD_followers);
+    const total = followers.length;
+
+    for (let i = 0; i < total; i++) {
+      const key = followers[i];
+      if (key != posterID) {
+        const tokenSnap = await store.doc(`${REF_TOKENS}/${key}`).get();
+        const tokens = [];
+        const tokdata = tokenSnap.data();
+        for (const t_key of Object.keys(tokdata)) {
+          if (t_key === FIELD_instanceToken) {
+            tokens.push(tokdata[t_key]);
+            continue;
+          }
+          if (typeof tokdata[t_key] === "object") {
+            const tok = tokdata[t_key][FIELD_instanceToken];
+            if (typeof tok === "string") {
+              tokens.push(tok);
+            }
+          }
+        }
+        console.log(!`The tokens are : ${tokens}`);
+
+        const messages = [];
+        tokens.forEach(x => {
+          const message = {
+            notification: {
+              title: "New Comment",
+              body: `${commentor} just added a new comment to ${cliqName} Cliq`
+            },
+            data: {
+              cliqID: cliqID,
+              photoID: photoID,
+              type: COMMENT_ADDED
+            },
+            token: x
+          };
+          messages.push(message);
+          console.log(`Token is is: ${x}`);
+        });
+
+        messages.forEach(message => {
+          promise = admin.messaging().send(message);
+        });
+      }
+    }
+    return promise;
   });
 
 /**

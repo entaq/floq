@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 extension Dictionary where Key == String{
     
     func getString(_ id:Fields)->String{
@@ -101,6 +102,10 @@ extension UserDefaults{
         return standard.string(forKey: Fields.instanceToken.rawValue) ?? ""
     }
     
+    public class var updatedtoken:Bool{
+        return standard.bool(forKey: "updatedtoken")
+    }
+    
     public class var username:String{
         return standard.string(forKey: Fields.username.rawValue)!
     }
@@ -121,6 +126,8 @@ extension UserDefaults{
         standard.removeObject(forKey: Fields.username.rawValue)
         standard.removeObject(forKey: Fields.uid.rawValue)
         standard.removeObject(forKey: Fields.latestCliq.rawValue)
+        standard.removeObject(forKey: Fields.instanceToken.rawValue)
+        
     }
 }
 
@@ -158,4 +165,12 @@ extension String {
     }
     
     
+}
+
+
+
+extension Int{
+    static var largest:Int{
+        return Int(INT64_MAX)
+    }
 }

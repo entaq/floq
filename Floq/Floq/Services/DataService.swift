@@ -9,7 +9,7 @@
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-import Geofirestore
+
 import CoreLocation
 import SDWebImage
 
@@ -88,13 +88,15 @@ class DataService{
     }
     
     
-    func getAndStoreProfileImg(imgUrl:URL,uid:String){
-        let downloader = SDWebImageDownloader.shared()
-        downloader.downloadImage(with: imgUrl, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
+    func getAndStoreProfileImg(imgUrl:URL?,uid:String){
+        guard let url = imgUrl else {return}
+        
+        let downloader = SDWebImageDownloader.shared
+        downloader.downloadImage(with: url, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
                 print("Image Succesfully Saved from facebool")
                 let ef = Storage.reference(.userProfilePhotos).child(uid)
-                SDImageCache.shared().store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
+                SDImageCache.shared.store(image, forKey: ef.fullPath, toDisk: true, completion: nil)
                 ef.putData(image.pngData() ?? data!)
             }
         }
@@ -155,8 +157,10 @@ class DataService{
     
     func saveNewUserInstanceToken(token:String, complete:@escaping CompletionHandlers.storage){
         
-        if let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue){
-            store.collection(.tokenRefs).document(uid).setData([Fields.instanceToken.rawValue:token,Fields.dateCreated.rawValue:Date()], merge: true) { (err) in
+        if let uid = UserDefaults.standard.string(forKey: Fields.uid.rawValue), let deviceID = UIDevice.current.identifierForVendor{
+            let data = [deviceID.uuidString:[Fields.instanceToken.rawValue:token,Fields.dateCreated.rawValue:Date()]]
+            store.collection(.tokenRefs).document(uid)
+                .setData(data, merge: true) { (err) in
                 if let err = err {
                     complete(false,err.localizedDescription)
                 }else{
@@ -300,7 +304,7 @@ class DataService{
     
     
     func getBlockedUsers(handler:@escaping (_ users:[FLUser])->()){
-        guard let blocked = appUser?.myblockingList else {return}
+        guard let blocked = App.user?.myblockingList else {return}
         let dispatch = DispatchGroup()
         var users = [FLUser]()
         blocked.forEach{

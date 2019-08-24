@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CMTCliqSubscription+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CMTCliqSubscription+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CMTPhotoSubscription+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CMTPhotoSubscription+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Floq.xcodeproj">
    </FileRef>
    <FileRef

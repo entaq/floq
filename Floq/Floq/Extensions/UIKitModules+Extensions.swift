@@ -75,7 +75,7 @@ extension UIImage{
     
     public static var myphoto:UIImage{
         let ref = Storage.profilePhotos.child(UserDefaults.uid)
-        let img = SDImageCache.shared().imageFromCache(forKey: ref.fullPath)
+        let img = SDImageCache.shared.imageFromCache(forKey: ref.fullPath)
         return img ?? .placeholder
     }
     
@@ -191,6 +191,10 @@ extension UIColor{
         return UIColor(red: 41.0 / 255.0, green: 46.0 / 255.0, blue: 46.0 / 255.0, alpha: 1.0)
     }
     
+    @nonobjc class var orangeyRed: UIColor {
+        return UIColor(red: 254.0 / 255.0, green: 56.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+    }
+    
     
 }
 
@@ -232,7 +236,7 @@ extension Date{
     }
     
     public var nextDay:Date{
-        let BASE = 3600 * 24
+        let BASE = 3600 * 12
         return addingTimeInterval(TimeInterval(BASE))
     }
 

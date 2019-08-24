@@ -99,6 +99,7 @@ class UserSettingsTVC: UITableViewController {
                 
                 if success{
                     let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
+                    onboard.modalPresentationStyle = .fullScreen
                     self.present(onboard, animated: true, completion: nil)
                     
                 }else{

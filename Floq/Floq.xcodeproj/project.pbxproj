@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802275F227D33F0004C3DF6 /* EULAVC.swift */; };
+		380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380FFE0C230B03A500DD306A /* PhotoNotication.swift */; };
+		3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3815C8442302FA0800A8ABEC /* Alerts.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
-		3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3872F63C2214874C00AC547E /* FloqUITests.swift */; };
+		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
+		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
@@ -18,8 +21,19 @@
 		3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */; };
 		3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
+		388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51AB230575F700BF6BCE /* Geofirestore.swift */; };
+		388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B42305825000BF6BCE /* GFBase32Utils.m */; };
+		388D51C02305825000BF6BCE /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B62305825000BF6BCE /* GeoFire.m */; };
+		388D51C12305825000BF6BCE /* GFGeoHashQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B72305825000BF6BCE /* GFGeoHashQuery.m */; };
+		388D51C22305825000BF6BCE /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B82305825000BF6BCE /* GFQuery.m */; };
+		388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B92305825000BF6BCE /* GFGeoHash.m */; };
+		388D51C72305CEB500BF6BCE /* Floq.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 388D51C52305CEB500BF6BCE /* Floq.xcdatamodeld */; };
+		388D51C92305D03300BF6BCE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51C82305D03300BF6BCE /* Persistence.swift */; };
+		388D51FC2305D13900BF6BCE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FB2305D13900BF6BCE /* CoreDataStack.swift */; };
+		388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FD2305EC4A00BF6BCE /* CommentButton.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
+		38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */; };
 		38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF258F22DCCA2D008BEDDF /* FLComments.swift */; };
 		38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259122DD4FD1008BEDDF /* CommentEngine.swift */; };
 		38CF259522DFA34E008BEDDF /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259422DFA34E008BEDDF /* CommentsVC.swift */; };
@@ -32,6 +46,7 @@
 		38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB132288B8AC00D40330 /* FloatyManager.swift */; };
 		38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */; };
 		38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB152288B8AD00D40330 /* FloatyViewController.swift */; };
+		38F03D6923103A85008FEC83 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03D6823103A85008FEC83 /* App.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
 		407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407997F71FDCDF8900AAE42A /* ImageCell.swift */; };
@@ -121,10 +136,12 @@
 /* Begin PBXFileReference section */
 		057B0F75B8FF1CD316481054 /* Pods-Floq.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floq.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Floq/Pods-Floq.debug.xcconfig"; sourceTree = "<group>"; };
 		3802275F227D33F0004C3DF6 /* EULAVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAVC.swift; sourceTree = "<group>"; };
+		380FFE0C230B03A500DD306A /* PhotoNotication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoNotication.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/PhotoNotication.swift; sourceTree = "<group>"; };
+		3815C8442302FA0800A8ABEC /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = ../../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/Subscriptions/Alerts.swift; sourceTree = "<group>"; };
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
+		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
+		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3872F63C2214874C00AC547E /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
-		3872F63E2214874C00AC547E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
 		3877A9F722E34177007FBCE3 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -133,10 +150,31 @@
 		3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCells.xib; sourceTree = "<group>"; };
 		3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlertView.swift; sourceTree = "<group>"; };
 		387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersVC.swift; sourceTree = "<group>"; };
+		388D51AB230575F700BF6BCE /* Geofirestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofirestore.swift; sourceTree = "<group>"; };
+		388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
+		388D51B02305824F00BF6BCE /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
+		388D51B12305824F00BF6BCE /* GFGeoHashQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFGeoHashQuery.h; sourceTree = "<group>"; };
+		388D51B22305824F00BF6BCE /* GFGeoHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFGeoHash.h; sourceTree = "<group>"; };
+		388D51B32305825000BF6BCE /* GFQuery+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GFQuery+Private.h"; sourceTree = "<group>"; };
+		388D51B42305825000BF6BCE /* GFBase32Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFBase32Utils.m; sourceTree = "<group>"; };
+		388D51B52305825000BF6BCE /* GeoFire+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire+Private.h"; sourceTree = "<group>"; };
+		388D51B62305825000BF6BCE /* GeoFire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFire.m; sourceTree = "<group>"; };
+		388D51B72305825000BF6BCE /* GFGeoHashQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQuery.m; sourceTree = "<group>"; };
+		388D51B82305825000BF6BCE /* GFQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFQuery.m; sourceTree = "<group>"; };
+		388D51B92305825000BF6BCE /* GFGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHash.m; sourceTree = "<group>"; };
+		388D51BB2305825000BF6BCE /* GFRegionQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
+		388D51BC2305825000BF6BCE /* GeoFire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoFire.h; sourceTree = "<group>"; };
+		388D51BD2305825000BF6BCE /* GFQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFQuery.h; sourceTree = "<group>"; };
+		388D51BE2305825000BF6BCE /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
+		388D51C62305CEB500BF6BCE /* Floq.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Floq.xcdatamodel; sourceTree = "<group>"; };
+		388D51C82305D03300BF6BCE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Persistence.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/Persistence.swift; sourceTree = "<group>"; };
+		388D51FB2305D13900BF6BCE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CoreDataStack.swift; sourceTree = "<group>"; };
+		388D51FD2305EC4A00BF6BCE /* CommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/CommentButton.swift"; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentsInputView copy.swift"; sourceTree = "<group>"; };
 		38CF258F22DCCA2D008BEDDF /* FLComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLComments.swift; sourceTree = "<group>"; };
 		38CF259122DD4FD1008BEDDF /* CommentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEngine.swift; sourceTree = "<group>"; };
 		38CF259422DFA34E008BEDDF /* CommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
@@ -149,6 +187,7 @@
 		38CFAB132288B8AC00D40330 /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
 		38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draggable.swift"; sourceTree = "<group>"; };
 		38CFAB152288B8AD00D40330 /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
+		38F03D6823103A85008FEC83 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/App.swift; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4054328B1FC9C82600725AF9 /* Floq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Floq.entitlements; sourceTree = "<group>"; };
 		406493811FDDAC3F00224DF8 /* PhotoSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSection.swift; sourceTree = "<group>"; };
@@ -253,17 +292,9 @@
 			isa = PBXGroup;
 			children = (
 				383352212282E80600DA6857 /* Subscriptions.swift */,
+				3815C8442302FA0800A8ABEC /* Alerts.swift */,
 			);
 			path = Subscriptions;
-			sourceTree = "<group>";
-		};
-		3872F63B2214874C00AC547E /* FloqUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3872F63C2214874C00AC547E /* FloqUITests.swift */,
-				3872F63E2214874C00AC547E /* Info.plist */,
-			);
-			path = FloqUITests;
 			sourceTree = "<group>";
 		};
 		3877A9F522E34177007FBCE3 /* AutoLayoutDSL */ = {
@@ -274,6 +305,64 @@
 				3877A9F822E34177007FBCE3 /* Opereators.swift */,
 			);
 			path = AutoLayoutDSL;
+			sourceTree = "<group>";
+		};
+		388D51AA230575E100BF6BCE /* Geofirestore */ = {
+			isa = PBXGroup;
+			children = (
+				388D51AD2305824F00BF6BCE /* GeoFire */,
+				388D51AB230575F700BF6BCE /* Geofirestore.swift */,
+			);
+			path = Geofirestore;
+			sourceTree = "<group>";
+		};
+		388D51AD2305824F00BF6BCE /* GeoFire */ = {
+			isa = PBXGroup;
+			children = (
+				388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */,
+				388D51AF2305824F00BF6BCE /* Implementation */,
+				388D51BA2305825000BF6BCE /* API */,
+			);
+			path = GeoFire;
+			sourceTree = "<group>";
+		};
+		388D51AF2305824F00BF6BCE /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				388D51B02305824F00BF6BCE /* GFBase32Utils.h */,
+				388D51B12305824F00BF6BCE /* GFGeoHashQuery.h */,
+				388D51B22305824F00BF6BCE /* GFGeoHash.h */,
+				388D51B32305825000BF6BCE /* GFQuery+Private.h */,
+				388D51B42305825000BF6BCE /* GFBase32Utils.m */,
+				388D51B52305825000BF6BCE /* GeoFire+Private.h */,
+				388D51B62305825000BF6BCE /* GeoFire.m */,
+				388D51B72305825000BF6BCE /* GFGeoHashQuery.m */,
+				388D51B82305825000BF6BCE /* GFQuery.m */,
+				388D51B92305825000BF6BCE /* GFGeoHash.m */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		388D51BA2305825000BF6BCE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				388D51BB2305825000BF6BCE /* GFRegionQuery.h */,
+				388D51BC2305825000BF6BCE /* GeoFire.h */,
+				388D51BD2305825000BF6BCE /* GFQuery.h */,
+				388D51BE2305825000BF6BCE /* GFCircleQuery.h */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		388D51C42305CD4800BF6BCE /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				388D51C52305CEB500BF6BCE /* Floq.xcdatamodeld */,
+				388D51C82305D03300BF6BCE /* Persistence.swift */,
+				388D51FB2305D13900BF6BCE /* CoreDataStack.swift */,
+				380FFE0C230B03A500DD306A /* PhotoNotication.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		38B02E1A2214744D00DEEC21 /* FloqTests */ = {
@@ -290,6 +379,11 @@
 			children = (
 				38CF259422DFA34E008BEDDF /* CommentsVC.swift */,
 				3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */,
+				38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */,
+				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
+				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
+				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
+				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -297,6 +391,7 @@
 		38CFAAB42288B44800D40330 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				388D51AA230575E100BF6BCE /* Geofirestore */,
 				3877A9F522E34177007FBCE3 /* AutoLayoutDSL */,
 				38CFAB0E2288B89A00D40330 /* Floaty */,
 			);
@@ -341,7 +436,6 @@
 			children = (
 				40AA29B51E8891E900200A3F /* Floq */,
 				38B02E1A2214744D00DEEC21 /* FloqTests */,
-				3872F63B2214874C00AC547E /* FloqUITests */,
 				40AA29B41E8891E900200A3F /* Products */,
 				DC970CADBD80A1EFC9A0A3CD /* Pods */,
 				C6C4421E77313EAEA9683D29 /* Frameworks */,
@@ -361,6 +455,7 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
+				388D51C42305CD4800BF6BCE /* Persistence */,
 				38CFAAB42288B44800D40330 /* Frameworks */,
 				C4A6FAA42201973A00D3F789 /* App */,
 				C4A2A42221A22959006DFE6E /* Controller */,
@@ -526,11 +621,9 @@
 				C4A28E4121E01EBB00ADA02D /* ActiveSectionCell.swift */,
 				C4A28E4221E01EBB00ADA02D /* ActiveSectionCell.xib */,
 				C43B8D56220073EB003B7A00 /* NotificationAlertView.swift */,
-				38CF259622DFA46D008BEDDF /* CommentCell.swift */,
-				38CF259722DFA46D008BEDDF /* CommentCell.xib */,
-				3877A9FC22E3536A007FBCE3 /* LoadMoreCells.swift */,
-				3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */,
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
+				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
+				3852F802230ED91200082B31 /* PhotoEmptyView.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -555,6 +648,7 @@
 			children = (
 				383352202282E80600DA6857 /* Subscriptions */,
 				40AA29B61E8891E900200A3F /* AppDelegate.swift */,
+				38F03D6823103A85008FEC83 /* App.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -562,6 +656,7 @@
 		C4A6FAA5220197C900D3F789 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3852F804230EE73100082B31 /* flickr.gif */,
 				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
 				40AA29C21E8891E900200A3F /* Info.plist */,
 				4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */,
@@ -647,8 +742,8 @@
 				40AA29B01E8891E900200A3F /* Frameworks */,
 				40AA29B11E8891E900200A3F /* Resources */,
 				78428CF0718D5AF6743417FC /* [CP] Embed Pods Frameworks */,
-				006B310CC01366A8466EFF74 /* [CP] Copy Pods Resources */,
 				C4A28E4521E0323500ADA02D /* ShellScript */,
+				F169714410531646A30E4830 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -703,6 +798,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				de,
@@ -768,6 +864,7 @@
 				C4A28E4421E01EBB00ADA02D /* ActiveSectionCell.xib in Resources */,
 				C4A2A43021A22C21006DFE6E /* cliqCells.xib in Resources */,
 				40AA29BE1E8891E900200A3F /* Assets.xcassets in Resources */,
+				3852F805230EE73100082B31 /* flickr.gif in Resources */,
 				38CF259922DFA46D008BEDDF /* CommentCell.xib in Resources */,
 				C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */,
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
@@ -780,48 +877,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		006B310CC01366A8466EFF74 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		78428CF0718D5AF6743417FC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/DKCamera/DKCamera.framework",
 				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/DKPhotoGallery/DKPhotoGallery.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/TOCropViewController/TOCropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageFLPlugin/SDWebImageFLPlugin.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -830,22 +910,23 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKCamera.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKPhotoGallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TOCropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageFLPlugin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -853,7 +934,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B57EA2233D44F7AC23ABD8A2 /* [CP] Check Pods Manifest.lock */ = {
@@ -892,6 +973,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
+		F169714410531646A30E4830 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Floq/Pods-Floq-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -899,7 +998,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3872F63D2214874C00AC547E /* FloqUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,13 +1013,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */,
 				C400093122072C16004B6067 /* UIImage+Gif.swift in Sources */,
 				C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */,
 				38CFAB192288B8AD00D40330 /* FloatyDelegate.swift in Sources */,
 				C48BEDA821F8F6EA00D0A4F7 /* Core.swift in Sources */,
 				40FED65F1FDE0E4800EC5974 /* PhotoItem.swift in Sources */,
 				3877A9FE22E3536A007FBCE3 /* LoadMoreCells.swift in Sources */,
+				388D51C72305CEB500BF6BCE /* Floq.xcdatamodeld in Sources */,
 				38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */,
+				38F03D6923103A85008FEC83 /* App.swift in Sources */,
 				C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */,
 				C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */,
 				383352222282E80600DA6857 /* Subscriptions.swift in Sources */,
@@ -934,22 +1035,29 @@
 				407997FE1FDCE0ED00AAE42A /* LabelCell.swift in Sources */,
 				C4A28E4321E01EBB00ADA02D /* ActiveSectionCell.swift in Sources */,
 				C48A57D821A22E0900D3B0E6 /* CliqEngine.swift in Sources */,
+				388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */,
+				388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,
 				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */,
+				388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
+				388D51C22305825000BF6BCE /* GFQuery.m in Sources */,
 				38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */,
 				38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */,
+				388D51C92305D03300BF6BCE /* Persistence.swift in Sources */,
 				C434C50F21DBEB48003333A1 /* FirebaseAuth+Extensions.swift in Sources */,
 				C48A57DA21A22E4400D3B0E6 /* Enums.swift in Sources */,
+				388D51C02305825000BF6BCE /* GeoFire.m in Sources */,
 				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
 				3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */,
 				3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */,
+				380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */,
 				40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */,
 				C41EBFB021E145430094EBC6 /* LoginVC.swift in Sources */,
 				C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */,
@@ -963,10 +1071,12 @@
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
 				C45CE27421E0CD7C0071C59D /* OnBoardingPVC.swift in Sources */,
+				38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */,
 				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
 				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
+				3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */,
 				C4A2A43A21A22C4A006DFE6E /* SupportViews.swift in Sources */,
 				3877A9FB22E34177007FBCE3 /* Opereators.swift in Sources */,
 				C4D1E09721DB989000C5ED9A /* UserProfileVC.swift in Sources */,
@@ -976,10 +1086,12 @@
 				C4A2A42621A22AA8006DFE6E /* FullScreenPhotoSection.swift in Sources */,
 				38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */,
 				C4D1E08921D7894500C5ED9A /* FloqCell.swift in Sources */,
+				388D51C12305825000BF6BCE /* GFGeoHashQuery.m in Sources */,
 				C4A944FB2204EE3000D40C44 /* Firestore+Extensions.swift in Sources */,
 				38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */,
 				C430B79121E100E70010F2AE /* FinalOnBoardVC.swift in Sources */,
 				40A1F74F20F3083A00DDA0B1 /* ImageRow.swift in Sources */,
+				3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */,
 				C4A2A43921A22C4A006DFE6E /* CliqsCell.swift in Sources */,
 				40A1F74120F2F80F00DDA0B1 /* HomeVC.swift in Sources */,
 				C4A2A43821A22C4A006DFE6E /* PhotoCell.swift in Sources */,
@@ -989,6 +1101,7 @@
 				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,
+				388D51FC2305D13900BF6BCE /* CoreDataStack.swift in Sources */,
 				406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */,
 				3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */,
 				C4D1E09521DA7E2E00C5ED9A /* SectionableCliq.swift in Sources */,
@@ -1254,11 +1367,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1280,10 +1394,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1334,6 +1449,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		388D51C52305CEB500BF6BCE /* Floq.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				388D51C62305CEB500BF6BCE /* Floq.xcdatamodel */,
+			);
+			currentVersion = 388D51C62305CEB500BF6BCE /* Floq.xcdatamodel */;
+			name = Floq.xcdatamodeld;
+			path = /System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/Floq.xcdatamodeld;
+			sourceTree = "<absolute>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 40AA29AB1E8891E900200A3F /* Project object */;
 }

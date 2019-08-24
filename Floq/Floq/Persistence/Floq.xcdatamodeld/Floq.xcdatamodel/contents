@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14838.16" systemVersion="18G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="NO" userDefinedModelVersionIdentifier="">
+    <entity name="CMTCliqSubscription" representedClassName="CMTCliqSubscription" syncable="YES" codeGenerationType="class">
+        <attribute name="cliqID" attributeType="String"/>
+        <attribute name="count" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="photoSubscriptions" toMany="YES" deletionRule="Nullify" destinationEntity="CMTPhotoSubscription" inverseName="parentCliqSub" inverseEntity="CMTPhotoSubscription"/>
+    </entity>
+    <entity name="CMTPhotoNotication" representedClassName="CMTPhotoNotication" syncable="YES" codeGenerationType="class">
+        <attribute name="cliq" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="notify" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CMTPhotoSubscription" representedClassName="CMTPhotoSubscription" syncable="YES" codeGenerationType="class">
+        <attribute name="canBroadcast" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="count" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastTimestamp" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="photoID" attributeType="String"/>
+        <relationship name="parentCliqSub" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CMTCliqSubscription" inverseName="photoSubscriptions" inverseEntity="CMTCliqSubscription"/>
+    </entity>
+    <elements>
+        <element name="CMTCliqSubscription" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="CMTPhotoNotication" positionX="-63" positionY="45" width="128" height="88"/>
+        <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
+    </elements>
+</model>

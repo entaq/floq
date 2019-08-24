@@ -26,6 +26,7 @@ class ProfileImageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
          view.backgroundColor = .globalbackground
         title = username
@@ -40,6 +41,11 @@ class ProfileImageVC: UIViewController {
         super.viewDidLayoutSubviews()
         imageView.frame = view.bounds
         imageView.setAvatar(uid: id)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        App.setDomain(.Profile)
     }
     
 

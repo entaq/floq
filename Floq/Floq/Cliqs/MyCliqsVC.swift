@@ -87,6 +87,7 @@ class MyCliqsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "My Cliqs"
+        App.setDomain(.My_Cliqs)
     }
     
     func finishRegistrations(){

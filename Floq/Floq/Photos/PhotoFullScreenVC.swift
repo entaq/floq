@@ -26,11 +26,10 @@ class PhotoFullScreenVC: UIViewController {
     private var initialFrame:CGRect!
     private var avatatFrame:CGRect!
     private var commentShowing = false
-    
-    private lazy var commentIcon:UIButton = { [unowned self] by in
-        let button = UIButton(frame: .zero)
-        button.setTitle("Comment", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+    private var holderIndex = 0
+    private lazy var commentIcon:CommentButton = { [unowned self] by in
+        let button = CommentButton(frame: .zero)
+        //button.setTitle("Comment", for: .normal)
         button.addTarget(self, action: #selector(commentTapped(_:)), for: .touchUpInside)
         return button
     }(())
@@ -49,11 +48,15 @@ class PhotoFullScreenVC: UIViewController {
     var currentPhotoID:String?
     var isSelected = false
     var inset:CGFloat = 30
-    init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem){
+    private var cliqID:String
+    init(engine:PhotosEngine, selected index:Int, cliq:FLCliqItem,cliqID:String){
         self.engine = engine
         self.selectedIndex = index
+        self.holderIndex = index
         self.cliq = cliq
+        self.cliqID = cliqID
         super.init(nibName: nil, bundle: nil)
+        
         runConfig()
         
     }
@@ -130,6 +133,7 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         total = engine.allPhotos.count
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -142,7 +146,7 @@ class PhotoFullScreenVC: UIViewController {
         collectionView.isPagingEnabled = true
         setup()
         addSwipeUpGesture()
-        
+        subscribeTo(subscription: .cmt_photo_notify, selector: #selector(listenForCommentAddedNotification(_:)))
     }
     
     func addSwipeUpGesture(){
@@ -187,7 +191,7 @@ class PhotoFullScreenVC: UIViewController {
         if let cell = collectionView.visibleCells.first as? FullScreenCell{
             if let image = cell.imageView.image{
                 
-               let sheet = UIActivityViewController(activityItems: [" -Shared from Floq App",image], applicationActivities: [])
+               let sheet = UIActivityViewController(activityItems: [image, " -Shared from Floq App",], applicationActivities: [])
                 present(sheet, animated: true) {}
                 
             }
@@ -200,7 +204,15 @@ class PhotoFullScreenVC: UIViewController {
     }
     
     @objc func commentTapped(_ sender: UIButton){
-        showCommentAnimation()
+        //showCommentAnimation()
+        if currentPhotoID != nil && commentIcon.broadcast{
+           CMTSubscription().endHightlightFor(currentPhotoID!)
+        }
+        
+        guard let id = currentPhotoID else {return}
+        let vc = CommentsVC(id: id, (self._AREA_INSET > 1) ? true : false,cliqID: cliqID)
+        navigationController?.pushViewController(vc, animated: true)
+        selectedIndex = Int.largest
     }
     
     func resetViews(){
@@ -234,9 +246,8 @@ class PhotoFullScreenVC: UIViewController {
             self.likebar.isHidden = true
             //self.avatarImageview.transform.scaledBy(x: 1.5, y: 1.5)
         }, completion: { _ in
-            let vc = CommentsVC(id:self.currentPhotoID!)
+            let vc = CommentsVC(id:self.currentPhotoID!,(self._AREA_INSET > 1) ? true : false,cliqID: self.cliqID)
             vc.view.frame.size = self.commentContainer.frame.size
-            vc.hasNotch = (self._AREA_INSET > 1) ? true : false
             self.add(vc, to: self.commentContainer)
         })
     }
@@ -290,13 +301,19 @@ class PhotoFullScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        App.setDomain(.FullScreenPhoto)
         setAvatarView()
         collectionView.backgroundColor = .globalbackground
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
         adapter.reloadData(completion: nil)
-        moveToNext()
+        if selectedIndex < engine.allPhotos.count{
+            moveToNext()
+        }else{
+            selectedIndex = holderIndex
+        }
+        
         subscribeTo(subscription: .reloadPhotos, selector: #selector(reloadPhotos))
     }
 
@@ -310,11 +327,16 @@ class PhotoFullScreenVC: UIViewController {
     
     
     func moveToNext(_ index:Int? = nil){
+
         let index = index ?? selectedIndex
         guard (index < engine.allPhotos.endIndex) else{return}
         let obj = engine.allPhotos[index]
         adapter.collectionViewDelegate = self
         adapter.scroll(to: obj, supplementaryKinds: nil, scrollDirection: .horizontal, scrollPosition: .centeredHorizontally, animated: false)
+    }
+    
+    deinit {
+        unsubscribe()
     }
 }
 
@@ -391,7 +413,7 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         NSLayoutConstraint.activate([
             commentIcon.trailingAnchor.constraint(equalTo: likebar.trailingAnchor, constant: -12),
             commentIcon.centerYAnchor.constraint(equalTo: likebar.centerYAnchor, constant: 0),
-            commentIcon.widthAnchor.constraint(equalToConstant: 100),
+            commentIcon.widthAnchor.constraint(equalToConstant: 40),
             commentIcon.heightAnchor.constraint(equalToConstant: 30)
         ])
         likelabel.textColor = .white
@@ -446,6 +468,8 @@ extension PhotoFullScreenVC:ListAdapterDataSource,UICollectionViewDelegate{
         }
     }
     
+    
+    
 }
 
 
@@ -457,8 +481,14 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             
             UIView.animate(withDuration: 0.5) {
                 self.navigationController?.navigationBar.alpha = 1
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 1
+                if #available(iOS 13, *){
+                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
+                        //window.windowScene?.statusBarManager
+                    }
+                }else{
+                    let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                    statusBar?.alpha = 1
+                }
                 
                 self.avatarImageview.alpha = 1
                 self.likebar.alpha = 1
@@ -468,8 +498,18 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         }else{
             UIView.animate(withDuration: 0.5) {
                 self.navigationController?.navigationBar.alpha = 0
-                let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-                statusBar?.alpha = 0
+                
+                if #available(iOS 13.0, *) {
+                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
+                         //window.windowScene?.statusBarManager
+                    }
+                   
+                } else {
+                    let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+                    statusBar?.alpha = 0
+                }
+            
+                
                 self.avatarImageview.alpha = 0
                 self.likebar.alpha = 0
                 self.collectionView.backgroundColor = .black
@@ -488,6 +528,7 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
         likelabel.text = "\(user.2)"
         imgv.isUserInteractionEnabled = !user.3
         imgv.image = user.3 ? .icon_like : .icon_unlike
+        checkNotifiable(id: photoId)
     }
     
     
@@ -554,6 +595,8 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     
     
     
+    
+    
     @objc func tappedAvatar(_ tapGestureRecognizer:UITapGestureRecognizer){
         if let id  = userUid{
             
@@ -564,6 +607,35 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     }
 }
 
+
+// Mark : - CMTSUbscription
+
+extension PhotoFullScreenVC{
+    
+    @objc func listenForCMTsubscription(_ notification:Notification){
+        guard let id = notification.userInfo?[.info] as? String, let photoID = currentPhotoID else {return}
+        if id == cliqID{
+            let photo = CMTSubscription().fetchPhotoSub(id: photoID)
+            if photo?.canBroadcast ?? false{
+                commentIcon.broadcast = true
+            }
+        }
+    }
+    
+    @objc func listenForCommentAddedNotification(_ notification:Notification){
+        guard let id = notification.userInfo?[.info] as? String else {return}
+        checkNotifiable(id: id)
+    }
+    
+    func checkNotifiable(id:String){
+        let notifier = CMTSubscription()
+        if let notif = notifier.fetchPhotoSub(id:id){
+            commentIcon.broadcast = notif.canBroadcast
+        }else{
+            commentIcon.broadcast = false
+        }
+    }
+}
 
 
 

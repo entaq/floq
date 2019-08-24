@@ -18,6 +18,7 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.FinalOnboard)
         //nickNameText.layer.borderColor = UIColor.black.cgColor
         //nickNameText.layer.borderWidth = 1
         nickNameText.layer.cornerRadius = 4
@@ -27,8 +28,13 @@ class FinalOnBoardVC: UIViewController,UITextFieldDelegate {
     
     func saveUserdata(user:User){
         let userID = AccessToken.current?.userId ?? ""
-       let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
-        DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
+        let url:URL?
+        if App.signInMethod == .facebook{
+            url  = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        }else{
+            url = user.photoURL
+        }
+        DataService.main.getAndStoreProfileImg(imgUrl: url, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return
         }

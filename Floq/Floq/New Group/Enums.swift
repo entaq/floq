@@ -28,9 +28,9 @@ enum ImageSizes:Int{
     case min = 1000000
 }
 
-enum Update:Int{
-    case current = 11
-    case leastSupport = 9
+enum Update{
+    static let current = 12
+    static let leastSupport = 9
     
 }
 
@@ -53,13 +53,14 @@ enum References:String{
     case likes = "LIKES"
     case requestLikeShard = "LikesShard"
     case comment = "FLComments"
+    case commentSubscription = "FLCommentSubscriptions"
     
     
 }
 
 public enum Fields:String{
     
-    case flagged, flaggers
+    case flagged, flaggers, cliqComments
     case fileID = "fileID"
     case cliqID = "cliqID"
     case username = "userName"
@@ -77,6 +78,7 @@ public enum Fields:String{
     case deleted = "deleted"
     case dateDeleted = "dateDeleted"
     case instanceToken = "instanceToken"
+    case updatedtoken
     case savedInstance =  "savedInstance"
     case current = "current"
     case info = "info"
@@ -93,6 +95,9 @@ public enum Fields:String{
     case blockedMeList = "blockedMelist"
     case myblockingList = "myblockinglist"
     case lastChecked = "lastChecked"
+    case  photoID
+    case count
+    case ts
 }
 
 public enum FLNotification:String{

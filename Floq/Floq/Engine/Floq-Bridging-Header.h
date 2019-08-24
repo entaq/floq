@@ -5,3 +5,8 @@
 
 
 //#import <SpectrumKit/FSPDefaultPlugin.h>
+#import "Geofire.h"
+#import "GFQuery.h"
+#import "GFCircleQuery.h"
+#import "GFGeoHash.h"
+#import "GFGeoHashQuery.h"

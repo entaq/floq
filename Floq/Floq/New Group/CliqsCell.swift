@@ -88,6 +88,15 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.isEnabled = true
             joinbutt.setTitle("Join", for: .normal)
         }
+        commentStack.isHidden = false
+        if let cl = CMTSubscription().fetchCliqSub(cliq.id){
+            let cmt = cl.count
+            commentlbl.text = "\(cmt)"
+        }else{
+            commentlbl.text = "0"
+        }
+        numberOfCliqslbl.isHidden = false
+        numberOfCliqslbl.text = cliq.followString
     }
     func configureMemberAvatar(followers:Set<String>){
         let keys = Array<String>(followers)

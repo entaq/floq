@@ -72,8 +72,8 @@ extension DocumentSnapshot{
     }
     
     func getInt64(_ id:Fields)->Int64{
-        if let field = get(id.rawValue) as? Int64{
-            return field
+        if let field = get(id.rawValue) as? Int{
+            return Int64(field)
         }
         return 0
     }

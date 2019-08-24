@@ -11,6 +11,8 @@ import UIKit
 
 class HomeOnBaordVC:UIViewController {
     
+    @IBOutlet weak var flamimgoGroup: UIImageView!
+    @IBOutlet weak var secondFeatherView: UIImageView!
     lazy var fetherView: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.contentMode = .scaleAspectFit
@@ -38,7 +40,7 @@ class HomeOnBaordVC:UIViewController {
     }
     
     func configureDevice(){
-        view.addSubview(fetherView)
+        //view.addSubview(fetherView)
         configScale()
         if UIScreen.main.bounds.height > 740{
             topLayoutConstraint.constant = 60
@@ -74,6 +76,8 @@ class HomeOnBaordVC:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.setDomain(.Onboarding)
+        //secondFeatherView.isHidden = true
         configureDevice()
         pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
         fetherView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,12 +96,12 @@ class HomeOnBaordVC:UIViewController {
         super.viewDidLayoutSubviews()
         onBoardPage.view.frame = CGRect(x:0, y:0, width:self.view.frame.size.width, height:self.view.frame.size.height)
         let height = view.bounds.height * heightScale
-        NSLayoutConstraint.activate([
+        /*NSLayoutConstraint.activate([
             fetherView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             fetherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             fetherView.heightAnchor.constraint(equalToConstant: height),
             fetherView.widthAnchor.constraint(equalToConstant: height * scale)
-        ])
+        ])*/
     }
     
 
@@ -155,6 +159,7 @@ extension HomeOnBaordVC:UIPageViewControllerDataSource,UIPageViewControllerDeleg
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let vc = previousViewControllers.first!
         let index = pages.index(of: vc)
+        
         pageControl.currentPage = index!
     }
     

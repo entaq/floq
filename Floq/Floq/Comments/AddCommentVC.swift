@@ -40,11 +40,11 @@ class AddCommentVC: UIViewController {
     
     private lazy var sendButton:UIButton = { [unowned self] by in
          let button = UIButton(frame: .zero)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 15
+        button.backgroundColor = .clear
+        //button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.setTitleColor(.seafoamBlue, for: .normal)
-        button.setTitle("Send", for: .normal)
+        //button.setTitleColor(.seafoamBlue, for: .normal)
+        button.setImage(#imageLiteral(resourceName: "send-white"), for: .normal)
         button.isHidden = true
         button.addTarget(self, action: #selector(postComment(_:)), for: .touchUpInside)
         return button
@@ -72,9 +72,9 @@ class AddCommentVC: UIViewController {
         bar.subviews.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         NSLayoutConstraint.activate([
             sendButton.trailingAnchor.constraint(equalTo: bar.trailingAnchor, constant: -16),
-            sendButton.bottomAnchor.constraint(equalTo: bar.bottomAnchor, constant: -10),
-            sendButton.heightAnchor.constraint(equalToConstant: 30),
-            sendButton.widthAnchor.constraint(equalToConstant: 80),
+            sendButton.bottomAnchor.constraint(equalTo: bar.bottomAnchor, constant: 0),
+            sendButton.heightAnchor.constraint(equalToConstant: 40),
+            sendButton.widthAnchor.constraint(equalToConstant: 60),
             cancelButton.leadingAnchor.constraint(equalTo: bar.leadingAnchor, constant: 16),
             cancelButton.bottomAnchor.constraint(equalTo: bar.bottomAnchor, constant: -10),
             cancelButton.heightAnchor.constraint(equalToConstant: 30),

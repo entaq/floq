@@ -13,8 +13,19 @@ import FirebaseAuth
 
 class PhotosEngine:NSObject{
     
+    override init() {
+        fatalError("Use init(cliq:String")
+    }
     
+    init(cliq:String){
+        self.cliq = cliq
+        super.init()
+        listenForNotifications()
+    }
     
+    private var notifListener:ListenerRegistration?
+    
+    private var cliq:String!
     private var _internalPhotoContainer:[PhotoItem] = []
     static let MAXX_LIKES = 34000
     
@@ -37,10 +48,28 @@ class PhotosEngine:NSObject{
         return Firestore.database.collection(References.photos.rawValue)
     }
     
+    private var notifsRef:CollectionReference{
+        return Firestore.database.collection(.commentSubscription)
+    }
+    
+    
+    private func listenForNotifications(){
+        
+        notifListener =  notifsRef.document(cliq).addSnapshotListener({ (snapshot, err) in
+            if let snap = snapshot{
+                if snap.exists{
+                    CMTSubscription().save(snap)
+                }
+            }
+        })
+    }
+    
+    
+    
     func getAllPhotoMetadata()->[Aliases.stuple]{
         var dictHolder:[String:(String,Int)] = [:]
         let all = _internalPhotoContainer.compactMap { item -> [String:String]?  in
-            if let user = appUser{
+            if let user = App.user{
                 if user.hasBlockedMe(user: item.userUid){
                     return nil
                 }else{
@@ -82,6 +111,7 @@ class PhotosEngine:NSObject{
 //    }
     
     
+
     
     func flagPhoto(photoID:String,cliqID:String? = nil, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
@@ -254,7 +284,7 @@ class PhotosEngine:NSObject{
     }
     
     func filterForBlock(id:String? = nil, photoId:String? = nil){
-        guard let user = appUser else {return}
+        guard let user = App.user else {return}
         if let id = id{
             if let pid = photoId{
                 allphotos = _internalPhotoContainer.filter{!user.isBlocked(user: $0.userUid) && $0.userUid != id && $0.id != pid}
@@ -317,5 +347,9 @@ class PhotosEngine:NSObject{
     
     func post(_ name:Subscription.Name){
         Subscription.main.post(suscription: name, object: nil)
+    }
+    
+    deinit {
+        notifListener?.remove()
     }
 }

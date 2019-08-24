@@ -9,13 +9,18 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
-import Geofirestore
+
 import CoreLocation
 
 
 class CliqEngine:NSObject{
-    
-    
+    typealias CommentHiglight = (cliq:String,photo:String)
+//    fileprivate var commentNotifierHolder :[String:Set<String>] = [:]{
+//        didSet{
+//            Subscription.main.post(suscription: .newHighlight, object: nil)
+//        }
+//    }
+    fileprivate var cmtListeners:[String:ListenerRegistration] = [:]
     private var query:GFSQuery?
     private let MAX_IDs = 15
     private var isFetchingMine = false
@@ -220,6 +225,7 @@ class CliqEngine:NSObject{
                 self.updateMyCliqsSection()
                 self.post(name: .myCliqsUpdated)
                 self.isFetchingMine = false
+                //self.subscribeToCommentsupdates()
                 
             }
         }
@@ -249,7 +255,7 @@ class CliqEngine:NSObject{
     
     
     func updateMyCliqsSection(){
-        let count = appUser?.cliqs
+        let count = App.user?.cliqs
         homeData.removeAll { (sec) -> Bool in
             return sec.sectionType == .mine
         }
@@ -283,9 +289,55 @@ class CliqEngine:NSObject{
 
 }
 
+/*
+ 
+extension CliqEngine{
+    
+    func queryForHightlight(cliqID:String) -> Set<String>?{
+        return commentNotifierHolder[cliqID]
+    }
+    
+    func canHiglight(photo:String)->Bool{
+        let all = commentNotifierHolder.values.joined()
+        return all.contains(photo)
+    }
+    
+    func setHighlight(data:CommentHiglight){
+        if commentNotifierHolder[data.cliq] != nil{
+            var set = commentNotifierHolder[data.cliq]
+            set?.update(with: data.photo)
+            commentNotifierHolder.updateValue(set!, forKey: data.cliq)
+        }else{
+            commentNotifierHolder.updateValue([data.photo], forKey: data.cliq)
+        }
+    }
+}
+*/
 
 
 
+
+extension CliqEngine{
+    
+    func subscribeToCommentsupdates(){
+        let ids = myCliqs.compactMap{$0.id}
+        for id in ids{
+            if cmtListeners[id] == nil{
+                let l = Firestore.database.collection(.commentSubscription)
+                    .document(id).addSnapshotListener { (snap, error) in
+                    guard let snap = snap else {return}
+                    if snap.exists{
+                        let sub = CMTSubscription()
+                        sub.save(snap)
+                    }
+                    
+                }
+             cmtListeners.updateValue(l, forKey: id)
+            }
+            
+        }
+    }
+}
 
 
 

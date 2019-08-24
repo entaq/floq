@@ -50,6 +50,10 @@ class FLCliqItem:ListDiffable, Equatable{
         
     }
     
+    public var followString:String{
+        let count = followers.count
+        return (count != 1) ? "\(count) followers" : "1 follower"
+    }
     
     public var canFollow:Bool{
         return followers.count < Max.followers.rawValue

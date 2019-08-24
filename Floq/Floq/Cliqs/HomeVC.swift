@@ -12,7 +12,7 @@ import Firebase
 
 import CoreLocation
 import SDWebImage
-import Geofirestore
+
 
 
 
@@ -46,6 +46,7 @@ final class HomeVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let app = UIApplication.shared.delegate as? AppDelegate{
             app.registerRemoteNotifs(app: UIApplication.shared)
         }
@@ -58,6 +59,7 @@ final class HomeVC : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = "Floq"
+        App.setDomain(.Home)
         globalEngine.setMostActive()
         updateData()
         
@@ -92,7 +94,9 @@ final class HomeVC : UIViewController {
         floaty.buttonImage = .icon_app_rounded
         
         floaty.addItem("Create a Cliq", icon:.icon_app, handler: { item in
-            self.present(AddCliqVC(), animated: true, completion: nil)
+            let addvc = AddCliqVC()
+            addvc.modalPresentationStyle = .fullScreen
+            self.present(addvc, animated: true, completion: nil)
         })
         
         floaty.addItem("Profile", icon:.placeholder, handler: { item in
