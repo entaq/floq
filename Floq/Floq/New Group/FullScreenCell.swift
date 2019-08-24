@@ -26,6 +26,8 @@ class FullScreenCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         scrollVIiew.delegate = self
+        scrollVIiew.showsVerticalScrollIndicator = false
+        scrollVIiew.showsHorizontalScrollIndicator = false
         scrollVIiew.minimumZoomScale = 1
         scrollVIiew.maximumZoomScale = 4
         imageView.clipsToBounds = true

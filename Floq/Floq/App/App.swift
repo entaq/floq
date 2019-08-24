@@ -6,7 +6,7 @@
 //  Copyright © 2019 Arun Nagarajan. All rights reserved.
 //
 
-import Foundation
+import Firebase
 
 struct App {
     
@@ -39,4 +39,18 @@ struct App {
     }
     
     
+}
+
+
+
+
+extension App{
+    
+    static func congigure(){
+        #if DEBUG
+        print("this is a debug build")
+        #else
+        print("Hell Yeah We in production")
+        #endif
+    }
 }

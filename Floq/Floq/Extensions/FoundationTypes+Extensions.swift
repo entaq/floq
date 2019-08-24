@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 extension Dictionary where Key == String{
     
     func getString(_ id:Fields)->String{
@@ -125,6 +126,8 @@ extension UserDefaults{
         standard.removeObject(forKey: Fields.username.rawValue)
         standard.removeObject(forKey: Fields.uid.rawValue)
         standard.removeObject(forKey: Fields.latestCliq.rawValue)
+        standard.removeObject(forKey: Fields.instanceToken.rawValue)
+        
     }
 }
 

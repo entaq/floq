@@ -16,6 +16,8 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+
+    
     var window: UIWindow?
     var mainEngine:CliqEngine!
     var appUser:FLUser?
@@ -23,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isWatching = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
@@ -44,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
         
     }
+    
+    
     
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
@@ -157,6 +163,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
        app.registerForRemoteNotifications()
+        
+        
     }
 }
 

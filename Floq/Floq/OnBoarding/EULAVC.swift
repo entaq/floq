@@ -64,11 +64,13 @@ class EULAVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func acceptEULA(_ sender: UIButton){
+        
         App.setMethod(signInMethod)
         if signInMethod == .google{
             GIDSignIn.sharedInstance()?.delegate = self
             GIDSignIn.sharedInstance()?.uiDelegate = self
             GIDSignIn.sharedInstance()?.signIn()
+            self.loader.isHidden = false
         }else{
             facebooklogin()
         }
@@ -153,7 +155,18 @@ class EULAVC: UIViewController {
     
     func saveUserdata(user:User){
         let userID = AccessToken.current?.userId ?? ""
-        let url = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        var url:URL?
+        if App.signInMethod == .facebook{
+            url  = URL(string: "https://graph.facebook.com/\(userID)/picture?width=400&height=400")
+        }else{
+            //url    URL    "https://lh3.googleusercontent.com/a-/AAuE7mDiAkODg80e2iUUY05fnyWJFrWjBSON3x-X082qEQ=s96-c"
+            url = user.photoURL
+            if let sized = url?.absoluteString{
+                let newurlstring = sized.replacingOccurrences(of: "s96-c", with: "s400-c")
+                url = URL(string: newurlstring)
+                
+            }
+        }
         DataService.main.getAndStoreProfileImg(imgUrl: url!, uid: user.uid)
         if let _ = UserDefaults.standard.string(forKey: Fields.uid.rawValue) {
             return

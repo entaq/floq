@@ -90,6 +90,7 @@ class DataService{
     
     func getAndStoreProfileImg(imgUrl:URL?,uid:String){
         guard let url = imgUrl else {return}
+        
         let downloader = SDWebImageDownloader.shared
         downloader.downloadImage(with: url, options: [.lowPriority], progress: nil) { (imge, data, err, succ) in
             if let image = imge{
