@@ -85,10 +85,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        if SDKApplicationDelegate.shared.application(app, open: url, options: options){
-            return true
+        switch App.signInMethod {
+        case .facebook:
+            return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        case .google:
+            return GIDSignIn.sharedInstance()?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:]) ?? false
+        default:
+            return false
         }
-        return GIDSignIn.sharedInstance()?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:]) ?? true
+        
+        
     }
     
    

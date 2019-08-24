@@ -16,7 +16,7 @@ import GoogleSignIn
 class EULAVC: UIViewController {
     
     enum SignInMethod{
-        case facebook, google
+        case facebook, google, none
     }
     @IBOutlet weak var optionsView:UIView!
     @IBOutlet weak var backButt: UIButton!
@@ -64,9 +64,10 @@ class EULAVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func acceptEULA(_ sender: UIButton){
+        App.setMethod(signInMethod)
         if signInMethod == .google{
             GIDSignIn.sharedInstance()?.delegate = self
-            
+            GIDSignIn.sharedInstance()?.uiDelegate = self
             GIDSignIn.sharedInstance()?.signIn()
         }else{
             facebooklogin()
@@ -113,7 +114,8 @@ class EULAVC: UIViewController {
     }
     
     func signInWith(_ credential:AuthCredential){
-        Auth.auth().signInAndRetrieveData(with: credential) { (data, err) in
+        
+        Auth.auth().signIn(with: credential) { (data, err) in
             if (data != nil && err == nil){
                 if let user = data?.user{
                     
@@ -182,3 +184,7 @@ extension EULAVC:GIDSignInDelegate{
         present(alert, animated: true, completion: nil)
     }
 }
+
+
+
+extension EULAVC:GIDSignInUIDelegate{}

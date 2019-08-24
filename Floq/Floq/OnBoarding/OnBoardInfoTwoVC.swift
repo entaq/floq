@@ -10,19 +10,44 @@ import UIKit
 
 class OnBoardInfoTwoVC: UIViewController {
 
+    @IBOutlet weak var heightAnchor: NSLayoutConstraint!
     @IBOutlet weak var googleSignIn: UIButton!
     @IBOutlet weak var loginButt: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        config()
         // Do any additional setup after loading the view.
     }
+    
+    
+    func config(){
+        let handle = UIScreen.main.screenType()
+        
+        switch handle {
+        case .xmax_xr:
+            heightAnchor.constant = 450
+            return
+        case .xs_x:
+            heightAnchor.constant = 400
+            return
+        case .pluses:
+            heightAnchor.constant = 380
+            return
+        case .eight_lower:
+            heightAnchor.constant = 300
+        default:
+            heightAnchor.constant = 220
+            return
+        }
+    }
+    
     
 
     @IBAction func googleSignInPressed(_ sender: UIButton) {
         if let eulavc = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
             if let eu = eulavc.viewControllers.first as? EULAVC{
                 eu.signInMethod = .google
+                eulavc.modalPresentationStyle = .fullScreen
                 present(eulavc, animated: true, completion: nil)
             }
             
@@ -32,6 +57,7 @@ class OnBoardInfoTwoVC: UIViewController {
         if let eulavc = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
             //eulavc.method = .facebook
             if let eu = eulavc.viewControllers.first as? EULAVC{
+                eulavc.modalPresentationStyle = .fullScreen
                 eu.signInMethod = .facebook
                 present(eulavc, animated: true, completion: nil)
             }

@@ -20,6 +20,8 @@ struct App {
     
     static private var _currentDomain:Domain = .Home
     
+    static private var _signInMethod:EULAVC.SignInMethod = .none
+    
     static func setDomain(_ domain:Domain){
         _currentDomain = domain
     }
@@ -27,4 +29,14 @@ struct App {
     static var currentDomain:Domain{
         return _currentDomain
     }
+    
+    static func setMethod(_ method:EULAVC.SignInMethod){
+        _signInMethod = method
+    }
+    
+    static var signInMethod:EULAVC.SignInMethod{
+        return _signInMethod
+    }
+    
+    
 }

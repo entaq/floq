@@ -10,11 +10,38 @@ import UIKit
 
 class OnBoardInfoOneVC: UIViewController {
 
+    @IBOutlet weak var secondlale: UILabel!
+    @IBOutlet weak var toplable: UILabel!
+    @IBOutlet weak var heightAnchor: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configDevice()
         // Do any additional setup after loading the view.
     }
+    
+    func configDevice(){
+        let handle = UIScreen.main.screenType()
+        
+        switch handle {
+        case .xmax_xr:
+            heightAnchor.constant = 400
+            return
+        case .xs_x:
+            heightAnchor.constant = 400
+            return
+        case .pluses:
+            heightAnchor.constant = 320
+            return
+        case .eight_lower:
+            heightAnchor.constant = 320
+        default:
+            heightAnchor.constant = 250
+            toplable.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            secondlale.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            return
+        }
+    }
+    
     
 
     /*
