@@ -24,18 +24,18 @@ class OnBoardInfoOneVC: UIViewController {
         
         switch handle {
         case .xmax_xr:
-            heightAnchor.constant = 400
+            heightAnchor.constant = 450
             return
         case .xs_x:
             heightAnchor.constant = 400
             return
         case .pluses:
-            heightAnchor.constant = 320
+            heightAnchor.constant = 380
             return
         case .eight_lower:
-            heightAnchor.constant = 320
+            heightAnchor.constant = 300
         default:
-            heightAnchor.constant = 250
+            heightAnchor.constant = 220
             toplable.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             secondlale.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             return

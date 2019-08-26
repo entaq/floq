@@ -78,7 +78,7 @@ public struct CMTSubscription{
         }
         stack.saveContext()
         ids.forEach{broadcast(id: $0)}
-        //broadcast(id: snap.documentID)
+        broadcastCliq(snap.documentID)
     }
     
     func fetchCliqSub(_ id:String)->CMTCliqSubscription?{
@@ -125,6 +125,10 @@ public struct CMTSubscription{
     
     func broadcast(id:String){
        Subscription.main.post(suscription: .newHighlight, object: id)
+    }
+    
+    func broadcastCliq(_ id:String){
+        Subscription.main.post(suscription: .cliqHighlight, object: id)
     }
     
     func endHightlightFor(_ photo:String){

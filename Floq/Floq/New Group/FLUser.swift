@@ -17,6 +17,7 @@ class FLUser{
     public private (set) var cliqs:Int
     public private (set) var myblockingList:Set<String> = []
     public private (set) var blockedMeList:Set<String> = []
+    public private (set) var lastInteraction:Date
  
     
     init(uid:String, username:String?,profUrl:URL?,cliqs:Int) {
@@ -24,6 +25,7 @@ class FLUser{
         self.uid = uid
         self.cliqs = cliqs
         profileImg = profUrl
+        lastInteraction = Date()
     }
     
     func increaseCount(){
@@ -53,6 +55,7 @@ class FLUser{
         if let arr = snap.getArray(.myblockingList) as? [String]{
             myblockingList = Set(arr)
         }
+        lastInteraction = snap.getDate(.lastInteraction)
         
     }
 }

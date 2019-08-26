@@ -290,7 +290,10 @@ extension CommentsVC:CommentProtocol{
         
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        DataService.main.updatelastInteraction()
+    }
     
 }
 

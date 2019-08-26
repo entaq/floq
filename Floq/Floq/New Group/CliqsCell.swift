@@ -15,6 +15,9 @@ protocol CliqDelegate:class {
 
 class CliqsCell: UICollectionViewCell {
     
+    
+    @IBOutlet weak var commentButt:CommentButton!
+    
     @IBOutlet weak var mavi1:AvatarImageView!
     @IBOutlet weak var mavi2:AvatarImageView!
     @IBOutlet weak var mavi3:AvatarImageView!
@@ -38,6 +41,7 @@ class CliqsCell: UICollectionViewCell {
     private var cliq:FLCliqItem?
     override func awakeFromNib() {
         super.awakeFromNib()
+        commentButt.awakeFromNib()
         commentStack.isHidden = true
         membersAvatarStack.isHidden = true
         likeStack.isHidden = true
@@ -50,7 +54,19 @@ class CliqsCell: UICollectionViewCell {
         imageview.contentMode = .scaleAspectFill
         imageview.layer.cornerRadius = 5.0
         imagevOverlay.layer.cornerRadius = 5.0
+        subscribeTo(subscription: .cliqHighlight, selector: #selector(updateCommentlables(_:)))
     }
+    
+    @objc func updateCommentlables(_ notif:Notification){
+        guard let id = notif.userInfo?[.info] as? String else {return}
+        if let cl = CMTSubscription().fetchCliqSub(id){
+            let cmt = cl.count
+            commentlbl.text = "\(cmt)"
+        }else{
+            commentlbl.text = "0"
+        }
+    }
+    
     
     func configureView(cliq:FLCliqItem, key:keys?) {
         if cliq.hasFlagged(){
