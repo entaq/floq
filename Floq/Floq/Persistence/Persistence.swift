@@ -122,6 +122,14 @@ public struct CMTSubscription{
         return nil
     }
     
+    func canHiglightCliq(_ id:String) -> Bool{
+        guard let phs = fetchCliqSub(id)?.photoSubscriptions as? Set<CMTPhotoSubscription> else {return false}
+        for item in phs{
+            if item.canBroadcast{return true}
+        }
+        return false
+    }
+    
     
     func broadcast(id:String){
        Subscription.main.post(suscription: .newHighlight, object: id)

@@ -100,16 +100,17 @@
                                 <viewLayoutGuide key="safeArea" id="1Ri-de-fUd"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VaH-dE-gch">
-                                <rect key="frame" x="16" y="127" width="45" height="18"/>
+                                <rect key="frame" x="16" y="127" width="55" height="18"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuY-aZ-RTf">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="18"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comments_white" translatesAutoresizingMaskIntoConstraints="NO" id="V2Y-eL-71y">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="dkB-1F-rdp"/>
+                                            <constraint firstAttribute="width" constant="30" id="RrP-Jg-2Yg"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="kO7-WX-yxO"/>
                                         </constraints>
-                                    </button>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbW-4D-cmV">
-                                        <rect key="frame" x="28" y="0.0" width="17" height="18"/>
+                                        <rect key="frame" x="38" y="0.0" width="17" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -201,7 +202,7 @@
             <size key="customSize" width="419" height="165"/>
             <connections>
                 <outlet property="avi" destination="hvr-f8-oV9" id="XcQ-z4-r81"/>
-                <outlet property="commentButt" destination="IuY-aZ-RTf" id="cl0-Rx-5dC"/>
+                <outlet property="commentButt" destination="V2Y-eL-71y" id="cBI-rq-fvA"/>
                 <outlet property="commentStack" destination="VaH-dE-gch" id="whJ-Nv-lpm"/>
                 <outlet property="commentlbl" destination="JbW-4D-cmV" id="iOD-gY-8Qa"/>
                 <outlet property="containerView" destination="QSq-DF-X8B" id="aVu-ZR-7X3"/>
@@ -227,6 +228,7 @@
     <resources>
         <image name="addcliq" width="90" height="90"/>
         <image name="addphoto" width="60" height="60"/>
+        <image name="comments_white" width="30" height="30"/>
         <image name="like" width="29" height="30"/>
     </resources>
 </document>

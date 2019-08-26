@@ -16,7 +16,7 @@ protocol CliqDelegate:class {
 class CliqsCell: UICollectionViewCell {
     
     
-    @IBOutlet weak var commentButt:CommentButton!
+    @IBOutlet weak var commentButt:UIImageView!
     
     @IBOutlet weak var mavi1:AvatarImageView!
     @IBOutlet weak var mavi2:AvatarImageView!
@@ -58,10 +58,13 @@ class CliqsCell: UICollectionViewCell {
     }
     
     @objc func updateCommentlables(_ notif:Notification){
-        guard let id = notif.userInfo?[.info] as? String else {return}
+        guard let id = notif.userInfo?[.info] as? String, let clid = cliq?.id else {return}
         if let cl = CMTSubscription().fetchCliqSub(id){
-            let cmt = cl.count
-            commentlbl.text = "\(cmt)"
+            
+            if id == clid{
+                let cmt = cl.count
+                commentlbl.text = "\(cmt)"
+            }
         }else{
             commentlbl.text = "0"
         }
@@ -105,9 +108,11 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.setTitle("Join", for: .normal)
         }
         commentStack.isHidden = false
-        if let cl = CMTSubscription().fetchCliqSub(cliq.id){
+        let cmts = CMTSubscription()
+        if let cl = cmts.fetchCliqSub(cliq.id){
             let cmt = cl.count
             commentlbl.text = "\(cmt)"
+        
         }else{
             commentlbl.text = "0"
         }

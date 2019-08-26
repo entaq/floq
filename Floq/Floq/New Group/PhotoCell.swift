@@ -60,6 +60,7 @@ class PhotoCell: UICollectionViewCell {
     
     func notify(_ id:String){
         let notify = notifier.fetchPhotoSub(id: id)
+        
         if notify?.canBroadcast ?? false{
             alertIcon.isHidden = false
         }else{
