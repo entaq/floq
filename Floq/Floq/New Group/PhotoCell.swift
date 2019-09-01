@@ -8,12 +8,14 @@
 
 import UIKit
 import FirebaseStorage
+import SDWebImage
 
 class PhotoCell: UICollectionViewCell {
 
     @IBOutlet weak var alertIcon: UIView!
     @IBOutlet weak var imageView: UIImageView!
     let notifier = CMTSubscription()
+    private var uuid = UUID()
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,15 +48,29 @@ class PhotoCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         alertIcon.isHidden = true
-        
+        imageView.image = nil
     }
     
     
     
     func configureCell(ref:StorageReference,photoID:String){
         self.photoID = photoID
-        imageView.sd_setImage(with: ref, placeholderImage:nil)
+        //imageView.sd_setImage(with: ref, placeholderImage:nil)
         notify(photoID)
+        let size = self.bounds.size
+        //DispatchQueue.global().async { [weak self] in
+        ImageProcess.main.downloadImage(ref: ref, size: size, cellID: uuid) { (image) in
+            DispatchQueue.main.async { [weak self] in
+                self?.imageView.image = image
+            }
+        }
+        //imageView.loadImagewith(ref: ref)
+//        DispatchQueue.global().async {
+//            let process = ImageProcess(ref: ref, size: size)
+//            process.delegate = self
+//        }
+        
+    
     }
     
     
@@ -84,4 +100,14 @@ class PhotoCell: UICollectionViewCell {
         unsubscribe()
     }
 
+}
+
+
+extension PhotoCell:ImageProcessDelegate{
+    
+    func imageReady(_ image: UIImage) {
+        DispatchQueue.main.async {
+            self.imageView.image = image
+        }
+    }
 }

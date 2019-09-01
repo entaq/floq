@@ -16,6 +16,7 @@ protocol CommentProtocol:class {
 class AddCommentVC: UIViewController {
     
     private var hasNotch = false
+    
     private lazy var bar:UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .seafoamBlue

@@ -57,6 +57,9 @@ class CliqsCell: UICollectionViewCell {
         subscribeTo(subscription: .cliqHighlight, selector: #selector(updateCommentlables(_:)))
     }
     
+    
+
+    
     @objc func updateCommentlables(_ notif:Notification){
         guard let id = notif.userInfo?[.info] as? String, let clid = cliq?.id else {return}
         if let cl = CMTSubscription().fetchCliqSub(id){
@@ -64,6 +67,7 @@ class CliqsCell: UICollectionViewCell {
             if id == clid{
                 let cmt = cl.count
                 commentlbl.text = "\(cmt)"
+                commentButt.image = #imageLiteral(resourceName: "comment_red")
             }
         }else{
             commentlbl.text = "0"

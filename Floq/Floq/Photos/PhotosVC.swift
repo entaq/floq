@@ -137,6 +137,7 @@ final class PhotosVC: UIViewController {
     @objc func selectPhoto() {
         
         let pickerController = DKImagePickerController()
+        pickerController.assetType = .allPhotos
         let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
         activityIndicator.label.text = "Uploading Photos, Please wait.."
         
@@ -152,6 +153,7 @@ final class PhotosVC: UIViewController {
             self.view.addSubview(activityIndicator)
             for asset in assets {
                 //var error:NSError?
+                
                 asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]

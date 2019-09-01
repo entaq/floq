@@ -17,9 +17,15 @@
         <attribute name="photoID" attributeType="String"/>
         <relationship name="parentCliqSub" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CMTCliqSubscription" inverseName="photoSubscriptions" inverseEntity="CMTCliqSubscription"/>
     </entity>
+    <entity name="ThumbnailImage" representedClassName="ThumbnailImage" syncable="YES" codeGenerationType="class">
+        <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ref" attributeType="String"/>
+    </entity>
     <elements>
         <element name="CMTCliqSubscription" positionX="-63" positionY="-18" width="128" height="88"/>
         <element name="CMTPhotoNotication" positionX="-63" positionY="45" width="128" height="88"/>
         <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
+        <element name="ThumbnailImage" positionX="-63" positionY="45" width="128" height="88"/>
     </elements>
 </model>

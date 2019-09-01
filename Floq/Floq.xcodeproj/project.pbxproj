@@ -13,6 +13,8 @@
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
 		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
+		38607DAD231973F800153383 /* ImageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAC231973F800153383 /* ImageProcess.swift */; };
+		38607DAF23198A9000153383 /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAE23198A9000153383 /* ImageEngine.swift */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
@@ -141,6 +143,8 @@
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
 		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
+		38607DAC231973F800153383 /* ImageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageProcess.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Frameworks/ImageProcess.swift; sourceTree = "<group>"; };
+		38607DAE23198A9000153383 /* ImageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageEngine.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Engine/ImageEngine.swift; sourceTree = "<group>"; };
 		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 				388D51AA230575E100BF6BCE /* Geofirestore */,
 				3877A9F522E34177007FBCE3 /* AutoLayoutDSL */,
 				38CFAB0E2288B89A00D40330 /* Floaty */,
+				38607DAC231973F800153383 /* ImageProcess.swift */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -518,6 +523,7 @@
 				C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */,
 				C42D00F221FCF318007065DF /* Floq-Bridging-Header.h */,
 				38CF259122DD4FD1008BEDDF /* CommentEngine.swift */,
+				38607DAE23198A9000153383 /* ImageEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -1043,6 +1049,7 @@
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */,
+				38607DAF23198A9000153383 /* ImageEngine.swift in Sources */,
 				388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
 				388D51C22305825000BF6BCE /* GFQuery.m in Sources */,
@@ -1054,6 +1061,7 @@
 				388D51C02305825000BF6BCE /* GeoFire.m in Sources */,
 				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
 				3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */,
+				38607DAD231973F800153383 /* ImageProcess.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */,
 				3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */,
