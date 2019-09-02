@@ -460,13 +460,13 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
-				388D51C42305CD4800BF6BCE /* Persistence */,
-				38CFAAB42288B44800D40330 /* Frameworks */,
 				C4A6FAA42201973A00D3F789 /* App */,
 				C4A2A42221A22959006DFE6E /* Controller */,
 				C48BEDA621F8F52B00D0A4F7 /* Engine */,
 				C4D1E08F21D8AC8800C5ED9A /* Extensions */,
+				38CFAAB42288B44800D40330 /* Frameworks */,
 				C4A2A42021A22944006DFE6E /* Model */,
+				388D51C42305CD4800BF6BCE /* Persistence */,
 				C4A6FAA5220197C900D3F789 /* Resources */,
 				C49F793421FF186600E92512 /* Services */,
 				C430B79321E12B1E0010F2AE /* Sources */,
@@ -1375,12 +1375,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1402,11 +1402,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

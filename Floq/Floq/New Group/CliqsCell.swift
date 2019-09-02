@@ -59,6 +59,11 @@ class CliqsCell: UICollectionViewCell {
     
     
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageview.image = nil
+        commentButt.image = UIImage(named: "comments_white")
+    }
     
     @objc func updateCommentlables(_ notif:Notification){
         guard let id = notif.userInfo?[.info] as? String, let clid = cliq?.id else {return}
@@ -67,7 +72,9 @@ class CliqsCell: UICollectionViewCell {
             if id == clid{
                 let cmt = cl.count
                 commentlbl.text = "\(cmt)"
-                commentButt.image = #imageLiteral(resourceName: "comment_red")
+                if CMTSubscription().canHighlightCliq(id: id){
+                    commentButt.image = #imageLiteral(resourceName: "comment_red")
+                }
             }
         }else{
             commentlbl.text = "0"
@@ -116,7 +123,9 @@ class CliqsCell: UICollectionViewCell {
         if let cl = cmts.fetchCliqSub(cliq.id){
             let cmt = cl.count
             commentlbl.text = "\(cmt)"
-        
+            if cl.broadcastCount > 0{
+                commentButt.image = #imageLiteral(resourceName: "comment_red")
+            }
         }else{
             commentlbl.text = "0"
         }

@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setRootViewController()
         watchForUpdateChanges()
-        ImageProcess.deleteThumbnails()
+        //ImageProcess.deleteThumbnails()
         //let sub = CMTSubscription()
         //sub.fetchALl()
         return true

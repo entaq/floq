@@ -34,6 +34,7 @@ public struct CMTSubscription{
                               photo?.canBroadcast = false
                             }else{
                                 photo?.canBroadcast = true
+                                cliqsub?.broadcastCount += 1
                                 ids.append(key)
                             }
                             
@@ -50,6 +51,7 @@ public struct CMTSubscription{
                             photo.canBroadcast = false
                         }else{
                              photo.canBroadcast = true
+                            cliqsub?.broadcastCount += 1
                             ids.append(key)
                         }
                         cliqsub?.addToPhotoSubscriptions(photo)
@@ -139,9 +141,15 @@ public struct CMTSubscription{
         Subscription.main.post(suscription: .cliqHighlight, object: id)
     }
     
+    func canHighlightCliq(id:String)-> Bool{
+        guard let cliq = fetchCliqSub(id) else {return false}
+        return cliq.broadcastCount > 0
+    }
+    
     func endHightlightFor(_ photo:String){
         guard let photo = fetchPhotoSub(id: photo) else {return}
         photo.canBroadcast = false
+        photo.parentCliqSub?.broadcastCount -= 1
         stack.saveContext()
     }
     //1049089634264-8g938r5ljbf1gsenpkn5s7fk406rq4p7.apps.googleusercontent.com

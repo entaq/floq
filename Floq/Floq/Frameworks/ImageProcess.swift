@@ -107,7 +107,7 @@ class ImageProcess{
     }
     
     func retrieveImageFromCache(ref:String)->UIImage?{
-        cache.object(forKey: ref as NSString)
+        return cache.object(forKey: ref as NSString)
     }
     
     func getCachedImage(_ ref:String)->UIImage?{

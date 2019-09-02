@@ -62,6 +62,7 @@ class PhotoCell: UICollectionViewCell {
         ImageProcess.main.downloadImage(ref: ref, size: size, cellID: uuid) { (image) in
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image
+                //print("Image Thumb sixe: \(image.byteSize)")
             }
         }
         //imageView.loadImagewith(ref: ref)
