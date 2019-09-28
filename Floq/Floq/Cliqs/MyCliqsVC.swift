@@ -146,7 +146,9 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
 extension MyCliqsVC:FloatyDelegate{
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        self.present(AddCliqVC(), animated: true, completion: nil)
+        let vc = AddCliqVC()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

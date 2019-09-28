@@ -48,6 +48,7 @@
 		38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB132288B8AC00D40330 /* FloatyManager.swift */; };
 		38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */; };
 		38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB152288B8AD00D40330 /* FloatyViewController.swift */; };
+		38DD338F233D52B100C11C78 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD338E233D52B100C11C78 /* Tests.swift */; };
 		38F03D6923103A85008FEC83 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03D6823103A85008FEC83 /* App.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
@@ -191,6 +192,7 @@
 		38CFAB132288B8AC00D40330 /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
 		38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draggable.swift"; sourceTree = "<group>"; };
 		38CFAB152288B8AD00D40330 /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
+		38DD338E233D52B100C11C78 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/Tests.swift"; sourceTree = "<group>"; };
 		38F03D6823103A85008FEC83 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/App.swift; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4054328B1FC9C82600725AF9 /* Floq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Floq.entitlements; sourceTree = "<group>"; };
@@ -630,6 +632,7 @@
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
 				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
 				3852F802230ED91200082B31 /* PhotoEmptyView.swift */,
+				38DD338E233D52B100C11C78 /* Tests.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -1044,6 +1047,7 @@
 				388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */,
 				388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
+				38DD338F233D52B100C11C78 /* Tests.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,
 				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
