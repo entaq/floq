@@ -25,14 +25,14 @@ class IntegrationTests: XCTestCase {
     func testisRegistered() {
         let expectation = self.expectation(description: "isRegistered")
         var isRegistered:Bool?
-        service.isRegistered(uid: "id") { (bool, id) in
+        service.isRegistered(uid: "0fcW6IPQCgSL7DgocL5uh5s040i1") { (bool, id) in
             isRegistered = bool
             
             expectation.fulfill()
         }
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 20, handler: nil)
         XCTAssertNotNil(isRegistered)
-        XCTAssertTrue(isRegistered ?? false)
+        XCTAssertTrue(isRegistered!)
     }
     
     
@@ -44,9 +44,9 @@ class IntegrationTests: XCTestCase {
             
             expectation.fulfill()
         }
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 20, handler: nil)
         XCTAssertNotNil(isRegistered)
-        XCTAssertFalse(isRegistered ?? true)
+        XCTAssertFalse(isRegistered!)
     }
     
     

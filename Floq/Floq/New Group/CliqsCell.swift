@@ -123,8 +123,10 @@ class CliqsCell: UICollectionViewCell {
         if let cl = cmts.fetchCliqSub(cliq.id){
             let cmt = cl.count
             commentlbl.text = "\(cmt)"
-            if cl.broadcastCount > 0{
+            if cmts.canHighlightCliq(id: cl.cliqID!){
                 commentButt.image = #imageLiteral(resourceName: "comment_red")
+            }else{
+                commentButt.image = #imageLiteral(resourceName: "comments_white")
             }
         }else{
             commentlbl.text = "0"

@@ -11,5 +11,6 @@ import CoreData
 
 @objc(CMTPhotoSubscription)
 public class CMTPhotoSubscription: NSManagedObject {
+    
 
 }

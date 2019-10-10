@@ -20,7 +20,7 @@ class PhotosEngine:NSObject{
     init(cliq:String){
         self.cliq = cliq
         super.init()
-        listenForNotifications()
+        
         
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14838.16" systemVersion="18G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="NO" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19A578c" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CMTCliqSubscription" representedClassName="CMTCliqSubscription" syncable="YES" codeGenerationType="class">
         <attribute name="broadcastCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cliqID" attributeType="String"/>
@@ -18,6 +18,18 @@
         <attribute name="photoID" attributeType="String"/>
         <relationship name="parentCliqSub" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CMTCliqSubscription" inverseName="photoSubscriptions" inverseEntity="CMTCliqSubscription"/>
     </entity>
+    <entity name="CommentCliqNote" representedClassName="CommentCliqNote" syncable="YES" codeGenerationType="class">
+        <attribute name="broadcastCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="cliqID" attributeType="String"/>
+        <attribute name="lastupdated" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="photoNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CommentPhotoNote" inverseName="cliqNote" inverseEntity="CommentPhotoNote"/>
+    </entity>
+    <entity name="CommentPhotoNote" representedClassName="CommentPhotoNote" syncable="YES" codeGenerationType="class">
+        <attribute name="canBroadcast" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastupdated" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="photoID" attributeType="String"/>
+        <relationship name="cliqNote" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CommentCliqNote" inverseName="photoNotes" inverseEntity="CommentCliqNote"/>
+    </entity>
     <entity name="ThumbnailImage" representedClassName="ThumbnailImage" syncable="YES" codeGenerationType="class">
         <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
@@ -28,5 +40,7 @@
         <element name="CMTPhotoNotication" positionX="-63" positionY="45" width="128" height="88"/>
         <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
         <element name="ThumbnailImage" positionX="-63" positionY="45" width="128" height="88"/>
+        <element name="CommentCliqNote" positionX="-54" positionY="54" width="128" height="103"/>
+        <element name="CommentPhotoNote" positionX="-45" positionY="63" width="128" height="103"/>
     </elements>
 </model>
