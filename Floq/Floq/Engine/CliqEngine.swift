@@ -12,6 +12,7 @@ import FirebaseStorage
 
 import CoreLocation
 
+typealias Finish = () -> ()
 
 class CliqEngine:NSObject{
     typealias CommentHiglight = (cliq:String,photo:String)
