@@ -64,7 +64,7 @@ class MyCliqsVC: UIViewController {
         let barbutt = UIBarButtonItem(image: .icon_menu, style: .plain, target: self, action: #selector(accountMenuTapped))
         navigationItem.rightBarButtonItem = barbutt
         view.addSubview(floaty)
-        finishRegistrations()
+        
     }
     
     
@@ -82,12 +82,15 @@ class MyCliqsVC: UIViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         adapter.scrollViewDelegate = self
+        finishRegistrations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "My Cliqs"
         App.setDomain(.My_Cliqs)
+        updateData()
+        
     }
     
     func finishRegistrations(){
@@ -146,7 +149,9 @@ extension MyCliqsVC:ListAdapterDataSource,UICollectionViewDelegate{
 extension MyCliqsVC:FloatyDelegate{
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        self.present(AddCliqVC(), animated: true, completion: nil)
+        let vc = AddCliqVC()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

@@ -13,6 +13,8 @@
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
 		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
+		38607DAD231973F800153383 /* ImageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAC231973F800153383 /* ImageProcess.swift */; };
+		38607DAF23198A9000153383 /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAE23198A9000153383 /* ImageEngine.swift */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
 		3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F622E34177007FBCE3 /* LayoutProperty.swift */; };
 		3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F722E34177007FBCE3 /* Protocols.swift */; };
@@ -32,7 +34,13 @@
 		388D51FC2305D13900BF6BCE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FB2305D13900BF6BCE /* CoreDataStack.swift */; };
 		388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51FD2305EC4A00BF6BCE /* CommentButton.swift */; };
 		3895DCFD22183FD6009C5CA6 /* SocialSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */; };
+		38AA8D6B234FBB8E000A7649 /* CommentListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AA8D6A234FBB8E000A7649 /* CommentListener.swift */; };
+		38AA8D6D234FC33C000A7649 /* CommentNotifierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AA8D6C234FC33C000A7649 /* CommentNotifierService.swift */; };
 		38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B02E1B2214744D00DEEC21 /* FloqTests.swift */; };
+		38B57DF2234F5377009A45B2 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B57DF1234F5377009A45B2 /* AppTests.swift */; };
+		38B57DF4234F53DA009A45B2 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B57DF3234F53DA009A45B2 /* IntegrationTests.swift */; };
+		38B57DF7234F5C4A009A45B2 /* PhotoEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B57DF6234F5C4A009A45B2 /* PhotoEngineTest.swift */; };
+		38B57DF9234F5C64009A45B2 /* CliqEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B57DF8234F5C64009A45B2 /* CliqEngineTest.swift */; };
 		38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */; };
 		38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF258F22DCCA2D008BEDDF /* FLComments.swift */; };
 		38CF259222DD4FD1008BEDDF /* CommentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF259122DD4FD1008BEDDF /* CommentEngine.swift */; };
@@ -46,6 +54,7 @@
 		38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB132288B8AC00D40330 /* FloatyManager.swift */; };
 		38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */; };
 		38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB152288B8AD00D40330 /* FloatyViewController.swift */; };
+		38DD338F233D52B100C11C78 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD338E233D52B100C11C78 /* Tests.swift */; };
 		38F03D6923103A85008FEC83 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03D6823103A85008FEC83 /* App.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
 		406493821FDDAC3F00224DF8 /* PhotoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406493811FDDAC3F00224DF8 /* PhotoSection.swift */; };
@@ -117,13 +126,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3872F63F2214874C00AC547E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 40AA29B21E8891E900200A3F;
-			remoteInfo = Floq;
-		};
 		38B02E1E2214744D00DEEC21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
@@ -141,7 +143,8 @@
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
 		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
-		3872F63A2214874C00AC547E /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		38607DAC231973F800153383 /* ImageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageProcess.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Frameworks/ImageProcess.swift; sourceTree = "<group>"; };
+		38607DAE23198A9000153383 /* ImageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageEngine.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Engine/ImageEngine.swift; sourceTree = "<group>"; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
 		3877A9F622E34177007FBCE3 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
 		3877A9F722E34177007FBCE3 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -171,9 +174,15 @@
 		388D51FB2305D13900BF6BCE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/CoreDataStack.swift; sourceTree = "<group>"; };
 		388D51FD2305EC4A00BF6BCE /* CommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/CommentButton.swift"; sourceTree = "<group>"; };
 		3895DCFC22183FD6009C5CA6 /* SocialSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSharing.swift; sourceTree = "<group>"; };
+		38AA8D6A234FBB8E000A7649 /* CommentListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListener.swift; sourceTree = "<group>"; };
+		38AA8D6C234FC33C000A7649 /* CommentNotifierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotifierService.swift; sourceTree = "<group>"; };
 		38B02E192214744D00DEEC21 /* FloqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B02E1B2214744D00DEEC21 /* FloqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqTests.swift; sourceTree = "<group>"; };
 		38B02E1D2214744D00DEEC21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38B57DF1234F5377009A45B2 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		38B57DF3234F53DA009A45B2 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		38B57DF6234F5C4A009A45B2 /* PhotoEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEngineTest.swift; sourceTree = "<group>"; };
+		38B57DF8234F5C64009A45B2 /* CliqEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CliqEngineTest.swift; sourceTree = "<group>"; };
 		38CC9EB922EF050C00483DC7 /* CommentsInputView copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommentsInputView copy.swift"; sourceTree = "<group>"; };
 		38CF258F22DCCA2D008BEDDF /* FLComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLComments.swift; sourceTree = "<group>"; };
 		38CF259122DD4FD1008BEDDF /* CommentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentEngine.swift; sourceTree = "<group>"; };
@@ -187,6 +196,7 @@
 		38CFAB132288B8AC00D40330 /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
 		38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draggable.swift"; sourceTree = "<group>"; };
 		38CFAB152288B8AD00D40330 /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
+		38DD338E233D52B100C11C78 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/Tests.swift"; sourceTree = "<group>"; };
 		38F03D6823103A85008FEC83 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/App.swift; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4054328B1FC9C82600725AF9 /* Floq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Floq.entitlements; sourceTree = "<group>"; };
@@ -263,13 +273,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3872F6372214874C00AC547E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		38B02E162214744D00DEEC21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,6 +364,7 @@
 				388D51C82305D03300BF6BCE /* Persistence.swift */,
 				388D51FB2305D13900BF6BCE /* CoreDataStack.swift */,
 				380FFE0C230B03A500DD306A /* PhotoNotication.swift */,
+				38AA8D6C234FC33C000A7649 /* CommentNotifierService.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -368,10 +372,22 @@
 		38B02E1A2214744D00DEEC21 /* FloqTests */ = {
 			isa = PBXGroup;
 			children = (
+				38B57DF5234F53EC009A45B2 /* EngineTests */,
 				38B02E1B2214744D00DEEC21 /* FloqTests.swift */,
 				38B02E1D2214744D00DEEC21 /* Info.plist */,
+				38B57DF1234F5377009A45B2 /* AppTests.swift */,
+				38B57DF3234F53DA009A45B2 /* IntegrationTests.swift */,
 			);
 			path = FloqTests;
+			sourceTree = "<group>";
+		};
+		38B57DF5234F53EC009A45B2 /* EngineTests */ = {
+			isa = PBXGroup;
+			children = (
+				38B57DF6234F5C4A009A45B2 /* PhotoEngineTest.swift */,
+				38B57DF8234F5C64009A45B2 /* CliqEngineTest.swift */,
+			);
+			path = EngineTests;
 			sourceTree = "<group>";
 		};
 		38CF259322DFA318008BEDDF /* Comments */ = {
@@ -394,6 +410,7 @@
 				388D51AA230575E100BF6BCE /* Geofirestore */,
 				3877A9F522E34177007FBCE3 /* AutoLayoutDSL */,
 				38CFAB0E2288B89A00D40330 /* Floaty */,
+				38607DAC231973F800153383 /* ImageProcess.swift */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -447,7 +464,6 @@
 			children = (
 				40AA29B31E8891E900200A3F /* Floq.app */,
 				38B02E192214744D00DEEC21 /* FloqTests.xctest */,
-				3872F63A2214874C00AC547E /* FloqUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -455,13 +471,13 @@
 		40AA29B51E8891E900200A3F /* Floq */ = {
 			isa = PBXGroup;
 			children = (
-				388D51C42305CD4800BF6BCE /* Persistence */,
-				38CFAAB42288B44800D40330 /* Frameworks */,
 				C4A6FAA42201973A00D3F789 /* App */,
 				C4A2A42221A22959006DFE6E /* Controller */,
 				C48BEDA621F8F52B00D0A4F7 /* Engine */,
 				C4D1E08F21D8AC8800C5ED9A /* Extensions */,
+				38CFAAB42288B44800D40330 /* Frameworks */,
 				C4A2A42021A22944006DFE6E /* Model */,
+				388D51C42305CD4800BF6BCE /* Persistence */,
 				C4A6FAA5220197C900D3F789 /* Resources */,
 				C49F793421FF186600E92512 /* Services */,
 				C430B79321E12B1E0010F2AE /* Sources */,
@@ -518,6 +534,8 @@
 				C4D4F8C621FA4B3A00A26797 /* PhotosEngine.swift */,
 				C42D00F221FCF318007065DF /* Floq-Bridging-Header.h */,
 				38CF259122DD4FD1008BEDDF /* CommentEngine.swift */,
+				38607DAE23198A9000153383 /* ImageEngine.swift */,
+				38AA8D6A234FBB8E000A7649 /* CommentListener.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -624,6 +642,7 @@
 				3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */,
 				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
 				3852F802230ED91200082B31 /* PhotoEmptyView.swift */,
+				38DD338E233D52B100C11C78 /* Tests.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -697,24 +716,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3872F6392214874C00AC547E /* FloqUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3872F6432214874C00AC547E /* Build configuration list for PBXNativeTarget "FloqUITests" */;
-			buildPhases = (
-				3872F6362214874C00AC547E /* Sources */,
-				3872F6372214874C00AC547E /* Frameworks */,
-				3872F6382214874C00AC547E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3872F6402214874C00AC547E /* PBXTargetDependency */,
-			);
-			name = FloqUITests;
-			productName = FloqUITests;
-			productReference = 3872F63A2214874C00AC547E /* FloqUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		38B02E182214744D00DEEC21 /* FloqTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */;
@@ -764,11 +765,6 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Arun Nagarajan";
 				TargetAttributes = {
-					3872F6392214874C00AC547E = {
-						CreatedOnToolsVersion = 10.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 40AA29B21E8891E900200A3F;
-					};
 					38B02E182214744D00DEEC21 = {
 						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
@@ -835,19 +831,11 @@
 			targets = (
 				40AA29B21E8891E900200A3F /* Floq */,
 				38B02E182214744D00DEEC21 /* FloqTests */,
-				3872F6392214874C00AC547E /* FloqUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3872F6382214874C00AC547E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		38B02E172214744D00DEEC21 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -994,18 +982,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3872F6362214874C00AC547E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		38B02E152214744D00DEEC21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38B57DF7234F5C4A009A45B2 /* PhotoEngineTest.swift in Sources */,
+				38B57DF9234F5C64009A45B2 /* CliqEngineTest.swift in Sources */,
 				38B02E1C2214744D00DEEC21 /* FloqTests.swift in Sources */,
+				38B57DF2234F5377009A45B2 /* AppTests.swift in Sources */,
+				38B57DF4234F53DA009A45B2 /* IntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,6 +1007,7 @@
 				3877A9FE22E3536A007FBCE3 /* LoadMoreCells.swift in Sources */,
 				388D51C72305CEB500BF6BCE /* Floq.xcdatamodeld in Sources */,
 				38CFAB172288B8AD00D40330 /* FloatyItem.swift in Sources */,
+				38AA8D6B234FBB8E000A7649 /* CommentListener.swift in Sources */,
 				38F03D6923103A85008FEC83 /* App.swift in Sources */,
 				C48A57D621A22DF500D3B0E6 /* DataService.swift in Sources */,
 				C434C50D21DBBEEC003333A1 /* UIKitModules+Extensions.swift in Sources */,
@@ -1038,11 +1024,13 @@
 				388D51FE2305EC4A00BF6BCE /* CommentButton.swift in Sources */,
 				388D51C32305825000BF6BCE /* GFGeoHash.m in Sources */,
 				C45CE27A21E0E2630071C59D /* HomeOnBaordVC.swift in Sources */,
+				38DD338F233D52B100C11C78 /* Tests.swift in Sources */,
 				387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */,
 				38CF259022DCCA2D008BEDDF /* FLComments.swift in Sources */,
 				C4A2A42A21A22B4E006DFE6E /* FLCliqItem.swift in Sources */,
 				407997FA1FDCDF8900AAE42A /* ImageCell.swift in Sources */,
 				38CF259822DFA46D008BEDDF /* CommentCell.swift in Sources */,
+				38607DAF23198A9000153383 /* ImageEngine.swift in Sources */,
 				388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */,
 				40A1F74520F300DE00DDA0B1 /* CreateCliqVC.swift in Sources */,
 				388D51C22305825000BF6BCE /* GFQuery.m in Sources */,
@@ -1054,10 +1042,12 @@
 				388D51C02305825000BF6BCE /* GeoFire.m in Sources */,
 				C4A2A44021A22CC1006DFE6E /* PhotoFullScreenVC.swift in Sources */,
 				3877A9FA22E34177007FBCE3 /* Protocols.swift in Sources */,
+				38607DAD231973F800153383 /* ImageProcess.swift in Sources */,
 				40A1F74820F3052E00DDA0B1 /* FloatLabelTextField.swift in Sources */,
 				38CFAB182288B8AD00D40330 /* Floaty.swift in Sources */,
 				3877A9F922E34177007FBCE3 /* LayoutProperty.swift in Sources */,
 				380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */,
+				38AA8D6D234FC33C000A7649 /* CommentNotifierService.swift in Sources */,
 				40AA29B71E8891E900200A3F /* AppDelegate.swift in Sources */,
 				C41EBFB021E145430094EBC6 /* LoginVC.swift in Sources */,
 				C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */,
@@ -1112,11 +1102,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3872F6402214874C00AC547E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 40AA29B21E8891E900200A3F /* Floq */;
-			targetProxy = 3872F63F2214874C00AC547E /* PBXContainerItemProxy */;
-		};
 		38B02E1F2214744D00DEEC21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 40AA29B21E8891E900200A3F /* Floq */;
@@ -1144,51 +1129,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3872F6412214874C00AC547E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = FloqUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Floq;
-			};
-			name = Debug;
-		};
-		3872F6422214874C00AC547E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = FloqUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Floq;
-			};
-			name = Release;
-		};
 		38B02E212214744D00DEEC21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1367,12 +1307,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1394,11 +1334,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1412,15 +1352,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3872F6432214874C00AC547E /* Build configuration list for PBXNativeTarget "FloqUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3872F6412214874C00AC547E /* Debug */,
-				3872F6422214874C00AC547E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

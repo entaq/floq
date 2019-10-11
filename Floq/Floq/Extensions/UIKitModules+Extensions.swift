@@ -65,6 +65,10 @@ extension UIView{
 
 extension UIImage{
     
+    var byteSize:Int{
+        return pngData()?.count ?? 0
+    }
+    
     public static var placeholder:UIImage{
         return UIImage(named: "imageplaceholder")!
     }
@@ -334,3 +338,6 @@ extension Date{
     
     }
 }
+
+
+

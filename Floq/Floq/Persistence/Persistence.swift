@@ -34,6 +34,7 @@ public struct CMTSubscription{
                               photo?.canBroadcast = false
                             }else{
                                 photo?.canBroadcast = true
+                                cliqsub?.broadcastCount += 1
                                 ids.append(key)
                             }
                             
@@ -50,6 +51,7 @@ public struct CMTSubscription{
                             photo.canBroadcast = false
                         }else{
                              photo.canBroadcast = true
+                            cliqsub?.broadcastCount += 1
                             ids.append(key)
                         }
                         cliqsub?.addToPhotoSubscriptions(photo)
@@ -78,7 +80,7 @@ public struct CMTSubscription{
         }
         stack.saveContext()
         ids.forEach{broadcast(id: $0)}
-        //broadcast(id: snap.documentID)
+        broadcastCliq(snap.documentID)
     }
     
     func fetchCliqSub(_ id:String)->CMTCliqSubscription?{
@@ -122,15 +124,37 @@ public struct CMTSubscription{
         return nil
     }
     
+    func canHiglightCliq(_ id:String) -> Bool{
+        guard let phs = fetchCliqSub(id)?.photoSubscriptions as? Set<CMTPhotoSubscription> else {return false}
+        for item in phs{
+            if item.canBroadcast{return true}
+        }
+        return false
+    }
+    
     
     func broadcast(id:String){
        Subscription.main.post(suscription: .newHighlight, object: id)
+    }
+    
+    func broadcastCliq(_ id:String){
+        Subscription.main.post(suscription: .cliqHighlight, object: id)
+    }
+    
+    func canHighlightCliq(id:String)-> Bool{
+        guard let cliq = fetchCliqSub(id)?.photoSubscriptions as? Set<CMTPhotoSubscription> else {return false}
+        for photo in cliq{
+            if photo.canBroadcast{return true}
+        }
+        return false
     }
     
     func endHightlightFor(_ photo:String){
         guard let photo = fetchPhotoSub(id: photo) else {return}
         photo.canBroadcast = false
         stack.saveContext()
+        
+        
     }
     //1049089634264-8g938r5ljbf1gsenpkn5s7fk406rq4p7.apps.googleusercontent.com
 }

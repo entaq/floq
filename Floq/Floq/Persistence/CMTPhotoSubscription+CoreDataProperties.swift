@@ -16,6 +16,8 @@ extension CMTPhotoSubscription {
         return NSFetchRequest<CMTPhotoSubscription>(entityName: "CMTPhotoSubscription")
     }
 
+    
+    
     @NSManaged public var canBroadcast: Bool
     @NSManaged public var count: Int64
     @NSManaged public var lastTimestamp: Int64

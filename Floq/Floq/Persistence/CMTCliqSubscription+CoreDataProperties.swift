@@ -19,6 +19,8 @@ extension CMTCliqSubscription {
     @NSManaged public var cliqID: String?
     @NSManaged public var count: Int64
     @NSManaged public var photoSubscriptions: NSSet?
+    
+    
 
 }
 

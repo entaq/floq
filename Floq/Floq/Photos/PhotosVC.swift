@@ -52,7 +52,7 @@ final class PhotosVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.showsVerticalScrollIndicator = false
         subscribeTo(subscription: .invalidatePhotos, selector: #selector(invalidatePhoto(_:)))
         collectionView.backgroundColor = .globalbackground
         floaty = Floaty()
@@ -77,6 +77,7 @@ final class PhotosVC: UIViewController {
         
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.scrollViewDelegate = self
         view.addSubview(floaty)
         photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (success, errm) in
             if success{
@@ -91,6 +92,7 @@ final class PhotosVC: UIViewController {
     @objc func invalidatePhoto(_ notification:Notification){
         let id = notification.userInfo?[.info] as? String
         photoEngine.generateGridItems(id:id)
+        canShowEmpty = true
         adapter.reloadData(completion: nil)
         
     }
@@ -137,6 +139,7 @@ final class PhotosVC: UIViewController {
     @objc func selectPhoto() {
         
         let pickerController = DKImagePickerController()
+        pickerController.assetType = .allPhotos
         let activityIndicator = LoaderView(frame: UIScreen.main.bounds)
         activityIndicator.label.text = "Uploading Photos, Please wait.."
         
@@ -152,6 +155,7 @@ final class PhotosVC: UIViewController {
             self.view.addSubview(activityIndicator)
             for asset in assets {
                 //var error:NSError?
+                
                 asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]
@@ -195,7 +199,7 @@ final class PhotosVC: UIViewController {
 }
 
 
-extension PhotosVC:ListAdapterDataSource{
+extension PhotosVC:ListAdapterDataSource, UICollectionViewDelegate{
     // MARK: ListAdapterDataSource
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
@@ -222,8 +226,22 @@ extension PhotosVC:ListAdapterDataSource{
             uiview.addSubview(label)
             return uiview
         }
-        let loaderView = PhotoEmptyView(frame: view.frame)
-        return loaderView
+        //let loaderView = PhotoEmptyView(frame: view.frame)
+        return nil
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if offset > contentHeight - scrollView.frame.height + 100{
+            photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (success, errm) in
+                if success{
+                    self.canShowEmpty = true
+                    self.adapter.performUpdates(animated: true, completion: nil)
+                    
+                }
+            }
+        }
     }
 }
 

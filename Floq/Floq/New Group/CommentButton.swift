@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentButton: UIButton {
+public class CommentButton: UIButton {
 
     private lazy var image:UIImageView = {
         let img = UIImageView(frame:.zero)
@@ -38,17 +38,28 @@ class CommentButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initialize()
+    }
+    
+    override public func awakeFromNib() {
+        super.awakeFromNib()
+        initialize()
+    }
+    
+    func initialize(){
         addSubview(image)
         addSubview(notif)
     }
     
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
     }
     
     
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: topAnchor, constant: 0),

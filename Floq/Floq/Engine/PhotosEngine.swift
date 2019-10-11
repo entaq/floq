@@ -20,16 +20,28 @@ class PhotosEngine:NSObject{
     init(cliq:String){
         self.cliq = cliq
         super.init()
-        listenForNotifications()
+        
+        
     }
     
     private var notifListener:ListenerRegistration?
+    var canEndFetching = false
     
     private var cliq:String!
     private var _internalPhotoContainer:[PhotoItem] = []
     static let MAXX_LIKES = 34000
     
     private var allphotos:[PhotoItem] = []
+    
+    var maxNumberOfPhotos:Int{
+        let height = UIScreen.width / 4
+        let rows = (UIScreen.height) / height
+        let maxRows = Int(rows)
+        return maxRows * 4
+    }
+    
+    var lastSnapshot:DocumentSnapshot?
+
     
     var allPhotos:[PhotoItem]{
         return allphotos
@@ -134,13 +146,24 @@ class PhotosEngine:NSObject{
     }
     
     func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.storage){
+        if canEndFetching{return}
         guard let id = Auth.auth().currentUser?.uid else {return}
-        photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID)
-            .addSnapshotListener { documentSnapshot, error in
+        var query:Query
+        if let snapshot = lastSnapshot{
+            query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).start(afterDocument: snapshot).limit(to: maxNumberOfPhotos)
+        }else{
+            query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).limit(to: maxNumberOfPhotos)
+        }
+        
+            query.addSnapshotListener { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     print("Error fetching snapshots: \(error!)")
                     onFinish(false,"Error fetching snapshots: \(error?.localizedDescription ?? "Unknown Error")")
                     return
+                }
+                self.lastSnapshot = snapshot.documents.last
+                if snapshot.count < self.maxNumberOfPhotos{
+                    self.canEndFetching = true
                 }
                 let changes = snapshot.documentChanges.filter({ (dc) -> Bool in
                     if let flaggers = dc.document.getArray(.flaggers) as? [String]{

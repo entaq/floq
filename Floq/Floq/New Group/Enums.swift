@@ -60,7 +60,7 @@ enum References:String{
 
 public enum Fields:String{
     
-    case flagged, flaggers, cliqComments
+    case flagged, flaggers, cliqComments, lastInteraction
     case fileID = "fileID"
     case cliqID = "cliqID"
     case username = "userName"

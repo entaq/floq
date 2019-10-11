@@ -334,6 +334,10 @@ class DataService{
         }
     }
     
+    func updatelastInteraction(){
+        userRef.document(UserDefaults.uid).updateData(["lastInteraction":FieldValue.serverTimestamp()])
+    }
+    
 //    func resizeImageForUpload(image:UIImage, error:inout NSError?)->ResultData{
 //        let encodeRequirement = EncodeRequirement(format: .jpeg, mode: .lossy, quality: 80)
 //        let transforms = Transformations()

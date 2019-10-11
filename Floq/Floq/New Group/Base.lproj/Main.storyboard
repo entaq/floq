@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="z8b-ul-Kp6">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -245,10 +245,10 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQr-Tn-H75">
-                                <rect key="frame" x="82" y="240.5" width="250" height="40"/>
+                                <rect key="frame" x="102" y="240.5" width="210" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="D5N-ZW-7M0"/>
-                                    <constraint firstAttribute="width" constant="250" id="ot8-Nt-SFC"/>
+                                    <constraint firstAttribute="width" constant="210" id="ot8-Nt-SFC"/>
                                 </constraints>
                                 <state key="normal" image="facebookButton"/>
                                 <connections>
@@ -264,9 +264,9 @@ account.  It’s fast, easy, and secure</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7P-s4-jXv">
-                                <rect key="frame" x="82" y="296.5" width="250" height="40"/>
+                                <rect key="frame" x="102" y="296.5" width="210" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="b95-gN-7hy"/>
+                                    <constraint firstAttribute="width" constant="210" id="b95-gN-7hy"/>
                                     <constraint firstAttribute="height" constant="40" id="yry-MW-Smw"/>
                                 </constraints>
                                 <state key="normal" image="googleButton"/>
@@ -274,11 +274,10 @@ account.  It’s fast, easy, and secure</string>
                                     <action selector="googleSignInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EQ2-j7-egP"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Featherxlarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tk4-Nj-Ucb">
-                                <rect key="frame" x="8" y="446" width="150" height="450"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flamingoGroupCopy" translatesAutoresizingMaskIntoConstraints="NO" id="kEM-Qz-N7B">
+                                <rect key="frame" x="20" y="512" width="374" height="320"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="CXs-c2-rqF"/>
-                                    <constraint firstAttribute="height" constant="450" id="e8q-e9-aCP"/>
+                                    <constraint firstAttribute="height" constant="320" id="NmT-ld-KZt"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -286,17 +285,18 @@ account.  It’s fast, easy, and secure</string>
                         <constraints>
                             <constraint firstItem="dQr-Tn-H75" firstAttribute="top" secondItem="59O-qo-y9K" secondAttribute="bottom" constant="20" id="0c7-4C-8fP"/>
                             <constraint firstItem="T4c-dW-l7U" firstAttribute="top" secondItem="R7P-s4-jXv" secondAttribute="bottom" constant="16" id="1JU-DF-pJM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kEM-Qz-N7B" secondAttribute="bottom" constant="30" id="3tK-Ra-vpF"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="4EG-s5-Mp4"/>
                             <constraint firstItem="T4c-dW-l7U" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="4OB-ef-g9X"/>
                             <constraint firstItem="dZ9-mr-X0u" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="Bkb-5A-DEp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dZ9-mr-X0u" secondAttribute="trailing" constant="21" id="GiI-8G-ECc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="T4c-dW-l7U" secondAttribute="trailing" id="Kdf-se-hvh"/>
                             <constraint firstItem="R7P-s4-jXv" firstAttribute="top" secondItem="dQr-Tn-H75" secondAttribute="bottom" constant="16" id="KjB-T3-zLZ"/>
-                            <constraint firstAttribute="bottom" secondItem="Tk4-Nj-Ucb" secondAttribute="bottom" id="VaH-bB-g4O"/>
+                            <constraint firstItem="kEM-Qz-N7B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MML-Of-MR6"/>
+                            <constraint firstItem="kEM-Qz-N7B" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="VAT-Vt-7Yh"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="top" secondItem="dZ9-mr-X0u" secondAttribute="bottom" constant="16" id="buR-CQ-PAF"/>
                             <constraint firstItem="dZ9-mr-X0u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="liI-ao-pcY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="59O-qo-y9K" secondAttribute="trailing" constant="21" id="m97-I7-hXd"/>
-                            <constraint firstItem="Tk4-Nj-Ucb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="mFi-I9-co1"/>
                             <constraint firstItem="59O-qo-y9K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="og6-qy-fgM"/>
                             <constraint firstItem="dQr-Tn-H75" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qEm-qR-lXi"/>
                             <constraint firstItem="R7P-s4-jXv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sFI-QO-B4a"/>
@@ -305,7 +305,7 @@ account.  It’s fast, easy, and secure</string>
                     </view>
                     <connections>
                         <outlet property="googleSignIn" destination="R7P-s4-jXv" id="pLa-OD-igO"/>
-                        <outlet property="heightAnchor" destination="e8q-e9-aCP" id="0hO-xv-piD"/>
+                        <outlet property="heightAnchor" destination="NmT-ld-KZt" id="JCr-dL-ksK"/>
                         <outlet property="loginButt" destination="dQr-Tn-H75" id="JKz-nA-26N"/>
                     </connections>
                 </viewController>
@@ -472,17 +472,17 @@ account.  It’s fast, easy, and secure</string>
             <objects>
                 <tableViewController storyboardIdentifier="UserSettingsTVC" id="REv-wa-bp7" customClass="UserSettingsTVC" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZJD-Xk-RUH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="498"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="582"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="SETTINGS" id="g5G-uS-2co">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Notifs" id="69n-u9-aCL">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="69n-u9-aCL" id="0YE-7Z-Raw">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocked Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcO-bJ-eU2">
@@ -499,10 +499,10 @@ account.  It’s fast, easy, and secure</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Notifs" id="CqY-9G-tvk">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CqY-9G-tvk" id="Myb-5o-19A">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-zf-Xti">
@@ -519,10 +519,10 @@ account.  It’s fast, easy, and secure</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="TnW-d4-oKj">
-                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="143.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TnW-d4-oKj" id="0Xk-r9-zKV">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twE-Jn-Yna">
@@ -539,10 +539,10 @@ account.  It’s fast, easy, and secure</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="r3I-SE-YYB">
-                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="187.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r3I-SE-YYB" id="Myk-Uu-pS2">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End User License Agreement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxG-ZV-Uzn">
@@ -559,10 +559,10 @@ account.  It’s fast, easy, and secure</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="FYq-5x-ULt">
-                                        <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="231.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FYq-5x-ULt" id="3GT-Nk-wmm">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foN-N2-ZVA">
@@ -579,10 +579,10 @@ account.  It’s fast, easy, and secure</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="eaI-SW-56q">
-                                        <rect key="frame" x="0.0" y="275.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="275.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eaI-SW-56q" id="gTW-za-kJ6">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deactivate Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHP-hd-9UK">
@@ -793,10 +793,17 @@ account.  It’s fast, easy, and secure</string>
                                 <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flamingoGroupCopy" translatesAutoresizingMaskIntoConstraints="NO" id="kEM-Qz-N7B">
-                                <rect key="frame" x="20" y="536" width="374" height="320"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscapeLineArt" translatesAutoresizingMaskIntoConstraints="NO" id="UGW-W9-rrG">
+                                <rect key="frame" x="0.0" y="722" width="414" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="NmT-ld-KZt"/>
+                                    <constraint firstAttribute="height" constant="90" id="nwd-5O-yFZ"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Featherxlarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tk4-Nj-Ucb">
+                                <rect key="frame" x="16" y="446" width="150" height="450"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="CXs-c2-rqF"/>
+                                    <constraint firstAttribute="height" constant="450" id="e8q-e9-aCP"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -806,17 +813,19 @@ account.  It’s fast, easy, and secure</string>
                             <constraint firstItem="wfG-mY-EMV" firstAttribute="leading" secondItem="A4f-To-dey" secondAttribute="leadingMargin" constant="21" id="2G9-Qm-F3o"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wfG-mY-EMV" secondAttribute="trailing" id="5Rg-Tg-pGF"/>
                             <constraint firstItem="wfG-mY-EMV" firstAttribute="top" secondItem="HfO-AV-EPm" secondAttribute="bottom" constant="16" id="Bpx-Zm-qVP"/>
+                            <constraint firstAttribute="trailing" secondItem="UGW-W9-rrG" secondAttribute="trailing" id="E7D-9o-DwE"/>
+                            <constraint firstItem="Tk4-Nj-Ucb" firstAttribute="leading" secondItem="A4f-To-dey" secondAttribute="leading" constant="16" id="Fg6-tm-2Q6"/>
+                            <constraint firstItem="UGW-W9-rrG" firstAttribute="leading" secondItem="A4f-To-dey" secondAttribute="leading" id="HZt-ci-dAf"/>
                             <constraint firstItem="wfG-mY-EMV" firstAttribute="centerX" secondItem="A4f-To-dey" secondAttribute="centerX" id="J4N-Aq-BYT"/>
+                            <constraint firstAttribute="bottom" secondItem="Tk4-Nj-Ucb" secondAttribute="bottom" id="QPc-mh-bRl"/>
+                            <constraint firstItem="T1n-2h-Cac" firstAttribute="top" secondItem="UGW-W9-rrG" secondAttribute="bottom" constant="50" id="Uzg-am-fFS"/>
                             <constraint firstItem="HfO-AV-EPm" firstAttribute="centerX" secondItem="A4f-To-dey" secondAttribute="centerX" id="fu1-VL-BbR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="kEM-Qz-N7B" secondAttribute="trailing" id="jou-2V-Vgu"/>
-                            <constraint firstAttribute="bottom" secondItem="kEM-Qz-N7B" secondAttribute="bottom" constant="40" id="k0F-F7-wEc"/>
                             <constraint firstItem="HfO-AV-EPm" firstAttribute="top" secondItem="cTt-DP-Hgh" secondAttribute="bottom" constant="100" id="ulz-EG-gJb"/>
                             <constraint firstItem="HfO-AV-EPm" firstAttribute="leading" secondItem="A4f-To-dey" secondAttribute="leadingMargin" constant="21" id="vfW-cy-3yi"/>
-                            <constraint firstItem="kEM-Qz-N7B" firstAttribute="leading" secondItem="A4f-To-dey" secondAttribute="leadingMargin" id="wdu-bL-bvp"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="heightAnchor" destination="NmT-ld-KZt" id="pHb-Lo-Phq"/>
+                        <outlet property="heightAnchor" destination="e8q-e9-aCP" id="HDv-GN-PHg"/>
                         <outlet property="secondlale" destination="wfG-mY-EMV" id="edR-2r-AC8"/>
                         <outlet property="toplable" destination="HfO-AV-EPm" id="TCg-76-Sdl"/>
                     </connections>
@@ -858,7 +867,6 @@ and wil not be shared with anyone.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="nQc-xI-RlE"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="name"/>
                             </textField>
@@ -910,6 +918,7 @@ and wil not be shared with anyone.</string>
         <image name="facebookButton" width="214" height="44"/>
         <image name="flamingoGroupCopy" width="319" height="320"/>
         <image name="googleButton" width="214" height="44"/>
+        <image name="landscapeLineArt" width="375" height="64"/>
         <image name="logoFloq" width="167" height="74"/>
     </resources>
 </document>

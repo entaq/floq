@@ -40,7 +40,7 @@ class AddCliqVC: UIViewController {
     private var infoImage:UIImageView = {
         let image = UIImageView(frame: .zero)
         image.contentMode = .scaleAspectFit
-        image.image = #imageLiteral(resourceName: "otherNearbyUsersC")
+        image.image = UIImage(named:"nearbyUsersCanFin")
         return image
     }()
     

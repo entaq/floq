@@ -15,6 +15,9 @@ protocol CliqDelegate:class {
 
 class CliqsCell: UICollectionViewCell {
     
+    
+    @IBOutlet weak var commentButt:UIImageView!
+    
     @IBOutlet weak var mavi1:AvatarImageView!
     @IBOutlet weak var mavi2:AvatarImageView!
     @IBOutlet weak var mavi3:AvatarImageView!
@@ -38,6 +41,7 @@ class CliqsCell: UICollectionViewCell {
     private var cliq:FLCliqItem?
     override func awakeFromNib() {
         super.awakeFromNib()
+        commentButt.awakeFromNib()
         commentStack.isHidden = true
         membersAvatarStack.isHidden = true
         likeStack.isHidden = true
@@ -50,7 +54,33 @@ class CliqsCell: UICollectionViewCell {
         imageview.contentMode = .scaleAspectFill
         imageview.layer.cornerRadius = 5.0
         imagevOverlay.layer.cornerRadius = 5.0
+        subscribeTo(subscription: .cliqHighlight, selector: #selector(updateCommentlables(_:)))
     }
+    
+    
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageview.image = nil
+        commentButt.image = UIImage(named: "comments_white")
+    }
+    
+    @objc func updateCommentlables(_ notif:Notification){
+        guard let id = notif.userInfo?[.info] as? String, let clid = cliq?.id else {return}
+        if let cl = CMTSubscription().fetchCliqSub(id){
+            
+            if id == clid{
+                let cmt = cl.count
+                commentlbl.text = "\(cmt)"
+                if CMTSubscription().canHighlightCliq(id: id){
+                    commentButt.image = #imageLiteral(resourceName: "comment_red")
+                }
+            }
+        }else{
+            commentlbl.text = "0"
+        }
+    }
+    
     
     func configureView(cliq:FLCliqItem, key:keys?) {
         if cliq.hasFlagged(){
@@ -89,9 +119,15 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.setTitle("Join", for: .normal)
         }
         commentStack.isHidden = false
-        if let cl = CMTSubscription().fetchCliqSub(cliq.id){
+        let cmts = CMTSubscription()
+        if let cl = cmts.fetchCliqSub(cliq.id){
             let cmt = cl.count
             commentlbl.text = "\(cmt)"
+            if cmts.canHighlightCliq(id: cl.cliqID!){
+                commentButt.image = #imageLiteral(resourceName: "comment_red")
+            }else{
+                commentButt.image = #imageLiteral(resourceName: "comments_white")
+            }
         }else{
             commentlbl.text = "0"
         }

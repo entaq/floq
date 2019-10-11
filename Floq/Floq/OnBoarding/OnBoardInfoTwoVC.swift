@@ -25,18 +25,18 @@ class OnBoardInfoTwoVC: UIViewController {
         
         switch handle {
         case .xmax_xr:
-            heightAnchor.constant = 450
+            heightAnchor.constant = 400
             return
         case .xs_x:
             heightAnchor.constant = 400
             return
         case .pluses:
-            heightAnchor.constant = 380
+            heightAnchor.constant = 320
             return
         case .eight_lower:
-            heightAnchor.constant = 300
+            heightAnchor.constant = 320
         default:
-            heightAnchor.constant = 220
+            heightAnchor.constant = 250
             return
         }
     }

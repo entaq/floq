@@ -33,11 +33,16 @@ class UserListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+
+    
     func configure(id:String,name:String, count:Int){
         namelable.text = name
         imgview.setAvatar(uid: id)
         countlabel.text = "\(count)"
-        blockLable.isHidden = (App.user != nil) ? App.user!.hasBlocked(user: id) : true
+        guard let user = App.user else {return}
+        if user.hasBlocked(user: id){
+            blockLable.isHidden = false
+        }
     }
 
 }

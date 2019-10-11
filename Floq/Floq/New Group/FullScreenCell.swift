@@ -45,6 +45,9 @@ class FullScreenCell: UICollectionViewCell {
     func setImage(_ photo:PhotoItem){
         
         imageView.sd_setImage(with: storageRef.child(photo.fileID), placeholderImage: nil)
+        //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: DispatchWorkItem(block: {
+            //print("Full Image Thumb sixe: \(self.imageView.image?.byteSize ?? 0)")
+        //}))
     }
     
     @objc func selectPhoto(){
