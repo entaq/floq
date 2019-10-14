@@ -10,19 +10,28 @@ import UIKit
 
 class UserListVC: UITableViewController {
 
-    var list:[Aliases.stuple]!
+    var list:[String:(String,Int)]!
     var cliq:FLCliqItem!
+    var users:[FLUser] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.backgroundColor = .groupTableViewBackground
           navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         title = "Cliq Details"
+        DataService.main.getFollowers(ids: cliq.followers) { users, err in
+            self.users = users
+            
+            self.tableView.reloadData()
+        }
         
     }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         App.setDomain(.UserList)
+        
     }
 
 
@@ -33,14 +42,15 @@ class UserListVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return list.count
+        return users.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier:String(describing: UserListCell.self), for: indexPath) as? UserListCell{
-            let tup = list[indexPath.row]
-            cell.configure(id: tup.0, name: tup.1, count:tup.2)
+            let user = users[indexPath.row]
+            let listed = list[user.uid]
+            cell.configure(id: user.uid, name: user.username, count:listed?.1 ?? 0)
             return cell
         }
 
@@ -55,7 +65,7 @@ class UserListVC: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if list.isEmpty{
+        if users.isEmpty{
            return "Cliq created on \(cliq.timestamp.toStringwith(.month_day_year)) by \(cliq.creatorName)"
         }
         return """
@@ -68,19 +78,19 @@ class UserListVC: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let item = list[indexPath.row]
-        if item.0 == UserDefaults.uid{return false}
+        let item = users[indexPath.row]
+        if item.uid == UserDefaults.uid{return false}
         // Return false if you do not want the specified item to be editable.
         return true
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let id = self.list[indexPath.row].0
+        let user = self.users[indexPath.row]
         let blockAction:UITableViewRowAction
-        if App.user != nil && App.user!.hasBlocked(user: id){
+        if App.user != nil && App.user!.hasBlocked(user: user.uid){
            blockAction = UITableViewRowAction(style: .normal, title: "Unblock") { (ac, indexpath) in
                 
-                DataService.main.unBlockUser(id: id, completion: { (success, err) in
+            DataService.main.unBlockUser(id: user.uid, completion: { (success, err) in
                     if success{
                         Subscription.main.post(suscription: .invalidatePhotos, object: nil)
                         tableView.reloadData()
@@ -94,9 +104,9 @@ class UserListVC: UITableViewController {
         }else{
             blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (ac, indexpath) in
                 
-                DataService.main.blockUser(id: id, completion: { (success, err) in
+                DataService.main.blockUser(id: user.uid, completion: { (success, err) in
                     if success{
-                        Subscription.main.post(suscription: .invalidatePhotos, object: id)
+                        Subscription.main.post(suscription: .invalidatePhotos, object: user.uid)
                         tableView.reloadData()
                     }else{
                         print("Error occurred blocking: \(err ?? "Unknown")")

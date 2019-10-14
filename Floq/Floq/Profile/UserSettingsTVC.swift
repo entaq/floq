@@ -64,9 +64,9 @@ class UserSettingsTVC: UITableViewController {
     }
     
     func launchEula(){
-        if let eula = storyboard?.instantiateViewController(withIdentifier: "\(EULAVC.self)") as? UINavigationController{
-            (eula.topViewController as? EULAVC)?.hidesOptions = true
-            present(eula, animated: true, completion: nil)
+        if let eula = storyboard?.instantiateViewController(withIdentifier: "EULAVC") as? EULAVC{
+            eula.hidesOptions = true
+            navigationController?.pushViewController(eula, animated: true)
         }
     }
     

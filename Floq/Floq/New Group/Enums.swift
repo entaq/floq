@@ -18,6 +18,7 @@ enum CompletionHandlers{
     typealias simpleBlock = ()->()
     typealias storage = (_ success:Bool, _ errorMessage:String?) -> ()
     typealias notification = (_ id:String?) -> ()
+    typealias followers = (_ followers:[FLUser], _ errorMessage:String?) -> ()
 }
 
 enum ImageSizes:Int{

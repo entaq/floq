@@ -144,6 +144,7 @@ class PhotoFullScreenVC: UIViewController {
         view.addSubview(hideCommentIcon)
         createLikeBar()
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         setup()
         addSwipeUpGesture()
         subscribeTo(subscription: .cmt_photo_notify, selector: #selector(listenForCommentAddedNotification(_:)))
@@ -478,13 +479,11 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
     
     func photoWasSelected() {
         if isSelected{
-            
+           
             UIView.animate(withDuration: 0.5) {
                 self.navigationController?.navigationBar.alpha = 1
                 if #available(iOS 13, *){
-                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
-                        //window.windowScene?.statusBarManager
-                    }
+                    
                 }else{
                     let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
                     statusBar?.alpha = 1
@@ -497,12 +496,10 @@ extension PhotoFullScreenVC:FullScreenScetionDelegate{
             }
         }else{
             UIView.animate(withDuration: 0.5) {
-                self.navigationController?.navigationBar.alpha = 0
                 
+                self.navigationController?.navigationBar.alpha = 0
                 if #available(iOS 13.0, *) {
-                    if let window = (UIApplication.shared.delegate as? AppDelegate)?.window{
-                         //window.windowScene?.statusBarManager
-                    }
+                    
                    
                 } else {
                     let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView

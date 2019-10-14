@@ -338,6 +338,27 @@ class DataService{
         userRef.document(UserDefaults.uid).updateData(["lastInteraction":FieldValue.serverTimestamp()])
     }
     
+    func getFollowers(ids:Set<String>, handler:@escaping CompletionHandlers.followers){
+        var users:[FLUser] = []
+        let group = DispatchGroup()
+        ids.forEach { id in
+            group.enter()
+            userRef.document(id).getDocument { snap, err in
+                if (snap != nil && snap!.exists){
+                    let user = FLUser(snap: snap!)
+                    if !App.user!.isBlocked(user: user.uid) {
+                        users.append(user)
+                    }
+                    
+                }
+                group.leave()
+            }
+        }
+        group.notify(queue: dispatch_queue_main_t.main) {
+            handler(users,nil)
+        }
+    }
+    
 //    func resizeImageForUpload(image:UIImage, error:inout NSError?)->ResultData{
 //        let encodeRequirement = EncodeRequirement(format: .jpeg, mode: .lossy, quality: 80)
 //        let transforms = Transformations()

@@ -78,11 +78,11 @@ class PhotosEngine:NSObject{
     
     
     
-    func getAllPhotoMetadata()->[Aliases.stuple]{
+    func getAllPhotoMetadata()->[String:(String,Int)]{
         var dictHolder:[String:(String,Int)] = [:]
         let all = _internalPhotoContainer.compactMap { item -> [String:String]?  in
             if let user = App.user{
-                if user.hasBlockedMe(user: item.userUid){
+                if user.isBlocked(user: item.userUid){
                     return nil
                 }else{
                     return [item.userUid:item.user]
@@ -98,11 +98,11 @@ class PhotosEngine:NSObject{
             dictHolder.updateValue((item.first!.value,count), forKey: item.first!.key)
         }
         
-        let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
-            return (value.key,value.value.0, value.value.1)
-            }
-        
-        return stup
+//        let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
+//            return (value.key,value.value.0, value.value.1)
+//            }
+//
+        return dictHolder
     }
     
     func getTrueIndex(of photo:PhotoItem)->Int{
