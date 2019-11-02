@@ -173,7 +173,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="logoFloq" translatesAutoresizingMaskIntoConstraints="NO" id="VMR-oF-j6v">
-                                        <rect key="frame" x="40" y="60" width="334" height="148"/>
+                                        <rect key="frame" x="123.5" y="60" width="167" height="74"/>
                                     </imageView>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt">
                                         <rect key="frame" x="187" y="826" width="40" height="40"/>
@@ -868,6 +868,7 @@ and wil not be shared with anyone.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="nQc-xI-RlE"/>
                                 </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="name"/>
                             </textField>
