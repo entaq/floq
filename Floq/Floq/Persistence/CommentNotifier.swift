@@ -11,7 +11,7 @@ import CoreData
 
 
 public struct CommentNotificationEngine{
-    /*
+    
     
     private let stack = CoreDataStack.stack
     
@@ -25,66 +25,64 @@ public struct CommentNotificationEngine{
             cliqsub!.lastUpdated = snap.getDate(.lastUpdated)
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.commentCount.rawValue || Fields. {continue}
-                    let photo = fetchPhotoSub(id: key)
-                    if photo != nil{
-                        let ts = Int64(Date().unix_ts)
-                        let count = Int64(val as! Int)
-                        photo?.lastTimestamp = ts
-                        if photo!.count != count{
-                            if App.currentDomain == .Comment{
-                              photo?.canBroadcast = false
-                            }else{
+                    if key == Fields.commentCount.rawValue || key == Fields.lastUpdated.rawValue {continue}
+                    if let values = val as? [String:Any]{
+                        let count = values[Fields.count.rawValue] as? Int ?? 0
+                        let lastUpdated = values[Fields.lastUpdated.rawValue] as? Date ?? Date(timeIntervalSince1970: 0)
+                        let user = values[Fields.userUID.rawValue] as? String ?? ""
+                        let photo = fetchPhotoSub(id: key)
+                        if photo != nil{
+                            photo!.userID = user
+                            photo!.lastUpdated = lastUpdated
+                            if photo!.count != count && count > 0{
                                 photo?.canBroadcast = true
-                                cliqsub?.broadcastCount += 1
+                                photo!.count = Int64(count)
+                                
                                 ids.append(key)
                             }
                             
-                        }
-                        
-                        photo?.count = count
-                        
-                    }else{
-                        let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
-                        photo.photoID = key
-                        photo.lastTimestamp = Int64(Date().unix_ts)
-                        photo.count = Int64(val as! Int)
-                        if App.currentDomain == .Comment{
-                            photo.canBroadcast = false
                         }else{
-                             photo.canBroadcast = true
-                            cliqsub?.broadcastCount += 1
+                            let photo = PhotoNotifier(context: stack.persistentContainer.viewContext)
+                            photo.photoID = key
+                            photo.lastUpdated = lastUpdated
+                            photo.count = Int64(count)
+                            photo.canBroadcast = (lastUpdated > UserDefaults.installTime && user != UserDefaults.uid) ? true : false
+                            photo.userID = user
                             ids.append(key)
+                            cliqsub?.addToPhotoNotifiers(photo)
                         }
-                        cliqsub?.addToPhotoSubscriptions(photo)
-                        
                     }
                 }
             }
             
         }else{
-            cliqsub  = CMTCliqSubscription(context: stack.persistentContainer.viewContext)
+            cliqsub  = CliqNotifier(context: stack.persistentContainer.viewContext)
             cliqsub!.cliqID = snap.documentID
             cliqsub!.count = snap.getInt64(.count)
-            cliqsub!.userID = userID
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.cliqComments.rawValue {continue}
-                    let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
-                    photo.photoID = key
-                    photo.lastTimestamp = Int64(Date().unix_ts)
-                    photo.count = Int64(val as! Int)
-                    photo.canBroadcast = true
-                    cliqsub!.addToPhotoSubscriptions(photo)
-                    ids.append(key)
+                    if key == Fields.commentCount.rawValue || key == Fields.lastUpdated.rawValue {continue}
+                    if let values = val as? [String:Any]{
+                        let count = values[Fields.count.rawValue] as? Int ?? 0
+                        let lastUpdated = values[Fields.lastUpdated.rawValue] as? Date ?? Date(timeIntervalSince1970: 0)
+                        let user = values[Fields.userUID.rawValue] as? String ?? ""
+                        let photo = PhotoNotifier(context: stack.persistentContainer.viewContext)
+                        photo.photoID = key
+                        photo.lastUpdated = lastUpdated
+                        photo.count = Int64(count)
+                        photo.canBroadcast = (lastUpdated > UserDefaults.installTime && user != UserDefaults.uid) ? true : false
+                        photo.userID = user
+                        ids.append(key)
+                        cliqsub?.addToPhotoNotifiers(photo)
+                        
+                    }
                 }
             }
         }
         stack.saveContext()
-        if userID != UserDefaults.uid{
-            ids.forEach{broadcast(id: $0)}
-            broadcastCliq(snap.documentID)
-        }
+        ids.forEach{broadcast(id: $0)}
+        broadcastCliq(snap.documentID)
+        
     }
     
     func fetchCliqSub(_ id:String)->CliqNotifier?{
@@ -128,12 +126,17 @@ public struct CommentNotificationEngine{
         return nil
     }
     
-    func canHiglightCliq(_ id:String) -> Bool{
-        guard let phs = fetchCliqSub(id)?.photoNotifiers as? Set<PhotoNotifier> else {return false}
-        for item in phs{
-            if item.canBroadcast{return true}
-        }
-        return false
+//    func canHiglightCliq(_ id:String) -> Bool{
+//        guard let phs = fetchCliqSub(id)?.photoNotifiers as? Set<PhotoNotifier> else {return false}
+//        for item in phs{
+//            if item.canBroadcast{return true}
+//        }
+//        return false
+//    }
+    
+    func canHighlight(photo:String)->Bool{
+        guard let photo = fetchPhotoSub(id: photo) else {return false}
+        return photo.canBroadcast
     }
     
     
@@ -147,7 +150,7 @@ public struct CommentNotificationEngine{
     
     func canHighlightCliq(id:String)-> Bool{
         guard let cliq = fetchCliqSub(id), let photos = cliq.photoNotifiers as? Set<PhotoNotifier> else {return false}
-        if cliq.userID == UserDefaults.uid {
+        if cliq.lastUpdated! < UserDefaults.installTime {
             return false
         }
         for photo in photos{
@@ -164,7 +167,7 @@ public struct CommentNotificationEngine{
         
     }
     
-    */
+    
     
     
 }
