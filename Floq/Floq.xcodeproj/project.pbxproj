@@ -10,6 +10,7 @@
 		38022760227D33F0004C3DF6 /* EULAVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802275F227D33F0004C3DF6 /* EULAVC.swift */; };
 		380FFE0D230B03A500DD306A /* PhotoNotication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380FFE0C230B03A500DD306A /* PhotoNotication.swift */; };
 		3815C8452302FA0800A8ABEC /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3815C8442302FA0800A8ABEC /* Alerts.swift */; };
+		382C2BDB23711F790061AA6E /* CommentNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C2BDA23711F790061AA6E /* CommentNotifier.swift */; };
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
 		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
@@ -23,6 +24,7 @@
 		3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */; };
 		3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
+		3889A44A23702DF300BD2B85 /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889A44923702DF300BD2B85 /* FloqUITests.swift */; };
 		388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51AB230575F700BF6BCE /* Geofirestore.swift */; };
 		388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B42305825000BF6BCE /* GFBase32Utils.m */; };
 		388D51C02305825000BF6BCE /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B62305825000BF6BCE /* GeoFire.m */; };
@@ -126,6 +128,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3889A44C23702DF300BD2B85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40AA29B21E8891E900200A3F;
+			remoteInfo = Floq;
+		};
 		38B02E1E2214744D00DEEC21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40AA29AB1E8891E900200A3F /* Project object */;
@@ -140,6 +149,7 @@
 		3802275F227D33F0004C3DF6 /* EULAVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAVC.swift; sourceTree = "<group>"; };
 		380FFE0C230B03A500DD306A /* PhotoNotication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoNotication.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Persistence/PhotoNotication.swift; sourceTree = "<group>"; };
 		3815C8442302FA0800A8ABEC /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = ../../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/Subscriptions/Alerts.swift; sourceTree = "<group>"; };
+		382C2BDA23711F790061AA6E /* CommentNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotifier.swift; sourceTree = "<group>"; };
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
 		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
@@ -153,6 +163,9 @@
 		3877A9FD22E3536A007FBCE3 /* LoadMoreCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCells.xib; sourceTree = "<group>"; };
 		3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlertView.swift; sourceTree = "<group>"; };
 		387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersVC.swift; sourceTree = "<group>"; };
+		3889A44723702DF300BD2B85 /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3889A44923702DF300BD2B85 /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
+		3889A44B23702DF300BD2B85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		388D51AB230575F700BF6BCE /* Geofirestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofirestore.swift; sourceTree = "<group>"; };
 		388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
 		388D51B02305824F00BF6BCE /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
@@ -273,6 +286,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3889A44423702DF300BD2B85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		38B02E162214744D00DEEC21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -308,6 +328,15 @@
 				3877A9F822E34177007FBCE3 /* Opereators.swift */,
 			);
 			path = AutoLayoutDSL;
+			sourceTree = "<group>";
+		};
+		3889A44823702DF300BD2B85 /* FloqUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3889A44923702DF300BD2B85 /* FloqUITests.swift */,
+				3889A44B23702DF300BD2B85 /* Info.plist */,
+			);
+			path = FloqUITests;
 			sourceTree = "<group>";
 		};
 		388D51AA230575E100BF6BCE /* Geofirestore */ = {
@@ -365,6 +394,7 @@
 				388D51FB2305D13900BF6BCE /* CoreDataStack.swift */,
 				380FFE0C230B03A500DD306A /* PhotoNotication.swift */,
 				38AA8D6C234FC33C000A7649 /* CommentNotifierService.swift */,
+				382C2BDA23711F790061AA6E /* CommentNotifier.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -453,6 +483,7 @@
 			children = (
 				40AA29B51E8891E900200A3F /* Floq */,
 				38B02E1A2214744D00DEEC21 /* FloqTests */,
+				3889A44823702DF300BD2B85 /* FloqUITests */,
 				40AA29B41E8891E900200A3F /* Products */,
 				DC970CADBD80A1EFC9A0A3CD /* Pods */,
 				C6C4421E77313EAEA9683D29 /* Frameworks */,
@@ -464,6 +495,7 @@
 			children = (
 				40AA29B31E8891E900200A3F /* Floq.app */,
 				38B02E192214744D00DEEC21 /* FloqTests.xctest */,
+				3889A44723702DF300BD2B85 /* FloqUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -716,6 +748,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3889A44623702DF300BD2B85 /* FloqUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3889A45023702DF300BD2B85 /* Build configuration list for PBXNativeTarget "FloqUITests" */;
+			buildPhases = (
+				3889A44323702DF300BD2B85 /* Sources */,
+				3889A44423702DF300BD2B85 /* Frameworks */,
+				3889A44523702DF300BD2B85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3889A44D23702DF300BD2B85 /* PBXTargetDependency */,
+			);
+			name = FloqUITests;
+			productName = FloqUITests;
+			productReference = 3889A44723702DF300BD2B85 /* FloqUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		38B02E182214744D00DEEC21 /* FloqTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */;
@@ -761,10 +811,16 @@
 		40AA29AB1E8891E900200A3F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Arun Nagarajan";
 				TargetAttributes = {
+					3889A44623702DF300BD2B85 = {
+						CreatedOnToolsVersion = 11.0;
+						DevelopmentTeam = MB46J93Q7Z;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 40AA29B21E8891E900200A3F;
+					};
 					38B02E182214744D00DEEC21 = {
 						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
@@ -831,11 +887,19 @@
 			targets = (
 				40AA29B21E8891E900200A3F /* Floq */,
 				38B02E182214744D00DEEC21 /* FloqTests */,
+				3889A44623702DF300BD2B85 /* FloqUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3889A44523702DF300BD2B85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		38B02E172214744D00DEEC21 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -982,6 +1046,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3889A44323702DF300BD2B85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3889A44A23702DF300BD2B85 /* FloqUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		38B02E152214744D00DEEC21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1054,6 +1126,7 @@
 				C4A2A42821A22B37006DFE6E /* FLUser.swift in Sources */,
 				C4D1E08C21D794D400C5ED9A /* NearbyCliqsVC.swift in Sources */,
 				C4D1E09321D8AE4100C5ED9A /* FoundationTypes+Extensions.swift in Sources */,
+				382C2BDB23711F790061AA6E /* CommentNotifier.swift in Sources */,
 				3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */,
 				38CFAB162288B8AD00D40330 /* FloatyWindow.swift in Sources */,
 				C434C51521DD2BA0003333A1 /* UserListVC.swift in Sources */,
@@ -1102,6 +1175,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3889A44D23702DF300BD2B85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40AA29B21E8891E900200A3F /* Floq */;
+			targetProxy = 3889A44C23702DF300BD2B85 /* PBXContainerItemProxy */;
+		};
 		38B02E1F2214744D00DEEC21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 40AA29B21E8891E900200A3F /* Floq */;
@@ -1129,6 +1207,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3889A44E23702DF300BD2B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB46J93Q7Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FloqUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Floq;
+			};
+			name = Debug;
+		};
+		3889A44F23702DF300BD2B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB46J93Q7Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FloqUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesworth.FloqUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Floq;
+			};
+			name = Release;
+		};
 		38B02E212214744D00DEEC21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1352,6 +1475,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3889A45023702DF300BD2B85 /* Build configuration list for PBXNativeTarget "FloqUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3889A44E23702DF300BD2B85 /* Debug */,
+				3889A44F23702DF300BD2B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		38B02E202214744D00DEEC21 /* Build configuration list for PBXNativeTarget "FloqTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -45,7 +45,7 @@ class OnBoardInfoTwoVC: UIViewController {
 
     @IBAction func googleSignInPressed(_ sender: UIButton) {
         if let eulavc = storyboard?.instantiateViewController(withIdentifier: "EULAVC1") as? UINavigationController{
-            if let eu = eulavc.viewControllers.first as? EULAVC{
+             if let eu = eulavc.viewControllers.first as? EULAVC{
                 eu.signInMethod = .google
                 eulavc.modalPresentationStyle = .fullScreen
                 present(eulavc, animated: true, completion: nil)

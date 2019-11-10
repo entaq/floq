@@ -57,7 +57,7 @@ extension Comment{
         private  let reference:String?
         private  let body:String
         private  let commentor:String
-        private  let commentorID:String
+        public  let commentorID:String
         public  let photoID:String
         public  let cliqID:String
         

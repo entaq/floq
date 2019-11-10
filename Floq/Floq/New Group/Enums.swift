@@ -55,6 +55,7 @@ enum References:String{
     case requestLikeShard = "LikesShard"
     case comment = "FLComments"
     case commentSubscription = "FLCommentSubscriptions"
+    case commentNotifier = "FLCliqCommentSubscriptions"
     
     
 }
@@ -99,6 +100,8 @@ public enum Fields:String{
     case  photoID
     case count
     case ts
+    case commentCount
+    case lastUpdated
 }
 
 public enum FLNotification:String{

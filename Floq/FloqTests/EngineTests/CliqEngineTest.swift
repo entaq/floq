@@ -23,9 +23,11 @@ class CliqEngineTest: XCTestCase {
     }
 
     func test_getMyCliqsLimitTo20() {
-        let expect = expectation(description: "queryMyCLiqs")
+        let myCliqs = engine
+            //let expect = self.expectation(for: <#T##NSPredicate#>, evaluatedWith: <#T##Any?#>, handler: <#T##XCTNSPredicateExpectation.Handler?##XCTNSPredicateExpectation.Handler?##() -> Bool#>)
         
         engine.queryForMyCliqs()
+        XCTWaiter.wait(for: [expect], timeout: 10)
         
         
         // This is an example of a functional test case.

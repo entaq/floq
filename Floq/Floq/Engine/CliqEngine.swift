@@ -29,7 +29,7 @@ class CliqEngine:NSObject{
     public private (set) var activeCliq:FLCliqItem?
     public private (set) var nearbyCliqs:[FLCliqItem] = []
     private var core:CoreEngine!
-    public private (set)  var myCliqs:[FLCliqItem] = []
+    public private (set)  var  myCliqs:[FLCliqItem] = []
     public private (set) var nearbyIds:NSMutableOrderedSet = []
     private var geoPoint:GeoPoint?
     private var lastSnapshot:DocumentSnapshot?

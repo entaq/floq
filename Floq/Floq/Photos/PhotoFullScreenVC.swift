@@ -627,7 +627,9 @@ extension PhotoFullScreenVC{
     func checkNotifiable(id:String){
         let notifier = CMTSubscription()
         if let notif = notifier.fetchPhotoSub(id:id){
-            commentIcon.broadcast = notif.canBroadcast
+            if notif.parentCliqSub?.userID != UserDefaults.uid {
+                commentIcon.broadcast = notif.canBroadcast
+            }
         }else{
             commentIcon.broadcast = false
         }

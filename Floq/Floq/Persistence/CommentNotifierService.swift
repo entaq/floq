@@ -10,6 +10,8 @@ import CoreData
 
 public class CommentNotifier{
     
+    /*
+    
     static let main = CommentNotifier()
     private let stack = CoreDataStack.stack
     
@@ -117,6 +119,6 @@ public class CommentNotifier{
         photo.cliqNote?.broadcastCount -= 1
         stack.saveContext()
     }
-    
+    */
     
 }
