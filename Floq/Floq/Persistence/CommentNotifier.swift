@@ -21,11 +21,11 @@ public struct CommentNotificationEngine{
         let id = snap.documentID
         cliqsub = fetchCliqSub(id)
         if (cliqsub != nil){
-            cliqsub!.count = snap.getInt64(.commentCount)
+            cliqsub!.count = snap.getInt64(.cliqComments)
             cliqsub!.lastUpdated = snap.getDate(.lastUpdated)
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.commentCount.rawValue || key == Fields.lastUpdated.rawValue {continue}
+                    if key == Fields.cliqComments.rawValue || key == Fields.lastUpdated.rawValue {continue}
                     if let values = val as? [String:Any]{
                         let count = values[Fields.count.rawValue] as? Int ?? 0
                         let lastUpdated = values[Fields.lastUpdated.rawValue] as? Date ?? Date(timeIntervalSince1970: 0)
@@ -35,7 +35,7 @@ public struct CommentNotificationEngine{
                             photo!.userID = user
                             photo!.lastUpdated = lastUpdated
                             if photo!.count != count && count > 0{
-                                photo?.canBroadcast = true
+                                photo?.canBroadcast = (lastUpdated > UserDefaults.installTime && user != UserDefaults.uid) ? true : false
                                 photo!.count = Int64(count)
                                 
                                 ids.append(key)
@@ -58,10 +58,11 @@ public struct CommentNotificationEngine{
         }else{
             cliqsub  = CliqNotifier(context: stack.persistentContainer.viewContext)
             cliqsub!.cliqID = snap.documentID
-            cliqsub!.count = snap.getInt64(.count)
+            cliqsub!.count = snap.getInt64(.cliqComments)
+            cliqsub!.lastUpdated = snap.getDate(.lastUpdated)
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.commentCount.rawValue || key == Fields.lastUpdated.rawValue {continue}
+                    if key == Fields.cliqComments.rawValue || key == Fields.lastUpdated.rawValue {continue}
                     if let values = val as? [String:Any]{
                         let count = values[Fields.count.rawValue] as? Int ?? 0
                         let lastUpdated = values[Fields.lastUpdated.rawValue] as? Date ?? Date(timeIntervalSince1970: 0)

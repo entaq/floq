@@ -17,7 +17,6 @@ class CliqsCell: UICollectionViewCell {
     
     
     @IBOutlet weak var commentButt:UIImageView!
-    
     @IBOutlet weak var mavi1:AvatarImageView!
     @IBOutlet weak var mavi2:AvatarImageView!
     @IBOutlet weak var mavi3:AvatarImageView!
@@ -39,6 +38,8 @@ class CliqsCell: UICollectionViewCell {
     @IBOutlet weak var imagevOverlay: UIView!
     weak var delegate:CliqDelegate?
     private var cliq:FLCliqItem?
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         commentButt.awakeFromNib()
@@ -119,7 +120,7 @@ class CliqsCell: UICollectionViewCell {
             joinbutt.setTitle("Join", for: .normal)
         }
         commentStack.isHidden = false
-        let cmts = CMTSubscription()
+        let cmts = CommentNotificationEngine()
         if let cl = cmts.fetchCliqSub(cliq.id){
             let cmt = cl.count
             commentlbl.text = "\(cmt)"

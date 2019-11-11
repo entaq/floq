@@ -97,13 +97,13 @@ class CommentEngine:NSObject{
             }
             if doc.exists{
                 guard var data = doc.data() else {return nil}
-                let commentCount = doc.getInt(.commentCount)
+                let commentCount = doc.getInt(.cliqComments)
                 var photoMap = doc.getDictionary(comment.photoID)
                 let count = photoMap[Fields.count.rawValue] as? Int ?? 0
                 photoMap[Fields.count.rawValue] = count + 1
                 photoMap[Fields.lastUpdated.rawValue] = FieldValue.serverTimestamp()
                 photoMap[Fields.userUID.rawValue] = comment.commentorID
-                data[Fields.commentCount.rawValue] = commentCount + 1
+                data[Fields.cliqComments.rawValue] = commentCount + 1
                 data[Fields.lastUpdated.rawValue] = FieldValue.serverTimestamp()
                 data[comment.photoID] = photoMap
                 transaction.updateData(data, forDocument: notifierRef)
@@ -111,7 +111,7 @@ class CommentEngine:NSObject{
                 let photoMap = [Fields.count.rawValue: 1,
                                 Fields.lastUpdated.rawValue : FieldValue.serverTimestamp(),
                                 Fields.userUID.rawValue : comment.commentorID] as [String : Any]
-                                let data = [Fields.commentCount.rawValue : 1,
+                                let data = [Fields.cliqComments.rawValue : 1,
                                             Fields.lastUpdated.rawValue : FieldValue.serverTimestamp(),
                                             comment.photoID : photoMap] as [String : Any]
                 transaction.setData(data, forDocument: notifierRef, merge: true)

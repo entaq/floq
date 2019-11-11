@@ -100,7 +100,7 @@ public enum Fields:String{
     case  photoID
     case count
     case ts
-    case commentCount
+    
     case lastUpdated
 }
 

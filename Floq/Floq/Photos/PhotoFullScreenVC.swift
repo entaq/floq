@@ -207,7 +207,7 @@ class PhotoFullScreenVC: UIViewController {
     @objc func commentTapped(_ sender: UIButton){
         //showCommentAnimation()
         if currentPhotoID != nil && commentIcon.broadcast{
-           CMTSubscription().endHightlightFor(currentPhotoID!)
+           CommentNotificationEngine().endHightlightFor(currentPhotoID!)
         }
         
         guard let id = currentPhotoID else {return}
@@ -612,10 +612,7 @@ extension PhotoFullScreenVC{
     @objc func listenForCMTsubscription(_ notification:Notification){
         guard let id = notification.userInfo?[.info] as? String, let photoID = currentPhotoID else {return}
         if id == cliqID{
-            let photo = CMTSubscription().fetchPhotoSub(id: photoID)
-            if photo?.canBroadcast ?? false{
-                commentIcon.broadcast = true
-            }
+            commentIcon.broadcast = CommentNotificationEngine().canHighlight(photo: photoID)
         }
     }
     
@@ -625,14 +622,8 @@ extension PhotoFullScreenVC{
     }
     
     func checkNotifiable(id:String){
-        let notifier = CMTSubscription()
-        if let notif = notifier.fetchPhotoSub(id:id){
-            if notif.parentCliqSub?.userID != UserDefaults.uid {
-                commentIcon.broadcast = notif.canBroadcast
-            }
-        }else{
-            commentIcon.broadcast = false
-        }
+        let notifier = CommentNotificationEngine()
+        commentIcon.broadcast = notifier.canHighlight(photo: id)
     }
 }
 
