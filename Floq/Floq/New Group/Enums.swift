@@ -30,7 +30,7 @@ enum ImageSizes:Int{
 }
 
 enum Update{
-    static let current = 12
+    static let current = 14
     static let leastSupport = 9
     
 }
