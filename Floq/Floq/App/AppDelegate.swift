@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        UserDefaults.installed()
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance()?.delegate = self
         UNUserNotificationCenter.current().delegate = self

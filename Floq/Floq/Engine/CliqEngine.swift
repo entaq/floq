@@ -29,7 +29,7 @@ class CliqEngine:NSObject{
     public private (set) var activeCliq:FLCliqItem?
     public private (set) var nearbyCliqs:[FLCliqItem] = []
     private var core:CoreEngine!
-    public private (set)  var myCliqs:[FLCliqItem] = []
+    public private (set)  var  myCliqs:[FLCliqItem] = []
     public private (set) var nearbyIds:NSMutableOrderedSet = []
     private var geoPoint:GeoPoint?
     private var lastSnapshot:DocumentSnapshot?
@@ -324,11 +324,11 @@ extension CliqEngine{
         let ids = myCliqs.compactMap{$0.id}
         for id in ids{
             if cmtListeners[id] == nil{
-                let l = Firestore.database.collection(.commentSubscription)
+                let l = Firestore.database.collection(.commentNotifier)
                     .document(id).addSnapshotListener { (snap, error) in
                     guard let snap = snap else {return}
                     if snap.exists{
-                        let sub = CMTSubscription()
+                        let sub = CommentNotificationEngine()
                         sub.save(snap)
                     }
                     

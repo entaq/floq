@@ -51,7 +51,7 @@
             skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3872F6392214874C00AC547E"
+               BlueprintIdentifier = "3889A44623702DF300BD2B85"
                BuildableName = "FloqUITests.xctest"
                BlueprintName = "FloqUITests"
                ReferencedContainer = "container:Floq.xcodeproj">

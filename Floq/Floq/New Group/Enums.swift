@@ -18,6 +18,7 @@ enum CompletionHandlers{
     typealias simpleBlock = ()->()
     typealias storage = (_ success:Bool, _ errorMessage:String?) -> ()
     typealias notification = (_ id:String?) -> ()
+    typealias followers = (_ followers:[FLUser], _ errorMessage:String?) -> ()
 }
 
 enum ImageSizes:Int{
@@ -29,7 +30,7 @@ enum ImageSizes:Int{
 }
 
 enum Update{
-    static let current = 12
+    static let current = 14
     static let leastSupport = 9
     
 }
@@ -54,6 +55,7 @@ enum References:String{
     case requestLikeShard = "LikesShard"
     case comment = "FLComments"
     case commentSubscription = "FLCommentSubscriptions"
+    case commentNotifier = "FLCliqCommentSubscriptions"
     
     
 }
@@ -98,6 +100,8 @@ public enum Fields:String{
     case  photoID
     case count
     case ts
+    
+    case lastUpdated
 }
 
 public enum FLNotification:String{

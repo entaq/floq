@@ -106,12 +106,25 @@ extension UserDefaults{
         return standard.bool(forKey: "updatedtoken")
     }
     
+    
+    
     public class var username:String{
         return standard.string(forKey: Fields.username.rawValue)!
     }
     
     class func set(_ value:Any, for field:Fields){
         standard.set(value, forKey: field.rawValue)
+    }
+    
+    class func installed(){
+        if standard.value(forKey: "installd") == nil {
+           standard.set(Date(), forKey: "installd")
+        }
+        
+    }
+    
+    public class var installTime:Date{
+        return standard.value(forKey: "installd") as? Date ?? Date()
     }
     
 //    class var getlastUpdate:Double{

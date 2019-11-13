@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19A578c" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CliqNotifier" representedClassName="CliqNotifier" syncable="YES" codeGenerationType="class">
+        <attribute name="cliqID" attributeType="String"/>
+        <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="photoNotifiers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoNotifier" inverseName="parentCliq" inverseEntity="PhotoNotifier"/>
+    </entity>
     <entity name="CMTCliqSubscription" representedClassName="CMTCliqSubscription" syncable="YES" codeGenerationType="class">
         <attribute name="broadcastCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cliqID" attributeType="String"/>
         <attribute name="count" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userID" optional="YES" attributeType="String" defaultValueString=""/>
         <relationship name="photoSubscriptions" toMany="YES" deletionRule="Nullify" destinationEntity="CMTPhotoSubscription" inverseName="parentCliqSub" inverseEntity="CMTPhotoSubscription"/>
     </entity>
     <entity name="CMTPhotoNotication" representedClassName="CMTPhotoNotication" syncable="YES" codeGenerationType="class">
@@ -26,9 +34,17 @@
     </entity>
     <entity name="CommentPhotoNote" representedClassName="CommentPhotoNote" syncable="YES" codeGenerationType="class">
         <attribute name="canBroadcast" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="lastupdated" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastupdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="photoID" attributeType="String"/>
         <relationship name="cliqNote" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CommentCliqNote" inverseName="photoNotes" inverseEntity="CommentCliqNote"/>
+    </entity>
+    <entity name="PhotoNotifier" representedClassName="PhotoNotifier" syncable="YES" codeGenerationType="class">
+        <attribute name="canBroadcast" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="photoID" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
+        <relationship name="parentCliq" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CliqNotifier" inverseName="photoNotifiers" inverseEntity="CliqNotifier"/>
     </entity>
     <entity name="ThumbnailImage" representedClassName="ThumbnailImage" syncable="YES" codeGenerationType="class">
         <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
@@ -36,11 +52,13 @@
         <attribute name="ref" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CMTCliqSubscription" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="CMTCliqSubscription" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="CMTPhotoNotication" positionX="-63" positionY="45" width="128" height="88"/>
-        <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="118"/>
-        <element name="ThumbnailImage" positionX="-63" positionY="45" width="128" height="88"/>
+        <element name="CMTPhotoSubscription" positionX="-54" positionY="9" width="128" height="28"/>
         <element name="CommentCliqNote" positionX="-54" positionY="54" width="128" height="103"/>
         <element name="CommentPhotoNote" positionX="-45" positionY="63" width="128" height="103"/>
+        <element name="ThumbnailImage" positionX="-63" positionY="45" width="128" height="88"/>
+        <element name="CliqNotifier" positionX="-63" positionY="63" width="128" height="103"/>
+        <element name="PhotoNotifier" positionX="-54" positionY="72" width="128" height="133"/>
     </elements>
 </model>

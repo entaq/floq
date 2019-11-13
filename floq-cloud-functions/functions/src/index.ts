@@ -25,6 +25,8 @@ import {
   FIELD_PHOTOID,
   FIELD_cliqCount
 } from "./Constants";
+// tslint:disable-next-line:no-implicit-dependencies
+import { FieldValue } from "@google-cloud/firestore";
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -411,3 +413,60 @@ export const alignOldPhotoSchematoNew = functions.firestore
       return Promise.reject(e);
     }
   });
+
+export const copyOldCommentSubs = functions.https.onRequest(
+  async (request, response) => {
+    const count = "cliqComments";
+    const batch = store.batch();
+
+    try {
+      const querySnap = await store.collection("FLCommentSubscriptions").get();
+
+      querySnap.docs.forEach(doc => {
+        const newData = {};
+        const id = doc.id;
+        const data = doc.data();
+        newData[count] = data.cliqComments;
+        newData["lastUpdated"] = FieldValue.serverTimestamp();
+        for (const key of Object.keys(data)) {
+          if (key != "cliqComments") {
+            const photocount = data[key];
+            const photodata = {
+              count: photocount,
+              lastUpdated: FieldValue.serverTimestamp(),
+              userID: ""
+            };
+            newData[key] = photodata;
+          }
+        }
+
+        const ref = store.doc(`FLCliqCommentSubscriptions/${id}`);
+        console.log("=============");
+        console.log(newData);
+        console.log(ref);
+
+        batch.set(ref, newData, { merge: true });
+      });
+
+      const msg = batch.commit();
+      response.status(200).send(msg);
+    } catch (e) {
+      console.log(`Error occurred with sig: ${e}`);
+      response.status(504).send(e);
+    }
+  }
+);
+
+/**
+   * 
+   * 1
+(number)
+595006068242
+2
+595006591726
+2
+595084033861
+2
+cliqComments
+7
+   */

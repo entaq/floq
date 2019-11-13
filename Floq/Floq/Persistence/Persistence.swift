@@ -18,19 +18,22 @@ public struct CMTSubscription{
         var ids:[String] = []
         var cliqsub:CMTCliqSubscription?
         let id = snap.documentID
+        let userID = snap.getString(.userUID)
         cliqsub = fetchCliqSub(id)
         if (cliqsub != nil){
             cliqsub!.count = snap.getInt64(.cliqComments)
+            cliqsub!.userID = userID
+            cliqsub!.lastUpdated = snap.getDate(.lastUpdated)
             if let photos = snap.data(){
                 for (key, val) in photos{
-                    if key == Fields.cliqComments.rawValue {continue}
+                    if key == Fields.cliqComments.rawValue || key == Fields.lastUpdated.rawValue || key == Fields.userUID.rawValue {continue}
                     let photo = fetchPhotoSub(id: key)
                     if photo != nil{
                         let ts = Int64(Date().unix_ts)
                         let count = Int64(val as! Int)
                         photo?.lastTimestamp = ts
                         if photo!.count != count{
-                            if App.currentDomain == .Comment{
+                            if userID == UserDefaults.uid{
                               photo?.canBroadcast = false
                             }else{
                                 photo?.canBroadcast = true
@@ -46,6 +49,7 @@ public struct CMTSubscription{
                         let photo = CMTPhotoSubscription(context: stack.persistentContainer.viewContext)
                         photo.photoID = key
                         photo.lastTimestamp = Int64(Date().unix_ts)
+                        
                         photo.count = Int64(val as! Int)
                         if App.currentDomain == .Comment{
                             photo.canBroadcast = false
@@ -64,7 +68,10 @@ public struct CMTSubscription{
             cliqsub  = CMTCliqSubscription(context: stack.persistentContainer.viewContext)
             cliqsub!.cliqID = snap.documentID
             cliqsub!.count = snap.getInt64(.count)
-            
+            cliqsub!.userID = userID
+            let installTime = UserDefaults.installTime
+            let lastUpdated = snap.getDate(.lastUpdated)
+            cliqsub!.lastUpdated = lastUpdated
             if let photos = snap.data(){
                 for (key, val) in photos{
                     if key == Fields.cliqComments.rawValue {continue}
@@ -72,15 +79,19 @@ public struct CMTSubscription{
                     photo.photoID = key
                     photo.lastTimestamp = Int64(Date().unix_ts)
                     photo.count = Int64(val as! Int)
-                    photo.canBroadcast = true
+                    if (lastUpdated > installTime){
+                        photo.canBroadcast = true
+                    }
                     cliqsub!.addToPhotoSubscriptions(photo)
                     ids.append(key)
                 }
             }
         }
         stack.saveContext()
-        ids.forEach{broadcast(id: $0)}
-        broadcastCliq(snap.documentID)
+        if userID != UserDefaults.uid{
+            ids.forEach{broadcast(id: $0)}
+            broadcastCliq(snap.documentID)
+        }
     }
     
     func fetchCliqSub(_ id:String)->CMTCliqSubscription?{
@@ -142,8 +153,9 @@ public struct CMTSubscription{
     }
     
     func canHighlightCliq(id:String)-> Bool{
-        guard let cliq = fetchCliqSub(id)?.photoSubscriptions as? Set<CMTPhotoSubscription> else {return false}
-        for photo in cliq{
+        guard let cliq = fetchCliqSub(id), let photos = cliq.photoSubscriptions as? Set<CMTPhotoSubscription> else {return false}
+        
+        for photo in photos{
             if photo.canBroadcast{return true}
         }
         return false

@@ -10,7 +10,7 @@
         <!--End User License Agreement-->
         <scene sceneID="IgD-Xi-PJ3">
             <objects>
-                <viewController id="Y1j-05-2EA" customClass="EULAVC" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EULAVC" id="Y1j-05-2EA" customClass="EULAVC" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="prJ-KE-fr2"/>
                         <viewControllerLayoutGuide type="bottom" id="0Ii-m9-77Q"/>
@@ -21,7 +21,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8vk-EY-uwZ">
                                 <rect key="frame" x="20" y="104" width="374" height="702"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.98343970070422537" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">FLOQ App End User License Agreement
 
 This End User License Agreement (“Agreement”) is between you and FLOQ and governs use of this app made available through the Apple App Store. By installing the FLOQ App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the FLOQ App.
@@ -45,6 +45,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
 8. Product Claims FLOQ, not Apple, is responsible for addressing any claims by you relating to the FLOQ App or use of it, including, but not limited to: (i) any product liability claim; (ii) any claim that the FLOQ App fails to conform to any applicable legal or regulatory requirement; and (iii) any claim arising under consumer protection or similar legislation. Nothing in this Agreement shall be deemed an admission that you may have such claims.
 
 9. Third Party Intellectual Property Claims FLOQ shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the FLOQ App. To the extent FLOQ is required to provide indemnification by applicable law, FLOQ, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the FLOQ App or your use of it infringes any third party intellectual property right.</string>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -130,7 +131,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PiK-P3-Isf" firstAttribute="top" secondItem="8vk-EY-uwZ" secondAttribute="bottom" constant="10" id="AQD-wV-NOT"/>
                             <constraint firstItem="xBu-wu-BqD" firstAttribute="centerY" secondItem="eMV-Vt-2z0" secondAttribute="centerY" id="BHG-Qp-Ac5"/>
@@ -618,13 +619,13 @@ account.  It’s fast, easy, and secure</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Os-el-rn2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserListCell" id="0po-f2-7D3" customClass="UserListCell" customModule="Floq" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserListCell" id="0po-f2-7D3" customClass="UserListCell" customModule="Floq" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0po-f2-7D3" id="1YO-Zr-un6">
-                                    <rect key="frame" x="0.0" y="0.0" width="382.5" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shadrach" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HzX-nN-iOl">
@@ -641,13 +642,13 @@ account.  It’s fast, easy, and secure</string>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGg-zB-iXM">
-                                            <rect key="frame" x="371.5" y="11.5" width="11" height="21"/>
+                                            <rect key="frame" x="391" y="11.5" width="11" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6NS-nY-aiW">
-                                            <rect key="frame" x="307" y="14" width="48.5" height="16"/>
+                                            <rect key="frame" x="326.5" y="14" width="48.5" height="16"/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                                             <color key="textColor" red="0.30588235289999999" green="0.80392156859999997" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -661,7 +662,7 @@ account.  It’s fast, easy, and secure</string>
                                         <constraint firstItem="WS9-e4-2bq" firstAttribute="centerY" secondItem="1YO-Zr-un6" secondAttribute="centerY" id="kz3-OT-03c"/>
                                         <constraint firstItem="HzX-nN-iOl" firstAttribute="centerY" secondItem="1YO-Zr-un6" secondAttribute="centerY" id="w3P-3R-i6Y"/>
                                         <constraint firstItem="HzX-nN-iOl" firstAttribute="leading" secondItem="WS9-e4-2bq" secondAttribute="trailing" constant="12" id="wNh-JY-nJP"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZGg-zB-iXM" secondAttribute="trailing" id="zIy-Sj-2Ip"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZGg-zB-iXM" secondAttribute="trailing" constant="12" id="zIy-Sj-2Ip"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -867,6 +868,7 @@ and wil not be shared with anyone.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="nQc-xI-RlE"/>
                                 </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="name"/>
                             </textField>
@@ -894,7 +896,7 @@ and wil not be shared with anyone.</string>
         <!--Navigation Controller-->
         <scene sceneID="noW-NP-gyO">
             <objects>
-                <navigationController storyboardIdentifier="EULAVC" automaticallyAdjustsScrollViewInsets="NO" id="hHs-to-544" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="EULAVC1" automaticallyAdjustsScrollViewInsets="NO" id="hHs-to-544" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="FLK-r5-O1M">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

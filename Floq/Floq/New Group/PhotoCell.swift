@@ -14,7 +14,7 @@ class PhotoCell: UICollectionViewCell {
 
     @IBOutlet weak var alertIcon: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    let notifier = CMTSubscription()
+    let notifier = CommentNotificationEngine()
     private var uuid = UUID()
     private var photoID:String?
     override func awakeFromNib() {
@@ -76,9 +76,9 @@ class PhotoCell: UICollectionViewCell {
     
     
     func notify(_ id:String){
-        let notify = notifier.fetchPhotoSub(id: id)
+       
         
-        if notify?.canBroadcast ?? false{
+        if notifier.canHighlight(photo: id){
             alertIcon.isHidden = false
         }else{
             alertIcon.isHidden = true

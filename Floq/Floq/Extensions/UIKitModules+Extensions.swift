@@ -140,6 +140,15 @@ extension UIImage{
     }
     
     
+    func fixImageOrientation()->UIImage?{
+        if imageOrientation == .up {return self}
+        UIGraphicsBeginImageContext(size)
+        draw(in: CGRect(origin: .zero, size: size))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
 }
 
 extension UIStoryboard{

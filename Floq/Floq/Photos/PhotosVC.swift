@@ -156,13 +156,10 @@ final class PhotosVC: UIViewController {
             for asset in assets {
                 //var error:NSError?
                 
-                asset.fetchOriginalImage(options: nil, completeBlock: { (data, info) in
+                asset.fetchOriginalImage(options: nil, completeBlock: { (image, info) in
                     let filePath = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
                     // [START uploadimage]
-                    
-                    //print("This is original image Sixe: \(data?.jpegData(compressionQuality: 1)?.count ?? 0)")
-                    //let encdata = DataService.main.resizeImageForUpload(image: data!, error: &error)
-                    //print("This is transcoded image Sixe: \(encdata.data?.count ?? 0)")
+                    let fixedImage = image?.fixImageOrientation()
                     let newMetadata = StorageMetadata()
                     let userName =  UserDefaults.username
                     
@@ -172,18 +169,11 @@ final class PhotosVC: UIViewController {
                         Fields.userUID.rawValue: Auth.auth().currentUser!.uid,
                     ]
                     let fid = self.cliq?.id ?? self.cliqID
+                    if let data = fixedImage?.dataFromJPEG(){
+                        self.uploadImage(filePath: filePath, data: data, id: fid!, newMetadata: newMetadata,indicator: activityIndicator)
+                    }
                     
-                    self.photoEngine.storeImage(filePath: filePath, data: data!.dataFromJPEG()!, id: fid!, newMetadata: newMetadata, onFinish: { (suc, err) in
-                        if let err = err{
-                            self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
-                        }else{
-                            activityIndicator.removeFromSuperview()
-                            self.present(UIAlertController.createDefaultAlert("SUCCESS", "Photo succesfully added to cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
-                        }
-                    })
-                    // [END uploadimage]
                 })
-                
             }
         }
         
@@ -194,6 +184,18 @@ final class PhotosVC: UIViewController {
     
     deinit {
         unsubscribe()
+    }
+    
+    
+    func uploadImage(filePath:String,data:Data,id:String,newMetadata:StorageMetadata, indicator:LoaderView){
+        self.photoEngine.storeImage(filePath: filePath, data: data, id: id, newMetadata: newMetadata, onFinish: { (suc, err) in
+            if let err = err{
+                self.present(UIAlertController.createDefaultAlert("OOPS", err,.alert, "OK",.default, nil), animated: true, completion: nil)
+            }else{
+                indicator.removeFromSuperview()
+                self.present(UIAlertController.createDefaultAlert("SUCCESS", "Photo succesfully added to cliq",.alert, "OK",.default, nil), animated: true, completion: nil)
+            }
+        })
     }
     
 }
