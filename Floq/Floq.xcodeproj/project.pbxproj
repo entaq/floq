@@ -25,6 +25,7 @@
 		3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877AA0022E361A4007FBCE3 /* SmartAlertView.swift */; };
 		387F84FA228AC7D700FC3226 /* BlockedUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F84F9228AC7D700FC3226 /* BlockedUsersVC.swift */; };
 		3889A44A23702DF300BD2B85 /* FloqUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889A44923702DF300BD2B85 /* FloqUITests.swift */; };
+		388AF4B023BAF57A00B4AE56 /* OnBoardingControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AF4AF23BAF57A00B4AE56 /* OnBoardingControllers.swift */; };
 		388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D51AB230575F700BF6BCE /* Geofirestore.swift */; };
 		388D51BF2305825000BF6BCE /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B42305825000BF6BCE /* GFBase32Utils.m */; };
 		388D51C02305825000BF6BCE /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = 388D51B62305825000BF6BCE /* GeoFire.m */; };
@@ -56,6 +57,9 @@
 		38CFAB1A2288B8AD00D40330 /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB132288B8AC00D40330 /* FloatyManager.swift */; };
 		38CFAB1B2288B8AD00D40330 /* UIView+Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */; };
 		38CFAB1C2288B8AD00D40330 /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFAB152288B8AD00D40330 /* FloatyViewController.swift */; };
+		38D007C823BA742E001899A0 /* RootEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D007C723BA742E001899A0 /* RootEntryVC.swift */; };
+		38D007CA23BAA30B001899A0 /* SummerFont-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 38D007C923BA76E6001899A0 /* SummerFont-Light.otf */; };
+		38D007CC23BAD492001899A0 /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D007CB23BAD492001899A0 /* AuthenticationVC.swift */; };
 		38DD338F233D52B100C11C78 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD338E233D52B100C11C78 /* Tests.swift */; };
 		38F03D6923103A85008FEC83 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03D6823103A85008FEC83 /* App.swift */; };
 		4048BD431E88B76B00BA8BDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */; };
@@ -166,6 +170,7 @@
 		3889A44723702DF300BD2B85 /* FloqUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloqUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3889A44923702DF300BD2B85 /* FloqUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloqUITests.swift; sourceTree = "<group>"; };
 		3889A44B23702DF300BD2B85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		388AF4AF23BAF57A00B4AE56 /* OnBoardingControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingControllers.swift; sourceTree = "<group>"; };
 		388D51AB230575F700BF6BCE /* Geofirestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofirestore.swift; sourceTree = "<group>"; };
 		388D51AE2305824F00BF6BCE /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
 		388D51B02305824F00BF6BCE /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
@@ -209,6 +214,9 @@
 		38CFAB132288B8AC00D40330 /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
 		38CFAB142288B8AC00D40330 /* UIView+Draggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draggable.swift"; sourceTree = "<group>"; };
 		38CFAB152288B8AD00D40330 /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
+		38D007C723BA742E001899A0 /* RootEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootEntryVC.swift; sourceTree = "<group>"; };
+		38D007C923BA76E6001899A0 /* SummerFont-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SummerFont-Light.otf"; sourceTree = "<group>"; };
+		38D007CB23BAD492001899A0 /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		38DD338E233D52B100C11C78 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/Tests.swift"; sourceTree = "<group>"; };
 		38F03D6823103A85008FEC83 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/App/App.swift; sourceTree = "<group>"; };
 		4048BD421E88B76B00BA8BDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -339,6 +347,16 @@
 			path = FloqUITests;
 			sourceTree = "<group>";
 		};
+		388AF4B123BAF6AD00B4AE56 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */,
+				C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */,
+				C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
 		388D51AA230575E100BF6BCE /* Geofirestore */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +477,16 @@
 			path = Floaty;
 			sourceTree = "<group>";
 		};
+		38D007C623BA73EC001899A0 /* Entry+Auth */ = {
+			isa = PBXGroup;
+			children = (
+				3802275F227D33F0004C3DF6 /* EULAVC.swift */,
+				38D007C723BA742E001899A0 /* RootEntryVC.swift */,
+				38D007CB23BAD492001899A0 /* AuthenticationVC.swift */,
+			);
+			path = "Entry+Auth";
+			sourceTree = "<group>";
+		};
 		40A1F74620F3051E00DDA0B1 /* CustomEurekaFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,12 +576,10 @@
 		C45CE27221E0C96E0071C59D /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				388AF4B123BAF6AD00B4AE56 /* Deprecated */,
 				C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */,
-				C45CE27521E0CE930071C59D /* OnBoardInfoOneVC.swift */,
-				C45CE27721E0CF010071C59D /* OnBoardInfoTwoVC.swift */,
 				C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */,
-				C430B79021E100E70010F2AE /* FinalOnBoardVC.swift */,
-				3802275F227D33F0004C3DF6 /* EULAVC.swift */,
+				388AF4AF23BAF57A00B4AE56 /* OnBoardingControllers.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -683,6 +709,7 @@
 		C4A2A42221A22959006DFE6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				38D007C623BA73EC001899A0 /* Entry+Auth */,
 				38CF259322DFA318008BEDDF /* Comments */,
 				C49F793321FF17DE00E92512 /* Updates */,
 				C49F793221FF174F00E92512 /* Profile */,
@@ -707,6 +734,7 @@
 		C4A6FAA5220197C900D3F789 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				38D007C923BA76E6001899A0 /* SummerFont-Light.otf */,
 				3852F804230EE73100082B31 /* flickr.gif */,
 				4054328B1FC9C82600725AF9 /* Floq.entitlements */,
 				40AA29C21E8891E900200A3F /* Info.plist */,
@@ -921,6 +949,7 @@
 				C4A2A43721A22C4A006DFE6E /* FullScreenCell.xib in Resources */,
 				40AA29BC1E8891E900200A3F /* Main.storyboard in Resources */,
 				C4A2A43C21A22C4A006DFE6E /* PhotoCell.xib in Resources */,
+				38D007CA23BAA30B001899A0 /* SummerFont-Light.otf in Resources */,
 				C4D1E08A21D7894500C5ED9A /* FloqCell.xib in Resources */,
 				3877A9FF22E3536A007FBCE3 /* LoadMoreCells.xib in Resources */,
 			);
@@ -1072,6 +1101,7 @@
 			files = (
 				388D51AC230575F700BF6BCE /* Geofirestore.swift in Sources */,
 				C400093122072C16004B6067 /* UIImage+Gif.swift in Sources */,
+				388AF4B023BAF57A00B4AE56 /* OnBoardingControllers.swift in Sources */,
 				C434C51321DD2A32003333A1 /* UserListCell.swift in Sources */,
 				38CFAB192288B8AD00D40330 /* FloatyDelegate.swift in Sources */,
 				C48BEDA821F8F6EA00D0A4F7 /* Core.swift in Sources */,
@@ -1125,6 +1155,7 @@
 				C4A2A42E21A22BBE006DFE6E /* BaseButton.swift in Sources */,
 				C4A2A42821A22B37006DFE6E /* FLUser.swift in Sources */,
 				C4D1E08C21D794D400C5ED9A /* NearbyCliqsVC.swift in Sources */,
+				38D007C823BA742E001899A0 /* RootEntryVC.swift in Sources */,
 				C4D1E09321D8AE4100C5ED9A /* FoundationTypes+Extensions.swift in Sources */,
 				382C2BDB23711F790061AA6E /* CommentNotifier.swift in Sources */,
 				3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */,
@@ -1137,6 +1168,7 @@
 				38CC9EBA22EF050C00483DC7 /* CommentsInputView copy.swift in Sources */,
 				C45CE27821E0CF010071C59D /* OnBoardInfoTwoVC.swift in Sources */,
 				40A1F74D20F3082800DDA0B1 /* ImagePickerController.swift in Sources */,
+				38D007CC23BAD492001899A0 /* AuthenticationVC.swift in Sources */,
 				C43B8D5522006B30003B7A00 /* UpdateInfo.swift in Sources */,
 				C416EC9621D623AB00ECEE2C /* CustomAlbum.swift in Sources */,
 				3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */,
