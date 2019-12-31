@@ -14,6 +14,8 @@
 		383352222282E80600DA6857 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383352212282E80600DA6857 /* Subscriptions.swift */; };
 		3852F803230ED91200082B31 /* PhotoEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3852F802230ED91200082B31 /* PhotoEmptyView.swift */; };
 		3852F805230EE73100082B31 /* flickr.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3852F804230EE73100082B31 /* flickr.gif */; };
+		385811AD23BB7537002CC9B0 /* FLPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385811AC23BB7537002CC9B0 /* FLPageControl.swift */; };
+		385811AF23BBA947002CC9B0 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385811AE23BBA947002CC9B0 /* GradientView.swift */; };
 		38607DAD231973F800153383 /* ImageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAC231973F800153383 /* ImageProcess.swift */; };
 		38607DAF23198A9000153383 /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38607DAE23198A9000153383 /* ImageEngine.swift */; };
 		3877A9F422E2094B007FBCE3 /* AddCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */; };
@@ -157,6 +159,8 @@
 		383352212282E80600DA6857 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriptions.swift; sourceTree = "<group>"; };
 		3852F802230ED91200082B31 /* PhotoEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoEmptyView.swift; path = "../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/New Group/PhotoEmptyView.swift"; sourceTree = "<group>"; };
 		3852F804230EE73100082B31 /* flickr.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickr.gif; sourceTree = "<group>"; };
+		385811AC23BB7537002CC9B0 /* FLPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLPageControl.swift; sourceTree = "<group>"; };
+		385811AE23BBA947002CC9B0 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		38607DAC231973F800153383 /* ImageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageProcess.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Frameworks/ImageProcess.swift; sourceTree = "<group>"; };
 		38607DAE23198A9000153383 /* ImageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageEngine.swift; path = ../../../../../../../../System/Volumes/Data/Users/codesworth/Development/Boston/Floq/Floq/Floq/Engine/ImageEngine.swift; sourceTree = "<group>"; };
 		3877A9F322E2094B007FBCE3 /* AddCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentVC.swift; sourceTree = "<group>"; };
@@ -580,6 +584,7 @@
 				C45CE27321E0CD7C0071C59D /* OnBoardingPVC.swift */,
 				C45CE27921E0E2630071C59D /* HomeOnBaordVC.swift */,
 				388AF4AF23BAF57A00B4AE56 /* OnBoardingControllers.swift */,
+				385811AC23BB7537002CC9B0 /* FLPageControl.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -701,6 +706,7 @@
 				388D51FD2305EC4A00BF6BCE /* CommentButton.swift */,
 				3852F802230ED91200082B31 /* PhotoEmptyView.swift */,
 				38DD338E233D52B100C11C78 /* Tests.swift */,
+				385811AE23BBA947002CC9B0 /* GradientView.swift */,
 			);
 			name = Views;
 			path = "New Group";
@@ -1161,6 +1167,7 @@
 				3877AA0122E361A4007FBCE3 /* SmartAlertView.swift in Sources */,
 				38CFAB162288B8AD00D40330 /* FloatyWindow.swift in Sources */,
 				C434C51521DD2BA0003333A1 /* UserListVC.swift in Sources */,
+				385811AF23BBA947002CC9B0 /* GradientView.swift in Sources */,
 				C4A28E4021E01D3000ADA02D /* ActiveSectionController.swift in Sources */,
 				C434C51121DCBE33003333A1 /* MyCliqsVC.swift in Sources */,
 				C4A2A43B21A22C4A006DFE6E /* FullScreenCell.swift in Sources */,
@@ -1193,6 +1200,7 @@
 				40A1F74A20F3056B00DDA0B1 /* CustomCells.swift in Sources */,
 				C4D4F8C721FA4B3A00A26797 /* PhotosEngine.swift in Sources */,
 				38CF259522DFA34E008BEDDF /* CommentsVC.swift in Sources */,
+				385811AD23BB7537002CC9B0 /* FLPageControl.swift in Sources */,
 				C4A2A43E21A22CB5006DFE6E /* AddCliqVC.swift in Sources */,
 				407997FB1FDCDF8900AAE42A /* PhotosVC.swift in Sources */,
 				C45CE27621E0CE930071C59D /* OnBoardInfoOneVC.swift in Sources */,
@@ -1467,7 +1475,7 @@
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.11;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1493,7 +1501,7 @@
 				DEVELOPMENT_TEAM = Y86G6TS245;
 				INFOPLIST_FILE = Floq/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.11;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.floq.Floq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

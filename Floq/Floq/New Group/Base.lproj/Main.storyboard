@@ -269,13 +269,14 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kp0-XW-W22">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt">
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt" customClass="FLPageControl" customModule="Floq" customModuleProvider="target">
                                         <rect key="frame" x="187" y="438" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Vm7-kN-WV2"/>
                                             <constraint firstAttribute="height" constant="40" id="dVw-FP-SBh"/>
                                         </constraints>
-                                        <color key="currentPageIndicatorTintColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="pageIndicatorTintColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </pageControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1051,6 +1052,9 @@ License Agreement</string>
                                     <constraint firstAttribute="height" constant="50" id="Wc1-4w-tDd"/>
                                 </constraints>
                                 <state key="normal" image="googleButton"/>
+                                <connections>
+                                    <action selector="googlePressed:" destination="TTv-hB-aJ6" eventType="touchUpInside" id="doN-HO-s4w"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallOfPhotos" translatesAutoresizingMaskIntoConstraints="NO" id="5Du-bL-gmf">
                                 <rect key="frame" x="0.0" y="543" width="414" height="353"/>
@@ -1100,17 +1104,20 @@ License Agreement</string>
                                 <state key="normal" title="sign in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInPressed:" destination="Hiy-tf-4Vy" eventType="touchUpInside" id="L4d-k6-Zy3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOIN. CREATE. SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtJ-Vr-dbM">
-                                <rect key="frame" x="-85.666666666666686" y="126" width="585.33333333333337" height="65.333333333333314"/>
+                                <rect key="frame" x="83" y="126" width="248" height="76.333333333333314"/>
                                 <fontDescription key="fontDescription" name="SummerFont-Light" family="Summer Font" pointSize="56"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="9g5-g2-RPI">
-                                <rect key="frame" x="20" y="199.33333333333337" width="374" height="160"/>
+                                <rect key="frame" x="20" y="210.33333333333337" width="374" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="l9f-7u-64X"/>
+                                    <constraint firstAttribute="height" constant="150" id="l9f-7u-64X"/>
                                 </constraints>
                                 <string key="text">floq is a social sharing 
 platform that lets you conncet
@@ -1119,8 +1126,8 @@ and share with those around you</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" image="selfieCopy2" translatesAutoresizingMaskIntoConstraints="NO" id="erz-Lo-fzx">
-                                <rect key="frame" x="0.0" y="124" width="414" height="772"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" image="selfieCopy2" translatesAutoresizingMaskIntoConstraints="NO" id="erz-Lo-fzx">
+                                <rect key="frame" x="0.0" y="469" width="414" height="427"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.41960784313725491" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
@@ -1141,6 +1148,9 @@ and share with those around you</string>
                             <constraint firstItem="9g5-g2-RPI" firstAttribute="top" secondItem="jtJ-Vr-dbM" secondAttribute="bottom" constant="8" id="oLU-3O-hKL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headerToSignInConstraint" destination="AKY-Dp-guZ" id="dVj-ht-vNl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfM-vy-c5n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1164,9 +1174,12 @@ and share with those around you</string>
                                 <state key="normal" title="sign in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInPressed:" destination="q3S-8o-fN1" eventType="touchUpInside" id="Qlw-Jm-rW4"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCATION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQ6-gT-KoW">
-                                <rect key="frame" x="69.666666666666686" y="126" width="275" height="70"/>
+                                <rect key="frame" x="146.66666666666666" y="126" width="120.66666666666666" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="3dL-1n-130"/>
                                 </constraints>
@@ -1175,10 +1188,10 @@ and share with those around you</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="WMS-eA-4rm">
-                                <rect key="frame" x="20" y="204" width="374" height="160"/>
+                                <rect key="frame" x="20" y="204" width="374" height="150"/>
                                 <rect key="contentStretch" x="0.050000000000000003" y="0.0" width="1" height="1"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="0Hq-RD-L5L"/>
+                                    <constraint firstAttribute="height" constant="150" id="0Hq-RD-L5L"/>
                                 </constraints>
                                 <string key="text">floq uses your location to find
 and create shared albums
@@ -1188,7 +1201,7 @@ we call cliqs</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" image="stadium2" translatesAutoresizingMaskIntoConstraints="NO" id="ZXB-Ro-uuR">
-                                <rect key="frame" x="0.0" y="360" width="414" height="536"/>
+                                <rect key="frame" x="0.0" y="628" width="414" height="268"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.070588235289999995" green="0.80000000000000004" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -1209,6 +1222,9 @@ we call cliqs</string>
                             <constraint firstItem="ZXB-Ro-uuR" firstAttribute="leading" secondItem="QdI-e8-EDA" secondAttribute="leading" id="lgV-sK-kpf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headerToSignInConstraint" destination="Hne-EO-BrF" id="wX6-45-Aue"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrO-SP-DF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1232,9 +1248,12 @@ we call cliqs</string>
                                 <state key="normal" title="sign in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInPressed:" destination="Zxf-cK-kIs" eventType="touchUpInside" id="R13-kO-CU0"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PEOPLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD9-Fd-9gB">
-                                <rect key="frame" x="99.666666666666686" y="126" width="215" height="70"/>
+                                <rect key="frame" x="164.33333333333334" y="126" width="85.666666666666657" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="kge-1z-BN1"/>
                                 </constraints>
@@ -1255,8 +1274,8 @@ experince</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" image="wedding2" translatesAutoresizingMaskIntoConstraints="NO" id="T6W-G8-cgX">
-                                <rect key="frame" x="0.0" y="164" width="414" height="732"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" image="wedding2" translatesAutoresizingMaskIntoConstraints="NO" id="T6W-G8-cgX">
+                                <rect key="frame" x="0.0" y="468" width="414" height="428"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.76862745098039209" green="0.30196078431372547" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -1277,10 +1296,13 @@ experince</string>
                             <constraint firstAttribute="bottom" secondItem="T6W-G8-cgX" secondAttribute="bottom" id="vd3-30-T5V"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headerToSignInConstraint" destination="u1h-QM-Gsh" id="PAv-XB-hqt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NP0-3d-DpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5374" y="-3133"/>
+            <point key="canvasLocation" x="5373.913043478261" y="-3133.2589285714284"/>
         </scene>
         <!--Onboard 3-->
         <scene sceneID="afY-Gi-dCi">
@@ -1300,9 +1322,12 @@ experince</string>
                                 <state key="normal" title="sign in">
                                     <color key="titleColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInPressed:" destination="2fl-3M-0JC" eventType="touchUpInside" id="ASy-gs-r3Z"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXPERIENCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUF-Mq-jPR">
-                                <rect key="frame" x="36.333333333333343" y="126" width="341.33333333333326" height="70"/>
+                                <rect key="frame" x="136" y="126" width="142" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="P3u-Kh-V0l"/>
                                 </constraints>
@@ -1311,10 +1336,10 @@ experince</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="B9K-XO-VZB">
-                                <rect key="frame" x="20" y="204" width="374" height="160"/>
+                                <rect key="frame" x="20" y="204" width="374" height="150"/>
                                 <rect key="contentStretch" x="0.050000000000000003" y="0.0" width="1" height="1"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="G9y-5b-Ama"/>
+                                    <constraint firstAttribute="height" constant="150" id="G9y-5b-Ama"/>
                                 </constraints>
                                 <string key="text">add photos and comments, download
 your favorite photos</string>
@@ -1322,8 +1347,8 @@ your favorite photos</string>
                                 <color key="textColor" red="0.33333333329999998" green="0.38431372549999998" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" image="bdayCakeCopy2" translatesAutoresizingMaskIntoConstraints="NO" id="zZX-yO-qHl">
-                                <rect key="frame" x="0.0" y="124" width="414" height="772"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" image="bdayCakeCopy2" translatesAutoresizingMaskIntoConstraints="NO" id="zZX-yO-qHl">
+                                <rect key="frame" x="0.0" y="509" width="414" height="387"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.7803921568627451" green="0.95686274509803915" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
@@ -1344,10 +1369,13 @@ your favorite photos</string>
                             <constraint firstItem="B9K-XO-VZB" firstAttribute="leading" secondItem="uIS-TO-D8O" secondAttribute="leadingMargin" id="w1e-6R-bWi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headerToSignInConstraint" destination="o56-UI-zIE" id="kEg-iL-3DE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YJ0-Fu-0sZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6061" y="-3133"/>
+            <point key="canvasLocation" x="6060.8695652173919" y="-3133.2589285714284"/>
         </scene>
     </scenes>
     <resources>

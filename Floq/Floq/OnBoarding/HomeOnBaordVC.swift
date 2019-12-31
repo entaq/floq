@@ -19,7 +19,7 @@ class HomeOnBaordVC:UIViewController {
     
     
     @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pageControl: FLPageControl!
     private var onBoardPage:UIPageViewController!
     
     let ids = [
@@ -64,9 +64,12 @@ class HomeOnBaordVC:UIViewController {
         }
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         App.setDomain(.Onboarding)
+        
         pageControl.removeFromSuperview()
         pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
         onBoardPage = 
