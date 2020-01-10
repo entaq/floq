@@ -16,12 +16,23 @@ class FLPageControl: UIPageControl {
             customizePageControl()
         }
     }
+    
+    var selector:Selector?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         customizePageControl()
     }
     
+    func addAcction(selector:Selector){
+        addTarget(self, action:#selector(performAtLast), for: .touchUpInside)
+    }
+    
+    @objc func performAtLast(){
+        if let selector = selector, currentPage == numberOfPages - 2{
+            performSelector(onMainThread: selector, with: nil, waitUntilDone: true)
+        }
+    }
     
     func customizePageControl(){
         if let endView = subviews.last{

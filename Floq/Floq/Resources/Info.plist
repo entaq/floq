@@ -58,6 +58,10 @@
 	<string>Allow Floq to access your Photo Library to save photos from your cliqs</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>floq is a location photo sharing app, having access to your photos will make it easier for you to upload photos to the app.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SummerFont-Light.otf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -85,9 +89,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SummerFont-Light.otf</string>
-	</array>
 </dict>
 </plist>

@@ -42,6 +42,11 @@ class HomeOnBaordVC:UIViewController {
         return UIStoryboard.main.instantiateViewController(withIdentifier: identifier)
     }
     
+    
+    @objc func  moveToSignIn(){
+        (pages.first as? BaseOnBoarding)?.signIn()
+    }
+    
 
     func configScale(){
         let handle = UIScreen.main.screenType()
@@ -84,6 +89,7 @@ class HomeOnBaordVC:UIViewController {
             $0.centerX == view.centerXAnchor
             $0.centerY == view.centerYAnchor + 10
         }
+        pageControl.addAcction(selector: #selector(moveToSignIn))
         // Do any additional setup after loading the view.
     }
     
@@ -91,26 +97,9 @@ class HomeOnBaordVC:UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         onBoardPage.view.frame = CGRect(x:0, y:0, width:self.view.frame.size.width, height:self.view.frame.size.height)
-        let height = view.bounds.height * heightScale
-        /*NSLayoutConstraint.activate([
-            fetherView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            fetherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            fetherView.heightAnchor.constraint(equalToConstant: height),
-            fetherView.widthAnchor.constraint(equalToConstant: height * scale)
-        ])*/
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
 
 }

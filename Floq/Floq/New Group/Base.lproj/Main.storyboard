@@ -175,7 +175,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to floq" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIL-9A-W8P">
-                                <rect key="frame" x="111.00000000000001" y="84" width="192.33333333333337" height="60"/>
+                                <rect key="frame" x="11" y="84" width="392" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="CvB-1q-PsJ"/>
                                 </constraints>
@@ -218,10 +218,10 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locationCopy" translatesAutoresizingMaskIntoConstraints="NO" id="ww2-pl-luT">
-                                <rect key="frame" x="0.0" y="342.99999999999994" width="414" height="553.00000000000011"/>
+                                <rect key="frame" x="0.0" y="343" width="414" height="553"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sharing the way it’s meant to be" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gie-Qb-UD5">
-                                <rect key="frame" x="63" y="149" width="288" height="40"/>
+                                <rect key="frame" x="-77.333333333333314" y="149" width="568.66666666666663" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="TEh-pX-Vr4"/>
                                 </constraints>
@@ -269,7 +269,7 @@ In order to ensure FLOQ provides the best experience possible for everyone, we s
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kp0-XW-W22">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt" customClass="FLPageControl" customModule="Floq" customModuleProvider="target">
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="xK5-D5-9nt" customClass="FLPageControl" customModule="Floq" customModuleProvider="target">
                                         <rect key="frame" x="187" y="438" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Vm7-kN-WV2"/>
@@ -1057,7 +1057,7 @@ License Agreement</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallOfPhotos" translatesAutoresizingMaskIntoConstraints="NO" id="5Du-bL-gmf">
-                                <rect key="frame" x="0.0" y="543" width="414" height="353"/>
+                                <rect key="frame" x="0.0" y="190" width="414" height="706"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.070588235289999995" green="0.80000000000000004" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -1159,7 +1159,7 @@ and share with those around you</string>
         <!--Onboard 2-->
         <scene sceneID="0Na-qF-vKo">
             <objects>
-                <viewController storyboardIdentifier="OnBoardingPageThree" title="Onboard 2" id="q3S-8o-fN1" customClass="OnBoardingPageThree" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnBoardingPageTwo" title="Onboard 2" id="q3S-8o-fN1" customClass="OnBoardingPageTwo" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="clS-Tr-mn7"/>
                         <viewControllerLayoutGuide type="bottom" id="zVV-tI-bou"/>
@@ -1233,7 +1233,7 @@ we call cliqs</string>
         <!--Onboard 3-->
         <scene sceneID="Myu-Iu-NsE">
             <objects>
-                <viewController storyboardIdentifier="OnBoardingPageTwo" title="Onboard 3" id="Zxf-cK-kIs" customClass="OnBoardingPageTwo" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnBoardingPageThree" title="Onboard 3" id="Zxf-cK-kIs" customClass="OnBoardingPageThree" customModule="Floq" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZV9-hA-bOx"/>
                         <viewControllerLayoutGuide type="bottom" id="TDT-yu-lNd"/>
@@ -1267,9 +1267,9 @@ we call cliqs</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="S5f-w4-Y9b"/>
                                 </constraints>
-                                <string key="text">floq lets people near by discover
-and join cliqs and share in the
-experince</string>
+                                <string key="text">no followers, no hashtags,
+just people in the same space
+sharing…no strings attached</string>
                                 <fontDescription key="fontDescription" name="SummerFont-Light" family="Summer Font" pointSize="39"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

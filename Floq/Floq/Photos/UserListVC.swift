@@ -20,7 +20,9 @@ class UserListVC: UITableViewController {
         title = "Cliq Details"
         DataService.main.getFollowers(ids: cliq.followers) { users, err in
             self.users = users
-            
+            if let index = (users.firstIndex{$0.uid == UserDefaults.uid}){
+                self.users.swapAt(index, 0)
+            }
             self.tableView.reloadData()
         }
         
@@ -51,6 +53,9 @@ class UserListVC: UITableViewController {
             let user = users[indexPath.row]
             let listed = list[user.uid]
             cell.configure(id: user.uid, name: user.username, count:listed?.1 ?? 0)
+            if indexPath.row == 0{
+                cell.accessoryType = .disclosureIndicator
+            }
             return cell
         }
 
@@ -118,6 +123,16 @@ class UserListVC: UITableViewController {
             
         
         return [blockAction]
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        if user.uid == UserDefaults.uid{
+            let vc = PhotosVC(cliq: cliq, id:cliq.id)
+            vc.isMyPhotos = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
     /*

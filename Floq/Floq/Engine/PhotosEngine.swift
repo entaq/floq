@@ -20,8 +20,7 @@ class PhotosEngine:NSObject{
     init(cliq:String){
         self.cliq = cliq
         super.init()
-        
-        
+
     }
     
     private var notifListener:ListenerRegistration?
@@ -64,7 +63,6 @@ class PhotosEngine:NSObject{
         return Firestore.database.collection(.commentSubscription)
     }
     
-    
     private func listenForNotifications(){
         
         notifListener =  notifsRef.document(cliq).addSnapshotListener({ (snapshot, err) in
@@ -75,8 +73,6 @@ class PhotosEngine:NSObject{
             }
         })
     }
-    
-    
     
     func getAllPhotoMetadata()->[String:(String,Int)]{
         var dictHolder:[String:(String,Int)] = [:]
@@ -98,10 +94,6 @@ class PhotosEngine:NSObject{
             dictHolder.updateValue((item.first!.value,count), forKey: item.first!.key)
         }
         
-//        let stup = dictHolder.compactMap { (value) -> Aliases.stuple in
-//            return (value.key,value.value.0, value.value.1)
-//            }
-//
         return dictHolder
     }
     
@@ -109,21 +101,6 @@ class PhotosEngine:NSObject{
         let index = allphotos.firstIndex(of: photo) ?? 0
         return index
     }
-    
-//    func storeAllPhotos(_ data:[PhotoItem]){
-//        guard !allphotos.isEmpty else {
-//            allphotos = data
-//            return
-//        }
-//        for item in data {
-//            if !allphotos.contains(item){
-//                allphotos.append(item)
-//            }
-//        }
-//    }
-    
-    
-
     
     func flagPhoto(photoID:String,cliqID:String? = nil, handler:@escaping CompletionHandlers.storage){
         guard let id = Auth.auth().currentUser?.uid else {return}
@@ -145,14 +122,22 @@ class PhotosEngine:NSObject{
         })
     }
     
-    func watchForPhotos(cliqDocumentID:String, onFinish:@escaping CompletionHandlers.storage){
+    func watchForPhotos(cliqDocumentID:String, for userId:String? = nil, onFinish:@escaping CompletionHandlers.storage){
         if canEndFetching{return}
         guard let id = Auth.auth().currentUser?.uid else {return}
         var query:Query
         if let snapshot = lastSnapshot{
-            query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).start(afterDocument: snapshot).limit(to: maxNumberOfPhotos)
+            if let userId = userId{
+                query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).whereField(Fields.userUID.rawValue, isEqualTo: userId).order(by: Fields.timestamp.rawValue, descending: true).start(afterDocument: snapshot).limit(to: maxNumberOfPhotos)
+            }else{
+                query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).start(afterDocument: snapshot).limit(to: maxNumberOfPhotos)
+            }
         }else{
-            query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).limit(to: maxNumberOfPhotos)
+            if let userId = userId{
+                query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).whereField(Fields.userUID.rawValue, isEqualTo: userId).order(by: Fields.timestamp.rawValue, descending: true).limit(to: maxNumberOfPhotos)
+            }else{
+                query = photoRef.whereField(Fields.cliqID.rawValue, isEqualTo: cliqDocumentID).order(by: Fields.timestamp.rawValue, descending: true).limit(to: maxNumberOfPhotos)
+            }
         }
         
             query.addSnapshotListener { documentSnapshot, error in
@@ -192,9 +177,11 @@ class PhotosEngine:NSObject{
                         self.post(.reloadPhotos)
                     }else if diff.type == .removed{
                         self._internalPhotoContainer.removeAll(where: { (photo) -> Bool in
-                            return photo.fileID == diff.document.documentID
+                            let ph = photo.fileID == diff.document.documentID
+                            return ph
                         })
-                        
+                        self.generateGridItems()
+                        onFinish(true, nil)
                     }
                 }
         }
@@ -370,6 +357,25 @@ class PhotosEngine:NSObject{
     
     func post(_ name:Subscription.Name){
         Subscription.main.post(suscription: name, object: nil)
+    }
+    
+    func deletePhotos(ids:Set<String>, completion:@escaping(Bool)->()){
+        guard !ids.isEmpty else{
+            completion(true)
+            return
+        }
+        let batch = Firestore.database.batch()
+        ids.forEach{
+            let ref = photoRef.document($0)
+            batch.deleteDocument(ref)
+        }
+        batch.commit { err in
+            if err != nil{
+                completion(false)
+            }else{
+                completion(true)
+            }
+        }
     }
     
     deinit {
