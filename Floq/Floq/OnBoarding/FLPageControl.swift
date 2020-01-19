@@ -8,16 +8,22 @@
 
 import UIKit
 
+
+
 class FLPageControl: UIPageControl {
 
     
     override var currentPage: Int{
         didSet{
+            animatePagers()
             customizePageControl()
         }
     }
     
+    
+    
     var selector:Selector?
+    var canShowPager = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,12 +48,26 @@ class FLPageControl: UIPageControl {
                 image.image = #imageLiteral(resourceName: "enpage")
                 image.contentMode = .scaleAspectFit
                 endView.addSubview(image)
-                //image.frame.origin.y -= 5
-                //image.frame.origin.x -= 3
                 
                 endView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             }
         }
     }
 
+    func animatePagers(){
+        if currentPage == 4{
+            canShowPager = true
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                self.alpha = 0
+            }, completion: nil)
+        }else{
+            if canShowPager{
+                canShowPager = false
+                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                        self.alpha = 1
+                }, completion: nil)
+            }
+        }
+    }
 }
+

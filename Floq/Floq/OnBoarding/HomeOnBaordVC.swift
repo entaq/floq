@@ -26,15 +26,26 @@ class HomeOnBaordVC:UIViewController {
         OnBoardingPageOne.identifier,
         OnBoardingPageTwo.identifier,
         OnBoardingPageThree.identifier,
-        OnBoardingPageFour.identifier
+        OnBoardingPageFour.identifier,
+        AuthenticationVC.identifier
+        
     ]
     
     fileprivate lazy var pages: [UIViewController] = {
-        return ids.compactMap{
-            let controller = getViewController(withIdentifier: $0) as? BaseOnBoarding
-            controller?.pager = pageControl
+        let controllers:[UIViewController] = ids.compactMap{
+            let controller = getViewController(withIdentifier: $0)
+            (controller as? BaseOnBoarding)?.pager = pageControl
+            (controller as? BaseOnBoarding)?.pageController = onBoardPage
             return controller
         }
+        controllers.forEach {
+            if let vc = $0 as? BaseOnBoarding{
+                vc.signInViewController = controllers.last
+            }else if let vc = $0 as? AuthenticationVC{
+                vc.pager = pageControl
+            }
+        }
+        return controllers
     }()
     
     fileprivate func getViewController(withIdentifier identifier: String) -> UIViewController

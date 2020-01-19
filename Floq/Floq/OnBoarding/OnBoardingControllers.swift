@@ -11,11 +11,12 @@ import UIKit
 class BaseOnBoarding:UIViewController{
     
     weak  var pager:UIPageControl?
+    weak var pageController:UIPageViewController?
+    weak var signInViewController:UIViewController?
     
     func signIn(){
-        if let authVc = UIStoryboard.main.instantiateViewController(withIdentifier: AuthenticationVC.identifier) as? AuthenticationVC{
-            authVc.modalPresentationStyle = .fullScreen
-            present(authVc, animated: true, completion: nil)
+        if let auth = signInViewController{
+            pageController?.setViewControllers([auth], direction: .forward, animated: true, completion: nil)
         }
     }
     
@@ -107,6 +108,7 @@ class OnBoardingPageFour:BaseOnBoarding{
         super.viewDidAppear(animated)
         pager?.currentPage = 3
     }
+    
     
     @IBAction func signInPressed(_ sender:UIButton){
         signIn()

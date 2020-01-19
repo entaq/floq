@@ -50,7 +50,7 @@ class PhotoCell: UICollectionViewCell, Identity {
         let animation = CABasicAnimation(keyPath: "transform")
         animation.fromValue = NSValue(caTransform3D: CATransform3DMakeRotation(.Angle(-3), 0, 0, 1.0))
         animation.toValue = NSValue(caTransform3D: CATransform3DMakeRotation(.Angle(3), 0, 0, 1.0))
-        animation.duration = 0.1
+        animation.duration = 0.25
         animation.repeatCount = .infinity
         animation.autoreverses = true
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
