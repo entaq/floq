@@ -23,12 +23,15 @@ import FirebaseAuth
 
 final class PhotosVC: UIViewController {
     
+    var isMyPhotos = false
     var data: [GridPhotoItem] = []
+    var photosToDelete:Set<String> = []
     private var floaty:Floaty!
     private var cliq:FLCliqItem?
     private var cliqID:String!
     var photoEngine:PhotosEngine!
     private var canShowEmpty = false
+    private var isSelecting:Bool = false
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
@@ -56,9 +59,16 @@ final class PhotosVC: UIViewController {
         subscribeTo(subscription: .invalidatePhotos, selector: #selector(invalidatePhoto(_:)))
         collectionView.backgroundColor = .globalbackground
         floaty = Floaty()
-        floaty.buttonColor = .seafoamBlue
-        floaty.plusColor = .white
         floaty.fabDelegate = self
+        if isMyPhotos{
+            floaty.buttonImageView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            floaty.buttonImage = UIImage(named: "trashx")
+            floaty.buttonColor = .deepRose
+            floaty.isHidden = true
+        }else{
+            floaty.buttonColor = .seafoamBlue
+            floaty.plusColor = .white
+        }
         
         if cliq == nil{
             DataService.main.getCliq(id: cliqID) { (cliq, err) in
@@ -79,7 +89,7 @@ final class PhotosVC: UIViewController {
         adapter.dataSource = self
         adapter.scrollViewDelegate = self
         view.addSubview(floaty)
-        photoEngine.watchForPhotos(cliqDocumentID:cliqID) { (success, errm) in
+        photoEngine.watchForPhotos(cliqDocumentID:cliqID, for:isMyPhotos ? UserDefaults.uid : nil) { (success, errm) in
             if success{
                 self.canShowEmpty = true
                 self.adapter.reloadData(completion: nil)
@@ -109,19 +119,46 @@ final class PhotosVC: UIViewController {
     }
     
     
+    func setupViewForMyphotos(){
+        let barbutton = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectPhotos(_:)))
+        barbutton.setTitleTextAttributes([.font:UIFont.systemFont(ofSize: 18, weight: .light), .foregroundColor:UIColor(red: 53/255, green: 125/255, blue: 237/255, alpha: 1)], for: .normal)
+        navigationItem.rightBarButtonItem = barbutton
+    }
+    
+    @objc func selectPhotos(_ sender:UIBarButtonItem){
+        
+        if isSelecting{
+            sender.title = "Select"
+            floaty.isHidden = true
+            isSelecting = !isSelecting
+            Subscription.main.post(suscription: .clearSelection, object: nil)
+            floaty.buttonColor = .seafoamBlue
+            floaty.plusColor = .white
+            
+        }else{
+            sender.title = "Done"
+            isSelecting = !isSelecting
+            Subscription.main.post(suscription: .cellShakeAnim, object: nil)
+            floaty.isHidden = false
+        }
+    }
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
-        userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
-        userlistbutt.setAvatar(uid: cliq?.creatorUid ?? "placeholder")
-        let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        let tp = UITapGestureRecognizer(target: self, action: #selector(userlistTapped))
-        tp.numberOfTapsRequired = 1
-        uiview.addGestureRecognizer(tp)
-        uiview.addSubview(userlistbutt)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiview)
+        if isMyPhotos{
+            setupViewForMyphotos()
+        }else{
+            userlistbutt = AvatarImageView(frame:CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
+            userlistbutt.setAvatar(uid: cliq?.creatorUid ?? "placeholder")
+            let uiview = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+            let tp = UITapGestureRecognizer(target: self, action: #selector(userlistTapped))
+            tp.numberOfTapsRequired = 1
+            uiview.addGestureRecognizer(tp)
+            uiview.addSubview(userlistbutt)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiview)
+        }
         
     }
     
@@ -251,11 +288,22 @@ extension PhotosVC:ListAdapterDataSource, UICollectionViewDelegate{
 
 extension PhotosVC:GridPhotoSectionDelegate{
     
-    func didFinishSelecting(_ photo: PhotoItem, at index: Int) {
-        let actualIndex = photoEngine.getTrueIndex(of: photo)
-        guard let cliq = self.cliq else {return}
-        let fullscreen = PhotoFullScreenVC(engine: photoEngine, selected: actualIndex,cliq:cliq,cliqID: cliqID)
-        navigationController?.pushViewController(fullscreen, animated: true)
+    func didFinishSelecting(_ photo: PhotoItem, at index: Int, for cell:UICollectionViewCell?) {
+        if isMyPhotos && isSelecting{
+            if let cell = cell as? PhotoCell{
+                cell.setSeleted()
+                if cell.itemSelected{
+                    photosToDelete.insert(photo.id)
+                }else{
+                    photosToDelete.remove(photo.id)
+                }
+            }
+        }else{
+            let actualIndex = photoEngine.getTrueIndex(of: photo)
+            guard let cliq = self.cliq else {return}
+            let fullscreen = PhotoFullScreenVC(engine: photoEngine, selected: actualIndex,cliq:cliq,cliqID: cliqID)
+            navigationController?.pushViewController(fullscreen, animated: true)
+        }
     }
 }
 
@@ -263,6 +311,40 @@ extension PhotosVC:GridPhotoSectionDelegate{
 extension PhotosVC:FloatyDelegate{
     
     func emptyFloatySelected(_ floaty: Floaty) {
+        if isMyPhotos && isSelecting{
+            if !photosToDelete.isEmpty{
+                let loader = LoaderView(frame: UIScreen.main.bounds)
+                
+                let photoString = photosToDelete.count == 1 ? "Photo" : "Photos"
+                let alert = UIAlertController(title: "Delete \(photoString)", message: "Are tou sure you want to delete selected \(photoString.lowercased()) from this cliq?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                    self.view.addSubview(loader)
+                    self.photoEngine.deletePhotos(ids: self.photosToDelete) { [weak self] success in
+                        guard let self = self else {return}
+                        let sender = self.navigationItem.rightBarButtonItem ?? UIBarButtonItem()
+                        loader.removeFromSuperview()
+                        sender.title = "Select"
+                        floaty.isHidden = true
+                        self.isSelecting = !self.isSelecting
+                        Subscription.main.post(suscription: .clearSelection, object: nil)
+                        floaty.buttonColor = .seafoamBlue
+                        floaty.plusColor = .white
+                        if success{
+                            SnackBar.makeSncakMessage(text:"\(photoString) deleted successfully")
+                            self.photosToDelete.removeAll()
+                           
+                        }else{
+                            SnackBar.makeSncakMessage(text: "Failed to delete \(photoString)", color: .deepRose)
+                        }
+                    }
+                }))
+                
+                present(alert, animated: true, completion: nil)
+                
+            }
+            return
+        }
         if let cliq = self.cliq{
             if cliq.isMember(){
                 selectPhoto()

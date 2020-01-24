@@ -98,7 +98,7 @@ class UserSettingsTVC: UITableViewController {
             Auth.logout { (success, err) in
                 
                 if success{
-                    let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
+                    let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: RootEntryVC.identifier) as! RootEntryVC
                     onboard.modalPresentationStyle = .fullScreen
                     self.present(onboard, animated: true, completion: nil)
                     

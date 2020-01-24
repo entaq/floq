@@ -42,6 +42,17 @@ extension UIViewController{
 
 extension UIView{
     
+    func dropShadow(_ radius:CGFloat = 2.0, color:UIColor = .black, _ opacity:Float = 0.4, _ offset:CGSize = CGSize(width: 0, height: 4)){
+        layer.shadowRadius = radius
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = opacity
+        layer.shadowOffset = offset
+    }
+    
+    func dropCorner(_ radius:CGFloat = 3.0){
+        layer.cornerRadius = radius
+    }
+    
     class func listAdapterEmptyView(superView:UIView, info:Info.Messages)->UIView{
         let view = UIView(frame: superView.frame)
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: view.frame.height)))

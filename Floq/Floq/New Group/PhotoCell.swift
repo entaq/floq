@@ -10,16 +10,20 @@ import UIKit
 import FirebaseStorage
 import SDWebImage
 
-class PhotoCell: UICollectionViewCell {
+class PhotoCell: UICollectionViewCell, Identity {
 
+    @IBOutlet weak var selectedCheck: UIImageView!
     @IBOutlet weak var alertIcon: UIView!
     @IBOutlet weak var imageView: UIImageView!
     let notifier = CommentNotificationEngine()
     private var uuid = UUID()
+    var itemSelected:Bool = false
     private var photoID:String?
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeTo(subscription: .newHighlight, selector: #selector(canHighlight(_:)))
+        subscribeTo(subscription: .clearSelection, selector: #selector(clears))
+        subscribeTo(subscription: .cellShakeAnim, selector: #selector(performTheShake))
         self.layer.cornerRadius = 3
         alertIcon.backgroundColor = .orangeRed
         //alertIcon.clipsToBounds = true
@@ -29,21 +33,11 @@ class PhotoCell: UICollectionViewCell {
         alertIcon.layer.shadowOpacity = 0.9
         alertIcon.layer.shadowRadius = 3
         alertIcon.layer.shadowOffset = CGSize(width: 0, height: 2)
-        
-        // Initialization code
+        selectedCheck.isHidden = true
+
     }
     
-//    override var isSelected: Bool{
-//        didSet{
-//            guard let id = photoID else {return}
-//            if !alertIcon.isHidden{
-//                notifier.endNotifying(id)
-//                alertIcon.isHidden = true
-//            }
-//            //subscription.endHightlightFor(id)
-//            //alertIcon.isHidden = true
-//        }
-//    }
+
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -52,6 +46,34 @@ class PhotoCell: UICollectionViewCell {
     }
     
     
+    @objc func performTheShake(){
+        let animation = CABasicAnimation(keyPath: "transform")
+        animation.fromValue = NSValue(caTransform3D: CATransform3DMakeRotation(.Angle(-3), 0, 0, 1.0))
+        animation.toValue = NSValue(caTransform3D: CATransform3DMakeRotation(.Angle(3), 0, 0, 1.0))
+        animation.duration = 0.25
+        animation.repeatCount = .infinity
+        animation.autoreverses = true
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        layer.add(animation, forKey: Self.Identifier)
+        
+    }
+    
+    @objc func stopShakeAnim(){
+        layer.removeAnimation(forKey: Self.Identifier)
+    }
+    
+    
+    func setSeleted(){
+        itemSelected = !itemSelected
+        selectedCheck.isHidden = !itemSelected
+        
+    }
+    
+    @objc func clears(){
+        selectedCheck.isHidden = true
+        itemSelected = false
+        stopShakeAnim()
+    }
     
     func configureCell(ref:StorageReference,photoID:String){
         self.photoID = photoID

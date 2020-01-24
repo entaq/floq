@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             watchForUpdateChanges()
             
         }else{
-            let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: HomeOnBaordVC.identifier) as! HomeOnBaordVC
+            let onboard = UIStoryboard.main.instantiateViewController(withIdentifier: RootEntryVC.identifier) as! RootEntryVC
             window?.rootViewController = onboard
         }
     }

@@ -11,7 +11,7 @@ import IGListKit
 import Firebase
 
 protocol GridPhotoSectionDelegate:class {
-    func didFinishSelecting(_ photo:PhotoItem, at index:Int)
+    func didFinishSelecting(_ photo:PhotoItem, at index:Int, for cell:UICollectionViewCell?)
 }
 
 final class GridPhotoSection: ListSectionController {
@@ -53,7 +53,8 @@ final class GridPhotoSection: ListSectionController {
     override func didSelectItem(at index: Int) {
         if let item = gridItem{
             let photo = item.items[index]
-            delegate?.didFinishSelecting(photo, at: index)
+            let cell = collectionContext?.cellForItem(at: index, sectionController: self)
+            delegate?.didFinishSelecting(photo, at: index, for: cell)
         }
     }
 }
