@@ -15,6 +15,9 @@ protocol Identity{
 
 extension Identity{
     static var Identifier:String{
+        if XCODE{
+            
+        }
         return "\(Self.self)"
     }
 }

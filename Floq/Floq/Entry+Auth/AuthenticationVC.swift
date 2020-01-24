@@ -16,7 +16,7 @@ class AuthenticationVC: UIViewController {
 
     @IBOutlet weak var eulalable: UILabel!
     
-    var pager:UIPageControl!
+    var pager:UIPageControl?
     private lazy var loader:GradientView = {
         let view = GradientView(frame: .zero)
         view.isHidden = true
@@ -25,7 +25,7 @@ class AuthenticationVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        pager.currentPage = 4
+        pager?.currentPage = 4
         
     }
     

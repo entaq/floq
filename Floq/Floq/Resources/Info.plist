@@ -52,10 +52,10 @@
 	<string>Floq is a location based photo sharing app, having access to your camera will make it easier for you to upload photos to the app.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Floq is a location based photo sharing app, your location is required to create and find shared albums near you. Location data will not be shared with any third party.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Floq is a location based photo sharing app, your location is required to create and find shared albums near you. Location data will not be shared with any third party.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Floq is a location based photo sharing app, your location is required to create and find shared albums near you. Location data will not be shared with any third party.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Floq is a location based photo sharing app, your location is required to create and find shared albums near you. Location data will not be shared with any third party.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Allow Floq to access your Photo Library to save photos from your cliqs</string>
 	<key>NSPhotoLibraryUsageDescription</key>
