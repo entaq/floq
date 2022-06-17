@@ -11,6 +11,7 @@ GEM
       multi_json (~> 1.0)
     backports (3.6.4)
     chronic (0.6.7)
+    concurrent-ruby (1.1.10)
     delorean (2.0.0)
       chronic
     diff-lcs (1.2.5)
@@ -18,7 +19,8 @@ GEM
     eventmachine (1.0.4-java)
     ffi2-generators (0.1.1)
     formatador (0.2.3)
-    i18n (0.6.0)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     jruby-openssl (0.9.17-java)
     json (1.8.2)
     json (1.8.2-java)
